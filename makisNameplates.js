@@ -177,12 +177,14 @@ function reloadNameplatesDelay() {
 }
 
 // events
-AvatarList.avatarRemovedEvent.connect(function(sessionUUID) {
+AvatarList.avatarRemovedEvent.connect(function(id) {
 	reloadNameplatesDelay();
+	//drawNameplate(id);
 });
 
-AvatarList.avatarAddedEvent.connect(function(sessionUUID) {
+AvatarList.avatarAddedEvent.connect(function(id) {
 	reloadNameplatesDelay();
+	//deleteNameplate(id);
 });
 
 Script.scriptEnding.connect(function() {

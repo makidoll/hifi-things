@@ -3,4 +3,4 @@
 
 ## Scripts
 
-- [Maki's Nameplates](https://github.com/makitsune/hifi-stuff/blob/master/makisNameplates.js) (still work in progress)
+- [Maki's Nameplates](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/makisNameplates.js) (still work in progress)
