@@ -6,42 +6,42 @@
 // ╹ ╹╹ ╹╹ ╹┗━╸╹  ┗━╸╹ ╹ ╹ ┗━╸┗━┛
 // github.com/makitsune/hifi-stuff
 
-var assetsUrl = "file:///D:/Git/hifi-stuff/makis-nametags/"; 
+var assetsUrl = "http://mpassets.highfidelity.com/9d7b12be-8fd9-4cb6-b74b-40466d43a0bc-v1/"; 
 
 var config = null;
 function loadConfig(newConfig) {
 	config = newConfig;
 	Settings.setValue("makisNametags", config);
 
-	config.margin_width /= 100;
-	config.margin_height /= 100;
-	config.text_size /= 10;
+	config.marginWidth /= 100;
+	config.marginHeight /= 100;
+	config.textSize /= 10;
 }
 
 function getConfig() {
 	var currentConfig = JSON.parse(JSON.stringify(config));
-	currentConfig.margin_width *= 100; 
-	currentConfig.margin_height *= 100; 
-	currentConfig.text_size *= 10; 
+	currentConfig.marginWidth *= 100; 
+	currentConfig.marginHeight *= 100; 
+	currentConfig.textSize *= 10; 
 	return currentConfig;
 }
 
 var defaultConfig = {
 	enabled: true,
-	text_size: 1,
+	textSize: 1,
 
-	margin_width: 5,
-	margin_height: 3,
+	marginWidth: 5,
+	marginHeight: 3,
 
-	text_color: {red:255, green:255, blue:255},
-	text_opacity: 1,
-	background_color: {red:29, green:31, blue:33},
-	background_opacity: 0.5,
+	textColor: {red:255, green:255, blue:255},
+	textOpacity: 1,
+	backgroundColor: {red:29, green:31, blue:33},
+	backgroundOpacity: 0.5,
 
-	height_offset: 1,
-	facing_avatar: true,
+	heightOffset: 1,
+	facingAvatar: true,
 	
-	draw_own: true,
+	drawOwn: true,
 	debug: false
 };
 
@@ -61,8 +61,8 @@ function debug(msg) { print("DEBUG - "+msg); }
 function calcNewSize(overlay, displayName) {
 	var textSize = Overlays.textSize(overlay, displayName);
 	return {
-		x: textSize.width+config.margin_width*2,
-		y: textSize.height+config.margin_height*2,
+		x: textSize.width+config.marginWidth*2,
+		y: textSize.height+config.marginHeight*2,
 	}
 }
 
@@ -81,22 +81,24 @@ function drawNametag(avatarID) {
 
 		//position: Vec3.sum(avatar.position, headTranslation),
 		position: Vec3.sum(avatar.position, {x:0, 
-			y:config.height_offset*(0.5+avatar.scale/2),
+			y:config.heightOffset*(0.5+avatar.scale/2),
 		z:0}),
 
-		isFacingAvatar: config.facing_avatar,
-		orientation: avatar.orientation,
+		isFacingAvatar: config.facingAvatar,
+		orientation: Quat.multiply(avatar.orientation, Quat.fromPitchYawRollDegrees(
+			0, 180, 0
+		)),
 
 		text: displayName,
-		textAlpha: (config.enabled)? config.text_opacity-0.001: 0,
-		color: config.text_color,
+		textAlpha: (config.enabled)? config.textOpacity-0.001: 0,
+		color: config.textColor,
 
-		leftMargin: config.margin_width,
-		topMargin: config.margin_height,
-		lineHeight: config.text_size,
+		leftMargin: config.marginWidth,
+		topMargin: config.marginHeight,
+		lineHeight: config.textSize,
 
-		backgroundAlpha: (config.enabled)? config.background_opacity: 0,
-		backgroundColor: config.background_color,
+		backgroundAlpha: (config.enabled)? config.backgroundOpacity: 0,
+		backgroundColor: config.backgroundColor,
 		
 		visable: true, isSolid: false,
 	});
@@ -120,7 +122,7 @@ function drawNametag(avatarID) {
 
 function drawAllNametags() {
 	var avatars = AvatarList.getAvatarIdentifiers();
-	if (config.draw_own) avatars.push(MyAvatar.sessionUUID);
+	if (config.drawOwn) avatars.push(MyAvatar.sessionUUID);
 
 	if (config.debug) var avatarCount = 0;
 	for (var i=0; i<avatars.length; i++) {
@@ -163,7 +165,7 @@ function reloadNametags() {
 	var newNametags = {};
 
 	var avatars = AvatarList.getAvatarIdentifiers();
-	if (config.draw_own) avatars.push(MyAvatar.sessionUUID);
+	if (config.drawOwn) avatars.push(MyAvatar.sessionUUID);
 
 	// for each current avatar
 	avatars.forEach(function(avatarID) {
@@ -223,7 +225,7 @@ function reloadNametagsDelay() {
 // tablet
 var tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
 var button = tablet.addButton({
-	icon: assetsUrl+"makisNametags.svg",
+	icon: 'data:image/svg;xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/></svg>',
     text: "NAMETAGS"
 });
 

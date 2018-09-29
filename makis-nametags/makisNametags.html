@@ -8,11 +8,11 @@
 				margin: 0; padding: 0;
 				transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
 			}
-/**/
+
 			body {
 				font-family: "Roboto", sans-serif;
 				overflow: hidden;
-				font-size: 18px;
+				font-size: 16px;
 			}
 
 			a,a:link,a:hover,a:visited,a:active {
@@ -31,15 +31,22 @@
 			}
 
 			.icon {
+				display: inline-block;
+				margin-bottom: -6px;
+				width: 24px; height: 24px;
+				fill: #000;
+			}
+
+			#header .icon {
 				width: 36px; height: 36px;
-				margin-bottom: -4px;
+				margin-bottom: -8px;
 				fill: #fff;
 			}
 
 			#content {
 				position: fixed; margin: auto;
 				top: 70px; left: 0; right: 0; bottom: 0;
-				padding: 25px 40px;
+				padding: 20px 25px;
 			}
 
 			.half-table {
@@ -120,102 +127,78 @@
 			<!-- <p>You can change the config of your nametags here!</p><br> -->
 			<table class="half-table">
 				<tr>
-					<td>
-						<p>Enabled</p>
-						<input id="config-enabled" type="checkbox">
-					</td>
-					<td>
-						<p>Text Size</p>
-						<input id="config-text_size" type="number" min="0">
-					</td>
+					<td><p>Enabled</p>
+					<input id="config-enabled" type="checkbox"></td>
+					<td><p>Text Size</p>
+					<input id="config-textSize" type="number" min="0"></td>
 				</tr>
 				<tr>
-					<td>
-						<p>Margin Width</p>
-						<input id="config-margin_width" type="number" min="0">
-					</td>
-					<td>
-						<p>Margin Height</p>
-						<input id="config-margin_height" type="number" min="0">
-					</td>
+					<td><p>Margin Width</p>
+					<input id="config-marginWidth" type="number" min="0"></td>
+					<td><p>Margin Height</p>
+					<input id="config-marginHeight" type="number" min="0"></td>
+				</tr>
+				<tr><td><br></td></tr>
+				<tr>
+					<td><p>Text Color</p>
+					<input id="config-textColor" type="color"></td>
+					<td><p>Background Color</p>
+					<input id="config-backgroundColor" type="color"></td>
 				</tr>
 				<tr>
-					<td>
-						<br>
-					</td>
+					<td><p>Text Opacity</p>
+					<input id="config-textOpacity" type="number" min="0" max="1"></td>
+					<td><p>Background Opacity</p>
+					<input id="config-backgroundOpacity" type="number" min="0" max="1"></td>
+				</tr>
+				<tr><td><br></td></tr>
+				<tr>
+					<td><p>Height Offset</p>
+					<input id="config-heightOffset" type="number"></td>
+					<td><p>Facing Avatar</p>
+					<input id="config-facingAvatar" type="checkbox"></td>
 				</tr>
 				<tr>
-					<td>
-						<p>Text Color</p>
-						<input id="config-text_color" type="color">
-					</td>
-					<td>
-						<p>Background Color</p>
-						<input id="config-background_color" type="color">
-					</td>
+					<td><p>Draw Own</p>
+					<input id="config-drawOwn" type="checkbox"></td>
+					<td><p>Debug Console</p>
+					<input id="config-debug" type="checkbox"></td>
 				</tr>
+			</table>
+			<table style="width: 100%; height: 60px;">
 				<tr>
-					<td>
-						<p>Text Opacity</p>
-						<input id="config-text_opacity" type="number" min="0" max="1">
+					<td style="vertical-align: bottom;">
+						<p>
+							Made by <a href="https://maki.cat" target="_blank" style="font-weight: 700;">Maki</a> with <svg class="icon" style="fill: #f44336;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><br>
+							I'm still working on better VR support~
+						</p>
 					</td>
-					<td>
-						<p>Background Opacity</p>
-						<input id="config-background_opacity" type="number" min="0" max="1">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<br>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>Height Offset</p>
-						<input id="config-height_offset" type="number">
-					</td>
-					<td>
-						<p>Facing Avatar</p>
-						<input id="config-facing_avatar" type="checkbox">
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<p>Draw Own</p>
-						<input id="config-draw_own" type="checkbox">
-					</td>
-					<td>
-						<p>Debug Console</p>
-						<input id="config-debug" type="checkbox">
+					<td style="opacity: 0.5; text-align: right; vertical-align: bottom;">
+						<a href="https://github.com/makitsune/hifi-stuff" target="_blank"><svg class="icon" viewBox="-2 -2 28 28" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> View Repo</a>
+						<div style="margin-bottom: 4px;"></div>
+						<a href="javascript:resetConfig()"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg> Reset Config</a>
 					</td>
 				</tr>
 			</table>
-			<p style="opacity: 0.6; text-align: center; margin-top: 6px;">
-				<a href="javascript:resetConfig()">Reset Config</a>
-				<span style="margin: 0 16px;"></span>
-				<a href="javascript:alert('aaa')">More Info</a>
-				<span style="margin: 0 16px;"></span>
-				<a href="https://github.com/makitsune/hifi-stuff/blob/master/README.md">View GitHub</a>
-			</p>
 		</div>
 	</body>
 	<script type="text/javascript">
 		var defaultConfig = {
 			enabled: true,
-			text_size: 1,
+			textSize: 1,
 
-			margin_width: 5,
-			margin_height: 3,
+			marginWidth: 5,
+			marginHeight: 3,
 
-			text_color: {red:255, green:255, blue:255},
-			text_opacity: 1,
-			background_color: {red:29, green:31, blue:33},
-			background_opacity: 0.5,
+			textColor: {red:255, green:255, blue:255},
+			textOpacity: 1,
+			backgroundColor: {red:29, green:31, blue:33},
+			backgroundOpacity: 0.5,
 
-			height_offset: 1,
-			facing_avatar: true,
+			heightOffset: 1,
+			facingAvatar: true,
 			
-			draw_own: true,
+			drawOwn: true,
 			debug: false
 		};
 
