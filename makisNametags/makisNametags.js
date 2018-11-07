@@ -6,7 +6,8 @@
 // ╹ ╹╹ ╹╹ ╹┗━╸ ╹ ╹ ╹┗━┛┗━┛
 // github.com/makitsune/hifi-stuff
 
-var assetsUrl = "http://mpassets.highfidelity.com/ecadeea0-d9c3-4dfa-be75-5dc96ee27312-v1/"; 
+//var assetsUrl = "http://mpassets.highfidelity.com/ecadeea0-d9c3-4dfa-be75-5dc96ee27312-v1/"; 
+var assetsUrl = "http://makitsune.github.io/hifi-stuff/makisNametags/"; 
 
 var config = null;
 function loadConfig(newConfig) {
