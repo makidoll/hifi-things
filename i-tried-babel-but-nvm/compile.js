@@ -9,7 +9,10 @@ if (!process.argv[2]) {
 filename = process.argv[2];
 
 babel.transformFile(filename, {
-	"presets": ["es2015"]
+	"presets": ["es2015"],
+	"plugins": [
+		"babel-plugin-transform-async-to-generator"
+	]
 }, (err,res)=>{
 	if (err) return console.log(err);
 
