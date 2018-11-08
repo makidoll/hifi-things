@@ -6,7 +6,7 @@
 //  ╹ ╹ ╹╹╹ ╹┗━┛┗━┛
 // github.com/makitsune/hifi-stuff
 
-var inDev = true;
+var inDev = false;
 
 var assetsUrl = (inDev)? "file:///D:/Git/hifi-stuff/makisThings/": "http://makitsune.github.io/hifi-stuff/makisThings/";
 function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
