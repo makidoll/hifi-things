@@ -6,7 +6,7 @@
 //  ╹ ╹ ╹╹╹ ╹┗━┛┗━┛
 // github.com/makitsune/hifi-stuff
 
-var inDev = false;
+var inDev = true;
 
 var assetsUrl = (inDev)? "file:///D:/Git/hifi-stuff/makisThings/": "http://makitsune.github.io/hifi-stuff/makisThings/";
 function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
@@ -30,6 +30,7 @@ var modules = {
 			MyAvatar.setBlendshape("EyeBlink_L", 1);
 			MyAvatar.setBlendshape("EyeBlink_R", 1);
 
+			MyAvatar.setFlyingEnabled(true);
 			MyAvatar.setCollisionsEnabled(false);
 			MyAvatar.position = Vec3.mix(
 				MyAvatar.getJointPosition(MyAvatar.getJointIndex("LeftFoot")),
@@ -39,17 +40,18 @@ var modules = {
 		},
 		off: function() {
 			MyAvatar.restoreAnimation();
+			MyAvatar.setBlendshape("EyeBlink_L", 0);
+			MyAvatar.setBlendshape("EyeBlink_R", 0);
 			MyAvatar.hasProceduralBlinkFaceMovement = true;
 			MyAvatar.hasProceduralEyeFaceMovement = true;
 			MyAvatar.hasScriptedBlendshapes = false; 
-			MyAvatar.setBlendshape("EyeBlink_L", 0);
-			MyAvatar.setBlendshape("EyeBlink_R", 0);
 
 			MyAvatar.position = {
 				x: MyAvatar.position.x,
 				y: MyAvatar.position.y+1.5,
 				z: MyAvatar.position.z,
 			};
+			MyAvatar.setFlyingEnabled(false);
 			MyAvatar.setCollisionsEnabled(true);
 		}
 	},
@@ -85,6 +87,32 @@ var modules = {
 		off: function() {
 			if (!modules.vulpie.entityID) return;
 			Entities.deleteEntity(modules.vulpie.entityID);
+		}
+	},
+	ledgeSit: {
+		name: "ledge sit",
+		enabled: false,
+		on: function() {
+			MyAvatar.overrideAnimation("https://maki.cat/hifi/animations/ledgeSit.fbx", 1, true, 0, 1);
+
+			MyAvatar.setFlyingEnabled(true);
+			MyAvatar.setCollisionsEnabled(false);
+			MyAvatar.position = Vec3.mix(
+				MyAvatar.getJointPosition(MyAvatar.getJointIndex("LeftFoot")),
+				MyAvatar.getJointPosition(MyAvatar.getJointIndex("RightFoot")),
+				0.5
+			);
+		},
+		off: function() {
+			MyAvatar.restoreAnimation();
+
+			MyAvatar.position = {
+				x: MyAvatar.position.x,
+				y: MyAvatar.position.y+1.5,
+				z: MyAvatar.position.z,
+			};
+			MyAvatar.setFlyingEnabled(false);
+			MyAvatar.setCollisionsEnabled(true);
 		}
 	},
 	// sonic speed
