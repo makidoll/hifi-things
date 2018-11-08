@@ -30,7 +30,6 @@ var modules = {
 			MyAvatar.setBlendshape("EyeBlink_L", 1);
 			MyAvatar.setBlendshape("EyeBlink_R", 1);
 
-			MyAvatar.setFlyingEnabled(true);
 			MyAvatar.setCollisionsEnabled(false);
 			MyAvatar.position = Vec3.mix(
 				MyAvatar.getJointPosition(MyAvatar.getJointIndex("LeftFoot")),
@@ -51,7 +50,6 @@ var modules = {
 				y: MyAvatar.position.y+1.5,
 				z: MyAvatar.position.z,
 			};
-			MyAvatar.setFlyingEnabled(false);
 			MyAvatar.setCollisionsEnabled(true);
 		}
 	},
@@ -95,7 +93,6 @@ var modules = {
 		on: function() {
 			MyAvatar.overrideAnimation("https://maki.cat/hifi/animations/ledgeSit.fbx", 1, true, 0, 1);
 
-			MyAvatar.setFlyingEnabled(true);
 			MyAvatar.setCollisionsEnabled(false);
 			MyAvatar.position = Vec3.mix(
 				MyAvatar.getJointPosition(MyAvatar.getJointIndex("LeftFoot")),
@@ -111,7 +108,6 @@ var modules = {
 				y: MyAvatar.position.y+1.5,
 				z: MyAvatar.position.z,
 			};
-			MyAvatar.setFlyingEnabled(false);
 			MyAvatar.setCollisionsEnabled(true);
 		}
 	},
