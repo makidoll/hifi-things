@@ -229,7 +229,7 @@
 			return "#"+Object.values(rgb).map(v=>("0"+v.toString(16)).slice(-2)).join("");
 		}
 
-		var config = JSON.parse(_GET.config);
+		var config = JSON.parse(decodeURI(_GET.config));
 		Object.keys(config).forEach(key=>{
 			let value = config[key];
 			let el = document.getElementById("config-"+key);
