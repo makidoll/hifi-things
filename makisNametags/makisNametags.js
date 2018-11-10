@@ -269,8 +269,6 @@ function webEventReceived(json) {
 	} catch(err) {}
 	if (json.uuid != uuid) return;
 	if (config.debug) debug("Event: "+JSON.stringify(json,null,4));
-
-	console.log(JSON.stringify(json,null,4));
 	
 	switch (json.key) {
 		case "config":
