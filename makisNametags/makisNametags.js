@@ -258,8 +258,7 @@ function buttonClicked() {
 
 	tablet.gotoWebScreen(assetsUrl+"makisNametags.html"+
 		"?uuid="+uuid+
-		"&config="+JSON.stringify(getConfig())+
-		"&2"
+		"&config="+JSON.stringify(getConfig())
 	);
 };
 button.clicked.connect(buttonClicked);
