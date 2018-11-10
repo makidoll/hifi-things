@@ -212,9 +212,6 @@
 
 		function emitEvent(key, value) {
 			if (window.qt) {
-				console.log(key);
-				console.log(value);
-				console.log(uuid);
 				EventBridge.emitWebEvent(JSON.stringify({
 					key: key, value: value,
 					uuid: decodeURI(_GET.uuid),

@@ -263,14 +263,18 @@ function buttonClicked() {
 };
 button.clicked.connect(buttonClicked);
 
-function webEventReceived(event) {
-	event = JSON.parse(event);
-	if (event.uuid != uuid) return;
-	if (config.debug) debug("Event: "+JSON.stringify(event,null,4));
+function webEventReceived(json) {
+	try {
+		json = JSON.parse(json);
+	} catch(err) {}
+	if (json.uuid != uuid) return;
+	if (config.debug) debug("Event: "+JSON.stringify(json,null,4));
+
+	console.log(JSON.stringify(json,null,4));
 	
-	switch (event.key) {
+	switch (json.key) {
 		case "config":
-			loadConfig(event.value);
+			loadConfig(json.value);
 			hardReloadNametags();
 		break;
 	}
