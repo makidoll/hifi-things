@@ -229,7 +229,11 @@
 			return "#"+Object.values(rgb).map(v=>("0"+v.toString(16)).slice(-2)).join("");
 		}
 
-		var config = JSON.parse(decodeURI(_GET.config));
+		function btoa(r){for(var n,t,a=String(r).replace(/[=]+$/,""),e=0,o=0,f="";t=a.charAt(o++);~t&&(n=e%4?64*n+t:t,e++%4)?f+=String.fromCharCode(255&n>>(-2*e&6)):0)t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(t);return f}
+
+		console.log(btoa(_GET.config));
+		var config = JSON.parse(btoa(_GET.config));
+		console.log(config);
 		Object.keys(config).forEach(key=>{
 			let value = config[key];
 			let el = document.getElementById("config-"+key);

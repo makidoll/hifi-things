@@ -235,7 +235,7 @@ var uuid = Uuid.generate();
 
 // i was using base64 for things but i just.. nvm...
 //var html = "";;
-//function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
+function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
 //function btoa(r){for(var n,t,a=String(r).replace(/[=]+$/,""),e=0,o=0,f="";t=a.charAt(o++);~t&&(n=e%4?64*n+t:t,e++%4)?f+=String.fromCharCode(255&n>>(-2*e&6)):0)t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(t);return f}
 
 function buttonClicked() {
@@ -258,7 +258,7 @@ function buttonClicked() {
 
 	tablet.gotoWebScreen(assetsUrl+"makisNametags.html"+
 		"?uuid="+uuid+
-		"&config="+JSON.stringify(getConfig())
+		"&config="+atob(JSON.stringify(getConfig()))
 	);
 };
 button.clicked.connect(buttonClicked);
