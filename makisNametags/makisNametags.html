@@ -214,7 +214,7 @@
 			if (window.qt) {
 				EventBridge.emitWebEvent(JSON.stringify({
 					key: key, value: value,
-					uuid: _GET.uuid,
+					uuid: decodeURI(_GET.uuid),
 				}));
 			}
 		}
