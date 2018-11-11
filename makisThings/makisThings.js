@@ -111,6 +111,40 @@ var modules = {
 			MyAvatar.setCollisionsEnabled(true);
 		}
 	},
+	cryingSit: {
+		name: "crying sit",
+		enabled: false,
+		on: function() {
+			MyAvatar.overrideAnimation("https://maki.cat/hifi/animations/cryingSit.fbx?7", 1, true, 0, 1);
+			MyAvatar.hasProceduralBlinkFaceMovement = false;
+			MyAvatar.hasProceduralEyeFaceMovement = false;
+			MyAvatar.hasScriptedBlendshapes = true;
+			MyAvatar.setBlendshape("EyeBlink_L", 1);
+			MyAvatar.setBlendshape("EyeBlink_R", 1);
+
+			MyAvatar.setCollisionsEnabled(false);
+			MyAvatar.position = Vec3.mix(
+				MyAvatar.getJointPosition(MyAvatar.getJointIndex("LeftFoot")),
+				MyAvatar.getJointPosition(MyAvatar.getJointIndex("RightFoot")),
+				0.5
+			);
+		},
+		off: function() {
+			MyAvatar.restoreAnimation();
+			MyAvatar.setBlendshape("EyeBlink_L", 0);
+			MyAvatar.setBlendshape("EyeBlink_R", 0);
+			MyAvatar.hasProceduralBlinkFaceMovement = true;
+			MyAvatar.hasProceduralEyeFaceMovement = true;
+			MyAvatar.hasScriptedBlendshapes = false; 
+
+			MyAvatar.position = {
+				x: MyAvatar.position.x,
+				y: MyAvatar.position.y+1.5,
+				z: MyAvatar.position.z,
+			};
+			MyAvatar.setCollisionsEnabled(true);
+		}
+	},
 	// sonic speed
 	// cross legged
 	// seiza
