@@ -8,7 +8,7 @@
 
 var inDev = false;
 
-var assetsUrl = (inDev)? "file:///D:/Git/hifi-stuff/makisThings/": "http://makitsune.github.io/hifi-stuff/makisThings/";
+var assetsURL = (inDev)? "file:///D:/Git/hifi-stuff/makisThings/": "http://makitsune.github.io/hifi-stuff/makisThings/";
 function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
 
 function debug(msg) {
@@ -145,6 +145,144 @@ var modules = {
 			MyAvatar.setCollisionsEnabled(true);
 		}
 	},
+	hairbrush: {
+		name: "hairbrush",
+		enabled: false,
+		brushing: false,
+		entityID: undefined,
+		sounds: [
+			[SoundCache.getSound(assetsURL+"/sounds/hairbrush01a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush01b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush01c.wav")],
+			[SoundCache.getSound(assetsURL+"/sounds/hairbrush02a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush02b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush02c.wav")],
+			[SoundCache.getSound(assetsURL+"/sounds/hairbrush03a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush03b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush03c.wav")],
+			[SoundCache.getSound(assetsURL+"/sounds/hairbrush04a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush04b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush04c.wav")],
+			[SoundCache.getSound(assetsURL+"/sounds/hairbrush05a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush05b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush05c.wav")],
+			[SoundCache.getSound(assetsURL+"/sounds/hairbrush06a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush06b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush06c.wav")],
+		],
+		selectedSound: undefined,
+		midAudioInjector: undefined,
+		rolesToOverride: [],		
+		inputEvent: function(action, value) {
+			var scope = modules.hairbrush;
+
+			if (action != Controller.Standard.RTClick) return;
+			scope.brushing = !scope.brushing;
+
+			if (scope.brushing) {
+				scope.selectedSound = scope.sounds[Math.floor(Math.random()*scope.sounds.length)];
+
+				var start = Audio.playSound(scope.selectedSound[0], {
+					position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
+					volume: 0.5,
+					localOnly: true,
+				});
+
+				start.finished.connect(function() {
+					if (!scope.brushing) return;
+					scope.midAudioInjector = Audio.playSound(scope.selectedSound[1], {
+						position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
+						volume: 0.5,
+						localOnly: true,
+						loop: true,
+					});
+				});
+			} else {
+				if (modules.hairbrush.midAudioInjector)
+					if (modules.hairbrush.midAudioInjector.isPlaying)
+						scope.midAudioInjector.stop();
+
+				Audio.playSound(scope.selectedSound[2], {
+					position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
+					volume: 0.5,
+					localOnly: true,
+				});
+			}
+		}, 
+		on: function() {
+			// roles to override
+			modules.hairbrush.rolesToOverride = 
+			MyAvatar.getAnimationRoles().filter(function(role) {
+                return (role.indexOf("right")>-1)
+            });
+
+			for (i in modules.hairbrush.rolesToOverride) {
+				MyAvatar.overrideRoleAnimation(
+					modules.hairbrush.rolesToOverride[i],
+					assetsURL+"/animations/hairbrush.fbx",
+					1, true, 0, 1
+				);
+			}
+
+			// spawn hairbrush
+			modules.hairbrush.entityID = Entities.addEntity({
+				type: "Model",
+				modelURL: assetsURL+"models/hairbrush.fbx",
+				name: "Hairbrush",
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				position: Vec3.sum(
+					MyAvatar.getJointPosition("RightHandThumb1"),
+					{x:-0.04,y:-0.04,z:0.04}
+				),
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				rotation: Quat.multiply(
+					MyAvatar.getRightPalmRotation(),
+					Quat.fromPitchYawRollDegrees(240,-120,35)
+				),
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				// fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you fuck you 
+				parentID: MyAvatar.sessionUUID,
+				parentJointIndex: MyAvatar.getJointIndex("RightHandThumb1"),
+				collisionless: true,
+				userData: JSON.stringify({grabbableKey: {grabbable: false}}),
+			}, !(Entities.canRez()||Entities.canRezTmp()));
+
+			// connect input event
+			Controller.inputEvent.connect(modules.hairbrush.inputEvent);
+		},
+		off: function() {
+			// restore roles to override
+			for (i in modules.hairbrush.rolesToOverride) {
+				MyAvatar.restoreRoleAnimation(modules.hairbrush.rolesToOverride[i]);
+			}
+
+			// disable stuff
+			if (modules.hairbrush.entityID) Entities.deleteEntity(modules.hairbrush.entityID);
+			if (modules.hairbrush.forceJointRotations) Script.clearInterval(modules.hairbrush.forceJointRotations);
+			if (modules.hairbrush.inputEvent) Controller.inputEvent.disconnect(modules.hairbrush.inputEvent);
+			if (modules.hairbrush.midAudioInjector)
+				if (modules.hairbrush.midAudioInjector.isPlaying)
+					modules.hairbrush.midAudioInjector.stop();
+		}
+	},
 	// sonic speed
 	// cross legged
 	// seiza
@@ -224,7 +362,7 @@ function webEventReceived(json) {
 }
 
 function buttonClicked() {
-	tablet.gotoWebScreen(assetsUrl+"makisThings.html"+
+	tablet.gotoWebScreen(assetsURL+"makisThings.html"+
 		"?uuid="+uuid+
 		"&modules="+atob(JSON.stringify(getModulesInfo(true)))
 	);

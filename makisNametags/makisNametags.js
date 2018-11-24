@@ -6,8 +6,11 @@
 // ╹ ╹╹ ╹╹ ╹┗━╸ ╹ ╹ ╹┗━┛┗━┛
 // github.com/makitsune/hifi-stuff
 
+var inDev = true;
 //var assetsUrl = "http://mpassets.highfidelity.com/ecadeea0-d9c3-4dfa-be75-5dc96ee27312-v1/"; 
-var assetsUrl = "http://makitsune.github.io/hifi-stuff/makisNametags/"; 
+var assetsUrl = (inDev)?
+	"file:///D:/Git/hifi-stuff/makisNametags/":
+	"http://makitsune.github.io/hifi-stuff/makisNametags/";
 
 var config = null;
 function loadConfig(newConfig) {
@@ -82,9 +85,16 @@ function drawNametag(avatarID) {
 		//parentJointIndex: headJointIndex,
 
 		//position: Vec3.sum(avatar.position, headTranslation),
+		
 		position: Vec3.sum(avatar.position, {x:0, 
 			y:config.heightOffset*(0.5+avatar.scale/2),
 		z:0}),
+
+		// position: Vec3.sum(avatar.getJointPosition("Head"), {
+		// 	x: 0,
+		// 	y: config.heightOffset,
+		// 	z: 0,
+		// }),
 
 		isFacingAvatar: config.facingAvatar,
 		orientation: Quat.multiply(avatar.orientation, Quat.fromPitchYawRollDegrees(
