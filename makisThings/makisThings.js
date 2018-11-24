@@ -173,7 +173,7 @@ var modules = {
 				var start = Audio.playSound(scope.selectedSound[0], {
 					position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
 					volume: 0.5,
-					localOnly: true,
+					localOnly: false,
 				});
 
 				start.finished.connect(function() {
@@ -181,7 +181,7 @@ var modules = {
 					scope.midAudioInjector = Audio.playSound(scope.selectedSound[1], {
 						position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
 						volume: 0.5,
-						localOnly: true,
+						localOnly: false,
 						loop: true,
 					});
 				});
@@ -193,7 +193,7 @@ var modules = {
 				Audio.playSound(scope.selectedSound[2], {
 					position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
 					volume: 0.5,
-					localOnly: true,
+					localOnly: false,
 				});
 			}
 		}, 
