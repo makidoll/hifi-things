@@ -172,7 +172,7 @@ var modules = {
 
 				var start = Audio.playSound(scope.selectedSound[0], {
 					position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
-					volume: 0.5,
+					volume: 1,
 					localOnly: false,
 				});
 
@@ -180,7 +180,7 @@ var modules = {
 					if (!scope.brushing) return;
 					scope.midAudioInjector = Audio.playSound(scope.selectedSound[1], {
 						position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
-						volume: 0.5,
+						volume: 1,
 						localOnly: false,
 						loop: true,
 					});
@@ -192,7 +192,7 @@ var modules = {
 
 				Audio.playSound(scope.selectedSound[2], {
 					position: Entities.getEntityProperties(scope.entityID, ["position"]).position,
-					volume: 0.5,
+					volume: 1,
 					localOnly: false,
 				});
 			}
@@ -283,7 +283,26 @@ var modules = {
 					modules.hairbrush.midAudioInjector.stop();
 		}
 	},
-	// sonic speed
+	superSpeed: {
+		name: "super speed",
+		enabled: false,
+		walkSpeed: 2.6,
+		walkBackwardSpeed: 2.6,
+		//sprintSpeed: 3,
+		on: function() {
+			["walkSpeed", "walkBackwardSpeed"].forEach(function(property) {
+				modules.superSpeed[property] = MyAvatar[property];
+			});
+
+			MyAvatar.walkSpeed = 15;
+			MyAvatar.walkBackwardSpeed = 15;
+		},
+		off: function() {
+			["walkSpeed", "walkBackwardSpeed"].forEach(function(property) {
+				MyAvatar[property] = modules.superSpeed[property];
+			});
+		}
+	},
 	// cross legged
 	// seiza
 
