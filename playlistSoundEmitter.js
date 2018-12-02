@@ -41,9 +41,7 @@
 			sounds = shuffle(sounds);
 
 		function playSound(soundObject) {
-			console.log(_this.active)
 			if (!_this.active) return;
-			console.log("playing")
 			_this.currentInjector = Audio.playSound(soundObject, {
 				position: entity.position,
 				volume: userData.volume,
