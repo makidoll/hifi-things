@@ -23,7 +23,7 @@ var modules = {
 		name: "sleep",
 		enabled: false,
 		on: function() {
-			MyAvatar.overrideAnimation("https://maki.cat/hifi/animations/sleep.fbx?1", 1, true, 0, 1);
+			MyAvatar.overrideAnimation(assetsURL+"animations/sleep.fbx", 1, true, 0, 1);
 			MyAvatar.hasProceduralBlinkFaceMovement = false;
 			MyAvatar.hasProceduralEyeFaceMovement = false;
 			MyAvatar.hasScriptedBlendshapes = true;
@@ -70,7 +70,7 @@ var modules = {
 		on: function() {
 			modules.vulpie.entityID = Entities.addEntity({
 				type: "Model",
-				modelURL: "https://maki.cat/hifi/wearables/vulpie.fbx",
+				modelURL: assetsURL+"models/vulpie.fbx",
 				name: "Vulpie",
 				position: Vec3.sum(MyAvatar.position, Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 0.3, z: -0.5})),
 				rotation: Quat.cancelOutRollAndPitch(Camera.orientation),
@@ -91,7 +91,7 @@ var modules = {
 		name: "ledge sit",
 		enabled: false,
 		on: function() {
-			MyAvatar.overrideAnimation("https://maki.cat/hifi/animations/ledgeSit.fbx", 1, true, 0, 1);
+			MyAvatar.overrideAnimation(assetsURL+"animations/ledgeSit.fbx", 1, true, 0, 1);
 
 			MyAvatar.setCollisionsEnabled(false);
 			MyAvatar.position = Vec3.mix(
@@ -115,7 +115,7 @@ var modules = {
 		name: "crying sit",
 		enabled: false,
 		on: function() {
-			MyAvatar.overrideAnimation("https://maki.cat/hifi/animations/cryingSit.fbx?7", 1, true, 0, 1);
+			MyAvatar.overrideAnimation(assetsURL+"animations/cryingSit.fbx?7", 1, true, 0, 1);
 			MyAvatar.hasProceduralBlinkFaceMovement = false;
 			MyAvatar.hasProceduralEyeFaceMovement = false;
 			MyAvatar.hasScriptedBlendshapes = true;
@@ -151,12 +151,12 @@ var modules = {
 		brushing: false,
 		entityID: undefined,
 		sounds: [
-			[SoundCache.getSound(assetsURL+"/sounds/hairbrush01a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush01b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush01c.wav")],
-			[SoundCache.getSound(assetsURL+"/sounds/hairbrush02a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush02b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush02c.wav")],
-			[SoundCache.getSound(assetsURL+"/sounds/hairbrush03a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush03b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush03c.wav")],
-			[SoundCache.getSound(assetsURL+"/sounds/hairbrush04a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush04b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush04c.wav")],
-			[SoundCache.getSound(assetsURL+"/sounds/hairbrush05a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush05b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush05c.wav")],
-			[SoundCache.getSound(assetsURL+"/sounds/hairbrush06a.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush06b.wav"),SoundCache.getSound(assetsURL+"/sounds/hairbrush06c.wav")],
+			[SoundCache.getSound(assetsURL+"sounds/hairbrush01a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush01b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush01c.wav")],
+			[SoundCache.getSound(assetsURL+"sounds/hairbrush02a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush02b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush02c.wav")],
+			[SoundCache.getSound(assetsURL+"sounds/hairbrush03a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush03b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush03c.wav")],
+			[SoundCache.getSound(assetsURL+"sounds/hairbrush04a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush04b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush04c.wav")],
+			[SoundCache.getSound(assetsURL+"sounds/hairbrush05a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush05b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush05c.wav")],
+			[SoundCache.getSound(assetsURL+"sounds/hairbrush06a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush06b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush06c.wav")],
 		],
 		selectedSound: undefined,
 		midAudioInjector: undefined,
@@ -207,7 +207,7 @@ var modules = {
 			for (i in modules.hairbrush.rolesToOverride) {
 				MyAvatar.overrideRoleAnimation(
 					modules.hairbrush.rolesToOverride[i],
-					assetsURL+"/animations/hairbrush.fbx",
+					assetsURL+"animations/hairbrush.fbx",
 					1, true, 0, 1
 				);
 			}
