@@ -115,7 +115,7 @@ var modules = {
 		name: "crying sit",
 		enabled: false,
 		on: function() {
-			MyAvatar.overrideAnimation(assetsURL+"animations/cryingSit.fbx?7", 1, true, 0, 1);
+			MyAvatar.overrideAnimation(assetsURL+"animations/cryingSit.fbx", 1, true, 0, 1);
 			MyAvatar.hasProceduralBlinkFaceMovement = false;
 			MyAvatar.hasProceduralEyeFaceMovement = false;
 			MyAvatar.hasScriptedBlendshapes = true;
