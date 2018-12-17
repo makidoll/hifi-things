@@ -8,6 +8,8 @@
 
 ## Client Entity Scripts
 
+- [Load Avatar](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/client-entity-scripts/loadAvatar.js)
+- [Load Script](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/client-entity-scripts/loadScript.js)
 - [Playlist Sound Emitter](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/client-entity-scripts/playlistSoundEmitter.js)
 
 ## Shaders
