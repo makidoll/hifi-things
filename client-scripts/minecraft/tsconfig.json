@@ -7,7 +7,7 @@
 		"removeComments": true
 	},
 	"include": [
+		"../../_typings/hifi.d.tss"
 		"src",
-		"typings"
 	]
 }

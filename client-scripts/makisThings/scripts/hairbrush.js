@@ -1,7 +1,7 @@
 (function() {
 
 	var entityID = undefined;
-	var assetsURL = "http://makitsune.github.io/hifi-stuff/makisThings/";
+	var assetsURL = "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/client-scripts/makisThings/";
 
 	this.preload = function(theEntityID) { entityID = theEntityID; }
 
