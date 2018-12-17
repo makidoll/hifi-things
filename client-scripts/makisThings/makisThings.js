@@ -8,8 +8,14 @@
 
 var inDev = false;
 
-var assetsURL = (inDev)? "file:///D:/Git/hifi-stuff/makisThings/": "http://makitsune.github.io/hifi-stuff/makisThings/";
-var rawGhURL = (inDev)? "file:///D:/Git/hifi-stuff/makisThings/": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/makisThings/";
+var assetsURL = "http://makitsune.github.io/hifi-stuff/client-scripts/makisThings/";
+var rawGhURL = "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/client-scripts/makisThings/";
+
+if (inDev) {
+	assetsURL = "file:///D:/Git/hifi-stuff/client-scripts/makisThings/";
+	rawGhURL = assetsURL;
+}
+
 function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
 
 function debug(msg) {

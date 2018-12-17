@@ -1,6 +1,6 @@
 // {
 // 	"ProceduralEntity": {
-// 		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi/master/shaders/lavalamp.fs",
+// 		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavalamp.fs",
 // 		"version": 2,
 // 		"grabbableKey": {
 // 		  "grabbable": false

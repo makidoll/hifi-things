@@ -1,6 +1,6 @@
 // {
 // 	"ProceduralEntity": {
-// 		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi/master/shaders/candySpiral.fs",
+// 		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/candySpiral.fs",
 // 		"version": 2,
 // 		"grabbableKey": {
 // 		  "grabbable": false

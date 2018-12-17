@@ -3,7 +3,9 @@
 	// 	volume: 0.1,
 	//	randomize: true,
 	// 	sounds: [
-	// 		"sound1.wav", "sound2.wav", "sound3.wav"	
+	// 		"sound1.wav",
+	//		"sound2.wav",
+	//		"sound3.wav"	
 	// 	]
 	// }
 
