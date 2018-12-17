@@ -9,6 +9,7 @@
 var inDev = false;
 
 var assetsURL = (inDev)? "file:///D:/Git/hifi-stuff/makisThings/": "http://makitsune.github.io/hifi-stuff/makisThings/";
+var rawGhURL = (inDev)? "file:///D:/Git/hifi-stuff/makisThings/": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/makisThings/";
 function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
 
 function debug(msg) {
@@ -163,7 +164,7 @@ var modules = {
 				rotation: Quat.cancelOutRollAndPitch(Camera.orientation),
 				collisionless: true,
 				modelURL: assetsURL+"models/hairbrush.fbx",
-				script: assetsURL+"scripts/hairbrush.js",
+				script: rawGhURL+"scripts/hairbrush.js",
 				userData: JSON.stringify({grabbableKey: {grabbable: true}}),
 			}, !(Entities.canRez()||Entities.canRezTmp()));
 		},
