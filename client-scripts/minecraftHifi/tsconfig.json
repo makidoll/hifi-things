@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"target": "es3",
+		"lib": ["es5"],
+		"outFile": "_inventory.js",
+		"pretty": true,
+		"removeComments": true
+	},
+	"include": [
+		"src",
+		"typings"
+	]
+}
