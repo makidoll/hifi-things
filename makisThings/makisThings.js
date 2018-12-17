@@ -81,6 +81,10 @@ var modules = {
 					z: 0.2325,
 				},
 				collisionless: true,
+				grab: {
+        			grabbable: true,
+        			grabFollowsController: false,
+        		}
 			}, !(Entities.canRez()||Entities.canRezTmp()));
 		},
 		off: function() {
@@ -162,10 +166,13 @@ var modules = {
 					)
 				),
 				rotation: Quat.cancelOutRollAndPitch(Camera.orientation),
-				collisionless: true,
 				modelURL: assetsURL+"models/hairbrush.fbx",
 				script: rawGhURL+"scripts/hairbrush.js",
-				userData: JSON.stringify({grabbableKey: {grabbable: true}}),
+				collisionless: true,
+				grab: {
+        			grabbable: true,
+        			grabFollowsController: false,
+        		}
 			}, !(Entities.canRez()||Entities.canRezTmp()));
 		},
 		off: function() {
