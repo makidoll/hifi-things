@@ -62,3 +62,5 @@ Script.scriptEnding.connect(()=>{
 	cons.disconnectAll();
 	inventory.unload();
 });
+
+console.log("test")

@@ -27,14 +27,14 @@ var Inventory = (function () {
                 y: this.imageSizes.inventory.height / 2,
                 width: this.imageSizes.inventory.width,
                 height: this.imageSizes.inventory.height,
-                imageURL: "file:///C:/Users/Maki/Desktop/minecraft-hifi/assets/inventory.png"
+                imageURL: "file:///D:/Git/hifi-stuff/client-scripts/minecraftHifi/assets/inventory.png"
             }),
             selector: Overlays.addOverlay("image", {
                 x: Window.innerWidth / 2 - this.imageSizes.selector.width / 2 + (this.selectedIndex - 4) * 60,
                 y: this.imageSizes.selector.height / 2 - 6,
                 width: this.imageSizes.selector.width,
                 height: this.imageSizes.selector.height,
-                imageURL: "file:///C:/Users/Maki/Desktop/minecraft-hifi/assets/selector.png"
+                imageURL: "file:///D:/Git/hifi-stuff/client-scripts/minecraftHifi/assets/selector.png"
             })
         };
     }
@@ -69,3 +69,4 @@ Script.scriptEnding.connect(function () {
     cons.disconnectAll();
     inventory.unload();
 });
+console.log("test");
