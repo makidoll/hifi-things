@@ -1,18 +1,28 @@
-// {
-// 	"ProceduralEntity": {
-//    	"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLamp.fs",
-//     	"version": 2
-//   	}
-// }
+{
+	"ProceduralEntity": {
+   		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLamp.fs",
+    	"uniforms": {
+    		blobScale: 2,
+    		blobDepth: 2,
+    		blobSaturation: 0.8,
+    		blobValue: 0.4,
+    		blobMoveSpeed: 0.1,
+    		hueSpeed: 0.05,
+			hueScale: 4,
+    		background: "vec3(0,0,0)"
+    	},
+    	"version": 2
+  }
+}
 
-#define _BlobScale 2
-#define _BlobDepth 2
-#define _BlobSaturation 0.8
-#define _BlobValue 0.4
-#define _BlobMoveSpeed 0.1
-#define _HueSpeed 0.05
-#define _HueScale 4
-#define _Background vec3(0.0,0.0,0.0)
+uniform float blobScale = 2;
+uniform float blobDepth = 2;
+uniform float blobSaturation = 0.8;
+uniform float blobValue = 0.4;
+uniform float blobMoveSpeed = 0.1;
+uniform float hueSpeed = 0.05;
+uniform float hueScale = 4;
+uniform vec3 background = vec3(0.0,0.0,0.0);
 
 vec3 _mod289(vec3 x) {return x - floor(x * (1.0 / 289.0)) * 289.0;}
 vec4 _mod289(vec4 x) {return x - floor(x * (1.0 / 289.0)) * 289.0;}
