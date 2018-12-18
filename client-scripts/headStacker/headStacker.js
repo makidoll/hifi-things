@@ -136,6 +136,10 @@ function webEventReceived(json) {
 			if (!headStacker.mounted)
 				MyAvatar.setCollisionsEnabled(true);
 		break;
+		case "resetOrientation":
+			if (!headStacker.mounted)
+				MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
+		break;
 	}
 }; tablet.webEventReceived.connect(webEventReceived);
 
