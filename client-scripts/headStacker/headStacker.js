@@ -71,7 +71,9 @@ function HeadStacker() {
 		//MyAvatar.setParentID("");
 		MyAvatar.restoreRoleAnimation("fly");
 		MyAvatar.setCollisionsEnabled(true);
-		MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
+		Script.setTimeout(function() {
+			MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
+		}, 100);
 
 		this.mountedAvatarID = undefined;
 		this.mounted = false;
