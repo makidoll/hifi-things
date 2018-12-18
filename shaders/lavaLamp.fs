@@ -1,18 +1,18 @@
 // {
 // 	"ProceduralEntity": {
-//    		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLamp.fs",
-//     	"uniforms": {
-//     		"blobScale": 2,
-//     		"blobDepth": 2,
-//     		"blobSaturation": 0.8,
-//     		"blobValue": 0.4,
-//     		"blobMoveSpeed": 0.1,
-//     		"hueSpeed": 0.05,
+// 		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLamp.fs",
+// 		"uniforms": {
+// 			"blobScale": 2,
+// 			"blobDepth": 2,
+// 			"blobSaturation": 0.8,
+// 			"blobValue": 0.4,
+// 			"blobMoveSpeed": 0.1,
+// 			"hueSpeed": 0.05,
 // 			"hueScale": 4,
-//     		"background": "vec3(0,0,0)"
-//     	},
-//     	"version": 2
-//   }
+// 			"background": "vec3(0,0,0)"
+// 		},
+// 		"version": 2
+// 	}
 // }
 
 uniform float blobScale = 2;
@@ -37,28 +37,28 @@ vec3 hsv2rgb(vec3 c) {
 }
 
 vec3 raymarch(vec3 rayOrigin, vec3 rayDir) { // returns color
-	vec3 color = _Background;
+	vec3 color = background;
 
-	vec3 position = vec3(0,iGlobalTime*_BlobMoveSpeed,0);
+	vec3 position = vec3(0,iGlobalTime*blobMoveSpeed,0);
 
-	float rayStep = 0.02*_BlobScale;
+	float rayStep = 0.02*blobScale;
 	vec3 rayPos = rayOrigin+position;
-	for (float i=0; i<_BlobDepth; i+=rayStep) {
+	for (float i=0; i<blobDepth; i+=rayStep) {
 		rayPos += rayDir*rayStep;
 
-		float dist = _snoise(rayPos*_BlobScale);
+		float dist = _snoise(rayPos*blobScale);
 		float c = length((rayOrigin-rayPos)+position);
 
 		//if (dist>0.5 && c>1) {
 		if (dist>0.5) {
 			vec3 col = hsv2rgb(vec3(mod(
-					(-rayPos.y*_HueScale*0.1) + ((0.2+iGlobalTime.x)*_HueSpeed*3),
+					(-rayPos.y*hueScale*0.1) + ((0.2+iGlobalTime.x)*hueSpeed*3),
 				1),
-				_BlobSaturation, _BlobValue
+				blobSaturation, blobValue
 			));
 
-			c = _BlobDepth-c;
-			return vec3(mix(_Background, col, c));
+			c = blobDepth-c;
+			return vec3(mix(background, col, c));
 			break;
 		}
 	}
@@ -96,9 +96,9 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 	// big thanks to Snail! https://github.com/theepicsnail/hifi/tree/master/shaders
 	vec3 worldEye = getEyeWorldPos();
 	//vec3 worldPos =  (iWorldOrientation * (localPos*iWorldScale)) + iWorldPosition;
-    vec3 ro = _position.xyz * iWorldScale;
-    vec3 eye = (inverse(iWorldOrientation) * (worldEye - iWorldPosition));
-    vec3 rd = normalize((ro - eye));	
+	vec3 ro = _position.xyz * iWorldScale;
+	vec3 eye = (inverse(iWorldOrientation) * (worldEye - iWorldPosition));
+	vec3 rd = normalize((ro - eye));	
 
 	vec3 color = raymarch(ro, rd);
 
