@@ -1,6 +1,9 @@
 // {
 // 	"ProceduralEntity": {
-//    	"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLamp.fs",
+// 		"channels": [
+// 			"image.png"
+// 		],
+//    	"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLampImage.fs",
 //     	"version": 2
 //   	}
 // }
@@ -83,14 +86,19 @@ vec3 raymarch(vec3 rayOrigin, vec3 rayDir) { // returns color
 // }
 
 float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
-	// big thanks to Snail! https://github.com/theepicsnail/hifi/tree/master/shaders
-	vec3 worldEye = getEyeWorldPos();
-	//vec3 worldPos =  (iWorldOrientation * (localPos*iWorldScale)) + iWorldPosition;
-    vec3 ro = _position.xyz * iWorldScale;
-    vec3 eye = (inverse(iWorldOrientation) * (worldEye - iWorldPosition));
-    vec3 rd = normalize((ro - eye));	
+	vec4 texture = texture(iChannel0, _texCoord01.xy);
+	vec3 color = texture.rgb;
 
-	vec3 color = raymarch(ro, rd);
+	if (texture.a<0.01) {
+		// big thanks to Snail! https://github.com/theepicsnail/hifi/tree/master/shaders
+		vec3 worldEye = getEyeWorldPos();
+		//vec3 worldPos =  (iWorldOrientation * (localPos*iWorldScale)) + iWorldPosition;
+	    vec3 ro = _position.xyz * iWorldScale;
+	    vec3 eye = (inverse(iWorldOrientation) * (worldEye - iWorldPosition));
+	    vec3 rd = normalize((ro - eye));	
+
+		color = raymarch(ro, rd);
+	}
 
 	diffuse = color;
 	specular = vec3(0);

@@ -18,4 +18,5 @@
 
 - [Candy Spiral](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/candySpiral.fs)
 - [Greenscreen](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/greenscreen.fs)
-- [Lavalamp](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavalamp.fs)
+- [Lava Lamp](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLamp.fs)
+- [Lava Lamp Image](https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLampImage.fs)
