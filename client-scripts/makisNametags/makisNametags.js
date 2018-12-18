@@ -10,7 +10,7 @@ var inDev = false;
 
 //var assetsUrl = "http://mpassets.highfidelity.com/ecadeea0-d9c3-4dfa-be75-5dc96ee27312-v1/"; 
 var assetsUrl = (inDev)?
-	"file:///D:/Git/hifi-stuff/makisNametags/":
+	"file:///D:/Git/hifi-stuff/client-scripts/makisNametags/":
 	"http://makitsune.github.io/hifi-stuff/client-scripts/makisNametags/";
 
 var config = null;

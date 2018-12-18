@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<div id="avatars"></div><br>
+		<button id="unmount" disabled>Unmount</button><br>
+		<br>
+		<button id="refresh" disabled>Refresh Avatars</button><br>
+		<button id="reset-collisions">Reset Collisions</button>
+		<script type="text/javascript">
+			var avatars = document.getElementById("avatars");
+			var unmount = document.getElementById("unmount");
+
+			var _GET = {};
+			if (window.location.search.length>1) {
+				window.location.search.substr(1).split("&").forEach(p=>{
+					p = p.split("=");
+					_GET[p[0]] = p[1];
+				});
+			}
+
+			var uuid = decodeURI(_GET.uuid);
+			function emitEvent(key, value) {
+				if (window.qt) {
+					EventBridge.emitWebEvent(JSON.stringify({
+						uuid: uuid,
+						key: key, value: value||undefined,
+					}));
+				}
+			}
+
+			function refreshInfo(info) {
+				// update mount list
+				avatars.innerHTML = "";
+				info.avatars.forEach(avatar=>{
+					let mountDiv = document.createElement("div");
+
+					let mountButton = document.createElement("button");
+					mountButton.textContent = "Mount";
+					mountButton.addEventListener("click", ()=>{
+						emitEvent("mount", avatar.id);
+					});
+
+					if (avatar.id == info.mountedID)
+						mountButton.disabled = true;
+
+					let mountSpan = document.createElement("span");
+					mountSpan.textContent = " "+avatar.name;
+
+					mountDiv.appendChild(mountButton);
+					mountDiv.appendChild(mountSpan);
+					avatars.appendChild(mountDiv);
+				});
+
+				// updated disabled
+				if (info.mounted) {
+					unmount.disabled = false;
+				} else {
+					unmount.disabled = true;
+				}
+			}
+
+			unmount.addEventListener("click", ()=>{
+				emitEvent("unmount");
+			});
+
+			document.getElementById("reset-collisions").addEventListener("click", ()=>{
+				emitEvent("resetCollisions");
+			});
+
+			setTimeout(()=>{
+				EventBridge.scriptEventReceived.connect(json=>{
+					try { json = JSON.parse(json);
+					} catch(err) {}
+					if (json.uuid != uuid) return;
+
+					switch (json.key) {
+						case "refreshInfo":
+							refreshInfo(JSON.parse(json.value));
+							break;
+					}
+				});
+
+				emitEvent("refreshInfo");
+
+				let refresh = document.getElementById("refresh");
+				refresh.disabled = false;
+				refresh.addEventListener("click", ()=>{
+					emitEvent("refreshInfo");
+				});
+			}, 200);
+		</script>
+	</body>
+</html>
