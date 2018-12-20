@@ -8,13 +8,6 @@
 
 function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
 
-function debug(msg) {
-	if (!inDev) return;
-	var out = "";
-	for (var i=0; i<64; i++) out += "\n";
-	console.log(out+msg);
-}
-
 var modules = {
 	sleep: {
 		name: "sleep",
@@ -267,7 +260,7 @@ function webEventReceived(json) {
 			modules[json.value.key].enabled = json.value.enabled;
 			modules[json.value.key][(json.value.enabled)?"on":"off"]();
 
-			debug(json.value.key+" set to "+json.value.enabled);
+			//console.log(json.value.key+" set to "+json.value.enabled);
 			emitModules();
 			break;
 	}
