@@ -6,12 +6,6 @@
 // ┗━╸┗━┛┗━┛┗━╸╹ ╹ ╹ ╹╹ ╹┗━╸┗━┛
 // github.com/makitsune/hifi-stuff
 
-var inDev = false;
-
-var assetsURL = (inDev)?
-	"file:///D:/Git/hifi-stuff/client-scripts/hifiEssentials":
-	"https://makitsune.github.io/hifi-stuff/client-scripts/hifiEssentials/";
-
 var uuid = Uuid.generate(); 
 var tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
 var button = tablet.addButton({
@@ -49,10 +43,7 @@ function webEventReceived(json) {
 }
 
 function buttonClicked() {
-	tablet.gotoWebScreen(
-		assetsURL+"app/index.html"+
-		"?uuid="+uuid
-	);
+	tablet.gotoWebScreen(Script.resolvePath("app/index.html")+"?uuid="+uuid);
 }
 
 // init

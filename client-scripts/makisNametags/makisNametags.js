@@ -6,13 +6,6 @@
 // ╹ ╹╹ ╹╹ ╹┗━╸ ╹ ╹ ╹┗━┛┗━┛
 // github.com/makitsune/hifi-stuff
 
-var inDev = false;
-
-//var assetsUrl = "http://mpassets.highfidelity.com/ecadeea0-d9c3-4dfa-be75-5dc96ee27312-v1/"; 
-var assetsUrl = (inDev)?
-	"file:///D:/Git/hifi-stuff/client-scripts/makisNametags/":
-	"http://makitsune.github.io/hifi-stuff/client-scripts/makisNametags/";
-
 var config = null;
 function loadConfig(newConfig) {
 	config = newConfig;
@@ -267,7 +260,7 @@ function buttonClicked() {
 	// dataurl = "data:text/html;base64,"+atob(dataurl)+html;
 	// tablet.gotoWebScreen(dataurl, {});
 
-	tablet.gotoWebScreen(assetsUrl+"makisNametags.html"+
+	tablet.gotoWebScreen(Script.resolvePath("makisNametags.html")+
 		"?uuid="+uuid+
 		"&config="+atob(JSON.stringify(getConfig()))
 	);

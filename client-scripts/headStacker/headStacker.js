@@ -6,12 +6,6 @@
 // ┗━┛ ╹ ╹ ╹┗━╸╹ ╹┗━╸╹┗╸
 // github.com/makitsune/hifi-stuff
 
-var inDev = false;
-
-var assetsURL = (inDev)?
-	"file:///D:/Git/hifi-stuff/client-scripts/headStacker/":
-	"http://makitsune.github.io/hifi-stuff/client-scripts/headStacker/";
-
 function HeadStacker() {
 	this.mountedAvatarID = undefined;
 	this.mounted = false;
@@ -28,7 +22,7 @@ function HeadStacker() {
 		//MyAvatar.setParentJointIndex(MyAvatar.getJointIndex("Head"));
 		MyAvatar.overrideRoleAnimation(
 			"fly",
-			assetsURL+"idle.fbx",
+			Script.resolvePath("idle.fbx"),
 			30, true, 0, 1000000
 		);
 		MyAvatar.setCollisionsEnabled(false);
@@ -112,7 +106,7 @@ function refreshInfo() {
 var headStacker = new HeadStacker();
 
 function buttonClicked() {
-	tablet.gotoWebScreen(assetsURL+"headStacker.html?uuid="+uuid);
+	tablet.gotoWebScreen(Script.resolvePath("headStacker.html")+"?uuid="+uuid);
 }; button.clicked.connect(buttonClicked);
 
 function webEventReceived(json) {

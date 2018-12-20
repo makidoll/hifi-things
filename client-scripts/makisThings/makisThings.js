@@ -6,16 +6,6 @@
 //  ╹ ╹ ╹╹╹ ╹┗━┛┗━┛
 // github.com/makitsune/hifi-stuff
 
-var inDev = false;
-
-var assetsURL = "http://makitsune.github.io/hifi-stuff/client-scripts/makisThings/";
-var rawGhURL = "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/client-scripts/makisThings/";
-
-if (inDev) {
-	assetsURL = "file:///D:/Git/hifi-stuff/client-scripts/makisThings/";
-	rawGhURL = assetsURL;
-}
-
 function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
 
 function debug(msg) {
@@ -30,7 +20,7 @@ var modules = {
 		name: "sleep",
 		enabled: false,
 		on: function() {
-			MyAvatar.overrideAnimation(assetsURL+"animations/sleep.fbx", 1, true, 0, 1);
+			MyAvatar.overrideAnimation(Script.resolvePath("animations/sleep.fbx"), 1, true, 0, 1);
 			MyAvatar.hasProceduralBlinkFaceMovement = false;
 			MyAvatar.hasProceduralEyeFaceMovement = false;
 			MyAvatar.hasScriptedBlendshapes = true;
@@ -77,7 +67,7 @@ var modules = {
 		on: function() {
 			modules.vulpie.entityID = Entities.addEntity({
 				type: "Model",
-				modelURL: assetsURL+"models/vulpie.fbx",
+				modelURL: Script.resolvePath("models/vulpie.fbx"),
 				name: "Vulpie",
 				position: Vec3.sum(MyAvatar.position, Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 0.3, z: -0.5})),
 				rotation: Quat.cancelOutRollAndPitch(Camera.orientation),
@@ -102,7 +92,7 @@ var modules = {
 		name: "ledge sit",
 		enabled: false,
 		on: function() {
-			MyAvatar.overrideAnimation(assetsURL+"animations/ledgeSit.fbx", 1, true, 0, 1);
+			MyAvatar.overrideAnimation(Script.resolvePath("animations/ledgeSit.fbx"), 1, true, 0, 1);
 
 			MyAvatar.setCollisionsEnabled(false);
 			MyAvatar.position = Vec3.mix(
@@ -126,7 +116,7 @@ var modules = {
 		name: "crying sit",
 		enabled: false,
 		on: function() {
-			MyAvatar.overrideAnimation(assetsURL+"animations/cryingSit.fbx", 1, true, 0, 1);
+			MyAvatar.overrideAnimation(Script.resolvePath("animations/cryingSit.fbx"), 1, true, 0, 1);
 			MyAvatar.hasProceduralBlinkFaceMovement = false;
 			MyAvatar.hasProceduralEyeFaceMovement = false;
 			MyAvatar.hasScriptedBlendshapes = true;
@@ -172,8 +162,8 @@ var modules = {
 					)
 				),
 				rotation: Quat.cancelOutRollAndPitch(Camera.orientation),
-				modelURL: assetsURL+"models/hairbrush.fbx",
-				script: rawGhURL+"scripts/hairbrush.js",
+				modelURL: Script.resolvePath("models/hairbrush.fbx"),
+				script: Script.resolvePath("scripts/hairbrush.js"),
 				collisionless: true,
 				grab: {
         			grabbable: true,
@@ -284,7 +274,7 @@ function webEventReceived(json) {
 }
 
 function buttonClicked() {
-	tablet.gotoWebScreen(assetsURL+"makisThings.html"+
+	tablet.gotoWebScreen(Script.resolvePath("makisThings.html")+
 		"?uuid="+uuid+
 		"&modules="+atob(JSON.stringify(getModulesInfo(true)))
 	);
