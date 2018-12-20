@@ -1,0 +1,241 @@
+* {
+	margin: 0; padding: 0;
+	transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+*::selection {
+	background-color: transparent;
+}
+
+body::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+body::-webkit-scrollbar-track {
+    background-color: rgba(29,31,33,0.2);
+}
+ 
+body::-webkit-scrollbar-thumb {
+  	background-color: rgba(29,31,33,0.6);
+}
+
+h1, h2, h3 {
+	font-weight: 400;
+}
+
+a, a:link, a:active, a:hover, a:visited {
+	color: inherit;
+	text-decoration: inherit;
+}
+
+body {
+	font-family: "Roboto", sans-serif;
+}
+
+#top-bar {
+	position: fixed; margin: auto;
+	top: 0; left: 0; right: 0;
+	height: 50px;
+	background: #1d1f21;
+	z-index: 300;
+}
+
+@keyframes rainbow {
+	0% { background-position: 0% 0%; }
+	0% { background-position: -800% 0%; }
+}
+
+#top-bar-sidebar {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	width: 50px; height: 50px;
+	background-image: url(rainbow.png);
+	background-size: 800% 100%;
+	animation-name: rainbow;
+	animation-duration: 60s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	cursor: pointer;
+}
+
+#top-bar-sidebar svg {
+	position: absolute; margin: auto;
+	top: 6px;
+	left: 6px;
+	width: 36px;
+	height: 36px;
+	fill: #fff;
+}
+
+#top-bar-text {
+	display: inline-block;
+	vertical-align: top;
+	width: calc(100% - 50px);
+	height: 50px;
+}
+
+#top-bar-text>div {
+	height: 100%;
+	text-align: center;
+}
+
+#top-bar-text h2 {
+	color: #fff;
+	text-align: center;
+	margin-top: 6px;
+	font-size: 32px;
+	display: inline-block;
+}
+
+#top-bar-text svg {
+	fill: #fff;
+	width: 36px;
+	height: 36px;
+	display: inline-block;
+	margin-bottom: -8px;
+	margin-right: 4px;
+}
+
+#sidebar {
+	position: fixed; margin: auto;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background-color: rgba(29,31,33,1);
+	z-index: 1000;
+}
+
+#sidebar-background {
+	position: fixed; margin: auto;
+	top: 0; left: 0; right: 0; bottom: 0;
+	background-size: cover;
+	image-rendering: pixelated;
+}
+
+#sidebar-content {
+	position: fixed; margin: auto;
+	top: 0; left: 0; bottom: 0;
+	width: 250px;
+	padding: 25px;
+	background-color: #fff;
+	box-shadow: 0 0 50px rgba(29,31,33,0.6); 
+}
+
+@keyframes sorry {
+	0% { transform: rotate(-8deg); }
+	50% { transform: rotate( 0deg); }
+	100% { transform: rotate(-8deg); }
+}
+
+#SORRRRYYYYYYYYYY {
+	transform-origin: 50% 100%;
+	width: 200px;
+	margin-left: 35px;
+	margin-top: calc(100vh - 610px);
+	opacity: 0.2;
+	animation-name: sorry;
+	animation-duration: 3s;
+	animation-iteration-count: infinite;
+	animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+#logo:hover {
+	transform: rotate(2deg);
+}
+
+#sidebar-button {
+	width: calc(100% + 10px);
+	margin-left: -25px;
+	padding: 15px 20px;
+	color: #fff;
+	fill: #fff;
+}
+
+#sidebar-button h2 {
+	display: inline-block;
+}
+
+#sidebar-button svg {
+	width: 32px; height: 32px;
+	display: inline-block;
+	margin-bottom: -9px;
+	margin-right: 4px;
+}
+
+#sidebar-button:hover {
+	padding-left: 30px;
+	background-color: red;
+}
+
+#content {
+	position: absolute; margin: auto;
+	top: 50px; left: 0; right: 0;
+	padding: 10px;
+	z-index: 200;
+	margin-bottom: 50px;
+}
+
+.icon {
+	width: 24px; height: 24px;
+	fill: #000;
+	display: inline-block;
+	margin-bottom: -6px;
+}
+
+#collapse h1 {
+	margin: 10px;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+#collapse h1>svg {
+	display: inline-block;
+	margin-bottom: -14px;
+	width: 48px;
+	height: 48px;
+}
+
+#collapse .active-icon {
+	display: none;
+}
+
+#collapse>.active .active-icon {
+	display: inline-block;
+}
+
+#collapse>.active .unactive-icon {
+	display: none;
+}
+
+#collapse .content {
+	display: none;
+}
+
+#avatar-selector {
+	display: inline-block;
+	vertical-align: top;
+	/*width: 204px;*/
+	width: calc(50% - 20px);
+	margin: 10px;
+	background-color: #fff;
+	border-radius: 16px;
+	/*box-shadow: 0 0 15px rgba(29,31,33,0.4);*/
+}
+
+#avatar-selector:hover {
+	transform: scale(0.95); 
+}
+
+#avatar-thumbnail {
+	border-radius: 16px;
+	width: 100%;
+	height: 140px;
+	background-size: cover;
+	background-position: center;
+}
+
+#avatar-name {
+	padding-top: 10px;
+	padding-bottom: 5px;
+	text-align: center;
+	font-weight: 700;
+}

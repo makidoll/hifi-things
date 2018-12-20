@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HiFi Essentials</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,700" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="styles.css">
+	</head>
+	<body>
+		<div id="top-bar">
+			<a href="javascript:openSidebar()"><div id="top-bar-sidebar">
+				<svg style="fill: rgba(29,31,33,0.4); top: 8px; left: 8px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
+			</div></a><div id="top-bar-text"></div>
+		</div>
+		<div id="content">
+			<div id="avatars" style="display: none;"></div>
+			<div id="scripts" style="display: none;">
+				<p>scripts!</p>
+			</div>
+			<div id="settings" style="display: none;">
+				<p>settings!</p>
+			</div>
+		</div>
+		<div id="sidebar">
+			<div id="sidebar-background" style="background-image: url(sakura.gif);"></div>
+			<div id="sidebar-content">
+				<img id="logo" src="logo.svg"><br>
+				<br>
+				<a href="javascript:changePage('avatars')">
+					<div id="sidebar-button" class="avatars" style="background-color: #e91e63">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
+						<h2>avatars</h2>
+					</div>
+				</a>
+				<a href="javascript:changePage('scripts')">
+					<div id="sidebar-button" class="scripts" style="background-color: #00bcd4">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+						<h2>scripts</h2>
+					</div>
+				</a>
+				<a href="javascript:changePage('settings')">
+					<div id="sidebar-button" class="settings" style="background-color: #ff9800">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M15.95 10.78c.03-.25.05-.51.05-.78s-.02-.53-.06-.78l1.69-1.32c.15-.12.19-.34.1-.51l-1.6-2.77c-.1-.18-.31-.24-.49-.18l-1.99.8c-.42-.32-.86-.58-1.35-.78L12 2.34c-.03-.2-.2-.34-.4-.34H8.4c-.2 0-.36.14-.39.34l-.3 2.12c-.49.2-.94.47-1.35.78l-1.99-.8c-.18-.07-.39 0-.49.18l-1.6 2.77c-.1.18-.06.39.1.51l1.69 1.32c-.04.25-.07.52-.07.78s.02.53.06.78L2.37 12.1c-.15.12-.19.34-.1.51l1.6 2.77c.1.18.31.24.49.18l1.99-.8c.42.32.86.58 1.35.78l.3 2.12c.04.2.2.34.4.34h3.2c.2 0 .37-.14.39-.34l.3-2.12c.49-.2.94-.47 1.35-.78l1.99.8c.18.07.39 0 .49-.18l1.6-2.77c.1-.18.06-.39-.1-.51l-1.67-1.32zM10 13c-1.65 0-3-1.35-3-3s1.35-3 3-3 3 1.35 3 3-1.35 3-3 3z"/></svg>
+						<h2>settings</h2>
+					</div>
+				</a>
+				<br>
+				<div style="opacity: 0.6;">
+					<p><b>Thank you for using our app!</b> <svg style="fill: #f44336" class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></p>
+					<br>
+					<p>Feel free to send a message to <span style="font-family: 'Roboto Mono', monospace;">Maki#4845</span> on Discord if you have any queries or suggestions!</p>
+				</div>
+				<img src="https://maki.cat/u/laF5XB.png" id="SORRRRYYYYYYYYYY">
+			</div>
+		</div>
+		<script type="text/javascript">
+			var elTopBarSidebar = document.getElementById("top-bar-sidebar"); 
+			var elTopBarText = document.getElementById("top-bar-text"); 
+			var elContent = document.getElementById("content"); 
+			var elSidebar = document.getElementById("sidebar");
+			var elSidebarContent = document.getElementById("sidebar-content");
+
+			elSidebar.addEventListener("click", e=>{ // closing sidebar\
+				if (e.target.id != "sidebar-background") return;
+				if (!selectedPage) return;
+				closeSidebar();
+			});
+
+			function changeTopBar(text, color) {
+				let div = document.createElement("div");
+				div.innerHTML = text;
+				div.style.backgroundColor = color;
+				div.style.opacity = "0";
+
+				let oldDiv = elTopBarText.children[0] 
+				if (oldDiv) oldDiv.style.opacity = "0";
+				
+				elTopBarText.appendChild(div);
+				setTimeout(()=>{
+					if (oldDiv) oldDiv.remove();
+					div.style.opacity = "1"; 
+				}, 200);
+			}
+
+			var sidebarOpen = true;
+
+			function closeSidebar() {
+				if (!sidebarOpen) return;
+				sidebarOpen = false;
+
+				elSidebarContent.style.left = "-300px";
+				setTimeout(()=>{
+					elSidebar.style.opacity = "0";
+					setTimeout(()=>{
+						elSidebar.style.display = "none";
+					}, 200)
+				}, 100)
+			}
+
+			function openSidebar() {
+				if (sidebarOpen) return;
+				sidebarOpen = true;
+
+				elSidebar.style.opacity = "0";
+				elSidebar.style.display = "block";
+				elSidebarContent.style.left = "-300px";
+				setTimeout(()=>{
+					elSidebar.style.opacity = "1";
+					setTimeout(()=>{
+						elSidebarContent.style.left = "0";
+					}, 100);
+				}, 10);
+			}
+
+			function toggleSidebar() {
+				if (sidebarOpen) {
+					closeSidebar();
+				} else {
+					openSidebar();
+				}
+			}
+
+			var pages = [
+				"avatars",
+				"scripts",
+				"settings",
+			].map(id=>document.getElementById(id));
+			function getPageEl(page) {
+				for (var i=0; i<pages.length; i++) {
+					if (page == pages[i].id) {
+						return pages[i];
+						break;
+					}
+				}
+				return undefined;
+			}
+
+			var pageButtons = [
+				"avatars",
+				"scripts",
+				"settings",
+			].map(id=>document.querySelector("#sidebar-content ."+id));
+			function getPageButtonEl(page) {
+				for (var i=0; i<pageButtons.length; i++) {
+					if (page == pageButtons[i].className) {
+						return pageButtons[i];
+						break;
+					}
+				}
+				return undefined
+			}
+
+			var selectedPage = undefined;
+
+			function changePage(newPage) {
+				if (selectedPage == newPage) return closeSidebar();
+
+				// find new page
+				newPage = getPageEl(newPage);
+				if (!newPage) return;
+				selectedPage = newPage.id;
+
+				// close sidebar and other pages
+				closeSidebar();
+
+				let otherPageOpen = false;
+				pages.forEach(page=>{
+					if (page.style.display == "none") return;
+					otherPageOpen = true;
+
+					page.style.opacity = "0";
+					setTimeout(()=>{
+						page.style.display = "none";
+					}, 200);
+				});
+
+				// open new page
+				function openNewPage() {
+
+					newPage.style.display = "block";
+					newPage.style.opacity = "0";
+					setTimeout(()=>{
+						newPage.style.opacity = "1";
+					}, 10);
+				}
+				
+				if (otherPageOpen) {
+					setTimeout(()=>{ openNewPage(); }, 200);
+				} else {
+					openNewPage();
+				}
+
+				// change top bar to match button
+				let pageButton = getPageButtonEl(newPage.id);
+				if (pageButtons)
+					changeTopBar(
+						pageButton.innerHTML,
+						pageButton.style.backgroundColor
+					);
+			}
+
+			function Collapse(title, content, styles) { // returns el
+				this.collapsed = true;
+
+				this.open = ()=>{
+					if (!this.collapsed) return
+					this.collapsed = false;
+
+					h1.className = "active";
+					content.style.display = "block";
+					content.style.opacity = "0";
+					setTimeout(()=>{
+						content.style.opacity = "1";
+					}, 100);
+				}
+
+				this.close = ()=>{
+					if (this.collapsed) return
+					this.collapsed = true;
+
+					h1.className = "";
+					content.style.opacity = "0";
+					setTimeout(()=>{
+						content.style.display = "none";
+					}, 200);
+				}
+
+				let collapse = document.createElement("div");
+				collapse.id = "collapse";
+				
+				let h1 = document.createElement("h1");
+				h1.innerHTML = '<svg class="unactive-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg><svg class="active-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg> '+title;
+				if (styles) {
+					Object.keys(styles).forEach(style=>{
+						h1.style[style] = styles[style];
+					});
+				}
+				h1.addEventListener("click", ()=>{
+					if (this.collapsed) {
+						this.open();
+					} else {
+						this.close();
+					}
+				});
+
+				content.className = "content";
+
+				collapse.appendChild(h1);
+				collapse.appendChild(content);
+
+				return collapse;
+			}
+
+			if (window.qt) {
+				var _GET = {};
+				if (window.location.search.length>1) {
+					window.location.search.substr(1).split("&").forEach(p=>{
+						p = p.split("=");
+						_GET[p[0]] = p[1];
+					});
+				}
+
+				var uuid = decodeURI(_GET.uuid);
+				function emitEvent(key, value) {
+					if (window.qt) {
+						EventBridge.emitWebEvent(JSON.stringify({
+							key: key, value: value||"",
+							uuid: uuid,
+						}));
+					}
+				}
+
+				function changeAvatar(name, url) {
+					emitEvent("changeAvatar", {
+						name: name,
+						url: url,
+					});
+				}
+			}
+		</script>
+		<script type="text/javascript" src="content.js"></script>
+	</body>
+</html>
