@@ -9,8 +9,8 @@
 var inDev = false;
 
 var assetsURL = (inDev)?
-	"file:///D:/Users/Max/Desktop/hifiEssentials/":
-	"https://makitsune.github.io/hifi-stuff/hifiEssentials/";
+	"file:///D:/Git/hifi-stuff/client-scripts/hifiEssentials":
+	"https://makitsune.github.io/hifi-stuff/client-scripts/hifiEssentials/";
 
 var uuid = Uuid.generate(); 
 var tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
