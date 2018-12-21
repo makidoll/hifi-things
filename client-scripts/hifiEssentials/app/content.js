@@ -48,7 +48,7 @@ var content = {
 		},
 		{
 			title: "<img src='avatars/subcom.svg' style='height: 40px; margin-bottom: -8px;'/>",
-			marginBottom: "0",
+			marginBottom: "12px",
 			avatars: [
 				{
 					name: "Daven Atlanta",
@@ -127,12 +127,7 @@ var content = {
 				},
 			]
 		},
-		{
-			title: "Others",
-			marginBottom: "0",
-			avatars: []
-		},
-	],
+	]
 }
 
 // avatars

@@ -23,3 +23,9 @@
 - [Greenscreen](https://hifi.maki.cat/shaders/greenscreen.fs)
 - [Lava Lamp](https://hifi.maki.cat/shaders/lavaLamp.fs)
 - [Lava Lamp Image](https://hifi.maki.cat/shaders/lavaLampImage.fs)
+
+## Batch Files
+
+- [defaultScripts modifier](https://hifi.maki.cat/batch-files/defaultScripts-modifier.bat)
+- [Run HiFi as anonymous](https://hifi.maki.cat/run-hifi-as-anonymous.bat)
+- [Video to WebM (19.4 MB)](https://hifi.maki.cat/batch-files/video-to-webm.zip)

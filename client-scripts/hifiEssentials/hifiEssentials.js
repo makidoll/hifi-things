@@ -20,9 +20,90 @@ function emitEvent(key, value) {
 	}));
 }
 
+function changeSettings(key, value) {
+	var somethingChanged = true;
+	var dontSomethingChanged = false;
+
+	switch (key) {
+		case "disableCollisions":
+			MyAvatar.setCollisionsEnabled(!MyAvatar.getCollisionsEnabled());
+			dontSomethingChanged = true;
+		break;
+				
+		case "sizeSmaller": MyAvatar.scale = MyAvatar.scale*0.8; break;
+		case "sizeBigger": MyAvatar.scale = MyAvatar.scale*1.2; break;
+		case "sizeNumber": if (!value) break; MyAvatar.scale = value; break;
+
+		case"speedFaster":
+			MyAvatar.walkSpeed = MyAvatar.walkSpeed*1.2;
+			MyAvatar.walkBackwardSpeed = MyAvatar.walkBackwardSpeed*1.2;
+		break;
+		case"speedSlower":
+			MyAvatar.walkSpeed = MyAvatar.walkSpeed*0.8;
+			MyAvatar.walkBackwardSpeed = MyAvatar.walkBackwardSpeed*0.8;
+		break;
+		case "speedNumber":
+			if (!value) break;
+			MyAvatar.walkSpeed = value;
+			MyAvatar.walkBackwardSpeed = value;
+		break;
+
+		case "disableAntiAliasing":
+			if (!value) value = {};
+			if (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing") && !value.forced) {
+				Settings.setValue("cat.maki.hifiEssentials.disableAntiAliasing", false);
+
+				Render.getConfig("RenderMainView.Antialiasing")["constrainColor"] = true;
+				Render.getConfig("RenderMainView.Antialiasing")["feedbackColor"] = true;
+				Render.getConfig("RenderMainView.Antialiasing")["blend"] = 0.25;
+				Render.getConfig("RenderMainView.Antialiasing")["sharpen"] = 0.05;
+				Render.getConfig("RenderMainView.JitterCam").play();
+
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["constrainColor"] = true;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["feedbackColor"] = true;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["blend"] = 0.25;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["sharpen"] = 0.05;
+				Render.getConfig("SecondaryCameraJob.JitterCam").play();
+			} else {
+				Settings.setValue("cat.maki.hifiEssentials.disableAntiAliasing", true);
+
+				Render.getConfig("RenderMainView.Antialiasing")["constrainColor"] = false;
+				Render.getConfig("RenderMainView.Antialiasing")["feedbackColor"] = false;
+				Render.getConfig("RenderMainView.Antialiasing")["blend"] = 1;
+				Render.getConfig("RenderMainView.Antialiasing")["sharpen"] = 0;
+				Render.getConfig("RenderMainView.JitterCam").none();
+				
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["constrainColor"] = false;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["feedbackColor"] = false;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["blend"] = 1;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["sharpen"] = 0;
+				Render.getConfig("SecondaryCameraJob.JitterCam").none();
+			}
+		break;
+
+		default:
+			somethingChanged = false;
+		break;
+	}
+
+	if (somethingChanged)
+		if (!dontSomethingChanged)
+			updateSettings();
+}
+
+function updateSettings(override) {
+	if (!override) override = {}
+	emitEvent("updateSettings", {
+		disableCollisions: (override.disableCollisions)?
+			override.disableCollisions: !MyAvatar.getCollisionsEnabled(),
+		sizeNumber: MyAvatar.scale.toFixed(3),
+		speedNumber: MyAvatar.walkSpeed.toFixed(3),
+		disableAntiAliasing: (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing"))? true: false,
+	})
+}
+
 function webEventReceived(json) {
-	try {
-		json = JSON.parse(json);
+	try { json = JSON.parse(json);
 	} catch(err) {}
 	if (json.uuid != uuid) return;
 
@@ -39,6 +120,13 @@ function webEventReceived(json) {
 				MyAvatar.useFullAvatarURL(json.value.url, json.value.name);
 			}
 		break;
+		case "changeSettings":
+			if (json.value.key==undefined) break;
+			changeSettings(json.value.key, json.value.value);
+		break;
+		case "updateSettings":
+			updateSettings();
+		break;
 	}
 }
 
@@ -48,10 +136,30 @@ function buttonClicked() {
 
 // init
 
+if (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing")) {
+	changeSettings("disableAntiAliasing", {forced:true});
+}
+
+function collisionsEnabledChanged(enabled) {
+	updateSettings({
+		disableCollisions: !enabled
+	});
+}
+
+function scaleChanged() {
+	updateSettings();
+}
+
+MyAvatar.collisionsEnabledChanged.connect(collisionsEnabledChanged);
+MyAvatar.scaleChanged.connect(scaleChanged);
+
 tablet.webEventReceived.connect(webEventReceived);
 button.clicked.connect(buttonClicked);
 
 Script.scriptEnding.connect(function() {
+	MyAvatar.collisionsEnabledChanged.disconnect(collisionsEnabledChanged);
+	MyAvatar.scaleChanged.disconnect(scaleChanged);
+	
 	tablet.webEventReceived.disconnect(webEventReceived);
 	button.clicked.disconnect(buttonClicked);
 

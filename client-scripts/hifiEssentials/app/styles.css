@@ -1,10 +1,14 @@
-* {
+*, *::before, *::after {
 	margin: 0; padding: 0;
 	transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
 *::selection {
 	background-color: transparent;
+}
+
+*:focus {
+	outline: none;
 }
 
 body::-webkit-scrollbar {
@@ -238,4 +242,59 @@ body {
 	padding-bottom: 5px;
 	text-align: center;
 	font-weight: 700;
+}
+
+.checkbox {
+	position: relative;
+	width: 24px;
+	height: 24px;
+}
+
+.checkbox::before {
+    /*appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;*/
+    content: "";
+	position: absolute; margin: auto;
+	display: block;
+	top: 0; left: 0;
+	width: 22px;
+	height: 22px;
+	border: solid 2px #e91e63;
+	border-radius: 4px;
+}
+
+.checkbox.active::before {
+	background-color: #e91e63;
+	background-image: url(check.svg);
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.button {
+	height: 24px;
+	border-radius: 8px;
+	background-color: #e91e63;
+	padding: 8px 16px;
+	font-size: 20px;
+	color: #fff;
+}
+
+input[type="number"] {
+	height: 24px;
+	border: solid 2px #e91e63;
+	border-radius: 8px;
+	padding: 8px 12px;
+	font-family: "Roboto", sans-serif;
+	font-size: 20px;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+	appearance: none; 
+	-moz-appearance: none; 
+	-webkit-appearance: none; 
+	margin: 0; 
 }
