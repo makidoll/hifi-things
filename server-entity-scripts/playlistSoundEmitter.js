@@ -1,11 +1,11 @@
 (function() {
-	// exampleUserData = {
-	// 	volume: 0.1,
-	//	randomize: true,
-	// 	sounds: [
-	// 		"sound1.wav",
-	//		"sound2.wav",
-	//		"sound3.wav"	
+	// {
+	// 	"volume": 0.1,
+	// 	"randomize": true,
+	// 	"sounds": [
+	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush01a.wav",
+	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush02b.wav",
+	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush03b.wav"	
 	// 	]
 	// }
 
@@ -20,6 +20,10 @@
 			array[randomIndex] = temporaryValue;
 		}
 		return array;
+	}
+
+	function debug(msg) {
+		if (false) console.log(msg);
 	}
 
 	this.active = true;
@@ -43,12 +47,14 @@
 			sounds = shuffle(sounds);
 
 		function playSound(soundObject) {
+			debug("playing");
+
 			if (!_this.active) return;
 			_this.currentInjector = Audio.playSound(soundObject, {
 				position: entity.position,
 				volume: userData.volume,
 				loop: false,
-				localOnly: true,
+				//localOnly: true,
 			});
 
 			_this.currentInjector.finished.connect(function() {
@@ -56,8 +62,10 @@
 			});
 		}
 		
-		var currentSoundIndex = 0;
+		var currentSoundIndex = -1;
 		function playNextSound() {
+			debug("new song")
+
 			if (currentSoundIndex>=sounds.length-1) {
 				currentSoundIndex = 0;
 			} else {
@@ -66,9 +74,12 @@
 
 			var currentSound = sounds[currentSoundIndex];
 			if (currentSound.downloaded) {
+				debug("downloaded")
 				playSound(currentSound);
 			} else {
+				debug("starting download")
 				currentSound.ready.connect(function() {
+					debug("finished download")
 					playSound(currentSound);
 				});
 			}

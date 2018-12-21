@@ -20,6 +20,10 @@
 	var midAudioInjector = undefined;
 
 	function startBrushing() {
+		if (midAudioInjector)
+			if (midAudioInjector.isPlaying)
+				midAudioInjector.stop();
+
 		selectedSound = sounds[Math.floor(Math.random()*sounds.length)];
 
 		var start = Audio.playSound(selectedSound[0], {

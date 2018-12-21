@@ -12,7 +12,10 @@
 - [Load Avatar](https://hifi.maki.cat/client-entity-scripts/loadAvatar.js)
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
 - [Overlay Screen](https://hifi.maki.cat/client-entity-scripts/overlayScreen.js)
-- [Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/playlistSoundEmitter.js)
+
+## Server Entity Scripts
+
+- [Playlist Sound Emitter](https://hifi.maki.cat/server-entity-scripts/playlistSoundEmitter.js)
 
 ## Shaders
 
