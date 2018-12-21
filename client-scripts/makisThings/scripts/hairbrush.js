@@ -1,19 +1,20 @@
 (function() {
 
 	var entityID = undefined;
-	var assetsURL = "https://makitsune.github.io/hifi-stuff/client-scripts/makisThings/";
-
 	this.preload = function(theEntityID) { entityID = theEntityID; }
 
-	var sounds = [
-		[SoundCache.getSound(assetsURL+"sounds/hairbrush01a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush01b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush01c.wav")],
-		[SoundCache.getSound(assetsURL+"sounds/hairbrush02a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush02b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush02c.wav")],
-		[SoundCache.getSound(assetsURL+"sounds/hairbrush03a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush03b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush03c.wav")],
-		[SoundCache.getSound(assetsURL+"sounds/hairbrush04a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush04b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush04c.wav")],
-		[SoundCache.getSound(assetsURL+"sounds/hairbrush05a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush05b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush05c.wav")],
-		[SoundCache.getSound(assetsURL+"sounds/hairbrush06a.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush06b.wav"),SoundCache.getSound(assetsURL+"sounds/hairbrush06c.wav")],
-	];
+	var sounds = []; // sounds/hairbrush0[1-6][abc].wav
 
+	for (var i=1; i<=6; i++) { // 6 sounds
+		var sound = [];
+		for (var j=0; j<3; j++) { // a,b,c
+			sound.push(
+				Script.resolvePath("sounds/hairbrush0"+i+String.fromCharCode(97+j)+".wav")
+			);
+		}
+		sounds.push(sound);
+	}
+	
 	var brushing = false;
 	var selectedSound = undefined;
 	var midAudioInjector = undefined;
