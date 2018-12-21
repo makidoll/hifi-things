@@ -72,7 +72,11 @@
 								changeSettings("sizeNumber", e.target.innerHTML)
 							}},
 							{id:"sizeNumber", event:"change", callback:e=>{
-								changeSettings("sizeNumber", parseFloat(e.target.value))
+								let n = parseFloat(e.target.value);
+								if (n!=NaN) changeSettings("sizeNumber", n);
+							}},
+							{id:"sizeNumber", event:"keyup", callback:e=>{
+								if (e.key == "Backspace") e.target.value = "";
 							}},
 							// speed
 							{id:"speedFaster", event:"click", callback:()=>{changeSettings("speedFaster")}},
@@ -81,7 +85,11 @@
 								changeSettings("speedNumber", e.target.innerHTML)
 							}},
 							{id:"speedNumber", event:"change", callback:e=>{
-								changeSettings("speedNumber", parseFloat(e.target.value))
+								let n = parseFloat(e.target.value);
+								if (n!=NaN) changeSettings("speedNumber", n);
+							}},
+							{id:"speedNumber", event:"keyup", callback:e=>{
+								if (e.key == "Backspace") e.target.value = "";
 							}},
 						// graphics
 						{id:"disableAntiAliasing", event:"click", callback:()=>{changeSettings("disableAntiAliasing")}},
