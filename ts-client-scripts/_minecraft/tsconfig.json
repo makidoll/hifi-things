@@ -7,7 +7,7 @@
 		"removeComments": true
 	},
 	"include": [
-		"../../_typings",
+		"../../_snail/typings",
 		"src"
 	],
 	"exclude": [ "typings" ]

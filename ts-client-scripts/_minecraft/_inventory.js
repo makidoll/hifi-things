@@ -1,72 +1,80 @@
-var ConnectionHandler = (function () {
-    function ConnectionHandler() {
+var EventHandler = (function () {
+    function EventHandler() {
+        this.connections = [];
     }
-    ConnectionHandler.prototype.connect = function (con, fun) {
-        con.connect(fun);
+    EventHandler.prototype.connect = function (event, callback) {
+        event.connect(callback);
         this.connections.push({
-            con: con, fun: fun
+            event: event,
+            callback: callback
         });
     };
-    ConnectionHandler.prototype.disconnectAll = function () {
-        this.connections.forEach(function (connection) {
-            connection.con.disconnect(connection.fun);
+    EventHandler.prototype.disconnectAll = function () {
+        this.connections.forEach(function (con) {
+            con.event.disconnect(con.callback);
         });
     };
-    return ConnectionHandler;
+    return EventHandler;
 }());
 var Inventory = (function () {
     function Inventory() {
+        this.selectedIndex = 0;
         this.imageSizes = {
             inventory: { width: 546, height: 66 },
             selector: { width: 72, height: 72 }
         };
-        this.selectedIndex = 0;
-        this.overlays = {
+        this.overlayIDs = {
             inventory: Overlays.addOverlay("image", {
                 x: Window.innerWidth / 2 - this.imageSizes.inventory.width / 2,
                 y: this.imageSizes.inventory.height / 2,
                 width: this.imageSizes.inventory.width,
                 height: this.imageSizes.inventory.height,
-                imageURL: "file:///D:/Git/hifi-stuff/client-scripts/minecraftHifi/assets/inventory.png"
+                imageURL: Script.resolvePath("assets/inventory.png")
             }),
             selector: Overlays.addOverlay("image", {
                 x: Window.innerWidth / 2 - this.imageSizes.selector.width / 2 + (this.selectedIndex - 4) * 60,
                 y: this.imageSizes.selector.height / 2 - 6,
                 width: this.imageSizes.selector.width,
                 height: this.imageSizes.selector.height,
-                imageURL: "file:///D:/Git/hifi-stuff/client-scripts/minecraftHifi/assets/selector.png"
+                imageURL: Script.resolvePath("assets/selector.png")
             })
         };
+        this.events = new EventHandler();
+        this.events.connect(Window.geometryChanged, this.geometryChanged.bind(this));
+        this.events.connect(Overlays.mousePressOnOverlay, this.mousePressOnOverlay.bind(this));
     }
-    Inventory.prototype.changeSelectedIndex = function (index) {
-        this.selectedIndex = index;
-        Overlays.editOverlay(this.overlays.selector, {
+    Inventory.prototype.geometryChanged = function () {
+        console.log(JSON.stringify(this));
+        Overlays.editOverlay(this.overlayIDs.inventory, {
+            x: Window.innerWidth / 2 - this.imageSizes.inventory.width / 2
+        });
+        Overlays.editOverlay(this.overlayIDs.selector, {
             x: Window.innerWidth / 2 - this.imageSizes.selector.width / 2 + (this.selectedIndex - 4) * 60
         });
     };
-    Inventory.prototype.geometryChanged = function () {
-        Overlays.editOverlay(this.overlays.inventory, {
-            x: Window.innerWidth / 2 - this.imageSizes.inventory.width / 2
-        });
-        Overlays.editOverlay(this.overlays.selector, {
+    Inventory.prototype.mousePressOnOverlay = function (overlayID, event) {
+        switch (overlayID) {
+            case this.overlayIDs.inventory:
+                console.log(JSON.stringify(event.pos2D));
+                break;
+        }
+    };
+    Inventory.prototype.changeSelectedIndex = function (index) {
+        this.selectedIndex = index;
+        Overlays.editOverlay(this.overlayIDs.selector, {
             x: Window.innerWidth / 2 - this.imageSizes.selector.width / 2 + (this.selectedIndex - 4) * 60
         });
     };
     Inventory.prototype.unload = function () {
         var _this = this;
-        Object.keys(this.overlays).forEach(function (key) {
-            Overlays.deleteOverlay(_this.overlays[key]);
+        this.events.disconnectAll();
+        Object.keys(this.overlayIDs).forEach(function (key) {
+            Overlays.deleteOverlay(_this.overlayIDs[key]);
         });
     };
     return Inventory;
 }());
 var inventory = new Inventory();
-var cons = new ConnectionHandler();
-cons.connect(Window.geometryChanged, function () {
-    inventory.geometryChanged();
-});
 Script.scriptEnding.connect(function () {
-    cons.disconnectAll();
     inventory.unload();
 });
-console.log("test");
