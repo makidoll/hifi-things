@@ -26,6 +26,6 @@
 
 ## Batch Files
 
-- [defaultScripts modifier](https://hifi.maki.cat/batch-files/defaultScripts-modifier.bat)
+- [defaultScripts modifier (run as admin)](https://hifi.maki.cat/batch-files/defaultScripts-modifier.bat)
 - [Run HiFi as anonymous](https://hifi.maki.cat/run-hifi-as-anonymous.bat)
-- [Video to WebM (19.4 MB)](https://hifi.maki.cat/batch-files/video-to-webm.zip)
+- [Video to WebM (19.4 MB .zip)](https://hifi.maki.cat/batch-files/video-to-webm.zip)
