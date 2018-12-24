@@ -28,7 +28,7 @@
 						</tr>
 						<tr class="pointer" id="settings-enableFlying">
 							<td class="checkbox"></td>
-							<td><h2 style="margin-left:8px">enable flying</h2></td>
+							<td><h2 style="margin-left:8px">enable flying/jumping</h2></td>
 						</tr>
 					</table>
 					<br>
@@ -227,12 +227,17 @@
 				if (selectedPage == newPage) return closeSidebar();
 
 				// find new page
+				selectedPage = newPage;
 				newPage = document.getElementById(newPage);
 				if (!newPage) return;
-				selectedPage = newPage.id;
 
-				// updateSettings, close sidebar and other pages
-				if (window.qt) emitEvent("updateSettings");
+				// update page, close sidebar and other pages
+				if (window.qt) {
+					switch (selectedPage) {
+						case "settings": emitEvent("updateSettings"); break; 
+					}
+				}
+
 				closeSidebar();
 
 				let otherPageOpen = false;
@@ -263,7 +268,7 @@
 				}
 
 				// change top bar to match button
-				let pageButton = document.querySelector("#sidebar-content ."+newPage.id);
+				let pageButton = document.querySelector("#sidebar-content ."+selectedPage);
 				changeTopBar(
 					pageButton.innerHTML,
 					pageButton.style.backgroundColor

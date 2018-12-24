@@ -62,25 +62,64 @@ obj.verticies.forEach(vertex=>{
 
 let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${minWidth} ${minHeight} ${maxWidth} ${maxHeight}" fill="none" stroke="#000" stroke-width="0.1">`
 
-let lastVertex = [-100000,-100000,-100000];
-obj.edges.forEach(edge=>{
-	edge.forEach((vertexIndex,i)=>{
-		let vertex = obj.verticies[vertexIndex];
+let edges = obj.edges.map(edge=>{return {
+	done: false,
+	verticies: edge.map(vertI=>obj.verticies[vertI]),
+}});
 
-		if (i==0) {
-			// first vertex check if it nees to be ZM'd
-			if (lastVertex != vertex) {
-				svg+='Z"/><path d="M'
-			}
+function addNextPath() {
+	let currentEdge = undefined;
+	for (var i=0; i<edges.length; i++) {
+		if (edges[i].done) continue;
+		currentEdge = edges[i];
+		break;
+	}
+	if (currentEdge == undefined) return; // all done!
+
+	// start path and finish line
+	svg += 'Z"/><path d="M';
+
+	let addEdgeToPath = (edge, edgeI)=>{
+
+		edge.verticies.forEach(vertex=>{
+			svg += vertex[0]+","+vertex[1]+"L";
+		});
+		edge.done = true;
+
+		// find other edge that connects with this edge
+		let lastVertex = edge.verticies[edge.verticies.length-1];
+		for (var i = 0; i<edges.length; i++) {
+			if (edges[i].done) continue;
+			console.log("connecting")
+			if (lastVertex == edges[i].verticies[0])
+				addEdgeToPath(edges[i]);
 		}
+	}
 
-		svg += vertex[0]+","+vertex[1]+"L";
-		lastVertex = vertex;
-	});
-});
+	addEdgeToPath(currentEdge);
+	addNextPath();
+}
+
+addNextPath();
+
+// obj.edges.forEach(edge=>{
+// 	edge.forEach((vertexIndex,i)=>{
+// 		let vertex = obj.verticies[vertexIndex];
+
+// 		if (i==0) {
+// 			// first vertex check if it nees to be ZM'd
+// 			if (lastVertex != vertex) {
+// 				svg+='Z"/><path d="M'
+// 			}
+// 		}
+
+// 		svg += vertex[0]+","+vertex[1]+"L";
+// 		lastVertex = vertex;
+// 	});
+// });
 
 svg += 'Z"/></svg>';
-svg = svg.replace(/>Z">/, '>'); // remove Z from start of file
+svg = svg.replace(/>Z"\/>/, '>'); // remove Z from start of file
 svg = svg.replace(/LZ/g, "Z"); // L doesnt happen right before Z
 
 fs.writeFileSync(outputFilename, svg);

@@ -133,9 +133,14 @@ var content = {
 			fontFamily: "'Comic Sans MS', 'Roboto', sans-serif",
 			avatars: [
 				{
-					name: "odd guy",
-					thumbnail: "avatars/bigtin/odd-guy.jpg",
+					name: "ameritin",
+					thumbnail: "avatars/bigtin/ameritin.jpg",
 					url: "https://s3.us-east-2.amazonaws.com/hifiavatarsbigtin/odd+guy+2+M/odd+guy+2+M.fst"
+				},
+				{
+					name: "tin bot 1000",
+					thumbnail: "avatars/bigtin/tin-bot-1000.jpg",
+					url: "https://s3.us-east-2.amazonaws.com/hifiavatarsbigtin/tinbot1000/tinbot1000.fst",
 				}
 			],
 		}
@@ -164,6 +169,14 @@ var content = {
 			background: "worlds/maker-bg.jpg",
 			description: "Open sandbox & official gathering spot for the Maker community.",
 			link: "hifi://maker"
+		},
+		{
+			name: "Solace",
+			logo: "worlds/solace-logo.svg",
+			logoOffset: 0,
+			background: "worlds/solace-bg.jpg",
+			description: "Worship the light in the black and white. Community managed.",
+			link: "hifi://solace"
 		}
 	]
 }
@@ -219,4 +232,5 @@ function shuffle(array) {
 	}
 	return array;
 }
-let worldSelector = new WorldSelector(document.getElementById("worlds"), shuffle(content.worlds));
+//new WorldSelector(document.getElementById("worlds"), content.worlds);
+new WorldSelector(document.getElementById("worlds"), shuffle(content.worlds));

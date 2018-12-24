@@ -76,7 +76,7 @@ function WorldSelector(parent, worlds) {
 			setStyles(logo, {
 				position: "absolute", margin: "auto",
 				top: worlds[i].logoOffset, left: "20px", right: "20px",
-				height: "200px",
+				height: (worlds[i].logoHeightOffset)? 120+worlds[i].logoHeightOffset+"px": "120px",
 
 				transform: (i==0)? "translate(0,0)": "translate(0,calc(-100% - "+worlds[i].logoOffset+"))",
 
@@ -149,7 +149,7 @@ function WorldSelector(parent, worlds) {
 	[previousButton, nextButton].forEach((button,i)=>{
 		setStyles(button, {
 			position: "absolute", margin: "auto",
-			top: "0", bottom: "0",
+			top: "0", bottom: "60px",
 			cursor: "pointer",
 			width: "24px",
 			height: "24px",
