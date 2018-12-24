@@ -231,7 +231,8 @@
 				if (!newPage) return;
 				selectedPage = newPage.id;
 
-				// close sidebar and other pages
+				// updateSettings, close sidebar and other pages
+				if (window.qt) emitEvent("updateSettings");
 				closeSidebar();
 
 				let otherPageOpen = false;
@@ -337,12 +338,10 @@
 
 				var uuid = decodeURI(_GET.uuid);
 				function emitEvent(key, value) {
-					if (window.qt) {
-						EventBridge.emitWebEvent(JSON.stringify({
-							key: key, value: value||"",
-							uuid: uuid,
-						}));
-					}
+					EventBridge.emitWebEvent(JSON.stringify({
+						key: key, value: value||"",
+						uuid: uuid,
+					}));
 				}
 
 				function changeAvatar(name, url) {
@@ -383,7 +382,7 @@
 							break;
 						}
 					});
-					emitEvent("updateSettings");
+					//emitEvent("updateSettings");
 				}, 200);
 			}
 		</script>

@@ -2,7 +2,7 @@ var content = {
 	avatars: [
 		{
 			title: "<img src='avatars/mgf.png' style='height: 80px; margin-bottom: -24px;'/>",
-			marginBottom: "32px",
+			titleOffset: 32,
 			avatars: [
 				{
 					name: "Akari Akaza",
@@ -48,7 +48,7 @@ var content = {
 		},
 		{
 			title: "<img src='avatars/subcom.svg' style='height: 40px; margin-bottom: -8px;'/>",
-			marginBottom: "16px",
+			titleOffset: 16,
 			avatars: [
 				{
 					name: "Daven Atlanta",
@@ -129,8 +129,15 @@ var content = {
 		},
 		{
 			title: "<img src='avatars/bigtin-avatars.svg' style='height: 60px; margin-bottom: -16px;'/>",
-			marginBottom: "0",
-			avatars: [],
+			titleOffset: 16,
+			fontFamily: "'Comic Sans MS', 'Roboto', sans-serif",
+			avatars: [
+				{
+					name: "odd guy",
+					thumbnail: "avatars/bigtin/odd-guy.jpg",
+					url: "https://s3.us-east-2.amazonaws.com/hifiavatarsbigtin/odd+guy+2+M/odd+guy+2+M.fst"
+				}
+			],
 		}
 	],
 	worlds: [
@@ -182,6 +189,8 @@ content.avatars.forEach(category=>{
 		let avatarName = document.createElement("p");
 		avatarName.id = "avatar-name";
 		avatarName.innerHTML = avatar.name;
+		if (category.fontFamily)
+			avatarName.style.fontFamily = category.fontFamily;
 
 		avatarSelector.appendChild(avatarThumbnail);
 		avatarSelector.appendChild(avatarName);
@@ -190,8 +199,8 @@ content.avatars.forEach(category=>{
 	});
 
 	let marginBottom = "0";
-	if (category.marginBottom)
-		marginBottom = category.marginBottom;
+	if (category.titleOffset)
+		marginBottom = category.titleOffset+"px";
 
 	document.getElementById("avatars").appendChild(new Collapse(category.title, div, {
 		marginBottom: marginBottom
