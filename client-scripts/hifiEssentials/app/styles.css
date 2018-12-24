@@ -12,7 +12,8 @@
 }
 
 body::-webkit-scrollbar {
-    width: 12px;
+    /*width: 12px;*/
+    width: 0;
 }
  
 body::-webkit-scrollbar-track {
@@ -54,7 +55,7 @@ body {
 	vertical-align: top;
 	position: relative;
 	width: 50px; height: 50px;
-	background-image: url(rainbow.png);
+	background-image: url(assets/rainbow.png);
 	background-size: 800% 100%;
 	animation-name: rainbow;
 	animation-duration: 60s;
@@ -124,19 +125,21 @@ body {
 	box-shadow: 0 0 50px rgba(29,31,33,0.6); 
 }
 
-@keyframes sorry {
-	0% { transform: rotate(-8deg); }
+@keyframes aaahembarassing {
+	0% { transform: rotate(-7deg); }
 	50% { transform: rotate( 0deg); }
-	100% { transform: rotate(-8deg); }
+	100% { transform: rotate(-7deg); }
 }
 
-#SORRRRYYYYYYYYYY {
+#aaahembarassing {
 	transform-origin: 50% 100%;
 	width: 200px;
-	margin-left: 35px;
-	margin-top: calc(100vh - 610px);
-	opacity: 0.2;
-	animation-name: sorry;
+/*	margin-left: 35px;
+	margin-top: calc(100vh - 750px);*/
+	position: absolute; margin: auto;
+	bottom: -10px; left: 55px;
+	opacity: 0.4;
+	animation-name: aaahembarassing;
 	animation-duration: 3s;
 	animation-iteration-count: infinite;
 	animation-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -144,6 +147,12 @@ body {
 
 #logo:hover {
 	transform: rotate(2deg);
+}
+
+#cutelab {
+	position: absolute; margin: auto;
+	bottom: 15px; left: 315px; 
+	width: 150px;
 }
 
 #sidebar-button {
@@ -266,7 +275,7 @@ body {
 
 .checkbox.active::before {
 	background-color: #e91e63;
-	background-image: url(check.svg);
+	background-image: url(assets/check.svg);
 }
 
 .pointer {

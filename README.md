@@ -27,5 +27,10 @@
 ## Batch Files
 
 - [defaultScripts modifier (run as admin)](https://hifi.maki.cat/batch-files/defaultScripts-modifier.bat)
-- [Run HiFi as anonymous](https://hifi.maki.cat/run-hifi-as-anonymous.bat)
+- [Run HiFi as anonymous](https://hifi.maki.cat/batch-files/run-hifi-as-anonymous.bat)
 - [Video to WebM (19.4 MB .zip)](https://hifi.maki.cat/batch-files/video-to-webm.zip)
+
+## External Scripts
+
+- [Obj to SVG](https://hifi.maki.cat/external-scripts/objToSvg.js)
+- [Translate DAE bones](https://hifi.maki.cat/external-scripts/translateDaeBones.js)

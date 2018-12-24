@@ -48,7 +48,7 @@ var content = {
 		},
 		{
 			title: "<img src='avatars/subcom.svg' style='height: 40px; margin-bottom: -8px;'/>",
-			marginBottom: "12px",
+			marginBottom: "16px",
 			avatars: [
 				{
 					name: "Daven Atlanta",
@@ -127,6 +127,37 @@ var content = {
 				},
 			]
 		},
+		{
+			title: "<img src='avatars/bigtin-avatars.svg' style='height: 60px; margin-bottom: -16px;'/>",
+			marginBottom: "0",
+			avatars: [],
+		}
+	],
+	worlds: [
+		{
+			name: "Maki",
+			logo: "worlds/maki-logo.svg",
+			logoOffset: 0,
+			background: "worlds/maki-bg.jpg",
+			description: "A cute domain for cute people who want to make things!",
+			link: "hifi://maki",
+		},
+		{
+			name: "Portalarium",
+			logo: "worlds/portalarium-logo.svg",
+			logoOffset: 20,
+			background: "worlds/portalarium-bg.jpg",
+			description: "A peaceful camp ground with teleporters.",
+			link: "hifi://portalarium",
+		},
+		{
+			name: "Maker",
+			logo: "worlds/maker-logo.svg",
+			logoOffset: 0,
+			background: "worlds/maker-bg.jpg",
+			description: "Open sandbox & official gathering spot for the Maker community.",
+			link: "hifi://maker"
+		}
 	]
 }
 
@@ -162,7 +193,21 @@ content.avatars.forEach(category=>{
 	if (category.marginBottom)
 		marginBottom = category.marginBottom;
 
-	getPageEl("avatars").appendChild(new Collapse(category.title, div, {
+	document.getElementById("avatars").appendChild(new Collapse(category.title, div, {
 		marginBottom: marginBottom
 	}))
 }) 
+
+// worlds
+function shuffle(array) {
+	var currentIndex = array.length, temporaryValue, randomIndex;
+	while (0 !== currentIndex) {
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+		temporaryValue = array[currentIndex];
+		array[currentIndex] = array[randomIndex];
+		array[randomIndex] = temporaryValue;
+	}
+	return array;
+}
+let worldSelector = new WorldSelector(document.getElementById("worlds"), shuffle(content.worlds));

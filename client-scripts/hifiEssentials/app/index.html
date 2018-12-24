@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>HiFi Essentials</title>
+		<title>hifi essentials</title>
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,700" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="WorldSelector.js"></script>
 	</head>
 	<body>
 		<div id="top-bar">
@@ -14,48 +15,51 @@
 		</div>
 		<div id="content">
 			<div id="avatars" style="display: none;"></div>
-			<div id="apps" style="display: none;">
-				<p>apps!</p>
-			</div>
-			<div id="settings" style="display: none; margin: 15px;">
-				<h1>Avatar</h1>
+			<div id="worlds" style="display: none; margin: -10px; height: calc(100vh - 50px); margin-bottom: -60px;"></div>
+			<div id="apps" style="display: none;"></div>
+			<div id="settings" style="display: none; margin: 10px;">
+				<h1>avatar</h1>
 				<br>
 				<div style="margin-left: 16px;">
 					<table cellspacing="8px">
 						<tr class="pointer" id="settings-disableCollisions">
 							<td class="checkbox"></td>
-							<td><h2>Disable collisions</h2></td>
+							<td><h2 style="margin-left:8px">disable collisions</h2></td>
+						</tr>
+						<tr class="pointer" id="settings-enableFlying">
+							<td class="checkbox"></td>
+							<td><h2 style="margin-left:8px">enable flying</h2></td>
 						</tr>
 					</table>
 					<br>
-					<h2 style="margin-left: 8px;">Size</h2>
+					<h2 style="margin-left: 8px;">size</h2>
 					<table cellspacing="8px">
 						<tr class="pointer">
-							<td class="button" id="settings-sizeSmaller">Smaller</td>
-							<td class="button" id="settings-sizeBigger">Bigger</td>
+							<td class="button" id="settings-sizeBigger"><svg class="icon" style="fill:#fff;margin:0 -4px;margin-bottom:-5px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> bigger</td>
+							<td class="button" id="settings-sizeSmaller"><svg class="icon" style="fill:#fff;margin:0 -4px;margin-bottom:-5px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg> smaller</td>
 							<td class="button" id="settings-sizeDefault">1</td>
 							<td><input id="settings-sizeNumber" type="number" style="width: 52px;"/></td>
 						</tr>
 					</table>
 					<br>
-					<h2 style="margin-left: 8px;">Speed</h2>
+					<h2 style="margin-left: 8px;">speed</h2>
 					<table cellspacing="8px">
 						<tr class="pointer">
-							<td class="button" id="settings-speedFaster">Faster</td>
-							<td class="button" id="settings-speedSlower">Slower</td>
+							<td class="button" id="settings-speedFaster"><svg class="icon" style="fill:#fff;margin:0 -4px;margin-bottom:-5px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> faster</td>
+							<td class="button" id="settings-speedSlower"><svg class="icon" style="fill:#fff;margin:0 -4px;margin-bottom:-5px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg> slower</td>
 							<td class="button" id="settings-speedDefault">2.6</td>
 							<td><input id="settings-speedNumber" type="number" style="width: 52px;"/></td>
 						</tr>
 					</table>
 				</div>
 				<br>
-				<h1>Graphics</h1>
+				<h1>graphics</h1>
 				<br>
 				<div style="margin-left: 16px;">
 					<table cellspacing="8px">
 						<tr class="pointer" id="settings-disableAntiAliasing">
 							<td class="checkbox"></td>
-							<td><h2>Disable anti-aliasing</h2></td>
+							<td><h2 style="margin-left:8px">disable anti-aliasing</h2></td>
 						</tr>
 					</table>
 				</div>
@@ -65,6 +69,7 @@
 					[
 						// avatar
 						{id:"disableCollisions", event:"click", callback:()=>{changeSettings("disableCollisions")}},
+						{id:"enableFlying", event:"click", callback:()=>{changeSettings("enableFlying")}},
 							// size
 							{id:"sizeSmaller", event:"click", callback:()=>{changeSettings("sizeSmaller")}},
 							{id:"sizeBigger", event:"click", callback:()=>{changeSettings("sizeBigger")}},
@@ -102,14 +107,22 @@
 			</div>
 		</div>
 		<div id="sidebar">
-			<div id="sidebar-background" style="background-image: url(sakura.gif);"></div>
+			<div id="sidebar-background" style="background-image: url(assets/sakura.gif);"></div>
+			<div id="sidebar-background" style="top: 75%; background: linear-gradient(180deg, rgba(29,31,33,0),rgba(29,31,33,1))"></div>
 			<div id="sidebar-content">
-				<img id="logo" src="logo.svg"><br>
+				<img id="logo" src="assets/logo.svg"><br>
+				<img id="cutelab" src="assets/cutelab.svg">
 				<br>
 				<a href="javascript:changePage('avatars')">
 					<div id="sidebar-button" class="avatars" style="background-color: #e91e63">
 						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.5 6c-2.61.7-5.67 1-8.5 1s-5.89-.3-8.5-1L3 8c1.86.5 4 .83 6 1v13h2v-6h2v6h2V9c2-.17 4.14-.5 6-1l-.5-2zM12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
 						<h2>avatars</h2>
+					</div>
+				</a>
+				<a href="javascript:changePage('worlds')">
+					<div id="sidebar-button" class="worlds" style="background-color: #8bc34a">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+						<h2>worlds</h2>
 					</div>
 				</a>
 				<a href="javascript:changePage('apps')">
@@ -130,7 +143,7 @@
 					<br>
 					<p>Feel free to send a message to <span style="font-family: 'Roboto Mono', monospace;">Maki#4845</span> on Discord if you have any queries or suggestions!</p>
 				</div>
-				<img src="https://maki.cat/u/laF5XB.png" id="SORRRRYYYYYYYYYY">
+				<img id="aaahembarassing" src="assets/caitlyn-maki.png">
 			</div>
 		</div>
 		<script type="text/javascript">
@@ -140,7 +153,7 @@
 			var elSidebar = document.getElementById("sidebar");
 			var elSidebarContent = document.getElementById("sidebar-content");
 
-			elSidebar.addEventListener("click", e=>{ // closing sidebar\
+			elSidebar.addEventListener("click", e=>{ // closing sidebar
 				if (e.target.id != "sidebar-background") return;
 				if (!selectedPage) return;
 				closeSidebar();
@@ -149,12 +162,12 @@
 			function changeTopBar(text, color) {
 				let div = document.createElement("div");
 				div.innerHTML = text;
-				div.style.backgroundColor = color;
 				div.style.opacity = "0";
 
 				let oldDiv = elTopBarText.children[0] 
 				if (oldDiv) oldDiv.style.opacity = "0";
 				
+				elTopBarText.style.backgroundColor = color;
 				elTopBarText.appendChild(div);
 				setTimeout(()=>{
 					if (oldDiv) oldDiv.remove();
@@ -202,41 +215,19 @@
 
 			var pages = [
 				"avatars",
+				"worlds",
 				"apps",
 				"settings",
-			].map(id=>document.getElementById(id));
-			function getPageEl(page) {
-				for (var i=0; i<pages.length; i++) {
-					if (page == pages[i].id) {
-						return pages[i];
-						break;
-					}
-				}
-				return undefined;
-			}
+			]
 
-			var pageButtons = [
-				"avatars",
-				"apps",
-				"settings",
-			].map(id=>document.querySelector("#sidebar-content ."+id));
-			function getPageButtonEl(page) {
-				for (var i=0; i<pageButtons.length; i++) {
-					if (page == pageButtons[i].className) {
-						return pageButtons[i];
-						break;
-					}
-				}
-				return undefined
-			}
-
+			var pageEls = pages.map(id=>document.getElementById(id));
 			var selectedPage = undefined;
 
 			function changePage(newPage) {
 				if (selectedPage == newPage) return closeSidebar();
 
 				// find new page
-				newPage = getPageEl(newPage);
+				newPage = document.getElementById(newPage);
 				if (!newPage) return;
 				selectedPage = newPage.id;
 
@@ -244,7 +235,7 @@
 				closeSidebar();
 
 				let otherPageOpen = false;
-				pages.forEach(page=>{
+				pageEls.forEach(page=>{
 					if (page.style.display == "none") return;
 					otherPageOpen = true;
 
@@ -271,12 +262,11 @@
 				}
 
 				// change top bar to match button
-				let pageButton = getPageButtonEl(newPage.id);
-				if (pageButtons)
-					changeTopBar(
-						pageButton.innerHTML,
-						pageButton.style.backgroundColor
-					);
+				let pageButton = document.querySelector("#sidebar-content ."+newPage.id);
+				changeTopBar(
+					pageButton.innerHTML,
+					pageButton.style.backgroundColor
+				);
 			}
 
 			function Collapse(title, content, styles) { // returns el
@@ -380,6 +370,9 @@
 								setClassToEl(
 									document.querySelector("#settings-disableCollisions .checkbox"),
 									"active", json.value.disableCollisions);
+								setClassToEl(
+									document.querySelector("#settings-enableFlying .checkbox"),
+									"active", json.value.enableFlying);
 
 								document.getElementById("settings-sizeNumber").value = json.value.sizeNumber;
 								document.getElementById("settings-speedNumber").value = json.value.speedNumber;
