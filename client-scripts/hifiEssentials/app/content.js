@@ -139,7 +139,7 @@ var content = {
 			logo: "worlds/maki-logo.svg",
 			logoOffset: 0,
 			background: "worlds/maki-bg.jpg",
-			description: "A cute domain for cute people who want to make things!",
+			description: "A cute domain for cute people who want to make cute things!",
 			link: "hifi://maki",
 		},
 		{
