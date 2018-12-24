@@ -153,6 +153,8 @@ body {
 	position: absolute; margin: auto;
 	bottom: 15px; left: 315px; 
 	width: calc(100vw - 330px);
+	max-width: 200px;
+	opacity: 0.4;
 }
 
 #sidebar-button {

@@ -9,7 +9,7 @@
 		var sound = [];
 		for (var j=0; j<3; j++) { // a,b,c
 			sound.push(
-				Script.resolvePath("sounds/hairbrush0"+i+String.fromCharCode(97+j)+".wav")
+				Script.resolvePath("../sounds/hairbrush0"+i+String.fromCharCode(97+j)+".wav")
 			);
 		}
 		sounds.push(sound);
