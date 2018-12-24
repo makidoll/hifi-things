@@ -3,9 +3,9 @@
 	// 	"volume": 0.1,
 	// 	"randomize": true,
 	// 	"sounds": [
-	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush01a.wav",
-	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush02b.wav",
-	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush03b.wav"	
+	// 		"https://hifi.maki.coffee/client-scripts/makisThings/sounds/test/hairbrush01a.wav",
+	// 		"https://hifi.maki.coffee/client-scripts/makisThings/sounds/test/hairbrush02b.wav",
+	// 		"https://hifi.maki.coffee/client-scripts/makisThings/sounds/test/hairbrush03b.wav"	
 	// 	]
 	// }
 
