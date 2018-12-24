@@ -152,7 +152,7 @@ body {
 #cutelab {
 	position: absolute; margin: auto;
 	bottom: 15px; left: 315px; 
-	width: 150px;
+	width: calc(100vw - 330px);
 }
 
 #sidebar-button {

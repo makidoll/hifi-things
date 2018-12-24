@@ -159,7 +159,7 @@ var content = {
 			logo: "worlds/portalarium-logo.svg",
 			logoOffset: 20,
 			background: "worlds/portalarium-bg.jpg",
-			description: "A peaceful camp ground with teleporters.",
+			description: "A calm, cozy and peaceful camp ground with teleporters.",
 			link: "hifi://portalarium",
 		},
 		{
