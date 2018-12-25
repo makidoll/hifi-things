@@ -7,42 +7,42 @@ var content = {
 				{
 					name: "Akari Akaza",
 					thumbnail: "avatars/mgf/yraitm001.jpg",
-					url: "https://maki.cat/hifi/mgf/avatars/yraitm001.fst",
+					url: "https://hotmilk.space/mgf/yraitm001.fst",
 				},
 				{
 					name: "Chinatsu Yoshikawa",
 					thumbnail: "avatars/mgf/yrcitm001.jpg",
-					url: "https://maki.cat/hifi/mgf/avatars/yrcitm001.fst",
+					url: "https://hotmilk.space/mgf/yrcitm001.fst",
 				},
 				{
 					name: "Kyouko Toshinou",
 					thumbnail: "avatars/mgf/yrkitm001.jpg",
-					url: "https://maki.cat/hifi/mgf/avatars/yrkitm001.fst",
+					url: "https://hotmilk.space/mgf/yrkitm001.fst",
 				},
 				{
 					name: "Yui Funami",
 					thumbnail: "avatars/mgf/yryitm001.jpg",
-					url: "https://maki.cat/hifi/mgf/avatars/yryitm001.fst",
+					url: "https://hotmilk.space/mgf/yryitm001.fst",
 				},
 				{
 					name: "Akari Akaza",
 					thumbnail: "avatars/mgf/yraitm002.jpg",
-					url: "https://maki.cat/hifi/mgf/avatars/yraitm002.fst",
+					url: "https://hotmilk.space/mgf/yraitm002.fst",
 				},
 				{
 					name: "Chinatsu Yoshikawa",
 					thumbnail: "avatars/mgf/yrcitm002.jpg",
-					url: "https://maki.cat/hifi/mgf/avatars/yrcitm002.fst",
+					url: "https://hotmilk.space/mgf/yrcitm002.fst",
 				},
 				{
 					name: "Kyouko Toshinou",
 					thumbnail: "avatars/mgf/yrkitm002.jpg",
-					url: "https://maki.cat/hifi/mgf/avatars/yrkitm002.fst",
+					url: "https://hotmilk.space/mgf/yrkitm002.fst",
 				},
 				{
 					name: "Yui Funami",
 					thumbnail: "avatars/mgf/yryitm002.jpg",
-					url: "https://maki.cat/hifi/mgf/avatars/yryitm002.fst",
+					url: "https://hotmilk.space/mgf/yryitm002.fst",
 				},
 			],
 		},
@@ -135,12 +135,12 @@ var content = {
 				{
 					name: "ameritin",
 					thumbnail: "avatars/bigtin/ameritin.jpg",
-					url: "https://s3.us-east-2.amazonaws.com/hifiavatarsbigtin/odd+guy+2+M/odd+guy+2+M.fst"
+					url: "https://hotmilk.space/bigtin/ameritin.fst"
 				},
 				{
 					name: "tin bot 1000",
-					thumbnail: "avatars/bigtin/tin-bot-1000.jpg",
-					url: "https://s3.us-east-2.amazonaws.com/hifiavatarsbigtin/tinbot1000/tinbot1000.fst",
+					thumbnail: "avatars/bigtin/tinbot1000.jpg",
+					url: "https://hotmilk.space/bigtin/tinbot1000.fst",
 				}
 			],
 		}
