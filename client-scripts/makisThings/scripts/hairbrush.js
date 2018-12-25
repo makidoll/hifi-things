@@ -41,12 +41,12 @@
 
 		start.finished.connect(function() {
 			if (!brushing) return;
-			midAudioInjector = Audio.playSound(selectedSound[1], {
+			midAudioInjectors.push(Audio.playSound(selectedSound[1], {
 				position: Entities.getEntityProperties(entityID, ["position"]).position,
 				volume: 1,
 				localOnly: false,
 				loop: true,
-			});
+			}));
 		});
 	}
 
