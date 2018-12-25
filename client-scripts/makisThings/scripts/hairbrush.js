@@ -17,12 +17,19 @@
 	
 	var brushing = false;
 	var selectedSound = undefined;
-	var midAudioInjector = undefined;
+	var midAudioInjectors = [];
+
+	function killAllMidAudioInjectors() {
+		if (midAudioInjector.length>0) {
+			midAudioInjectors.forEach(function(midAudioInjector) {
+				if (midAudioInjector.isPlaying) midAudioInjector.stop();
+			});
+		}
+		midAudioInjectors = [];
+	}
 
 	function startBrushing() {
-		if (midAudioInjector)
-			if (midAudioInjector.isPlaying)
-				midAudioInjector.stop();
+		killAllMidAudioInjectors();
 
 		selectedSound = sounds[Math.floor(Math.random()*sounds.length)];
 
@@ -44,9 +51,7 @@
 	}
 
 	function stopBrushing() {
-		if (midAudioInjector)
-			if (midAudioInjector.isPlaying)
-				midAudioInjector.stop();
+		killAllMidAudioInjectors();
 
 		Audio.playSound(selectedSound[2], {
 			position: Entities.getEntityProperties(entityID, ["position"]).position,
@@ -74,8 +79,6 @@
 		Controller.inputEvent.disconnect(this.inputEvent);
 
 		brushing = false;
-		if (midAudioInjector)
-			if (midAudioInjector.isPlaying)
-				midAudioInjector.stop();
+		killAllMidAudioInjectors();
 	}
 })
