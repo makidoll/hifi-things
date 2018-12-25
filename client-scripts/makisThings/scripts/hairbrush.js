@@ -8,9 +8,9 @@
 	for (var i=1; i<=6; i++) { // 6 sounds
 		var sound = [];
 		for (var j=0; j<3; j++) { // a,b,c
-			sound.push(
+			sound.push(SoundCache.getSound(
 				Script.resolvePath("../sounds/hairbrush0"+i+String.fromCharCode(97+j)+".wav")
-			);
+			));
 		}
 		sounds.push(sound);
 	}
