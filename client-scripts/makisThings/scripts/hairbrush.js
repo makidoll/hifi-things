@@ -20,7 +20,7 @@
 	var midAudioInjectors = [];
 
 	function killAllMidAudioInjectors() {
-		if (midAudioInjector.length>0) {
+		if (midAudioInjectors.length>0) {
 			midAudioInjectors.forEach(function(midAudioInjector) {
 				if (midAudioInjector.isPlaying) midAudioInjector.stop();
 			});
