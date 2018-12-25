@@ -55,8 +55,8 @@ function changeSettings(key, value) {
 
 		case "disableAntiAliasing":
 			if (!value) value = {};
-			if (Settings.getValue("coffee.maki.hifiEssentials.disableAntiAliasing") && !value.forced) {
-				Settings.setValue("coffee.maki.hifiEssentials.disableAntiAliasing", false);
+			if (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing") && !value.forced) {
+				Settings.setValue("cat.maki.hifiEssentials.disableAntiAliasing", false);
 
 				Render.getConfig("RenderMainView.Antialiasing")["constrainColor"] = true;
 				Render.getConfig("RenderMainView.Antialiasing")["feedbackColor"] = true;
@@ -70,7 +70,7 @@ function changeSettings(key, value) {
 				Render.getConfig("SecondaryCameraJob.Antialiasing")["sharpen"] = 0.05;
 				Render.getConfig("SecondaryCameraJob.JitterCam").play();
 			} else {
-				Settings.setValue("coffee.maki.hifiEssentials.disableAntiAliasing", true);
+				Settings.setValue("cat.maki.hifiEssentials.disableAntiAliasing", true);
 
 				Render.getConfig("RenderMainView.Antialiasing")["constrainColor"] = false;
 				Render.getConfig("RenderMainView.Antialiasing")["feedbackColor"] = false;
@@ -107,7 +107,7 @@ function updateSettings(override) {
 		sizeNumber: MyAvatar.scale.toFixed(3),
 		speedNumber: MyAvatar.walkSpeed.toFixed(3),
 
-		disableAntiAliasing: (Settings.getValue("coffee.maki.hifiEssentials.disableAntiAliasing"))? true: false,
+		disableAntiAliasing: (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing"))? true: false,
 	})
 }
 
@@ -145,7 +145,7 @@ function buttonClicked() {
 
 // init
 
-if (Settings.getValue("coffee.maki.hifiEssentials.disableAntiAliasing")) {
+if (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing")) {
 	changeSettings("disableAntiAliasing", {forced:true});
 }
 
