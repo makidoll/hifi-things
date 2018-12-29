@@ -95,9 +95,10 @@ let bones = {
 }
 
 Object.keys(bones).reverse().forEach((boneName, i)=>{
-	daeFile = daeFile.replace(/mixamorig_/g, "");
+	daeFile = daeFile.replace(/mixamorig[_:]/g, "");
 
 	switch (translateTo) {
+		case "hifi": break;
 		default:
 			daeFile = daeFile.replace(
 				new RegExp(boneName, "gi"),
