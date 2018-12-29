@@ -12,7 +12,7 @@
 		}
 	}	
 
-	this.startNearTrigger = this.loadAvatar;
+	//this.startNearTrigger = this.loadAvatar;
 	this.startFarTrigger = this.loadAvatar;
 	this.clickDownOnEntity = function(entityID, mouseEvent) {
 		if (mouseEvent.isLeftButton) this.loadAvatar(entityID);
