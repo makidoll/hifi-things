@@ -2,6 +2,7 @@ function GrabMe() {
 	var entityID = undefined;
 	var active = false;
 	var interval = undefined;
+	var previousScale = 1;
 
 	this.enable = function() {
 		if (active) return;
@@ -41,6 +42,7 @@ function GrabMe() {
 			//MyAvatar.orientation = entity.rotation; 
 		}, 1000);
 
+		previousScale = MyAvatar.scale;
 		MyAvatar.scale = 0.274;
 		MyAvatar.setCollisionsEnabled(false);
 		active = true;
@@ -54,6 +56,7 @@ function GrabMe() {
 		//MyAvatar.setParentID("");
 		if (interval) Script.clearInterval(interval);
 
+		MyAvatar.scale = previousScale;
 		MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
 		MyAvatar.setCollisionsEnabled(true);
 		active = false;
