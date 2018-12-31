@@ -9,6 +9,7 @@
 
 ## Client Entity Scripts
 
+- [Join Leave](https://hifi.maki.cat/client-entity-scripts/joinLeave.js)
 - [Load Avatar](https://hifi.maki.cat/client-entity-scripts/loadAvatar.js)
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
 - [Overlay Screen](https://hifi.maki.cat/client-entity-scripts/overlayScreen.js)
