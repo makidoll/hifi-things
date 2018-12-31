@@ -7,6 +7,7 @@ function GrabMe() {
 		if (active) return;
 
 		entityID = Entities.addEntity({
+			name: "Grab Me - "+MyAvatar.sessionDisplayName,
 			type: "Box",
 			grab: { grab: true },
 			collisionless: true,
