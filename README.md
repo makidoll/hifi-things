@@ -6,6 +6,7 @@
 - [Head Stacker](https://hifi.maki.cat/client-scripts/headStacker/headStacker.js)
 - [Maki's Nametags](https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js)
 - [Maki's Things](https://hifi.maki.cat/client-scripts/makisThings/makisThings.js)
+- [Grab Me](https://hifi.maki.cat/client-scripts/grabMe.js)
 
 ## Client Entity Scripts
 
@@ -22,6 +23,7 @@
 
 - [Candy Spiral](https://hifi.maki.cat/shaders/candySpiral.fs)
 - [Greenscreen](https://hifi.maki.cat/shaders/greenscreen.fs)
+- [Invisible](https://hifi.maki.cat/shaders/invisible.fs)
 - [Lava Lamp](https://hifi.maki.cat/shaders/lavaLamp.fs)
 - [Lava Lamp Image](https://hifi.maki.cat/shaders/lavaLampImage.fs)
 
