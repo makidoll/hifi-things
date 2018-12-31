@@ -13,13 +13,14 @@ function GrabMe() {
 			//parentID: MyAvatar.sessionUUID,
 			canCastShadow: false,
 			position: MyAvatar.position,
-			dimensions: { x: 0.15, y: 0.4, z: 0.15, },
+			dimensions: { x: 0.15, y: 0.4, z: 0.15 },
 			userData: JSON.stringify({
-				"ProceduralEntity": {
-					"shaderUrl": Script.resolvePath("../shaders/invisible.fs"),
-					"version": 2,
+				ProceduralEntity: {
+					shaderUrl: Script.resolvePath("../shaders/invisible.fs"),
+					version: 2,
 				}
 			}),
+			lifetime: 60*60*24, // 24 hours
 			rotation: MyAvatar.orientation,
 		}, !(Entities.canRez()||Entities.canRezTmp()));
 		if (!entityID) return;
@@ -28,6 +29,10 @@ function GrabMe() {
 		interval = Script.setInterval(function() {
 			if (!entityID) return;
 			var entity = Entities.getEntityProperties(entityID, ["position"]);
+
+			Entities.editEntity(entityID, {
+				dimensions: { x: 0.15, y: 0.4, z: 0.15 }
+			});
 			
 			if (!Vec3.withinEpsilon(MyAvatar.position, entity.position, 0.075))
 				MyAvatar.position = entity.position;
