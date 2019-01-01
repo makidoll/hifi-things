@@ -61,7 +61,8 @@
 	}
 
 	this.inputEvent = function(action, value) {
-		if (action != Controller.Standard.RTClick) return;
+		if (action != Controller.Standard.RTClick &&
+			action != Controller.Standard.LTClick) return;
 
 		brushing = !brushing;
 		if (brushing) {
