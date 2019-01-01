@@ -3,7 +3,6 @@ function GrabMe() {
 	var active = false;
 	var interval = undefined;
 	var previousScale = 1;
-	var previousPosition = undefined;
 
 	this.enable = function() {
 		if (active) return;
@@ -33,7 +32,6 @@ function GrabMe() {
 		interval = Script.setInterval(function() {
 			if (!entityID) return;
 			var entity = Entities.getEntityProperties(entityID, ["position"]);
-			previousPosition = entity.position; // used for tping back incase user self grabs
 
 			Entities.editEntity(entityID, {
 				dimensions: { x: 0.15, y: 0.4, z: 0.15 }
