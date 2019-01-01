@@ -6,6 +6,7 @@ function GrabMe() {
 
 	this.enable = function() {
 		if (active) return;
+		if (!Entities.canRez() && !Entities.canRezTmp()) return;
 
 		entityID = Entities.addEntity({
 			name: "Grab Me - "+MyAvatar.sessionDisplayName,
@@ -24,10 +25,12 @@ function GrabMe() {
 			}),
 			lifetime: 60*60*24, // 24 hours
 			rotation: MyAvatar.orientation,
-		}, !(Entities.canRez()||Entities.canRezTmp()));
+		});
 		if (!entityID) return;
 
+		Controller.disableMapping("com.highfidelity.controllerDispatcher");
 		MyAvatar.setParentID(entityID);
+		MyAvatar.setCollisionsEnabled(false);
 
 		interval = Script.setInterval(function() {
 			if (!entityID) return;
@@ -45,9 +48,7 @@ function GrabMe() {
 
 		previousScale = MyAvatar.scale;
 		MyAvatar.scale = 0.274;
-		MyAvatar.setCollisionsEnabled(false);
 
-		Controller.disableMapping("com.highfidelity.controllerDispatcher")
 		active = true;
 	}
 
@@ -55,15 +56,16 @@ function GrabMe() {
 		if (!active) return;
 
 		Entities.deleteEntity(entityID);
-		//MyAvatar.setParentID("");
 
+		Controller.enableMapping("com.highfidelity.controllerDispatcher");
+		MyAvatar.setParentID("");
+		MyAvatar.setCollisionsEnabled(true);
+		
 		if (interval) Script.clearInterval(interval);
 
 		MyAvatar.scale = previousScale;
 		MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
-		MyAvatar.setCollisionsEnabled(true);
 
-		Controller.enableMapping("com.highfidelity.controllerDispatcher")
 		active = false;
 	}
 }
