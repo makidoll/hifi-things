@@ -285,6 +285,10 @@ body {
 	background-image: url(assets/check.svg);
 }
 
+.checkbox:hover, .button:hover {
+	transform: scale(0.9) !important;	
+}
+
 .pointer {
 	cursor: pointer;
 }
@@ -354,4 +358,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 #scripts .checkbox.active::before {
 	background-color: #ff9800;
+}
+
+.slide-navigation:hover {
+	transform: scale(0.9);
+}
+
+.slide-link:hover {
+	padding-bottom: 35px !important;
 }

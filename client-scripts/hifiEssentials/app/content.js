@@ -190,7 +190,12 @@ var content = {
 			title: "<img src='scripts/fingerPaint.svg' style='height: 40px'/>"+
 				"<p style='padding-left: 8px; opacity: 0.7; margin-top: -2px;'>by Mimicry</p>",
 			link: "http://mpassets.highfidelity.com/d3985860-e94a-42d8-aa1f-c498b2cebabd-v1/fingerPaint.js"
-		}
+		},
+		{
+			title: "<img src='scripts/chat.svg' style='height: 25px'/>"+
+				"<p style='padding-left: 8px; opacity: 0.7;'>by George</p>",
+			link: "https://transmissiongate.com/hifi/chat/chat.js"
+		},
 	]
 }
 

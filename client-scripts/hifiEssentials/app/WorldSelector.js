@@ -148,6 +148,7 @@ function WorldSelector(parent, worlds) {
 	let nextButton = document.createElement("a");
 	[previousButton, nextButton].forEach((button,i)=>{
 		button.href = "javascript:"
+		button.className = "slide-navigation"
 
 		setStyles(button, {
 			position: "absolute", margin: "auto",
