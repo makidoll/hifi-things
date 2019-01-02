@@ -340,6 +340,7 @@
 								let scriptsChildren = document.querySelector("#scripts>table").children;
 
 								for (let i=0; i<scriptsChildren.length; i+=1) {
+									if (!scriptsChildren[i].id) continue;
 									scriptsEnabled[
 										scriptsChildren[i].id.replace("scripts-","")
 									] = false;
@@ -355,6 +356,8 @@
 										scriptsEnabled[filename] = true;
 									} 
 								});
+
+								console.log(scriptsEnabled)
 
 								scriptsFilenames.forEach(filename=>{
 									setClassToEl(
