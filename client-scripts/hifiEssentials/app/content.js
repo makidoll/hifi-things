@@ -1,8 +1,7 @@
 var content = {
 	avatars: [
 		{
-			title: "<img src='avatars/mgf.png' style='height: 80px; margin-bottom: -24px;'/>",
-			titleOffset: 32,
+			title: "<img src='avatars/mgf.png' style='height: 80px'/>",
 			avatars: [
 				{
 					name: "Akari Akaza",
@@ -47,8 +46,7 @@ var content = {
 			],
 		},
 		{
-			title: "<img src='avatars/subcom.svg' style='height: 40px; margin-bottom: -8px;'/>",
-			titleOffset: 16,
+			title: "<img src='avatars/subcom.svg' style='height: 40px'/>",
 			avatars: [
 				{
 					name: "Daven Atlanta",
@@ -128,8 +126,7 @@ var content = {
 			]
 		},
 		{
-			title: "<img src='avatars/bigtin-avatars.svg' style='height: 60px; margin-bottom: -16px;'/>",
-			titleOffset: 16,
+			title: "<img src='avatars/bigtin-avatars.svg' style='height: 60px'/>",
 			fontFamily: "'Comic Sans MS', 'Roboto', sans-serif",
 			avatars: [
 				{
@@ -178,6 +175,22 @@ var content = {
 			description: "Worship the light in the black and white. Community managed.",
 			link: "hifi://solace"
 		}
+	],
+	scripts: [
+		{
+			title: "<img src='scripts/makisNametags.svg' style='height: 30px'/>",
+			link: "https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js"
+		},
+		{
+			title: "<img src='scripts/portalDropper.svg' style='height: 30px'/>"+
+				"<p style='padding-left: 8px; opacity: 0.7;'>by FluffyJenkins</p>",
+			link: "http://mpassets.highfidelity.com/74fdb4d7-1f55-487c-b2c7-e63044059599-v1/app-portalDropper.js"
+		},
+		{
+			title: "<img src='scripts/fingerPaint.svg' style='height: 30px'/>"+
+				"<p style='padding-left: 8px; opacity: 0.7; margin-top: -4px;'>by Mimicry</p>",
+			link: "http://mpassets.highfidelity.com/d3985860-e94a-42d8-aa1f-c498b2cebabd-v1/fingerPaint.js"
+		}
 	]
 }
 
@@ -211,13 +224,7 @@ content.avatars.forEach(category=>{
 		div.appendChild(avatarEl);
 	});
 
-	let marginBottom = "0";
-	if (category.titleOffset)
-		marginBottom = category.titleOffset+"px";
-
-	document.getElementById("avatars").appendChild(new Collapse(category.title, div, {
-		marginBottom: marginBottom
-	}))
+	document.getElementById("avatars").appendChild(new Collapse(category.title, div))
 }) 
 
 // worlds
@@ -232,5 +239,39 @@ function shuffle(array) {
 	}
 	return array;
 }
-//new WorldSelector(document.getElementById("worlds"), content.worlds);
+
 new WorldSelector(document.getElementById("worlds"), shuffle(content.worlds));
+
+// scripts
+let scriptsTable = document.createElement("table"); 
+scriptsTable.cellSpacing = "10px";
+
+content.scripts.forEach(script=>{
+	let safeFilename = script.link.split("/").pop().split(".");
+	safeFilename.pop();
+	safeFilename = safeFilename.join(".");
+
+	let tr = document.createElement("tr");
+	tr.className = "pointer";
+	tr.id = "scripts-"+safeFilename;
+	tr.addEventListener("click", ()=>{
+		emitEvent("toggleScript", script.link);
+	});
+
+	let tdCheckbox = document.createElement("td");
+	tdCheckbox.style.verticalAlign = "middle";
+	let checkbox = document.createElement("div")
+	checkbox.className = "checkbox";
+	tdCheckbox.appendChild(checkbox);
+
+	let tdTitle = document.createElement("td");
+	tdTitle.innerHTML = script.title;
+	tdTitle.style.verticalAlign = "middle";
+	tdTitle.style.paddingLeft = "16px";
+
+	tr.appendChild(tdCheckbox);
+	tr.appendChild(tdTitle);
+	scriptsTable.appendChild(tr);
+});
+
+document.getElementById("scripts").appendChild(scriptsTable);

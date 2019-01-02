@@ -144,9 +144,11 @@ function WorldSelector(parent, worlds) {
 	this.previousSlide = ()=>{ continueSlide(false); };
 	this.nextSlide = ()=>{ continueSlide(true); };
 
-	let previousButton = document.createElement("div");
-	let nextButton = document.createElement("div");
+	let previousButton = document.createElement("a");
+	let nextButton = document.createElement("a");
 	[previousButton, nextButton].forEach((button,i)=>{
+		button.href = "javascript:"
+
 		setStyles(button, {
 			position: "absolute", margin: "auto",
 			top: "0", bottom: "60px",

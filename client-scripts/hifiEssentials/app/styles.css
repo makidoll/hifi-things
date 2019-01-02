@@ -62,6 +62,7 @@ body {
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
 	cursor: pointer;
+	transform-origin: 0 0;
 }
 
 #top-bar-sidebar svg {
@@ -71,6 +72,11 @@ body {
 	width: 36px;
 	height: 36px;
 	fill: #fff;
+	margin: 0;
+}
+
+#top-bar-sidebar:hover {
+	transform: scale(1.15);
 }
 
 #top-bar-text {
@@ -154,7 +160,7 @@ body {
 	bottom: 15px; left: 315px; 
 	width: calc(100vw - 330px);
 	max-width: 200px;
-	opacity: 0.4;
+	opacity: 1;
 }
 
 #sidebar-button {
@@ -196,15 +202,14 @@ body {
 	margin-bottom: -6px;
 }
 
-#collapse h1 {
+#collapse table {
 	margin: 10px;
 	font-weight: 700;
 	cursor: pointer;
 }
 
-#collapse h1>svg {
-	display: inline-block;
-	margin-bottom: -14px;
+#collapse td>svg {
+	display: block;
 	width: 48px;
 	height: 48px;
 }
@@ -308,4 +313,45 @@ input[type=number]::-webkit-outer-spin-button {
 	-moz-appearance: none; 
 	-webkit-appearance: none; 
 	margin: 0; 
+}
+
+#settings br {
+	content: "";
+	display: block;
+	margin: 10px 0;
+}
+
+#settings .icon {
+	width: 32px; height: 32px;
+	opacity: 0.7;
+	margin-top: -2px !important;
+	margin-right: 2px;
+}
+
+
+#settings .button .icon {
+	width: 24px; height: 24px;
+	margin-bottom: -5px !important;
+	opacity: 1;
+}
+
+/*#settings .button {
+	background-color: #FF9800;
+}
+
+#settings input {
+	border-color: #FF9800;
+}
+
+#settings .checkbox::before {
+	border-color: #FF9800;
+}
+*/
+
+#scripts .checkbox::before {
+	border-color: #ff9800;
+}
+
+#scripts .checkbox.active::before {
+	background-color: #ff9800;
 }

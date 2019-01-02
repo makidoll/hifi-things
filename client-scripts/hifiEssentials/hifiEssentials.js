@@ -13,6 +13,8 @@ var button = tablet.addButton({
 	text: "essentials"
 });
 
+console.log(JSON.stringify(button.getProperties()))
+
 function emitEvent(key, value) {
 	tablet.emitScriptEvent(JSON.stringify({
 		key: key, value: value,
@@ -20,14 +22,16 @@ function emitEvent(key, value) {
 	}));
 }
 
-function changeSettings(key, value) {
+function changeSetting(key, value) {
 	var somethingChanged = true;
-	var dontSomethingChanged = false;
 
 	switch (key) {
 		case "disableCollisions":
-			MyAvatar.setCollisionsEnabled(!MyAvatar.getCollisionsEnabled());
-			dontSomethingChanged = true;
+			var newCollisionsEnabled = (value!=undefined)? value: !MyAvatar.getCollisionsEnabled();
+			Settings.setValue("cat.maki.hifiEssentials.collisionsEnabled", newCollisionsEnabled);
+
+			MyAvatar.setCollisionsEnabled(newCollisionsEnabled);
+			overrideSomethingChanged = true;
 		break;
 		case "enableFlying":
 			var flyingEnabled = MyAvatar.getFlyingEnabled();
@@ -54,24 +58,10 @@ function changeSettings(key, value) {
 		break;
 
 		case "disableAntiAliasing":
-			if (!value) value = {};
-			if (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing") && !value.forced) {
-				Settings.setValue("cat.maki.hifiEssentials.disableAntiAliasing", false);
+			var newDisableAntiAliasing = (value!=undefined)? value: !Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing");
+			Settings.setValue("cat.maki.hifiEssentials.disableAntiAliasing", newDisableAntiAliasing);
 
-				Render.getConfig("RenderMainView.Antialiasing")["constrainColor"] = true;
-				Render.getConfig("RenderMainView.Antialiasing")["feedbackColor"] = true;
-				Render.getConfig("RenderMainView.Antialiasing")["blend"] = 0.25;
-				Render.getConfig("RenderMainView.Antialiasing")["sharpen"] = 0.05;
-				Render.getConfig("RenderMainView.JitterCam").play();
-
-				Render.getConfig("SecondaryCameraJob.Antialiasing")["constrainColor"] = true;
-				Render.getConfig("SecondaryCameraJob.Antialiasing")["feedbackColor"] = true;
-				Render.getConfig("SecondaryCameraJob.Antialiasing")["blend"] = 0.25;
-				Render.getConfig("SecondaryCameraJob.Antialiasing")["sharpen"] = 0.05;
-				Render.getConfig("SecondaryCameraJob.JitterCam").play();
-			} else {
-				Settings.setValue("cat.maki.hifiEssentials.disableAntiAliasing", true);
-
+			if (newDisableAntiAliasing) {
 				Render.getConfig("RenderMainView.Antialiasing")["constrainColor"] = false;
 				Render.getConfig("RenderMainView.Antialiasing")["feedbackColor"] = false;
 				Render.getConfig("RenderMainView.Antialiasing")["blend"] = 1;
@@ -83,19 +73,58 @@ function changeSettings(key, value) {
 				Render.getConfig("SecondaryCameraJob.Antialiasing")["blend"] = 1;
 				Render.getConfig("SecondaryCameraJob.Antialiasing")["sharpen"] = 0;
 				Render.getConfig("SecondaryCameraJob.JitterCam").none();
+			} else {
+				Render.getConfig("RenderMainView.Antialiasing")["constrainColor"] = true;
+				Render.getConfig("RenderMainView.Antialiasing")["feedbackColor"] = true;
+				Render.getConfig("RenderMainView.Antialiasing")["blend"] = 0.25;
+				Render.getConfig("RenderMainView.Antialiasing")["sharpen"] = 0.05;
+				Render.getConfig("RenderMainView.JitterCam").play();
+
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["constrainColor"] = true;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["feedbackColor"] = true;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["blend"] = 0.25;
+				Render.getConfig("SecondaryCameraJob.Antialiasing")["sharpen"] = 0.05;
+				Render.getConfig("SecondaryCameraJob.JitterCam").play();
 			}
 		break;
 
-		default:
-			somethingChanged = false;
-		break;
+		default: somethingChanged = false; break;
 	}
 
 	if (somethingChanged)
-		if (!dontSomethingChanged)
-			Script.setTimeout(function() {
-				updateSettings();
-			}, 100);
+		Script.setTimeout(function() {
+			updateSettings();
+		}, 100);
+}
+
+var scriptsInProgress = [];
+
+function toggleScript(link) {
+	var filename = link.split("/").pop();
+	if (scriptsInProgress[filename]) return; 
+
+	var scriptLoaded = false;
+	var runningScripts = ScriptDiscoveryService.getRunning();
+
+	for (var i=0; i<runningScripts.length; i++) {
+		if (runningScripts[i].name == filename) {
+			scriptLoaded = true;
+			break;
+		}
+	}
+
+	if (scriptLoaded) {
+		ScriptDiscoveryService.stopScript(link);
+	} else {
+		ScriptDiscoveryService.loadScript(link);
+	}
+
+	scriptsInProgress[filename] = true;
+	Script.setTimeout(function() {
+		delete scriptsInProgress[filename];
+	}, 200); // so they dont load it twice
+
+	updateScripts();
 }
 
 function updateSettings(override) {
@@ -109,6 +138,12 @@ function updateSettings(override) {
 
 		disableAntiAliasing: (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing"))? true: false,
 	})
+}
+
+function updateScripts() {
+	emitEvent("updateScripts", ScriptDiscoveryService.getRunning().map(function(script) {
+		return script.name;
+	}))
 }
 
 function webEventReceived(json) {
@@ -129,13 +164,16 @@ function webEventReceived(json) {
 				MyAvatar.useFullAvatarURL(json.value.url, json.value.name);
 			}
 		break;
-		case "changeSettings":
+		case "changeSetting":
 			if (json.value.key==undefined) break;
-			changeSettings(json.value.key, json.value.value);
+			changeSetting(json.value.key, json.value.value);
 		break;
-		case "updateSettings":
-			updateSettings();
+		case "toggleScript":
+			if (json.value==undefined) break;
+			toggleScript(json.value);
 		break;
+		case "updateSettings": updateSettings(); break;
+		case "updateScripts": updateScripts(); break;
 	}
 }
 
@@ -145,22 +183,22 @@ function buttonClicked() {
 
 // init
 
-if (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing")) {
-	changeSettings("disableAntiAliasing", {forced:true});
+function getValueChangeSetting(key) {
+	var value = Settings.getValue("cat.maki.hifiEssentials."+key);
+	if (value == undefined) return;
+	changeSetting(key, value);
 }
 
-function collisionsEnabledChanged(enabled) {
-	updateSettings({
-		disableCollisions: !enabled
-	});
-}
+getValueChangeSetting("disableAntiAliasing");
+getValueChangeSetting("collisionsEnabled");
 
-function scaleChanged() {
-	updateSettings();
-}
+function collisionsEnabledChanged(enabled) { updateSettings({disableCollisions: !enabled}); }
+function scaleChanged() { updateSettings(); }
+function scriptCountChanged() { updateScripts(); }
 
 MyAvatar.collisionsEnabledChanged.connect(collisionsEnabledChanged);
 MyAvatar.scaleChanged.connect(scaleChanged);
+ScriptDiscoveryService.scriptCountChanged.connect(scriptCountChanged);
 
 tablet.webEventReceived.connect(webEventReceived);
 button.clicked.connect(buttonClicked);
@@ -168,6 +206,7 @@ button.clicked.connect(buttonClicked);
 Script.scriptEnding.connect(function() {
 	MyAvatar.collisionsEnabledChanged.disconnect(collisionsEnabledChanged);
 	MyAvatar.scaleChanged.disconnect(scaleChanged);
+	ScriptDiscoveryService.scriptCountChanged.disconnect(scriptCountChanged);
 	
 	tablet.webEventReceived.disconnect(webEventReceived);
 	button.clicked.disconnect(buttonClicked);

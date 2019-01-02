@@ -210,12 +210,14 @@
 			});
 		}
 
-		function emitEvent(key, value) {
-			if (window.qt) {
-				EventBridge.emitWebEvent(JSON.stringify({
-					key: key, value: value,
-					uuid: decodeURI(_GET.uuid),
-				}));
+		if (window.qt) {
+			function emitEvent(key, value) {
+				if (window.qt) {
+					EventBridge.emitWebEvent(JSON.stringify({
+						key: key, value: value,
+						uuid: decodeURI(_GET.uuid),
+					}));
+				}
 			}
 		}
 
@@ -231,7 +233,11 @@
 
 		function btoa(r){for(var n,t,a=String(r).replace(/[=]+$/,""),e=0,o=0,f="";t=a.charAt(o++);~t&&(n=e%4?64*n+t:t,e++%4)?f+=String.fromCharCode(255&n>>(-2*e&6)):0)t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(t);return f}
 
-		var config = JSON.parse(btoa(_GET.config));
+		var config = {};
+		try {
+			config = JSON.parse(btoa(_GET.config))
+		} catch(err) {}
+
 		Object.keys(config).forEach(key=>{
 			let value = config[key];
 			let el = document.getElementById("config-"+key);
