@@ -187,8 +187,8 @@ var content = {
 			link: "http://mpassets.highfidelity.com/74fdb4d7-1f55-487c-b2c7-e63044059599-v1/app-portalDropper.js"
 		},
 		{
-			title: "<img src='scripts/fingerPaint.svg' style='height: 30px'/>"+
-				"<p style='padding-left: 8px; opacity: 0.7; margin-top: -4px;'>by Mimicry</p>",
+			title: "<img src='scripts/fingerPaint.svg' style='height: 40px'/>"+
+				"<p style='padding-left: 8px; opacity: 0.7; margin-top: -2px;'>by Mimicry</p>",
 			link: "http://mpassets.highfidelity.com/d3985860-e94a-42d8-aa1f-c498b2cebabd-v1/fingerPaint.js"
 		}
 	]
@@ -260,6 +260,7 @@ content.scripts.forEach(script=>{
 
 	let tdCheckbox = document.createElement("td");
 	tdCheckbox.style.verticalAlign = "middle";
+
 	let checkbox = document.createElement("div")
 	checkbox.className = "checkbox";
 	tdCheckbox.appendChild(checkbox);
@@ -267,11 +268,14 @@ content.scripts.forEach(script=>{
 	let tdTitle = document.createElement("td");
 	tdTitle.innerHTML = script.title;
 	tdTitle.style.verticalAlign = "middle";
-	tdTitle.style.paddingLeft = "16px";
+	tdTitle.style.paddingLeft = "15px";
 
 	tr.appendChild(tdCheckbox);
 	tr.appendChild(tdTitle);
 	scriptsTable.appendChild(tr);
+
+	let emptyTr = document.createElement("tr");
+	scriptsTable.appendChild(emptyTr);
 });
 
 document.getElementById("scripts").appendChild(scriptsTable);
