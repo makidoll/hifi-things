@@ -182,19 +182,29 @@ var content = {
 			link: "https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js"
 		},
 		{
-			title: "<img src='scripts/portalDropper.svg' style='height: 30px'/>"+
-				"<p style='padding-left: 8px; opacity: 0.7;'>by FluffyJenkins</p>",
+			title: "<img src='scripts/portalDropper.svg' style='height: 30px'/>",
+			author: "FluffyJenkins",
 			link: "http://mpassets.highfidelity.com/74fdb4d7-1f55-487c-b2c7-e63044059599-v1/app-portalDropper.js"
 		},
 		{
-			title: "<img src='scripts/fingerPaint.svg' style='height: 40px'/>"+
-				"<p style='padding-left: 8px; opacity: 0.7; margin-top: -2px;'>by Mimicry</p>",
+			title: "<img src='scripts/fingerPaint.svg' style='height: 40px'/>",
+			author: "Mimicry",
 			link: "http://mpassets.highfidelity.com/d3985860-e94a-42d8-aa1f-c498b2cebabd-v1/fingerPaint.js"
 		},
 		{
-			title: "<img src='scripts/chat.svg' style='height: 25px'/>"+
-				"<p style='padding-left: 8px; opacity: 0.7;'>by George</p>",
+			title: "<img src='scripts/chat.svg' style='height: 20px'/>",
+			author: "George",
 			link: "https://transmissiongate.com/hifi/chat/chat.js"
+		},
+		{
+			title: "<img src='scripts/sign.svg' style='height: 30px'/>",
+			author: "Menithal",
+			link: "http://mpassets.highfidelity.com/8cf6f9fe-55f9-40ae-84fd-e8229df4ab67-v1/sign.js"
+		},
+		{
+			title: "<img src='scripts/spectatorCamera.svg' style='height: 40px'/>",
+			author: "zfox",
+			link: "http://mpassets.highfidelity.com/1688f21e-c7dd-4fa8-ae5f-72142df91ad8-v1/spectatorCamera.js"
 		},
 	]
 }
@@ -271,9 +281,12 @@ content.scripts.forEach(script=>{
 	tdCheckbox.appendChild(checkbox);
 
 	let tdTitle = document.createElement("td");
-	tdTitle.innerHTML = script.title;
 	tdTitle.style.verticalAlign = "middle";
 	tdTitle.style.paddingLeft = "15px";
+	
+	tdTitle.innerHTML = script.title;
+	if (script.author)
+		tdTitle.innerHTML += "<p style='padding-left: 12px; opacity: 0.7;'>by "+script.author+"</p>";
 
 	tr.appendChild(tdCheckbox);
 	tr.appendChild(tdTitle);
