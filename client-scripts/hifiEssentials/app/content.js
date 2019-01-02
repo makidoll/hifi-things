@@ -1,7 +1,7 @@
 var content = {
 	avatars: [
 		{
-			title: "<img src='avatars/mgf.png' style='height: 80px'/>",
+			name: "<img src='avatars/mgf.png' style='height: 80px'/>",
 			avatars: [
 				{
 					name: "Akari Akaza",
@@ -46,7 +46,7 @@ var content = {
 			],
 		},
 		{
-			title: "<img src='avatars/subcom.svg' style='height: 40px'/>",
+			name: "<img src='avatars/subcom.svg' style='height: 40px'/>",
 			avatars: [
 				{
 					name: "Daven Atlanta",
@@ -126,7 +126,7 @@ var content = {
 			]
 		},
 		{
-			title: "<img src='avatars/bigtin-avatars.svg' style='height: 60px'/>",
+			name: "<img src='avatars/bigtin-avatars.svg' style='height: 60px'/>",
 			fontFamily: "'Comic Sans MS', 'Roboto', sans-serif",
 			avatars: [
 				{
@@ -178,34 +178,49 @@ var content = {
 	],
 	scripts: [
 		{
-			title: "<img src='scripts/makisNametags.svg' style='height: 30px'/>",
-			link: "https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js"
+			name: "general",
+			scripts: [
+				{
+					name: "<img src='scripts/makisNametags.svg' style='height: 30px'/>",
+					link: "https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js"
+				},
+				{
+					name: "<img src='scripts/portalDropper.svg' style='height: 30px'/>",
+					author: "FluffyJenkins",
+					link: "http://mpassets.highfidelity.com/74fdb4d7-1f55-487c-b2c7-e63044059599-v1/app-portalDropper.js"
+				},
+			]
 		},
 		{
-			title: "<img src='scripts/portalDropper.svg' style='height: 30px'/>",
-			author: "FluffyJenkins",
-			link: "http://mpassets.highfidelity.com/74fdb4d7-1f55-487c-b2c7-e63044059599-v1/app-portalDropper.js"
+			name: "virtual reality",
+			scripts: [
+				{
+					name: "<img src='scripts/fingerPaint.svg' style='height: 40px'/>",
+					author: "Mimicry",
+					link: "http://mpassets.highfidelity.com/d3985860-e94a-42d8-aa1f-c498b2cebabd-v1/fingerPaint.js"
+				},
+				{
+					name: "<img src='scripts/spectatorCamera.svg' style='height: 40px'/>",
+					author: "zfox",
+					link: "http://mpassets.highfidelity.com/1688f21e-c7dd-4fa8-ae5f-72142df91ad8-v1/spectatorCamera.js"
+				},
+			]
 		},
 		{
-			title: "<img src='scripts/fingerPaint.svg' style='height: 40px'/>",
-			author: "Mimicry",
-			link: "http://mpassets.highfidelity.com/d3985860-e94a-42d8-aa1f-c498b2cebabd-v1/fingerPaint.js"
-		},
-		{
-			title: "<img src='scripts/chat.svg' style='height: 20px'/>",
-			author: "George",
-			link: "https://transmissiongate.com/hifi/chat/chat.js"
-		},
-		{
-			title: "<img src='scripts/sign.svg' style='height: 30px'/>",
-			author: "Menithal",
-			link: "http://mpassets.highfidelity.com/8cf6f9fe-55f9-40ae-84fd-e8229df4ab67-v1/sign.js"
-		},
-		{
-			title: "<img src='scripts/spectatorCamera.svg' style='height: 40px'/>",
-			author: "zfox",
-			link: "http://mpassets.highfidelity.com/1688f21e-c7dd-4fa8-ae5f-72142df91ad8-v1/spectatorCamera.js"
-		},
+			name: "desktop mode",
+			scripts: [
+				{
+					name: "<img src='scripts/chat.svg' style='height: 20px'/>",
+					author: "George",
+					link: "https://transmissiongate.com/hifi/chat/chat.js"
+				},
+				{
+					name: "<img src='scripts/sign.svg' style='height: 30px'/>",
+					author: "Menithal",
+					link: "http://mpassets.highfidelity.com/8cf6f9fe-55f9-40ae-84fd-e8229df4ab67-v1/sign.js"
+				},
+			]
+		}
 	]
 }
 
@@ -239,7 +254,7 @@ content.avatars.forEach(category=>{
 		div.appendChild(avatarEl);
 	});
 
-	document.getElementById("avatars").appendChild(new Collapse(category.title, div))
+	document.getElementById("avatars").appendChild(new Collapse(category.name, div))
 }) 
 
 // worlds
@@ -258,42 +273,51 @@ function shuffle(array) {
 new WorldSelector(document.getElementById("worlds"), shuffle(content.worlds));
 
 // scripts
-let scriptsTable = document.createElement("table"); 
-scriptsTable.cellSpacing = "10px";
 
-content.scripts.forEach(script=>{
-	let safeFilename = script.link.split("/").pop().split(".");
-	safeFilename.pop();
-	safeFilename = safeFilename.join(".");
+content.scripts.forEach(category=>{
+	let name = document.createElement("h1");
+	name.innerHTML = category.name;
+	name.style.margin = "10px";
+	document.getElementById("scripts").appendChild(name);
 
-	let tr = document.createElement("tr");
-	tr.className = "pointer";
-	tr.id = "scripts-"+safeFilename;
-	tr.addEventListener("click", ()=>{
-		emitEvent("toggleScript", script.link);
+	let table = document.createElement("table"); 
+	table.style.marginLeft = "25px";
+	table.cellSpacing = "10px";
+
+	category.scripts.forEach((script, i)=>{
+		let safeFilename = script.link.split("/").pop().split(".");
+		safeFilename.pop();
+		safeFilename = safeFilename.join(".");
+
+		let tr = document.createElement("tr");
+		tr.className = "pointer";
+		tr.id = "scripts-"+safeFilename;
+		tr.addEventListener("click", ()=>{
+			emitEvent("toggleScript", script.link);
+		});
+
+		let tdCheckbox = document.createElement("td");
+		tdCheckbox.style.verticalAlign = "middle";
+
+		let checkbox = document.createElement("div")
+		checkbox.className = "checkbox";
+		tdCheckbox.appendChild(checkbox);
+
+		let tdName = document.createElement("td");
+		tdName.style.verticalAlign = "middle";
+		tdName.style.paddingLeft = "15px";
+		
+		tdName.innerHTML = script.name;
+		if (script.author)
+			tdName.innerHTML += "<p style='padding-left: 12px; opacity: 0.7;'>by "+script.author+"</p>";
+
+		tr.appendChild(tdCheckbox);
+		tr.appendChild(tdName);
+		table.appendChild(tr);
+
+		//if (i!=category.script.length-1)
+			//table.appendChild(document.createElement("tr"));
 	});
 
-	let tdCheckbox = document.createElement("td");
-	tdCheckbox.style.verticalAlign = "middle";
-
-	let checkbox = document.createElement("div")
-	checkbox.className = "checkbox";
-	tdCheckbox.appendChild(checkbox);
-
-	let tdTitle = document.createElement("td");
-	tdTitle.style.verticalAlign = "middle";
-	tdTitle.style.paddingLeft = "15px";
-	
-	tdTitle.innerHTML = script.title;
-	if (script.author)
-		tdTitle.innerHTML += "<p style='padding-left: 12px; opacity: 0.7;'>by "+script.author+"</p>";
-
-	tr.appendChild(tdCheckbox);
-	tr.appendChild(tdTitle);
-	scriptsTable.appendChild(tr);
-
-	let emptyTr = document.createElement("tr");
-	scriptsTable.appendChild(emptyTr);
+	document.getElementById("scripts").appendChild(table);
 });
-
-document.getElementById("scripts").appendChild(scriptsTable);

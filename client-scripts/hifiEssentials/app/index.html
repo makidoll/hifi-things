@@ -129,7 +129,7 @@
 				<a href="javascript:changePage('scripts')">
 					<div id="sidebar-button" class="scripts" style="background-color: #ff9800">
 						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-						<h2>scripts</h2>
+						<h2>apps</h2>
 					</div>
 				</a>
 				<a href="javascript:changePage('settings')">
@@ -337,14 +337,17 @@
 							break;
 							case "updateScripts":
 								let scriptsEnabled = {};
-								let scriptsChildren = document.querySelector("#scripts>table").children;
 
-								for (let i=0; i<scriptsChildren.length; i+=1) {
-									if (!scriptsChildren[i].id) continue;
-									scriptsEnabled[
-										scriptsChildren[i].id.replace("scripts-","")
-									] = false;
-								}
+								document.querySelectorAll("#scripts>table").forEach(table=>{
+									for (let i=0; i<table.children.length; i+=1) {
+										if (!table.children[i].id) continue;
+										scriptsEnabled[
+											table.children[i].id.replace("scripts-","")
+										] = false;
+									}
+								});
+
+								console.log(scriptsEnabled)	
 
 								// scriptsEnabled doesnt have the .js extensions
 
@@ -356,8 +359,6 @@
 										scriptsEnabled[filename] = true;
 									} 
 								});
-
-								console.log(scriptsEnabled)
 
 								scriptsFilenames.forEach(filename=>{
 									setClassToEl(
