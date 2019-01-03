@@ -1,4 +1,5 @@
-// On a cube sized: 1.5, 2, 0 
+// On a cube sized: 1.5, 2, 0
+//
 // {
 // 	"ProceduralEntity": {
 // 		"shaderUrl": "https://hifi.maki.cat/client-scripts/hifiEssentials/dist/shader.fs",
