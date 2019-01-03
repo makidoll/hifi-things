@@ -50,6 +50,7 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 	vec2 cUv = (vec2(-uv.x,-uv.y)+1) * 0.5; // 0 to 1 from top left
 	cUv.x = cUv.x*0.45 + 0.08; // shift uv to correct for image
 	vec3 color = getAnimationColor(cUv);
+	color = mix(color, vec3(29,31,33)/255, 0.4);
 
 	// noise allowance
 	vec2 nUv = 1-abs(uv*2) * 0.9; // 0 to 1 to 0
