@@ -1,4 +1,4 @@
-// On a cube sized: 1.5, 2, 0
+// On a cube sized: 2, 1.5, 0
 //
 // {
 // 	"ProceduralEntity": {
@@ -64,7 +64,7 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 
 	// noise
 	float n = (snoise(vec3(
-		uv.x*6, uv.y*6,
+		uv.x*8, uv.y*6,
 		iGlobalTime*0.2
 	))+1) / 2;
 	
