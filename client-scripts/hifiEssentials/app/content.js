@@ -174,6 +174,14 @@ var content = {
 			background: "worlds/solace-bg.jpg",
 			description: "Worship the light in the black and white. Community managed.",
 			link: "hifi://solace"
+		},
+		{
+			name: "Astral Gallery",
+			logo: "worlds/astral-gallery-logo.svg",
+			logoOffset: 0,
+			background: "worlds/astral-gallery-bg.jpg",
+			description: "Experience a psychedelic atmosphere crafted by The Architect.",
+			link: "hifi://astralgallery"
 		}
 	],
 	scripts: [
