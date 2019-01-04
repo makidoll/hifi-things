@@ -199,7 +199,16 @@ var content = {
 			background: "worlds/astral-gallery-bg.jpg",
 			description: "Experience a psychedelic atmosphere crafted by The Architect.",
 			link: "hifi://astralgallery"
+		},
+		{
+			name: "Duckpond",
+			logo: "worlds/duckpond-logo.svg",
+			loopOffset:0,
+			background:"worlds/duckpond-bg.gif",
+			description: "1029Chris' otherworldly duck pond!",
+			link: "hifi://duckpond"
 		}
+
 	],
 	scripts: [
 		{
