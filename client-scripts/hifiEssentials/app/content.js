@@ -140,7 +140,24 @@ var content = {
 					url: "https://hotmilk.space/bigtin/tinbot1000.fst",
 				}
 			],
-		}
+		},
+		{
+			name: "<img src='avatars/memes.svg' style='height: 40px'/>",
+			fontFamily: "'Comic Sans MS', 'Roboto', sans-serif",
+			avatars: [
+				{
+					name: "big chungus",
+					thumbnail: "avatars/memes/chungus.jpg",
+					url: "https://hotmilk.space/memes/chungus.fst"
+				},
+				{
+					name: "donald trump",
+					thumbnail: "avatars/memes/trump.jpg",
+					url: "https://hotmilk.space/memes/trump.fst"
+				},
+
+			],
+		},
 	],
 	worlds: [
 		{
