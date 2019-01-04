@@ -200,7 +200,7 @@ var content = {
 			]
 		},
 		{
-			name: "virtual reality",
+			name: "for virtual reality",
 			scripts: [
 				{
 					name: "<img src='scripts/fingerPaint.svg' style='height: 40px'/>",
@@ -215,7 +215,7 @@ var content = {
 			]
 		},
 		{
-			name: "desktop mode",
+			name: "for desktop mode",
 			scripts: [
 				{
 					name: "<img src='scripts/chat.svg' style='height: 20px'/>",
@@ -226,6 +226,11 @@ var content = {
 					name: "<img src='scripts/sign.svg' style='height: 30px'/>",
 					author: "Menithal",
 					link: "http://mpassets.highfidelity.com/8cf6f9fe-55f9-40ae-84fd-e8229df4ab67-v1/sign.js"
+				},
+				{
+					name: "<img src='scripts/tts.svg' style='height: 30px'/>",
+					author: "zfox",
+					link: "http://mpassets.highfidelity.com/568b183d-db87-4618-9e40-aba840ec3b26-v1/TTS.js"
 				},
 			]
 		}
