@@ -13,8 +13,6 @@ var button = tablet.addButton({
 	text: "essentials"
 });
 
-console.log(JSON.stringify(button.getProperties()))
-
 function emitEvent(key, value) {
 	tablet.emitScriptEvent(JSON.stringify({
 		key: key, value: value,
