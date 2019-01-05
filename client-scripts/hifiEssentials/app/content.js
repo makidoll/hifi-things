@@ -207,6 +207,14 @@ var content = {
 			background:"worlds/duckpond-bg.gif",
 			description: "1029Chris' otherworldly duck pond!",
 			link: "hifi://duckpond"
+		},
+		{
+			name: "Tin-land",
+			logo: "worlds/tin-land-logo.svg",
+			loopOffset:0,
+			background:"worlds/tin-land-bg.gif",
+			description: "Home of Big Tin and the only Burbur Kang in High Fidelity!",
+			link: "hifi://tin-land"
 		}
 
 	],
