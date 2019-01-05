@@ -52,6 +52,14 @@
 							<td><input id="settings-speedNumber" type="number" style="width: 52px;"/></td>
 						</tr>
 					</table>
+					<br>
+					<h2 style="margin-left: 8px;">orientation</h2>
+					<table cellspacing="8px">
+						<tr class="pointer">
+							<td class="button" id="settings-orientation0deg"><svg class="icon" style="fill:#fff;margin:0 -4px;margin-right:4px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg> 0&deg;</td>
+							<td class="button" id="settings-orientation180deg"><svg class="icon" style="fill:#fff;margin:0 -4px;margin-right:4px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg> 180&deg;</td>
+						</tr>
+					</table>
 				</div>
 				<br>
 				<h1>graphics</h1>
@@ -97,6 +105,9 @@
 							{id:"speedNumber", event:"keyup", callback:e=>{
 								if (e.key == "Backspace") e.target.value = "";
 							}},
+							// orientation
+							{id:"orientation0deg", event:"click", callback:()=>{changeSetting("orientation0deg")}},
+							{id:"orientation180deg", event:"click", callback:()=>{changeSetting("orientation180deg")}},
 						// graphics
 						{id:"disableAntiAliasing", event:"click", callback:()=>{changeSetting("disableAntiAliasing")}},
 					].forEach(setting=>{

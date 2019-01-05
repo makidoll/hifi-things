@@ -55,6 +55,17 @@ function changeSetting(key, value) {
 			MyAvatar.walkBackwardSpeed = value;
 		break;
 
+		case "orientation0deg":
+			MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
+		break;
+
+		case "orientation180deg":
+			MyAvatar.orientation = Quat.multiply(
+				Quat.cancelOutRollAndPitch(MyAvatar.orientation),
+				Quat.fromPitchYawRollDegrees(0, 0, 180)
+			);
+		break;
+
 		case "disableAntiAliasing":
 			var newDisableAntiAliasing = (value!=undefined)? value: !Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing");
 			Settings.setValue("cat.maki.hifiEssentials.disableAntiAliasing", newDisableAntiAliasing);
