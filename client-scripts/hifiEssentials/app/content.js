@@ -197,7 +197,7 @@ var content = {
 			logo: "worlds/astral-gallery-logo.svg",
 			logoOffset: 0,
 			background: "worlds/astral-gallery-bg.jpg",
-			description: "Experience a psychedelic atmosphere crafted by The Architect.",
+			description: "Enjoy an immersive psychedelic experience crafted by The Architect.",
 			link: "hifi://astralgallery"
 		},
 		{
