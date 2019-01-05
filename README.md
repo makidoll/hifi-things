@@ -1,5 +1,5 @@
 # High Fidelity
-> 💬 Things that I've made for High Fidelity
+> ❤️ Things that I've made for High Fidelity
 
 ## Client Scripts
 
