@@ -1,4 +1,4 @@
-<img src="https://maki.cat/svg-text?width=256&weight=300&text=hifi%20things"/>
+<img src="https://maki.cat/svg-text?width=192&weight=300&text=hifi%20things"/>
 
 > ❤️ Things that I've made for High Fidelity
 
