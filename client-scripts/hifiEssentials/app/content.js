@@ -301,8 +301,14 @@ content.avatars.forEach(category=>{
 		div.appendChild(avatarEl);
 	});
 
-	document.getElementById("avatars").appendChild(new Collapse(category.name, div))
+	document.getElementById("avatars").appendChild(new Collapse(category.name, div));
 }) 
+
+let p = document.createElement("p");
+p.style.margin = "10px";
+p.style.opacity = "0.6";
+p.innerHTML = "New avatars and worlds are being added all the time so check back later to find more!"
+document.getElementById("avatars").appendChild(p);
 
 // worlds
 function shuffle(array) {
