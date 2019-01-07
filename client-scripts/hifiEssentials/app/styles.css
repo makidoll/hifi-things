@@ -3,10 +3,10 @@
 	transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
 }
 
-*::selection {
+/**::selection {
 	background-color: transparent;
 }
-
+*/
 *:focus {
 	outline: none;
 }
@@ -35,6 +35,7 @@ a, a:link, a:active, a:hover, a:visited {
 
 body {
 	font-family: "Roboto", sans-serif;
+	user-select: none;
 }
 
 #top-bar {
