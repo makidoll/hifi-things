@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Parenter</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0; padding: 0;
+				transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
+			}
+
+			*:focus {
+				outline: none;
+			}
+
+			body {
+				margin: 20px;
+				font-family: "Roboto", sans-serif;
+				overflow-x: hidden;
+				user-select: none;
+				background: #1d1f21;
+				color: #fff;
+			}
+
+			body::-webkit-scrollbar {
+			    width: 12px;
+			}
+			 
+			body::-webkit-scrollbar-track {
+			    background-color: rgba(255,255,255,0.2);
+			}
+			 
+			body::-webkit-scrollbar-thumb {
+			  	background-color: rgba(255,255,255,0.6);
+			}
+
+			.entity {
+				width: 100%;
+				height: 20px;
+				border-collapse: collapse;
+				cursor: move;
+				transition: 
+					200ms opacity cubic-bezier(0.4, 0.0, 0.2, 1),
+					100ms outline cubic-bezier(0.4, 0.0, 0.2, 1);
+				background-color: #fff;
+				position: relative;
+				table-layout: fixed;
+			}
+
+			.entity td {
+				padding: 10px 15px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+
+			.entity>tr>td:nth-child(1) {
+				background: rgba(255,255,255,0.075);
+				width: 60px;
+				text-align: center;
+			}
+
+			.entity>tr>td:nth-child(2) {
+				width: 40%
+			}
+
+			.entity>tr>td:nth-child(3) {
+				opacity: 0.6;
+				font-size: 12px;
+			}
+
+			a, a:link, a:active, a:hover, a:visited {
+				color: inherit;
+				text-decoration: inherit;
+			}
+
+			a {
+				background: #fff;
+				padding: 5px 10px;
+				display: inline-block;
+				color: #000 !important;
+				fill: #000;
+				border: solid 4px #fff;
+			}
+
+			a:hover {
+				background: transparent;
+				color: #fff !important;
+			}
+
+			a:hover .icon {
+				fill: #fff;
+			}
+
+			.icon {
+				width: 24px; height: 24px;
+				display: inline-block;
+				margin-bottom: -6px;
+				transition: none;
+			}
+
+			h1 {
+				font-weight: 400;
+			}
+		</style>
+	</head>
+	<body>
+		<table style="margin-bottom: 20px; width: 100%;">
+			<tr>
+				<td style="vertical-align: bottom;">
+					<h1><span id="nearby-entities">0</span> <span style="font-size: 24px;">entities nearby</span></h1>
+				</td>
+				<td style="width: 1px; vertical-align: bottom;">
+					<a href="javascript:reload()" style="padding-bottom: 8px; white-space: nowrap;"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 12H1l4-4 4 4H6c0 3.31 2.69 6 6 6 1.01 0 1.97-.25 2.8-.7l1.46 1.46A7.93 7.93 0 0 1 12 20c-4.42 0-8-3.58-8-8zm14 0c0-3.31-2.69-6-6-6-1.01 0-1.97.25-2.8.7L7.74 5.24A7.93 7.93 0 0 1 12 4c4.42 0 8 3.58 8 8h3l-4 4-4-4h3z"/></svg> Reload</a>
+				</td>
+			</tr>
+		</table>
+		<script type="text/javascript">
+			function lerp(v0, v1, a) {
+				return v0*(1-a)+v1*a;
+			}
+
+			function rgbaToCssRgb(r,g,b,a) {
+				a = 1-a;
+				return "rgb("+
+					lerp(r,255,a).toFixed()+","+
+					lerp(g,255,a).toFixed()+","+
+					lerp(b,255,a).toFixed()+
+				")";
+			}
+
+			function findChild(id, children) {
+				for (var i=0; i<children.length; i++) {
+					if (children[i].id == id) return children[i];
+
+					let child = findChild(id, children[i].children);
+					if (child) return child;
+				}
+				return undefined;
+			};
+
+			function getEntityElFromInnerEls(innerEl) {
+				if (!innerEl) return undefined;
+				if (innerEl.nodeName == "TABLE") return innerEl;
+				if (innerEl.nodeName == "TR") return innerEl.parentElement;
+				if (innerEl.nodeName == "TD") return innerEl.parentElement.parentElement;
+				return undefined;
+			}
+
+			function Entity(id, props, parent) {
+				this.id = id;
+				this.props = props;
+				this.parent = undefined;
+
+				this.element = document.createElement("table");
+				this.element.className = "entity";
+
+				let tr = document.createElement("tr");
+
+				let type = document.createElement("td")
+				type.textContent = this.props.type;
+				tr.appendChild(type)
+
+				let name = document.createElement("td");
+				name.textContent = this.props.name;
+				tr.appendChild(name);
+
+				let file = document.createElement("td");
+				if (this.props.modelURL)
+					file.textContent = this.props.modelURL.split("/").pop();
+				tr.appendChild(file);
+
+				this.element.appendChild(tr);
+
+				// functions
+				this.children = [];
+				this.addChild = entity=>{
+					this.children.push(entity);
+				}
+
+				this.setParent = parent=>{
+					// unparent this and remove from parents children
+					if (this.parent) {
+						let parentThisIndex = this.parent.children.indexOf(this);
+						this.parent.children.splice(parentThisIndex,1);
+						this.parent = undefined;
+					} else {
+						let parentThisIndex = entityList.children.indexOf(this);
+						if (parentThisIndex)
+							entityList.children.splice(parentThisIndex,1);
+					}
+
+					let hifiSetParent = {entityID:this.id, parentID:""}
+
+					if (parent) {
+						parent.addChild(this);
+						this.parent = parent;
+						hifiSetParent.parentID = parent.id;
+					} else {
+						entityList.addChild(this);
+					}
+
+					if (window.qt) emitEvent("setParent", hifiSetParent);
+				}
+
+				this.forEachChild = cb=>{
+					this.children.forEach(child=>{
+						cb(child);
+						child.forEachChild(cb);
+					})
+				}
+
+				// dragging and dropping
+				let startingMouse = {x: undefined, y: undefined};
+				let lastMouse = {x: undefined, y: undefined};
+				let lastHighlight = undefined;
+				let outlineStyle = "solid 4px "+rgbaToCssRgb(29,31,33,0.1); 
+
+				let mousemove = e=> {			
+					let translate = "translate("+
+						(e.clientX - startingMouse.x)+"px,"+
+						(e.clientY - startingMouse.y + window.pageYOffset)+"px"
+					")";
+
+					this.element.style.transform = translate;
+					this.forEachChild(child=>{
+						child.element.style.transform = translate;
+					});
+
+					let highlight = document.elementFromPoint(e.clientX, e.clientY);
+					highlight = getEntityElFromInnerEls(highlight);
+					if (highlight) if (!highlight.getAttribute("data-id")) highlight = undefined
+
+					if (highlight) {
+						if (highlight != lastHighlight) {
+							if (lastHighlight) {
+								lastHighlight.style.zIndex = "initial";
+								lastHighlight.style.outline = "none";
+							}
+
+							highlight.style.zIndex = "500";
+							highlight.style.outline = outlineStyle
+							lastHighlight = highlight;
+						}
+					} else {
+						if (lastHighlight) {
+							lastHighlight.style.zIndex = "initial";
+							lastHighlight.style.outline = "none";
+						}
+						lastHighlight = undefined;
+					}
+				}
+
+				let selected = false;
+
+				let updateEntityWithMouse = (mousedown, e)=>{
+					if (!mousedown) {
+						// reset styles to default
+						document.removeEventListener("mousemove", mousemove);
+						this.element.style.transform = "";
+						this.element.style.outline = "none";
+
+						this.element.style.zIndex = "initial";
+						this.element.style.opacity = "1";
+
+						// check its new parent
+						if (!selected) return;
+						setTimeout(()=>{
+							let newParent = document.elementFromPoint(e.clientX, e.clientY);
+							newParent = getEntityElFromInnerEls(newParent);
+
+							if (newParent) {
+								let newParentID = newParent.getAttribute("data-id");
+								if (newParentID == this.id) return; // cant self parent (shouldnt happen)
+								if (this.parent) if (newParentID == this.parent.id) return; // no point re-parenting
+								if (findChild(newParentID, this.children)) return; // cant parent to one of its children
+
+								newParent = findChild(newParentID, entityList.children);
+								if (newParent) {
+									this.setParent(newParent);
+								} else {
+									this.setParent();
+								}
+							} else {
+								this.setParent();
+							}
+
+							entityList.render();
+						},5);
+
+						selected = false;
+					} else {
+						this.element.style.zIndex = "1000";
+						this.element.style.opacity = "0.5";
+						this.forEachChild(child=>{
+							child.element.style.zIndex = "1000";
+							child.element.style.opacity = "0.5";
+						});
+
+						//startingMouse = {x: e.clientX, y: e.clientY};
+
+						let rect = this.element.getBoundingClientRect();
+						let topBottomHalfDiff = (rect.bottom-rect.top)/2;
+						startingMouse = {
+							x: rect.left-topBottomHalfDiff,
+							y: rect.top+topBottomHalfDiff
+						};
+
+						mousemove({clientX: e.clientX, clientY: e.clientY});
+						document.addEventListener("mousemove", mousemove);
+					}
+				}
+
+				this.element.addEventListener("mousedown", e=>{
+					if (e.button!=0) return;
+					selected = true;
+					updateEntityWithMouse(true, e);
+				});
+
+				document.addEventListener("mouseup", e=>{
+					updateEntityWithMouse(false, e);
+				});
+			}
+
+			function EntityList() {
+				this.element = undefined;
+
+				this.children = [];
+				this.addChild = entity=>{
+					this.children.push(entity);
+				}
+
+				this.render = ()=>{
+					let newEntitiesElement = document.createElement("div");
+					let layerOfAbstraction = 0; // _layers of abstraction_ lol
+					
+					let renderEntity = (entity, layerOfAbstraction)=>{
+						//console.log(entity.name+", "+layerOfAbstraction);
+
+						entity.element.setAttribute("data-id", entity.id);
+						entity.element.style.marginLeft = (layerOfAbstraction*20)+"px";
+						entity.element.style.width = "calc(100% - "+(layerOfAbstraction*20)+"px)";
+						entity.element.style.backgroundColor = rgbaToCssRgb(29,31,33,
+							0.95 - (0.05+(layerOfAbstraction*0.05))
+						);
+
+						newEntitiesElement.appendChild(entity.element);
+
+						entity.children.forEach(child=>{
+							renderEntity(child, layerOfAbstraction+1);
+						});
+					};
+
+					this.children.forEach(entity=>{
+						renderEntity(entity, layerOfAbstraction);
+					});
+
+					// send to dom
+					if (this.element) this.element.remove();
+					document.body.appendChild(newEntitiesElement);
+					this.element = newEntitiesElement;
+				}
+
+				this.import = function(hifiEntities) {
+					// using an object because problems when splicing and iterating at the same time 
+					let newEntities = {};
+
+					// fill newEntities
+					hifiEntities.forEach(hifiEntity=>{
+						let newEntity = new Entity(hifiEntity.id, {
+							parentID: hifiEntity.parentID,
+							type: hifiEntity.type,
+							name: hifiEntity.name,
+							modelURL: hifiEntity.modelURL,
+						});
+
+						newEntities[hifiEntity.id] = newEntity;
+					});
+
+					// parent everything together
+					Object.keys(newEntities).forEach(newEntityID=>{
+						let newEntity = newEntities[newEntityID];
+
+						if (newEntity.props.parentID) {
+							let parent = findChild(newEntity.props.parentID, Object.values(newEntities));
+							if (!parent) return;
+
+							newEntity.parent = parent;
+							parent.addChild(newEntity);
+
+							delete newEntities[newEntityID];
+						}
+					});
+
+					// woohoo tree structure!
+					this.children = Object.values(newEntities);
+					this.render();
+				}
+			}
+
+			// let testEntities = [
+			// 	{
+			// 		type: "Box",
+
+			// 		id: "a",
+			// 		name: "Entity A",
+			// 	},
+			// 	{
+			// 		type: "Box",
+
+			// 		id: "b",
+			// 		name: "Entity B",
+			// 	},
+			// 	{
+			// 		type: "Model",
+			// 		modelURL: "https://maki.cat/aljksd/askdjaklsd/coolModel.fbx",
+
+			// 		id: "c",
+			// 		parentID: "a",
+			// 		name: "Entity C",
+			// 	},
+			// 	{
+			// 		type: "Sphere",
+
+			// 		id: "d",
+			// 		parentID: "c",
+			// 		name: "Entity D",
+			// 	},
+			// 	{
+			// 		type: "Model",
+			// 		modelURL: "https://alsdkajskd/asdjklaks/niceeeeeeeee.fbx?laksjd11",
+
+			// 		id: "e",
+			// 		name: "niceee!! its entity E"
+			// 	},
+			// 	{
+			// 		type: "Model",
+			// 		modelURL: "https://alsdkajskd/asdjklaks/ok.fbx?hi",
+
+			// 		id: "f",
+			// 		name: "oh my its entity F"
+			// 	}
+			// ];
+
+			// function shuffle(array) {
+			// 	var currentIndex = array.length, temporaryValue, randomIndex;
+			// 	while (0 !== currentIndex) {
+			// 		randomIndex = Math.floor(Math.random() * currentIndex);
+			// 		currentIndex -= 1;
+			// 		temporaryValue = array[currentIndex];
+			// 		array[currentIndex] = array[randomIndex];
+			// 		array[randomIndex] = temporaryValue;
+			// 	}
+			// 	return array;
+			// }
+
+			// let entityList = new EntityList;
+			// entityList.import(shuffle(testEntities));
+
+			let entityList = new EntityList;
+			
+			if (window.qt) {
+				var _GET = {};
+				if (window.location.search.length>1) {
+					window.location.search.substr(1).split("&").forEach(p=>{
+						p = p.split("=");
+						_GET[p[0]] = p[1];
+					});
+				}
+
+				var uuid = decodeURI(_GET.uuid);
+				function emitEvent(key, value) {
+					EventBridge.emitWebEvent(JSON.stringify({
+						key: key, value: value||"",
+						uuid: uuid,
+					}));
+				}
+
+				var nearbyEntities = document.getElementById("nearby-entities");
+
+				setTimeout(()=>{
+					EventBridge.scriptEventReceived.connect(json=>{
+						try { json = JSON.parse(json);
+						} catch(err) {}
+						if (json.uuid != uuid) return;
+
+						switch (json.key) {
+							case "updateEntities":
+								nearbyEntities.textContent = json.value.length;
+								entityList.import(json.value);
+								break;
+						}
+					});
+
+					emitEvent("updateEntities");
+				}, 200);
+			}
+
+			function reload() {
+				emitEvent("updateEntities");
+			}
+		</script>
+	</body>
+</html>
