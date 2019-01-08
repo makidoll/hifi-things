@@ -52,8 +52,10 @@ float sphere(vec3 p, float r) {
 float water(vec3 p, float y) {
 	p.xz *= 0.5;
 	//p.xz += length(p.xz+(iGlobalTime*4));
-	p.xz += iGlobalTime*0.1;
-	float n = snoise(p.xz);
+
+	//float n = snoise(p.xz + iGlobalTime*0.1);
+	float n = snoise(vec3(p.x, iGlobalTime*0.1, p.z));
+
 	n *= 0.2; // height
 	
 	return plane(p, y+n);
