@@ -1,9 +1,9 @@
 var uuid = Uuid.generate();
 var overlayWebWindow = new OverlayWebWindow({
-	title: "Parenter",
+	title: "Better Parenter",
 	source: "",
 	width: 500,
-	height: 700,
+	height: 800,
 	visible: false,
 });
 
@@ -23,10 +23,11 @@ function emitEvent(key, value) {
 	}));
 }
 
+var radius = 10000;
 function updateEntities() {
 	var entities = [];
 
-	Entities.findEntities(MyAvatar.position, 1000).forEach(function(entityID) {
+	Entities.findEntities(MyAvatar.position, radius).forEach(function(entityID) {
 		entity = Entities.getEntityProperties(entityID, [
 			"locked", "id", "parentID", "type", "name", "modelURL"
 		]);
@@ -45,14 +46,54 @@ function updateEntities() {
 	emitEvent("updateEntities", entities);
 }
 
+var selectedEntities = [];
+
+function clearSelection() {
+	selectedEntities = [];
+
+	Messages.sendLocalMessage("entityToolUpdates", JSON.stringify({
+		method: "clearSelection", hand: -1
+	}));
+}
+
+function selectEntity(entityID) {
+	if (selectedEntities.indexOf(entityID)>-1) return;
+	selectedEntities.push(entityID);
+
+	Messages.sendLocalMessage("entityToolUpdates", JSON.stringify({
+		method: "selectEntities", entityIDs: selectedEntities, hand: -1
+	}));
+} 
+
+function deselectEntity(entityID) {
+	var i = selectedEntities.indexOf(entityID);
+	if (i<0) return;
+	selectedEntities.splice(i,1);
+
+	Messages.sendLocalMessage("entityToolUpdates", JSON.stringify({
+		method: "selectEntities", entityIDs: selectedEntities, hand: -1
+	}));
+}
+
+// function messageReceived(channel, message) {
+// 	if (channel != "entityToolUpdates") return
+// 	try { var json = JSON.parse(message);
+// 	} catch(err) { return; }
+
+// 	console.log(json.method);
+// }
+
 function webEventReceived(json) {
 	try { json = JSON.parse(json);
 	} catch(err) {}
 	if (json.uuid != uuid) return;
 
+	//console.log(JSON.stringify(json));
+
 	switch (json.key) {
 		case "updateEntities":
 			updateEntities();
+			clearSelection();
 		break;
 		case "setParent":
 			if (!json.value) return;
@@ -63,6 +104,28 @@ function webEventReceived(json) {
 				parentID: json.value.parentID
 			});
 		break;
+		case "clearSelection":
+			clearSelection();
+		break;
+		case "selectEntity":
+			if (!json.value) return;
+			selectEntity(json.value);
+		break;
+		case "deselectEntity":
+			if (!json.value) return;
+			deselectEntity(json.value);
+		break;
+		// case "updateRadius":
+		// 	radius = json.value||10000;
+
+		// 	selectedEntities = [];
+
+		// 	Messages.sendLocalMessage("entityToolUpdates", JSON.stringify({
+		// 		method: "clearSelection", hand: -1
+		// 	}));
+
+		// 	updateEntities();
+		// break;
 	}
 }
 
@@ -97,6 +160,8 @@ overlayWebWindow.closed.connect(closed);
 overlayWebWindow.webEventReceived.connect(webEventReceived);
 //Entities.addingEntity.connect(updateEntities);
 //Entities.deletingEntity.connect(updateEntities);
+//Messages.subscribe("entityToolUpdates");
+//Messages.messageReceived.connect(messageReceived)
 
 Script.scriptEnding.connect(function() {
 	overlayWebWindow.close();
@@ -107,4 +172,6 @@ Script.scriptEnding.connect(function() {
 	overlayWebWindow.webEventReceived.disconnect(webEventReceived);
 	//Entities.addingEntity.disconnect(updateEntities);
 	//Entities.deletingEntity.disconnect(updateEntities);
+	//Messages.unsubscribe("entityToolUpdates");
+	//Messages.messageReceived.disconnect(messageReceived)
 });
