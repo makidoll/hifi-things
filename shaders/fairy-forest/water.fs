@@ -12,7 +12,7 @@
 // }
 
 #define maxSteps 48
-#define accuracy 0.1
+#define accuracy 0.01
 
 const float PI = 3.14159265359;
 const float TAU = 6.28318530718;
@@ -51,12 +51,16 @@ float sphere(vec3 p, float r) {
 
 float water(vec3 p, float y) {
 	p.xz *= 0.5;
+
+	p.x += sin(iGlobalTime*0.1);
+	p.z += cos(iGlobalTime*0.1);
+
 	//p.xz += length(p.xz+(iGlobalTime*4));
 
 	//float n = snoise(p.xz + iGlobalTime*0.1);
-	float n = snoise(vec3(p.x, iGlobalTime*0.1, p.z));
+	float n = snoise(vec3(p.x, iGlobalTime*0.2, p.z));
 
-	n *= 0.2; // height
+	n *= 0.1; // height
 	
 	return plane(p, y+n);
 }
@@ -129,6 +133,10 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 	vec3 reflectionDir = reflectionDir(rayDir, rayNormal);
 
 	vec3 color = getSkyboxReflectionColor(reflectionDir);
+	float rayDist = distance(worldEye, worldPos);
+	if (rayPos.y>-0.93) {
+		color = color+(vec3(0.03)*clamp(1-rayDist/36, 0,1));
+	}
 
 	diffuse = color;
 	specular = vec3(0);
