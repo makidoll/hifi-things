@@ -126,22 +126,6 @@ var content = {
 			]
 		},
 		{
-			name: "<img src='avatars/bigtin-avatars.svg' style='height: 60px'/>",
-			fontFamily: "'Comic Sans MS', 'Roboto', sans-serif",
-			avatars: [
-				{
-					name: "ameritin",
-					thumbnail: "avatars/bigtin/ameritin.jpg",
-					url: "https://hotmilk.space/bigtin/ameritin.fst"
-				},
-				{
-					name: "tin bot 1000",
-					thumbnail: "avatars/bigtin/tinbot1000.jpg",
-					url: "https://hotmilk.space/bigtin/tinbot1000.fst",
-				}
-			],
-		},
-		{
 			name: "<img src='avatars/memes.svg' style='height: 40px'/>",
 			fontFamily: "'Comic Sans MS', 'Roboto', sans-serif",
 			avatars: [
@@ -161,6 +145,22 @@ var content = {
 					url: "https://hotmilk.space/memes/ugandan-knuckles.fst"
 				}
 
+			],
+		},
+		{
+			name: "<img src='avatars/bigtin-avatars.svg' style='height: 60px'/>",
+			fontFamily: "'Comic Sans MS', 'Roboto', sans-serif",
+			avatars: [
+				{
+					name: "ameritin",
+					thumbnail: "avatars/bigtin/ameritin.jpg",
+					url: "https://hotmilk.space/bigtin/ameritin.fst"
+				},
+				{
+					name: "tin bot 1000",
+					thumbnail: "avatars/bigtin/tinbot1000.jpg",
+					url: "https://hotmilk.space/bigtin/tinbot1000.fst",
+				}
 			],
 		},
 	],
