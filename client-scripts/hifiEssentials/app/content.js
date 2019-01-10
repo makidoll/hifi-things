@@ -155,6 +155,11 @@ var content = {
 					thumbnail: "avatars/memes/trump.jpg",
 					url: "https://hotmilk.space/memes/trump.fst"
 				},
+				{
+					name: "ugandan knuckles",
+					thumbnail: "avatars/memes/ugandan-knuckles.jpg",
+					url: "https://hotmilk.space/memes/ugandan-knuckles.fst"
+				}
 
 			],
 		},
@@ -265,6 +270,11 @@ var content = {
 					name: "<img src='scripts/tts.svg' style='height: 30px'/>",
 					author: "zfox",
 					link: "http://mpassets.highfidelity.com/568b183d-db87-4618-9e40-aba840ec3b26-v1/TTS.js"
+				},
+				{
+					name: "<img src='scripts/inspect.svg' style='height: 30px'/>",
+					author: "Cl&eacute;ment Brisset, CtrlAltStudio, Wolfgang, FluffyJenkins",
+					link: "https://maki.cat/hifi/scripts/inspect.js"
 				},
 			]
 		}
