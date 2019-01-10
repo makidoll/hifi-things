@@ -69,7 +69,7 @@ float scene(vec3 p) {
 	//p.x = mod(p.x,2)-0.5*2;
 	//p.z = mod(p.z,2)-0.5*2;
 
-	//return sphere(p, 1);
+	//return sphere(p-vec3(-36,0,0), 1);
 	//return plane(p, 0);
 	return water(p, -1);
 }
@@ -122,8 +122,8 @@ vec3 getSkyboxReflectionColor(vec3 dir) {
 
 // https://github.com/theepicsnail/hifi/tree/master/shaders
 float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
-	vec3 localPos = _position.xyz;
    	vec3 worldEye = getEyeWorldPos();
+	vec3 localPos = _position.xyz;
    	vec3 worldPos = (iWorldOrientation*(localPos*iWorldScale)) + iWorldPosition;
 	vec3 rayOrigin = getEyeWorldPos();
 	vec3 rayDir = normalize(worldPos-worldEye);
