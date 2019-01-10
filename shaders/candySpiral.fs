@@ -32,6 +32,6 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 
 	diffuse = color;
 	specular = color;
-	shininess = 0.5;
-	return 1.0;
+	shininess = 0;
+	return 0;
 }
