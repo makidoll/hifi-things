@@ -1,51 +1,6 @@
 var content = {
 	avatars: [
 		{
-			name: "<img src='avatars/mgf.png' style='height: 80px'/>",
-			avatars: [
-				{
-					name: "Akari Akaza",
-					thumbnail: "avatars/mgf/yraitm001.jpg",
-					url: "https://hotmilk.space/mgf/yraitm001.fst",
-				},
-				{
-					name: "Chinatsu Yoshikawa",
-					thumbnail: "avatars/mgf/yrcitm001.jpg",
-					url: "https://hotmilk.space/mgf/yrcitm001.fst",
-				},
-				{
-					name: "Kyouko Toshinou",
-					thumbnail: "avatars/mgf/yrkitm001.jpg",
-					url: "https://hotmilk.space/mgf/yrkitm001.fst",
-				},
-				{
-					name: "Yui Funami",
-					thumbnail: "avatars/mgf/yryitm001.jpg",
-					url: "https://hotmilk.space/mgf/yryitm001.fst",
-				},
-				{
-					name: "Akari Akaza",
-					thumbnail: "avatars/mgf/yraitm002.jpg",
-					url: "https://hotmilk.space/mgf/yraitm002.fst",
-				},
-				{
-					name: "Chinatsu Yoshikawa",
-					thumbnail: "avatars/mgf/yrcitm002.jpg",
-					url: "https://hotmilk.space/mgf/yrcitm002.fst",
-				},
-				{
-					name: "Kyouko Toshinou",
-					thumbnail: "avatars/mgf/yrkitm002.jpg",
-					url: "https://hotmilk.space/mgf/yrkitm002.fst",
-				},
-				{
-					name: "Yui Funami",
-					thumbnail: "avatars/mgf/yryitm002.jpg",
-					url: "https://hotmilk.space/mgf/yryitm002.fst",
-				},
-			],
-		},
-		{
 			name: "<img src='avatars/subcom.svg' style='height: 40px'/>",
 			avatars: [
 				{
@@ -124,6 +79,51 @@ var content = {
 					url: "https://hifi-makers.s3.amazonaws.com/subcom/LittleMouse/HF%20Luna%20Fox%20EM%20FINAL/HF%20Luna%20Fox%20EM%20FINAL.fst"
 				},
 			]
+		},
+		{
+			name: "<img src='avatars/mgf.png' style='height: 80px'/>",
+			avatars: [
+				{
+					name: "Akari Akaza",
+					thumbnail: "avatars/mgf/yraitm001.jpg",
+					url: "https://hotmilk.space/mgf/yraitm001.fst",
+				},
+				{
+					name: "Chinatsu Yoshikawa",
+					thumbnail: "avatars/mgf/yrcitm001.jpg",
+					url: "https://hotmilk.space/mgf/yrcitm001.fst",
+				},
+				{
+					name: "Kyouko Toshinou",
+					thumbnail: "avatars/mgf/yrkitm001.jpg",
+					url: "https://hotmilk.space/mgf/yrkitm001.fst",
+				},
+				{
+					name: "Yui Funami",
+					thumbnail: "avatars/mgf/yryitm001.jpg",
+					url: "https://hotmilk.space/mgf/yryitm001.fst",
+				},
+				{
+					name: "Akari Akaza",
+					thumbnail: "avatars/mgf/yraitm002.jpg",
+					url: "https://hotmilk.space/mgf/yraitm002.fst",
+				},
+				{
+					name: "Chinatsu Yoshikawa",
+					thumbnail: "avatars/mgf/yrcitm002.jpg",
+					url: "https://hotmilk.space/mgf/yrcitm002.fst",
+				},
+				{
+					name: "Kyouko Toshinou",
+					thumbnail: "avatars/mgf/yrkitm002.jpg",
+					url: "https://hotmilk.space/mgf/yrkitm002.fst",
+				},
+				{
+					name: "Yui Funami",
+					thumbnail: "avatars/mgf/yryitm002.jpg",
+					url: "https://hotmilk.space/mgf/yryitm002.fst",
+				},
+			],
 		},
 		{
 			name: "<img src='avatars/memes.svg' style='height: 40px'/>",
