@@ -143,6 +143,11 @@ var content = {
 					name: "ugandan knuckles",
 					thumbnail: "avatars/memes/ugandan-knuckles.jpg",
 					url: "https://hotmilk.space/memes/ugandan-knuckles.fst"
+				},
+				{
+					name: "muscle pooh",
+					thumbnail: "avatars/memes/muscle-pooh.png",
+					url: "https://hotmilk.space/memes/muscle-pooh.fst"
 				}
 
 			],
