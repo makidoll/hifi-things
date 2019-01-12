@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>hifi essentials</title>
+		<title>hifiEssentials</title>
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,700" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="styles.css">
 		<script src="Collapse.js"></script>
@@ -294,15 +294,17 @@
 			}
 
 			if (window.qt) {
-				var _GET = {};
-				if (window.location.search.length>1) {
-					window.location.search.substr(1).split("&").forEach(p=>{
-						p = p.split("=");
-						_GET[p[0]] = p[1];
-					});
-				}
+				// var _GET = {};
+				// if (window.location.search.length>1) {
+				// 	window.location.search.substr(1).split("&").forEach(p=>{
+				// 		p = p.split("=");
+				// 		_GET[p[0]] = p[1];
+				// 	});
+				// }
 
-				var uuid = decodeURI(_GET.uuid);
+				//var uuid = decodeURI(_GET.uuid);
+				var uuid = "hifiEssentials";
+
 				function emitEvent(key, value) {
 					EventBridge.emitWebEvent(JSON.stringify({
 						key: key, value: value||"",
