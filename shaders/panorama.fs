@@ -3,7 +3,7 @@
 // 		"shaderUrl": "https://hifi.maki.cat/shaders/panorama.fs",
 // 		"version": 2,
 // 		"channels": [
-// 			"https://maki.cat/hifi/models/makis-room2.jpg"
+// 			"https://hifi.maki.cat/shaders/my-room.jpg"
 // 		],
 // 		"grabbableKey": {
 // 			"grabbable": false
