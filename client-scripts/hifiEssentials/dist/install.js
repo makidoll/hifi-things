@@ -17,7 +17,7 @@
 	function webEventReceived(string) {
 		switch (string.replace("hifiEssentialsInstall-","")) {
 			case "install":
-				if (!isInstalled())
+				if (!isInstalled() && !isInstalled()) // glitches out sometimes
 					ScriptDiscoveryService.loadScript(scriptURL);
 			break;
 			case "close":
