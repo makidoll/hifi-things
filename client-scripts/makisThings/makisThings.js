@@ -189,6 +189,52 @@ var modules = {
 			});
 		}
 	},
+	caitlyn: {
+		name: "caitlyn",
+		enabled: false,
+		entityID: undefined,
+		on: function() {
+			modules.caitlyn.entityID = Entities.addEntity({
+				type: "Model",
+				modelURL: "https://maki.cat/hifi/avatars/ookatoo/ookatoo.fst",
+				name: "Caitlyn",
+				position: Vec3.sum(MyAvatar.position, Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 0.3, z: -0.5})),
+				rotation: Quat.cancelOutRollAndPitch(Camera.orientation),
+				collisionless: true,
+				grab: {
+        			grabbable: true,
+        			grabFollowsController: false,
+        		}
+			}, !(Entities.canRez()||Entities.canRezTmp()));
+		},
+		off: function() {
+			if (!modules.caitlyn.entityID) return;
+			Entities.deleteEntity(modules.caitlyn.entityID);
+		}
+	},
+	maki: {
+		name: "maki",
+		enabled: false,
+		entityID: undefined,
+		on: function() {
+			modules.maki.entityID = Entities.addEntity({
+				type: "Model",
+				modelURL: "https://maki.cat/hifi/avatars/kyouko/can-you-not.fst",
+				name: "Maki",
+				position: Vec3.sum(MyAvatar.position, Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 0.3, z: -0.5})),
+				rotation: Quat.cancelOutRollAndPitch(Camera.orientation),
+				collisionless: true,
+				grab: {
+        			grabbable: true,
+        			grabFollowsController: false,
+        		}
+			}, !(Entities.canRez()||Entities.canRezTmp()));
+		},
+		off: function() {
+			if (!modules.maki.entityID) return;
+			Entities.deleteEntity(modules.maki.entityID);
+		}
+	},
 	// cross legged
 	// seiza
 
