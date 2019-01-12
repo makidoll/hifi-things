@@ -128,6 +128,18 @@
 
 			#thank-you   { transition: 300ms all cubic-bezier(0.4, 0.0, 1, 1) !important; }
 			#thank-you * { transition: 600ms all cubic-bezier(0.0, 0.0, 0.2, 1) !important; }
+
+			@keyframes heartbeat {
+				0% { transform: scale(0.9); }
+				50% { transform: scale(1.0); }
+				100% { transform: scale(0.9); }
+			}
+
+			#thank-you svg {
+				animation-name: heartbeat;
+				animation-duration: 500ms;
+				animation-iteration-count: infinite;
+			}
 		</style>
 	</head>
 	<body>
