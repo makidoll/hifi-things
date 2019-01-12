@@ -4,15 +4,19 @@
 const float PI = 3.14159265359;
 const float TAU = 6.28318530718;
 
+float sphere(vec3 p, float r) {
+	return length(p)-r;
+}
+
 float scene(vec3 p) {
-	return 1;
+	return sphere(p-vec3(0,24,0), 1);
 }
 
 // thanks 1001 from vrchat
-vec3 raymarch(vec3 rayOrigin, vec3 rayDir) {
+void raymarch(vec3 rayOrigin, vec3 rayDir, out float rayAccuracy, out vec3 rayPos) {
 	int raySteps = 0;
 	float rayDist = 0;
-	vec3 rayPos = rayOrigin;
+	rayPos = rayOrigin;
 
 	for (raySteps=0; raySteps<maxSteps; raySteps++) { 
 		float dist = scene(rayPos);
@@ -20,11 +24,8 @@ vec3 raymarch(vec3 rayOrigin, vec3 rayDir) {
 		if (dist<accuracy) break;	
 	}
 
-	//float c = (maxSteps-float(raySteps))/maxSteps;
-	//if (c<accuracy) discard;
-
-	return rayPos;
-	//return vec3(c);
+	rayAccuracy = (maxSteps-float(raySteps))/maxSteps;
+	//if (rayAccuracy<accuracy) discrd;
 }
 
 // https://gamedev.stackexchange.com/questions/92015/optimized-linear-to-srgb-glsl
@@ -49,9 +50,19 @@ vec3 getSkyboxImageColor(vec3 dir) {
 }
 
 vec3 getSkyboxColor() {
+	//vec3 rayOrigin = getEyeWorldPos();
+	vec3 rayDir = normalize(_normal);
 
-	
+	//float rayAccuracy;
+	//vec3 rayPos;
+	//raymarch(rayOrigin, rayDir, rayAccuracy, rayPos);
 
-	vec3 skyboxColor = getSkyboxImageColor(normalize(_normal));
-	return skyboxColor;
+	vec3 color = getSkyboxImageColor(rayDir);
+	// if (rayAccuracy>accuracy) {
+	// 	//vec3 rayNormal = estimateNormal(rayPos);
+	// 	//vec3 reflectionDir = reflectionDir(rayDir, rayNormal);
+	// 	color = rayPos;
+	// }
+
+	return color;
 }
