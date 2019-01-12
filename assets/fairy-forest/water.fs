@@ -86,12 +86,11 @@ vec3 raymarch(vec3 rayOrigin, vec3 rayDir) {
 		if (dist<accuracy) break;	
 	}
 
-
-	float c = (maxSteps-float(raySteps))/maxSteps;
+	//float c = (maxSteps-float(raySteps))/maxSteps;
 	//if (c<accuracy) discard;
 
 	return rayPos;
-	return vec3(c);
+	//return vec3(c);
 }
 
 // http://jamie-wong.com/2016/07/15/ray-marching-signed-distance-functions/
@@ -109,7 +108,7 @@ vec3 reflectionDir(vec3 dir, vec3 normal) {
 }
 
 // https://makc3d.wordpress.com/2017/01/19/sampling-equirectangular-textures/
-vec3 getSkyboxReflectionColor(vec3 dir) {
+vec3 getSkyboxImageColor(vec3 dir) {
 	float r = length(dir);
 	float theta = acos(-dir.y/r);
 	float phi = atan(dir.x, -dir.z);
@@ -132,7 +131,7 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 	vec3 rayNormal = estimateNormal(rayPos);
 	vec3 reflectionDir = reflectionDir(rayDir, rayNormal);
 
-	vec3 color = getSkyboxReflectionColor(reflectionDir);
+	vec3 color = getSkyboxImageColor(reflectionDir);
 	float rayDist = distance(worldEye, worldPos);
 	if (rayPos.y>-0.93) {
 		color = color+(vec3(0.03)*clamp(1-rayDist/36, 0,1));
