@@ -18,10 +18,6 @@
 - [Load Avatar](https://hifi.maki.cat/client-entity-scripts/loadAvatar.js)
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
 - [Overlay Screen](https://hifi.maki.cat/client-entity-scripts/overlayScreen.js)
-
-<br><br>
-<img alt="Server Entity Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=server%20entity%20scripts"/>
-
 - [Playlist Sound Emitter](https://hifi.maki.cat/server-entity-scripts/playlistSoundEmitter.js)
 
 <br><br>
