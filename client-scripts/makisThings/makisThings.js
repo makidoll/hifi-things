@@ -235,6 +235,55 @@ var modules = {
 			Entities.deleteEntity(modules.maki.entityID);
 		}
 	},
+	fairyYoghurt: {
+		name: "fairy yoghurt",
+		enabled: false,
+		entityID: undefined,
+		childEntityID: undefined,
+		on: function() {
+			modules.fairyYoghurt.entityID = Entities.addEntity({
+				"type": "Model",
+	            "dimensions": {
+	                "x": 0.13339999318122864,
+	                "y": 0.10589999705553055,
+	                "z": 0.13339999318122864
+	            },
+	            "name": "Fairy Yoghurt",
+	            "modelURL": "https://maki.cat/hifi/models/fairy-yoghurt/fairy-yoghurt.fbx"
+			}, !(Entities.canRez()||Entities.canRezTmp()));
+
+			
+			modules.fairyYoghurt.childEntityID = Entities.addEntity({
+				"type": "Shape",
+	            "position": {
+	                "x": 0,
+	                "y": 0.026474999263882637,
+	                "z": 0
+	            },
+	            "dimensions": {
+	                "x": 0.1233999952673912,
+	                "y": 0.0010000000474974513,
+	                "z": 0.1233999952673912
+	            },
+	            "script": "https://maki.cat/hifi/models/fairy-yoghurt/fairy-yoghurt.js",
+	            "canCastShadow": false,
+	            "collisionless": true,
+	            "ignoreForCollisions": true,
+	            "userData": "{\"ProceduralEntity\":{\"shaderUrl\":\"https://maki.cat/hifi/models/fairy-yoghurt/fairy-yoghurt.fs\",\"version\":2,\"grabbableKey\":{\"grabbable\":false}}}",
+	            "name": "Fairy Yoghurt Shader",
+	            "shape": "Cylinder",
+	            "grab": {
+	                "grabbable": false,
+	                "grabFollowsController": false
+	            },
+	            "parentID": modules.fairyYoghurt.entityID
+			}, !(Entities.canRez()||Entities.canRezTmp()));
+		},
+		off: function() {
+			if (modules.fairyYoghurt.entityID) Entities.deleteEntity(modules.fairyYoghurt.entityID);
+			if (modules.fairyYoghurt.childEntityID) Entities.deleteEntity(modules.fairyYoghurt.childEntityID);
+		}
+	},
 	// cross legged
 	// seiza
 
