@@ -40,13 +40,14 @@ vec3 fromLinear(vec3 linearRGB) {
 // https://makc3d.wordpress.com/2017/01/19/sampling-equirectangular-textures/
 vec3 getSkyboxImageColor(vec3 dir) {
 	float r = length(dir);
-	float theta = acos(-dir.y/r);
+	float c = -dir.y/r;
+	float theta = acos(c);
 	float phi = atan(dir.x, -dir.z);
 
 	return fromLinear(texture(iChannel0, vec2(
 		phi/TAU,
 		1-theta/PI
-   )).rgb);
+   ), -2*log2(1+c*c)).rgb);
 }
 
 vec3 getSkyboxColor() {
