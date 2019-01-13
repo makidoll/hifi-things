@@ -241,8 +241,11 @@ var modules = {
 		entityID: undefined,
 		childEntityID: undefined,
 		on: function() {
+			var position = Vec3.sum(MyAvatar.position, Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 0.3, z: -0.5})),
+
 			modules.fairyYoghurt.entityID = Entities.addEntity({
 				"type": "Model",
+				"position": position,
 	            "dimensions": {
 	                "x": 0.13339999318122864,
 	                "y": 0.10589999705553055,
@@ -251,15 +254,14 @@ var modules = {
 	            "name": "Fairy Yoghurt",
 	            "modelURL": "https://maki.cat/hifi/models/fairy-yoghurt/fairy-yoghurt.fbx"
 			}, !(Entities.canRez()||Entities.canRezTmp()));
-
 			
 			modules.fairyYoghurt.childEntityID = Entities.addEntity({
 				"type": "Shape",
-	            "position": {
+	            "position": Vec3.sum(position, {
 	                "x": 0,
 	                "y": 0.026474999263882637,
 	                "z": 0
-	            },
+	            }),
 	            "dimensions": {
 	                "x": 0.1233999952673912,
 	                "y": 0.0010000000474974513,
