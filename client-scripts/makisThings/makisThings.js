@@ -241,7 +241,7 @@ var modules = {
 		entityID: undefined,
 		childEntityID: undefined,
 		on: function() {
-			var position = Vec3.sum(MyAvatar.position, Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 0.3, z: -0.5})),
+			var position = Vec3.sum(MyAvatar.position, Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 0.3, z: -0.5}));
 
 			modules.fairyYoghurt.entityID = Entities.addEntity({
 				"type": "Model",
