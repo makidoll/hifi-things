@@ -131,29 +131,33 @@ function changeSetting(key, value) {
 
 var scriptsInProgress = [];
 
-function toggleScript(link) {
-	var filename = link.split("/").pop();
-	if (scriptsInProgress[filename]) return; 
+function toggleScript(script) {
+	if (scriptsInProgress[script.filename]) return; 
 
-	var scriptLoaded = false;
+	var foundScriptLink = false;
 	var runningScripts = ScriptDiscoveryService.getRunning();
 
 	for (var i=0; i<runningScripts.length; i++) {
-		if (runningScripts[i].name == filename) {
-			scriptLoaded = true;
+		if (runningScripts[i].name == script.filename) {
+			foundScriptLink = runningScripts[i].url;
 			break;
 		}
 	}
 
-	if (scriptLoaded) {
-		ScriptDiscoveryService.stopScript(link);
+	if (foundScriptLink) {
+		ScriptDiscoveryService.stopScript(foundScriptLink);
 	} else {
-		ScriptDiscoveryService.loadScript(link);
+		if (script.link) {
+			ScriptDiscoveryService.loadScript(script.link);
+		} else {
+			tablet.loadQMLSource("hifi/commerce/checkout/Checkout.qml");
+			tablet.sendToQml({method: "updateCheckoutQMLItemID", params: {itemId: script.itemId}});
+		}
 	}
 
-	scriptsInProgress[filename] = true;
+	scriptsInProgress[script.filename] = true;
 	Script.setTimeout(function() {
-		delete scriptsInProgress[filename];
+		delete scriptsInProgress[script.filename];
 	}, 200); // so they dont load it twice
 
 	updateScripts();

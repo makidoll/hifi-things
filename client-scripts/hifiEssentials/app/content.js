@@ -239,7 +239,8 @@ var content = {
 				{
 					name: "<img src='scripts/portalDropper.svg' style='height: 30px'/>",
 					author: "FluffyJenkins",
-					link: "http://mpassets.highfidelity.com/74fdb4d7-1f55-487c-b2c7-e63044059599-v1/app-portalDropper.js"
+					itemName: "app-portalDropper.js",
+					itemId: "74fdb4d7-1f55-487c-b2c7-e63044059599",
 				},
 			]
 		},
@@ -249,12 +250,14 @@ var content = {
 				{
 					name: "<img src='scripts/fingerPaint.svg' style='height: 40px'/>",
 					author: "Mimicry",
-					link: "http://mpassets.highfidelity.com/d3985860-e94a-42d8-aa1f-c498b2cebabd-v1/fingerPaint.js"
+					itemName: "fingerPaint.js",
+					itemId: "d3985860-e94a-42d8-aa1f-c498b2cebabd",
 				},
 				{
 					name: "<img src='scripts/spectatorCamera.svg' style='height: 40px'/>",
 					author: "zfox",
-					link: "http://mpassets.highfidelity.com/1688f21e-c7dd-4fa8-ae5f-72142df91ad8-v1/spectatorCamera.js"
+					itemName: "spectatorCamera.js",
+					itemId: "1688f21e-c7dd-4fa8-ae5f-72142df91ad8",
 				},
 			]
 		},
@@ -269,12 +272,14 @@ var content = {
 				{
 					name: "<img src='scripts/sign.svg' style='height: 30px'/>",
 					author: "Menithal",
-					link: "http://mpassets.highfidelity.com/8cf6f9fe-55f9-40ae-84fd-e8229df4ab67-v1/sign.js"
+					itemName: "sign.js",
+					itemId: "8cf6f9fe-55f9-40ae-84fd-e8229df4ab67",
 				},
 				{
 					name: "<img src='scripts/tts.svg' style='height: 30px'/>",
 					author: "zfox",
-					link: "http://mpassets.highfidelity.com/568b183d-db87-4618-9e40-aba840ec3b26-v1/TTS.js"
+					itemName: "TTS.js",
+					itemId: "568b183d-db87-4618-9e40-aba840ec3b26",
 				},
 				{
 					name: "<img src='scripts/inspect.svg' style='height: 30px'/>",
@@ -282,7 +287,7 @@ var content = {
 					link: "https://maki.cat/hifi/scripts/inspect.js"
 				},
 			]
-		}
+		},
 	]
 }
 
@@ -353,22 +358,30 @@ content.scripts.forEach(category=>{
 	table.cellSpacing = "10px";
 
 	category.scripts.forEach((script, i)=>{
-		let safeFilename = script.link.split("/").pop().split(".");
+
+		let safeFilename = script.itemName;
+		if (script.link) safeFilename = script.link.split("/").pop();
+		safeFilename = safeFilename.split(".");
 		safeFilename.pop();
 		safeFilename = safeFilename.join(".");
+		// filename without .js
 
 		let tr = document.createElement("tr");
 		tr.className = "pointer";
 		tr.id = "scripts-"+safeFilename;
 		tr.addEventListener("click", ()=>{
-			emitEvent("toggleScript", script.link);
+			emitEvent("toggleScript", {
+				filename: safeFilename+".js",
+				itemId: script.itemId,
+				link: script.link,
+			});
 		});
 
 		let tdCheckbox = document.createElement("td");
 		tdCheckbox.style.verticalAlign = "middle";
 
 		let checkbox = document.createElement("div")
-		checkbox.className = "checkbox";
+		checkbox.className = "checkbox"+((script.itemId)?" checkbox-marketplace":"");
 		tdCheckbox.appendChild(checkbox);
 
 		let tdName = document.createElement("td");
