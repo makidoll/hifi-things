@@ -14,6 +14,17 @@ var button = tablet.addButton({
 	text: "essentials"
 });
 
+var disableTrackingSmoothing = Controller.parseMapping(JSON.stringify({
+	name: "cat.maki.hifiEssentials.disableTrackingSmoothing",
+	channels: ["LeftHand","RightHand","LeftFoot","RightFoot","Hips","Spine2","Head"].map(function(channel) {
+		return {
+			from: "Standard."+channel,
+			to: "Actions."+channel,
+			filters: [{ type: "exponentialSmoothing", translation: 1, rotation: 1 }]
+		}
+	})
+}));
+
 function emitEvent(key, value) {
 	tablet.emitScriptEvent(JSON.stringify({
 		key: key, value: value,
@@ -98,6 +109,17 @@ function changeSetting(key, value) {
 			}
 		break;
 
+		case "disableTrackingSmoothing":
+			var newDisableTrackingSmoothing = (value!=undefined)? value: !Settings.getValue("cat.maki.hifiEssentials.disableTrackingSmoothing");
+			Settings.setValue("cat.maki.hifiEssentials.disableTrackingSmoothing", newDisableTrackingSmoothing);
+
+			if (newDisableTrackingSmoothing) {
+				disableTrackingSmoothing.enable();
+			} else {
+				disableTrackingSmoothing.disable();
+			}
+		break;
+
 		default: somethingChanged = false; break;
 	}
 
@@ -147,6 +169,7 @@ function updateSettings(override) {
 		speedNumber: MyAvatar.walkSpeed.toFixed(3),
 
 		disableAntiAliasing: (Settings.getValue("cat.maki.hifiEssentials.disableAntiAliasing"))? true: false,
+		disableTrackingSmoothing: (Settings.getValue("cat.maki.hifiEssentials.disableTrackingSmoothing"))? true: false,
 	})
 }
 
@@ -194,14 +217,17 @@ function buttonClicked() {
 
 // init
 
-function getValueChangeSetting(key) {
+function getValueAndChangeSetting(key) {
 	var value = Settings.getValue("cat.maki.hifiEssentials."+key);
 	if (value == undefined) return;
 	changeSetting(key, value);
 }
 
-getValueChangeSetting("disableAntiAliasing");
-getValueChangeSetting("collisionsEnabled");
+getValueAndChangeSetting("disableAntiAliasing");
+getValueAndChangeSetting("disableTrackingSmoothing");
+Script.setInterval(function() {
+	getValueAndChangeSetting("collisionsEnabled");
+}, 1000);
 
 function collisionsEnabledChanged(enabled) { updateSettings({disableCollisions: !enabled}); }
 function scaleChanged() { updateSettings(); }
