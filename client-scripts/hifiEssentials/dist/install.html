@@ -209,8 +209,22 @@
 			</div></div>
 		</div>
 		<script type="text/javascript">
+			var _GET = {};
+			if (window.location.search.length>1) {
+				window.location.search.substr(1).split("&").forEach(p=>{
+					p = p.split("=");
+					_GET[p[0]] = p[1];
+				});
+			}
+
+			var uuid = decodeURI(_GET.uuid);
+
+			function emitEvent(event) {
+				if (window.qt) EventBridge.emitWebEvent("hifiEssentialsInstall-"+uuid+"-"+event);
+			}
+
 			document.querySelector(".yes").addEventListener("click", e=>{
-				if (window.qt) EventBridge.emitWebEvent("hifiEssentialsInstall-install");
+				emitEvent("install");
 				
 				let thankYou = document.getElementById("thank-you");
 				thankYou.style.marginTop = "0";
@@ -231,7 +245,7 @@
 
 			document.querySelector(".no").addEventListener("click", e=>{
 				window.close();
-				if (window.qt) EventBridge.emitWebEvent("hifiEssentialsInstall-close");
+				emitEvent("close");
 			});
 
 			// clicky hover sound effects

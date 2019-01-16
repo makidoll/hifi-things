@@ -1,7 +1,8 @@
 (function() {
+	var uuid = Uuid.generate();
 	var tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
 	var scriptURL = Script.resolvePath("../hifiEssentials.js");
-	var installURL = Script.resolvePath("install.html");
+	var installURL = Script.resolvePath("install.html?uuid="+uuid);
 
 	function isInstalled() {
 		var filename = scriptURL.split("/").pop();
@@ -15,10 +16,9 @@
 	}
 
 	function webEventReceived(string) {
-		switch (string.replace("hifiEssentialsInstall-","")) {
+		switch (string.replace("hifiEssentialsInstall-"+uuid+"-","")) {
 			case "install":
-				if (!isInstalled() && !isInstalled()) // glitches out sometimes
-					ScriptDiscoveryService.loadScript(scriptURL);
+				if (!isInstalled()) ScriptDiscoveryService.loadScript(scriptURL);
 			break;
 			case "close":
 				tablet.gotoHomeScreen();
