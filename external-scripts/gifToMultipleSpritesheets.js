@@ -10,7 +10,7 @@ if (spritesheets+"" == "NaN") return console.log("Invalid spritesheets number!")
 if (width+"" == "NaN") return console.log("Invalid width number!");
 
 var path = process.argv[2].split(".");
-path.pop();
+var fileExt = path.pop();
 path = path.join(".");
 
 const fs = require("fs");
@@ -18,7 +18,7 @@ const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 
 (async ()=>{
-	const { stdout } = await exec("magick identify "+path+".gif");
+	const { stdout } = await exec("magick identify "+path+"."+fileExt);
 	let frames = stdout.split("\n").length-1;
 
 	let framesPerSpritesheet = frames/spritesheets;
@@ -27,7 +27,7 @@ const exec = util.promisify(require("child_process").exec);
 
 	if (!fs.existsSync(path+"-0.png")) {
 		console.log("Spliting into frames...");
-		await exec("magick "+path+".gif "+path+".png");
+		await exec("magick "+path+"."+fileExt+" "+path+".png");
 	}
 
 	for (let i=0; i<spritesheets; i++) {
@@ -37,7 +37,7 @@ const exec = util.promisify(require("child_process").exec);
 		for (let j=0; j<framesPerSpritesheet; j++) {
 			cmd += path+"-"+(j+(framesPerSpritesheet*i))+".png ";
 		}
-		cmd += "-tile 4x -geometry +0+0 "+path+i+".png";
+		cmd += "-tile "+width+"x -geometry +0+0 "+path+i+".png";
 
 		await exec(cmd);
 	}

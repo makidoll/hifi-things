@@ -1,10 +1,10 @@
 // {
 // 	"ProceduralEntity": {
 // 		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/greenscreen.fs",
-// 		"version": 2,
-// 		"grabbableKey": {
-// 		  "grabbable": false
-// 		}
+// 		"version": 2
+// 	},
+// 	"grabbableKey": {
+// 		"grabbable": false
 // 	}
 // }
 
