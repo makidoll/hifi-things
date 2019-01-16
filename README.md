@@ -5,7 +5,7 @@
 <br><br>
 <img alt="Client Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=client%20scripts"/>
 
-- [<img height="40" alt="HiFi Essentials" src="https://hifi.maki.cat/client-scripts/hifiEssentials/app/assets/logo.svg"/>](https://hifi.maki.cat/client-scripts/hifiEssentials/hifiEssentials.js)<br><br>
+- [<img height="40" alt="Hifi Essentials" src="https://hifi.maki.cat/client-scripts/hifiEssentials/app/assets/logo.svg"/>](https://hifi.maki.cat/client-scripts/hifiEssentials/hifiEssentials.js)<br><br>
 - [<img height="30" alt="Maki's Nametags" src="https://hifi.maki.cat/client-scripts/hifiEssentials/app/scripts/makisNametags.svg"/>](https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js)<br><br>
 - [Maki's Things](https://hifi.maki.cat/client-scripts/makisThings/makisThings.js)
 - [Head Stacker](https://hifi.maki.cat/client-scripts/headStacker/headStacker.js)
