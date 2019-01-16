@@ -7,8 +7,8 @@
 
 - [<img height="40" alt="HiFi Essentials" src="https://hifi.maki.cat/client-scripts/hifiEssentials/app/assets/logo.svg"/>](https://hifi.maki.cat/client-scripts/hifiEssentials/hifiEssentials.js)<br><br>
 - [<img height="30" alt="Maki's Nametags" src="https://hifi.maki.cat/client-scripts/hifiEssentials/app/scripts/makisNametags.svg"/>](https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js)<br><br>
-- [Head Stacker](https://hifi.maki.cat/client-scripts/headStacker/headStacker.js)
 - [Maki's Things](https://hifi.maki.cat/client-scripts/makisThings/makisThings.js)
+- [Head Stacker](https://hifi.maki.cat/client-scripts/headStacker/headStacker.js)
 - [Grab Me](https://hifi.maki.cat/client-scripts/grabMe.js)
 
 <br><br>
@@ -28,6 +28,8 @@
 - [Invisible](https://hifi.maki.cat/shaders/invisible.fs)
 - [Lava Lamp](https://hifi.maki.cat/shaders/lavaLamp.fs)
 - [Lava Lamp Image](https://hifi.maki.cat/shaders/lavaLampImage.fs)
+- [Panorama](https://hifi.maki.cat/shaders/panorama.fs)
+- [TV](https://hifi.maki.cat/shaders/tv.fs)
 
 <br><br>
 <img alt="Batch Files" src="https://maki.cat/svg-text?width=512&weight=700&text=batch%20files"/>
@@ -39,5 +41,6 @@
 <br><br>
 <img alt="External Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=external%20scripts"/>
 
-- [Obj to SVG](https://hifi.maki.cat/external-scripts/objToSvg.js)
-- [Translate DAE bones](https://hifi.maki.cat/external-scripts/translateDaeBones.js)
+- [Translate .dae bones](https://hifi.maki.cat/external-scripts/translateDaeBones.js)
+- [.gif to multiple spritesheets](https://hifi.maki.cat/external-scripts/gifToMultipleSpritesheets.js)
+- [.obj to .svg](https://hifi.maki.cat/external-scripts/objToSvg.js)
