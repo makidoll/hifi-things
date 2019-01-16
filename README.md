@@ -42,5 +42,5 @@
 <img alt="External Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=external%20scripts"/>
 
 - [Translate .dae bones](https://hifi.maki.cat/external-scripts/translateDaeBones.js)
-- [.gif to multiple spritesheets](https://hifi.maki.cat/external-scripts/gifToMultipleSpritesheets.js)
+- [Video to multiple spritesheets](https://hifi.maki.cat/external-scripts/videoToMultipleSpritesheets.js)
 - [.obj to .svg](https://hifi.maki.cat/external-scripts/objToSvg.js)
