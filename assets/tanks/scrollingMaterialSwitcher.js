@@ -1,5 +1,5 @@
 (function() {
-	// not my code. maybe menithals?
+	// not my code. maybe menithal or samual?
 	var ScrollingMaterial = (function() {
 		var DEFAULT_HORIZONTAL_SPEED = 0.05;
 		var DEFAULT_VERTICAL_SPEED = 0.04;
