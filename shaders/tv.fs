@@ -1,28 +1,30 @@
-// {
-// 	"ProceduralEntity": {
-// 		"shaderUrl": "https://hifi.maki.cat/shaders/tv.fs",
-// 		"version": 2,
-// 		"channels": ["https://hifi.maki.cat/shaders/goats.jpg"],
-// 		"uniforms": {
-// 			"sqeeze": 6,
-// 			"scale": 100,
-// 			"brightness": 1,
-// 			"jitterOffset": 0.02,
-// 			"xShiftingSpeed": 0,
-// 			"yShiftingSpeed": 0,
-// 			"scanlineWidth": 0.1,
-// 			"scanlineSpeed": 1,
-// 			"scanlineOpacity": 0.02,
-// 			"animWidth": 4,
-// 			"animHeight": 6,
-// 			"animFPS": 15,
-// 			"animChannels": 1
-// 		}
-// 	},
-// 	"grabbableKey": {
-// 		"grabbable": false
-// 	}
-// }
+/*
+{
+	"ProceduralEntity": {
+		"shaderUrl": "https://hifi.maki.cat/shaders/tv.fs",
+		"version": 2,
+		"channels": ["https://hifi.maki.cat/shaders/goats.jpg"],
+		"uniforms": {
+			"sqeeze": 6,
+			"scale": 100,
+			"brightness": 1,
+			"jitterOffset": 0.02,
+			"xShiftingSpeed": 0,
+			"yShiftingSpeed": 0,
+			"scanlineWidth": 0.1,
+			"scanlineSpeed": 1,
+			"scanlineOpacity": 0.02,
+			"animWidth": 4,
+			"animHeight": 6,
+			"animFPS": 15,
+			"animChannels": 1
+		}
+	},
+	"grabbableKey": {
+		"grabbable": false
+	}
+}
+*/
 
 uniform float sqeeze = 6;
 uniform float scale = 100;
