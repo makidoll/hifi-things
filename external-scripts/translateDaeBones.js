@@ -44,8 +44,8 @@ let bones = {
 "Head": 		{tu: "head"},
 // right arm
 "RightShoulder": 	{tu: "clavicle_r"},
-"RightForeArm": 	{tu: "lowerarm_r"},
 "RightArm": 		{tu: "upperarm_r"},
+"RightForeArm": 	{tu: "lowerarm_r"},
 "RightHand": 		{tu: "hand_r"},
 // right hand
 "RightHandThumb1": 	{tu: "thumb_01_r"},
@@ -69,8 +69,8 @@ let bones = {
 "RightHandPinky3": 	{tu: "pinky_03_r"},
 // left arm
 "LeftShoulder": 	{tu: "clavicle_l"},
-"LeftForeArm": 		{tu: "upperarm_l"},
-"LeftArm": 			{tu: "lowerarm_l"},
+"LeftArm": 			{tu: "upperarm_l"},
+"LeftForeArm": 		{tu: "lowerarm_l"},
 "LeftHand": 		{tu: "hand_l"},
 // left hand
 "LeftHandThumb1": 	{tu: "thumb_01_l"},
