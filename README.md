@@ -5,8 +5,8 @@
 <br><br>
 <img alt="Client Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=client%20scripts"/>
 
-- [<img height="40" alt="Hifi Essentials" src="https://hifi.maki.cat/client-scripts/hifiEssentials/app/assets/logo.svg"/>](https://github.com/cutelab-fairies/scripts)<br><br>
-- [<img height="30" alt="Maki's Nametags" src="https://hifi.maki.cat/client-scripts/hifiEssentials/app/scripts/makisNametags.svg"/>](https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js)<br><br>
+- [<img height="40" alt="Hifi Essentials" src="https://scrips.cutelab.space/hifiEssentials/app/assets/logo.svg"/>](https://github.com/cutelab-fairies/scripts)<br><br>
+- [<img height="30" alt="Maki's Nametags" src="https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.README.svg"/>](https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js)<br><br>
 - [Maki's Things](https://hifi.maki.cat/client-scripts/makisThings/makisThings.js)
 - [Head Stacker](https://hifi.maki.cat/client-scripts/headStacker/headStacker.js)
 - [Grab Me](https://hifi.maki.cat/client-scripts/grabMe.js)
@@ -18,7 +18,7 @@
 - [Load Avatar](https://hifi.maki.cat/client-entity-scripts/loadAvatar.js)
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
 - [Overlay Screen](https://hifi.maki.cat/client-entity-scripts/overlayScreen.js)
-- [Playlist Sound Emitter](https://hifi.maki.cat/server-entity-scripts/playlistSoundEmitter.js)
+- [Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/playlistSoundEmitter.js)
 
 <br><br>
 <img alt="Shaders" src="https://maki.cat/svg-text?width=512&weight=700&text=shaders"/>
