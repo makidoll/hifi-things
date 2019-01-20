@@ -5,7 +5,7 @@
 <br><br>
 <img alt="Client Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=client%20scripts"/>
 
-- [<img height="40" alt="Hifi Essentials" src="https://scrips.cutelab.space/hifiEssentials/app/assets/logo.svg"/>](https://github.com/cutelab-fairies/scripts)<br><br>
+- [<img height="40" alt="Hifi Essentials" src="https://scripts.cutelab.space/hifiEssentials/app/assets/logo.svg"/>](https://github.com/cutelab-fairies/scripts)<br><br>
 - [<img height="30" alt="Maki's Nametags" src="https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.README.svg"/>](https://hifi.maki.cat/client-scripts/makisNametags/makisNametags.js)<br><br>
 - [Maki's Things](https://hifi.maki.cat/client-scripts/makisThings/makisThings.js)
 - [Head Stacker](https://hifi.maki.cat/client-scripts/headStacker/headStacker.js)
