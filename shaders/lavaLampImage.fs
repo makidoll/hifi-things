@@ -1,20 +1,22 @@
-// {
-// 	"ProceduralEntity": {
-// 		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/lavaLampImage.fs",
-// 		"channels": ["image.png"],
-// 		"uniforms": {
-// 			"blobScale": 2,
-// 			"blobDepth": 2,
-// 			"blobSaturation": 0.8,
-// 			"blobValue": 0.4,
-// 			"blobMoveSpeed": 0.1,
-// 			"hueSpeed": 0.05,
-// 			"hueScale": 4,
-// 			"background": "vec3(0,0,0)"
-// 		},
-// 		"version": 2
-// 	}
-// }
+/*
+{
+	"ProceduralEntity": {
+		"shaderUrl": "https://hifi.maki.cat/shaders/lavaLamp.fs",
+		"channels": ["image.png"],
+		"uniforms": {
+			"blobScale": 2,
+			"blobDepth": 2,
+			"blobSaturation": 0.8,
+			"blobValue": 0.4,
+			"blobMoveSpeed": 0.1,
+			"hueSpeed": 0.05,
+			"hueScale": 4,
+			"background": "vec3(0,0,0)"
+		},
+		"version": 2
+	}
+}
+*/
 
 uniform float blobScale = 2;
 uniform float blobDepth = 2;

@@ -1,15 +1,12 @@
-// {
-// 	"ProceduralEntity": {
-// 		"shaderUrl": "https://hifi.maki.cat/shaders/panorama.fs",
-// 		"version": 2,
-// 		"channels": [
-// 			"https://hifi.maki.cat/shaders/my-room.jpg"
-// 		],
-// 		"grabbableKey": {
-// 			"grabbable": false
-// 		}
-// 	}
-// }
+/*
+{
+	"ProceduralEntity": {
+		"shaderUrl": "https://hifi.maki.cat/shaders/invisible.fs",
+		"channels": ["https://hifi.maki.cat/shaders/my-room.jpg"],
+		"version": 2
+	}
+}
+*/
 
 const float PI = 3.14159265359;
 const float TAU = 6.28318530718;

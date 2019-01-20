@@ -1,13 +1,10 @@
 /*
-Put this in userData on a flat cube
-
 {
 	"ProceduralEntity": {
 		"shaderUrl": "https://hifi.maki.cat/shaders/stereoImage.fs",
-		"version": 2,
-		"channels": ["https://maki.cat/u/tW2hr1.jpg"]
-	},
-	"grabbableKey": { "grabbable": false }
+		"channels": ["https://maki.cat/u/tW2hr1.jpg"],
+		"version": 2
+	}
 }
 */
 

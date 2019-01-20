@@ -1,12 +1,11 @@
-// {
-// 	"ProceduralEntity": {
-// 		"shaderUrl": "https://raw.githubusercontent.com/makitsune/hifi-stuff/master/shaders/candySpiral.fs",
-// 		"version": 2,
-// 		"grabbableKey": {
-// 		  "grabbable": false
-// 		}
-// 	}
-// }
+/*
+{
+	"ProceduralEntity": {
+		"shaderUrl": "https://hifi.maki.cat/shaders/candySpiral.fs",
+		"version": 2
+	}
+}
+*/
 
 #define size 4.0
 #define spirals 0.5

@@ -2,7 +2,6 @@
 {
 	"ProceduralEntity": {
 		"shaderUrl": "https://hifi.maki.cat/shaders/tv.fs",
-		"version": 2,
 		"channels": ["https://hifi.maki.cat/shaders/goats.jpg"],
 		"uniforms": {
 			"sqeeze": 6,
@@ -19,9 +18,7 @@
 			"animFPS": 15,
 			"animChannels": 1
 		}
-	},
-	"grabbableKey": {
-		"grabbable": false
+		"version": 2,
 	}
 }
 */
