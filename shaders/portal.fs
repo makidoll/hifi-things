@@ -81,7 +81,7 @@ vec3 raymarch(vec3 rayOrigin, vec3 rayDir) {
 	vec3 rayPos = rayOrigin;
 
 	rayPos *= 1.05; // make slightly smaller
-	rayPos.y += sin(iGlobalTime*2)*0.02; // moving up and down
+	rayPos.y += sin(iGlobalTime*2)*0.05; // moving up and down
 	rayPos.z *= 0.8; // fit to bounding box
 
 	for (raySteps=0; raySteps<maxSteps; raySteps++) { 
