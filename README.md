@@ -29,6 +29,7 @@
 - [Lava Lamp](https://hifi.maki.cat/shaders/lavaLamp.fs)
 - [Lava Lamp Image](https://hifi.maki.cat/shaders/lavaLampImage.fs)
 - [Panorama](https://hifi.maki.cat/shaders/panorama.fs)
+- [Stereo Image](https://hifi.maki.cat/shaders/stereoImage.fs)
 - [TV](https://hifi.maki.cat/shaders/tv.fs)
 
 <br><br>
