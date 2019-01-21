@@ -2,10 +2,14 @@
 {
 	"ProceduralEntity": {
 		"shaderUrl": "https://hifi.maki.cat/shaders/water.fs",
-		"version": 2,
-		"channels": [
-			"https://hifi.maki.cat/shaders/my-room.jpg"
-		]
+		"channels": ["https://hifi.maki.cat/shaders/my-room.jpg"],
+		"uniforms": {
+			"scale": 1,
+			"speed": 1,
+			"height": 0.1,
+			"whiteWaves": true
+		},
+		"version": 2
 	},
 	"grabbableKey": {"grabbable": false}
 }
@@ -13,6 +17,11 @@
 
 #define maxSteps 48
 #define accuracy 0.01
+
+uniform float scale = 1;
+uniform float speed = 1;
+uniform float height = 0.1;
+uniform bool whiteWaves = true;
 
 const float PI = 3.14159265359;
 const float TAU = 6.28318530718;
@@ -50,17 +59,17 @@ float sphere(vec3 p, float r) {
 }
 
 float water(vec3 p, float y) {
-	p.xz *= 0.5;
+	p.xz *= 0.5 * scale;
 
-	p.x += sin(iGlobalTime*0.1);
-	p.z += cos(iGlobalTime*0.1);
+	p.x += sin(iGlobalTime*0.1*speed);
+	p.z += cos(iGlobalTime*0.1*speed);
 
 	//p.xz += length(p.xz+(iGlobalTime*4));
 
 	//float n = snoise(p.xz + iGlobalTime*0.1);
-	float n = snoise(vec3(p.x, iGlobalTime*0.2, p.z));
+	float n = snoise(vec3(p.x, iGlobalTime*0.2*speed, p.z));
 
-	n *= 0.1; // height
+	n *= height; // height
 	
 	return plane(p, y+n);
 }
@@ -71,7 +80,7 @@ float scene(vec3 p) {
 
 	//return sphere(p-vec3(-36,0,0), 1);
 	//return plane(p, 0);
-	return water(p, -1);
+	return water(p, -0.1);
 }
 
 // thanks 1001 from vrchat
@@ -121,20 +130,27 @@ vec3 getSkyboxImageColor(vec3 dir) {
 
 // https://github.com/theepicsnail/hifi/tree/master/shaders
 float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
-   	vec3 worldEye = getEyeWorldPos();
-	vec3 localPos = _position.xyz;
-   	vec3 worldPos = (iWorldOrientation*(localPos*iWorldScale)) + iWorldPosition;
-	vec3 rayOrigin = getEyeWorldPos();
-	vec3 rayDir = normalize(worldPos-worldEye);
+	//vec3 worldEye = getEyeWorldPos();
+	//vec3 localPos = _position.xyz;
+	//vec3 worldPos = (iWorldOrientation*(localPos*iWorldScale)) + iWorldPosition;
+	//vec3 rayOrigin = getEyeWorldPos();
+	//vec3 rayDir = normalize(worldPos-worldEye);
+	vec3 rayOrigin = _position.xyz * iWorldScale;
+	vec3 eye = (inverse(iWorldOrientation) * (getEyeWorldPos()-iWorldPosition));
+	vec3 rayDir = normalize((rayOrigin - eye));
 
 	vec3 rayPos = raymarch(rayOrigin, rayDir);
 	vec3 rayNormal = estimateNormal(rayPos);
 	vec3 reflectionDir = reflectionDir(rayDir, rayNormal);
 
 	vec3 color = getSkyboxImageColor(reflectionDir);
-	float rayDist = distance(worldEye, worldPos);
-	if (rayPos.y>-0.93) {
-		color = color+(vec3(0.03)*clamp(1-rayDist/36, 0,1));
+	//float rayDist = distance(worldEye, worldPos);
+	float rayDist = distance(eye, rayPos);
+	if (whiteWaves) {	
+		//if (rayPos.y>-0.93) {
+		if (rayPos.y>-height/2) {
+			color = color+(vec3(0.03)*clamp(1-rayDist/36, 0,1));
+		}
 	}
 
 	diffuse = color;
