@@ -32,6 +32,7 @@
 - [Panorama](https://hifi.maki.cat/shaders/panorama.fs)
 - [Stereo Image](https://hifi.maki.cat/shaders/stereoImage.fs)
 - [TV](https://hifi.maki.cat/shaders/tv.fs)
+- [Water](https://hifi.maki.cat/shaders/water.fs)
 
 <br><br>
 <img alt="Batch Files" src="https://maki.cat/svg-text?width=512&weight=700&text=batch%20files"/>
