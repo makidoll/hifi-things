@@ -19,6 +19,7 @@
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
 - [Overlay Screen](https://hifi.maki.cat/client-entity-scripts/overlayScreen.js)
 - [Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/playlistSoundEmitter.js)
+- [Teleport](https://hifi.maki.cat/client-entity-scripts/teleport.js)
 
 <br><br>
 <img alt="Shaders" src="https://maki.cat/svg-text?width=512&weight=700&text=shaders"/>
