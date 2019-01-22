@@ -18,9 +18,14 @@
 - [Load Avatar](https://hifi.maki.cat/client-entity-scripts/loadAvatar.js)
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
 - [Overlay Screen](https://hifi.maki.cat/client-entity-scripts/overlayScreen.js)
-- [Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/playlistSoundEmitter.js)
+- [Playlist Sound Emitter (works as a server script too)](https://hifi.maki.cat/client-entity-scripts/playlistSoundEmitter.js)
 - [Teleport](https://hifi.maki.cat/client-entity-scripts/teleport.js)
 - [Zoned Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/zonedPlaylistSoundEmitter.js)
+
+<br><br>
+<img alt="Server Entity Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=server%20entity%20scripts"/>
+
+- [Rainbow Material](https://hifi.maki.cat/server-entity-scripts/rainbowMaterial.js)
 
 <br><br>
 <img alt="Shaders" src="https://maki.cat/svg-text?width=512&weight=700&text=shaders"/>
