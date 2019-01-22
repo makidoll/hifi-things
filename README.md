@@ -1,4 +1,4 @@
-<img alt="HiFi Things" src="https://maki.cat/svg-text?width=192&weight=300&text=hifi%20things"/>
+<img alt="Hifi Things" src="https://maki.cat/svg-text?width=192&weight=300&text=hifi%20things"/>
 
 > ❤️ Things that I've made for High Fidelity
 
@@ -31,6 +31,8 @@
 - [Lava Lamp](https://hifi.maki.cat/shaders/lavaLamp.fs)
 - [Lava Lamp Image](https://hifi.maki.cat/shaders/lavaLampImage.fs)
 - [Panorama](https://hifi.maki.cat/shaders/panorama.fs)
+- [Portal](https://hifi.maki.cat/shaders/portal.fs)
+- [Portal Minimal](https://hifi.maki.cat/shaders/portalMinimal.fs)
 - [Reflective Sphere](https://hifi.maki.cat/shaders/reflectiveSphere.fs)
 - [Stereo Image](https://hifi.maki.cat/shaders/stereoImage.fs)
 - [TV](https://hifi.maki.cat/shaders/tv.fs)
