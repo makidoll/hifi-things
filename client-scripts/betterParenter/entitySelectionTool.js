@@ -42,8 +42,12 @@ SelectionManager = (function() {
 
     // FUNCTION: HANDLE ENTITY SELECTION TOOL UPDATES
     function handleEntitySelectionToolUpdates(channel, message, sender) {
-        if (channel !== 'entityToolUpdates') return;
-        if (sender !== MyAvatar.sessionUUID) return;
+        if (channel !== 'entityToolUpdates') {
+            return;
+        }
+        if (sender !== MyAvatar.sessionUUID) {
+            return;
+        }
 
         var wantDebug = false;
         var messageParsed;
