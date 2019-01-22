@@ -39,6 +39,11 @@
 - [Water](https://hifi.maki.cat/shaders/water.fs)
 
 <br><br>
+<img alt="Sites" src="https://maki.cat/svg-text?width=512&weight=700&text=sites"/>
+
+- [Digital Time](https://hifi.maki.cat/sites/digital-time)
+
+<br><br>
 <img alt="Batch Files" src="https://maki.cat/svg-text?width=512&weight=700&text=batch%20files"/>
 
 - [defaultScripts.js modifier (run as admin)](https://hifi.maki.cat/batch-files/defaultScripts-modifier.bat)

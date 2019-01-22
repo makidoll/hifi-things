@@ -1,0 +1,135 @@
+<!-- thank you so much for the awesome font <3
+https://www.keshikan.net/fonts-e.html -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Digital Time</title>
+		<style type="text/css">
+			@font-face {
+				font-family: "DSEG14 Modern Regular";
+				src: url(DSEG14Modern-Regular.ttf);
+			}
+
+			@font-face {
+				font-family: "DSEG14 Modern Bold";
+				src: url(DSEG14Modern-Bold.ttf);
+			}
+
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				font-family: "DSEG14 Modern Regular";
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
+				background: #000;
+				color: #fff;
+				font-size: 256px;
+				user-select: none;
+			}
+
+			#clock {
+				position: absolute; margin: auto;
+				top: 0; left: 0; right: 0; bottom: 0;
+				width: 1360px;
+				height: 720px;
+				/*background: rgba(255,0,0,0.5);*/
+			}
+
+			#clock>div {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+
+			#clock>div div {
+				position: absolute; margin: auto;
+				top: 0; left: 0;
+			}
+
+			.bold {
+				font-family: "DSEG14 Modern Bold";
+			}
+		</style>
+	</head>
+	<body>
+		<div id="clock"><div>
+			<div class="bold" style="opacity: 0.05;">~~:~~:~~</div>
+			<div class="bold" id="time"></div>
+			<div style="top: 288px; font-size: 128px; opacity: 0.05;">
+				~~~~~~~~~~~~~<br>
+				~~~~~~~~~~~~~<br>
+				~~~~~~~~~~~~~
+			</div>
+			<div style="top: 288px; font-size: 128px; opacity: 1;" id="date"></div>
+		</div></div>
+		<script type="text/javascript">
+			var time = document.getElementById("time");
+			var date = document.getElementById("date");
+
+			function twoDigits(n) {
+				return ("00"+n).slice(-2);
+			}
+
+			let colon = false;
+			function updateTime(dateTime) {
+				colon = !colon;
+				let c = (colon)?":":" ";
+
+				time.innerHTML = (
+					twoDigits(dateTime.getHours())+c+
+					twoDigits(dateTime.getMinutes())+c+
+					twoDigits(dateTime.getSeconds())
+				)
+			}
+
+			function attemptCenter(string, maxChar, rightMost) {
+				if (string.length >= maxChar) {
+					return string.slice(0, maxChar);
+				} else {
+					let right = rightMost;
+					while (string.length<maxChar) {
+						right = !right;
+						if (right) {
+							string = string+" ";
+						} else {
+							string = " "+string;
+						}
+					}
+					return string;
+				}
+			}
+
+			var week = ["MONDAY","TUESDAY","WEDNESDAY","THURSDAY","FRIDAY","SATURDAY","SUNDAY"];
+			var months = ["JANUARY","FEBRUARY","MARCH","APRIL","MAY","JUNE","JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER"];
+
+			var invisible = "<span style='opacity:0'>-</span>"
+
+			function updateDate(dateTime) {
+				var newDate = [
+					week[dateTime.getDay()-1],
+					months[dateTime.getMonth()]+" "+twoDigits(dateTime.getDate()),
+					dateTime.getFullYear()+"",
+				];
+
+				date.innerHTML = newDate.map(line=>{
+					return attemptCenter(line,13,false).replace(/ /g,invisible);
+					//return line.replace(/ /g,invisible);
+				}).join("<br>");
+			}
+
+			function update() {
+				let dateTime = new Date();
+				updateTime(dateTime);
+				updateDate(dateTime);
+			}
+
+			update();
+			setInterval(update, 1000);
+		</script>
+	</body>
+</html>
