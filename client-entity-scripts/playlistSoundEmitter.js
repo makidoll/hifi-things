@@ -1,14 +1,14 @@
-(function() {
-	// {
-	// 	"volume": 0.1,
-	// 	"randomize": true,
-	// 	"sounds": [
-	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush01a.wav",
-	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush02b.wav",
-	// 		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush03b.wav"	
-	// 	]
-	// }
+/*
+{
+	"volume": 0.1,
+	"randomize": true,
+	"sounds": [
+		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush01a.wav"
+	]
+}
+*/
 
+(function() {
 	// https://github.com/Daplie/knuth-shuffle/blob/master/index.js
 	function shuffle(array) {
 		var currentIndex = array.length, temporaryValue, randomIndex;
@@ -86,12 +86,5 @@
 		}
 
 		playNextSound();
-	}
-
-	this.unload = function() {
-		this.active = false;
-		if (this.currentInjector)
-			if (this.currentInjector.playing)
-				this.currentInjector.stop();
 	}
 })
