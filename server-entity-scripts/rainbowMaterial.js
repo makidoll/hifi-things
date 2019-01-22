@@ -53,12 +53,14 @@ user data of a material entity
 		try { var userData = JSON.parse(entity.userData);
 		} catch(err) { return; }
 
-		Entities.editEntity(entityID, {materialURL: "materialData"});
-
+		//var unlit = (userData.unlit!=undefined)? userData.unlit: false;
 		var speed = (userData.speed!=undefined)? userData.speed: 1;
 		var emission = (userData.emission!=undefined)? userData.emission: 2;
 		var saturation = (userData.saturation!=undefined)? userData.saturation: 1;
 		var value = (userData.value!=undefined)? userData.value: 1;
+
+		//materialData.materials.unlit = unlit;
+		Entities.editEntity(entityID, {materialURL: "materialData"});
 
 		var hue = 0;
 
