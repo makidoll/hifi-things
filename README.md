@@ -3,6 +3,11 @@
 > ❤️ Things that I've made for High Fidelity
 
 <br><br>
+[<img alt="Cutelab" src="https://hifi.maki.cat/cutelab.gif"/>](https://cutelab.space)
+- [https://cutelab.space](https://cutelab.space)
+- [https://github.com/cutelab-fairies](https://github.com/cutelab-fairies)
+
+<br><br>
 <img alt="Client Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=client%20scripts"/>
 
 - [<img height="40" alt="Hifi Essentials" src="https://scripts.cutelab.space/hifiEssentials/app/assets/logo.svg"/>](https://github.com/cutelab-fairies/scripts)<br><br>
