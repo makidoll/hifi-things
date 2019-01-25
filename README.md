@@ -71,3 +71,8 @@
 - [Translate .dae bones](https://hifi.maki.cat/external-scripts/translateDaeBones.js)
 - [Video to multiple spritesheets](https://hifi.maki.cat/external-scripts/videoToMultipleSpritesheets.js)
 - [.obj to .svg](https://hifi.maki.cat/external-scripts/objToSvg.js)
+
+<br><br>
+<img alt="External Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=express%20routes"/>
+
+- [3D Text .obj](https://github.com/makitsune/hifi-things/tree/master/express-routes/3d-text)
