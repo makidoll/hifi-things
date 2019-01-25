@@ -44,6 +44,11 @@
 - [Water](https://hifi.maki.cat/shaders/water.fs)
 
 <br><br>
+<img alt="Avatars" src="https://maki.cat/svg-text?width=512&weight=700&text=avatars"/>
+
+- [Lumpy Space Princess](https://hifi.maki.cat/avatars/lsp.fst)
+
+<br><br>
 <img alt="Sites" src="https://maki.cat/svg-text?width=512&weight=700&text=sites"/>
 
 - [Digital Time](https://hifi.maki.cat/sites/digital-time)

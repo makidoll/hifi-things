@@ -56,12 +56,10 @@ float box(vec3 p, vec3 b) {
 	return length(max(d,0.0))
          + min(max(d.x,max(d.y,d.z)),0.0); // remove this line for an only partially signed sdf 
 }
-
+D
 float sphere(vec3 p, float s) { return length(p)-s; }
 
-float scene(vec3 p) {
-	p /= iWorldScale;
-
+float portal(vec3 p) {
 	float n = snoise(vec3(p.xy*12, 
 		(sin(iGlobalTime)+(iGlobalTime*3))*0.2
 	));
@@ -72,6 +70,14 @@ float scene(vec3 p) {
 	portal = max(-sphere(p-vec3(0,0, 0.7), 0.5), portal);
 	portal = max(-sphere(p-vec3(0,0,-0.7), 0.5), portal);
 	return portal;
+}
+
+float scene(vec3 p) {
+	p /= iWorldScale;
+
+	return max(portal(p), sphere(p, 
+		1-clamp(1-iGlobalTime*0.5, 0, 1)
+	));
 }
 
 // thanks 1001 from vrchat
