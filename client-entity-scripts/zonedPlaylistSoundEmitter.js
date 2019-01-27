@@ -117,6 +117,6 @@
 
 	this.unload = function() {
 		if (!playlistSoundEmitter) return;
-		playlistSoundEmitter.unload;
+		playlistSoundEmitter.unload();
 	}
 })
