@@ -56,7 +56,7 @@ float box(vec3 p, vec3 b) {
 	return length(max(d,0.0))
          + min(max(d.x,max(d.y,d.z)),0.0); // remove this line for an only partially signed sdf 
 }
-D
+
 float sphere(vec3 p, float s) { return length(p)-s; }
 
 float portal(vec3 p) {
@@ -82,25 +82,25 @@ float scene(vec3 p) {
 
 // thanks 1001 from vrchat
 vec3 raymarch(vec3 rayOrigin, vec3 rayDir) {
-	int raySteps = 0;
-	float rayDist = 0;
-	vec3 rayPos = rayOrigin;
+		int raySteps = 0;
+		float rayDist = 0;
+		vec3 rayPos = rayOrigin;
 
-	rayPos *= 1.05; // make slightly smaller
-	rayPos.y += sin(iGlobalTime*2)*0.05; // moving up and down
-	rayPos.z *= 0.8; // fit to bounding box
+		rayPos *= 1.05; // make slightly smaller
+		rayPos.y += sin(iGlobalTime*2)*0.05; // moving up and down
+		rayPos.z *= 0.8; // fit to bounding box
 
-	for (raySteps=0; raySteps<maxSteps; raySteps++) { 
-		float dist = scene(rayPos);
-		rayPos += rayDir*dist;
-		if (dist<accuracy) break;	
-	}
+		for (raySteps=0; raySteps<maxSteps; raySteps++) { 
+			float dist = scene(rayPos);
+			rayPos += rayDir*dist;
+			if (dist<accuracy) break;	
+		}
 
-	float c = (maxSteps-float(raySteps))/maxSteps;
-	if (c<accuracy) discard;
+		float c = (maxSteps-float(raySteps))/maxSteps;
+		if (c<accuracy) discard;
 
-	return rayPos;
-	//return vec3(c);
+		return rayPos;
+		//return vec3(c);
 }
 
 float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
