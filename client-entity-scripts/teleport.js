@@ -6,6 +6,7 @@
 
 (function() {
 	var entityID = undefined;
+	var sound = SoundCache.getSound(Script.resolvePath("teleport.mp3"));
 
 	this.preload = function(_entityID) {
 		entityID = _entityID;
@@ -30,5 +31,11 @@
 
 		if (!userData.address) return;
 		Window.location = userData.address;
+		if (sound.downloaded)
+			Audio.playSound(sound, {
+				position: MyAvatar.position,
+				volume: 0.1,
+				localOnly: true
+			});
 	};
 })
