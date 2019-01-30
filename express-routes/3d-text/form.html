@@ -1,0 +1,95 @@
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+<style type="text/css">
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		margin: 50px;
+		font-family: "Roboto", sans-serif;
+	}
+
+	select, input, textarea {
+		width: 100%;
+		font-size: 1em;
+		font-family: "Roboto", sans-serif;
+	}
+
+	input[type="submit"] {
+		padding: 10px 0;
+	}
+
+	table {
+		width: 400px;
+	}
+
+	table tr>td:nth-child(1) {
+		text-align: right;
+		padding-right: 5px;
+	}
+
+	table h3 {
+		text-align: left;
+	}
+</style>
+<form>
+	<h1>3D text .obj generator</h1>
+	<br>
+	<table cellspacing="5">
+		<tr>
+			<td><h3>Required</h3></td>
+			<td></td>
+		</tr>
+		<tr><td><br></td><td><br></td></tr>
+		<tr>
+			<td>Font</td>
+			<td><select name="font" required>[fonts]</select></td>
+		</tr>
+		<tr>
+			<td>Scale</td>
+			<td><input name="scale" required type="number" step="0.001" value="1"/></td>
+		</tr>
+		<tr>
+			<td>Depth</td>
+			<td><input name="depth" required type="number" step="0.001" value="1"/></td>
+		</tr>
+		<tr>
+			<td>Text</td>
+			<td><textarea name="text" required></textarea></td>
+		</tr>
+		<tr><td><br></td><td><br></td></tr>
+		<tr>
+			<td><h3>Optional</h3></td>
+			<td></td>
+		</tr>
+		<tr><td><br></td><td><br></td></tr>
+		<tr>
+			<td>Space Offset</td>
+			<td><input name="spaceOffset" required type="number" step="1" value="0"/></td>
+		</tr>
+		<tr>
+			<td>Line Offset</td>
+			<td><input name="lineOffset" required type="number" step="1" value="0"/></td>
+		</tr>
+		<tr><td><br></td><td><br></td></tr>
+		<tr>
+			<td>Front Diffuse</td>
+			<td><input name="frontDiffuse" type="text" value="ffffff"/></td>
+		</tr>
+		<tr>
+			<td>Front Emission</td>
+			<td><input name="frontEmission" type="text" value="000000"/></td>
+		</tr>
+		<tr>
+			<td>Side Diffuse</td>
+			<td><input name="sideDiffuse" type="text" value="000000"/></td>
+		</tr>
+		<tr>
+			<td>Side Emission</td>
+			<td><input name="sideEmission" type="text" value="000000"/></td>
+		</tr>
+	</table>
+	<br>
+	<input style="width: 400px" type="submit" value="Generate">
+</form>
