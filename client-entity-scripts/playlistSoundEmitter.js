@@ -22,8 +22,10 @@
 		return array;
 	}
 
+	this.debug = false;
+
 	function debug(msg) {
-		if (false) console.log(msg);
+		if (this.debug) console.log(msg);
 	}
 
 	this.active = true;
@@ -45,6 +47,8 @@
 
 		if (userData.randomize)
 			sounds = shuffle(sounds);
+
+		this.debug = userData.debug;
 
 		function playSound(soundObject) {
 			debug("playing");
