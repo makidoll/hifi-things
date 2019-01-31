@@ -54,7 +54,7 @@
 		function playSound(soundObject) {
 			if (_this.active==false) return;
 			debug("playing");
-			
+
 			_this.currentInjector = Audio.playSound(soundObject, {
 				position: entity.position,
 				volume: userData.volume,
@@ -69,7 +69,7 @@
 		
 		var currentSoundIndex = -1;
 		function playNextSound() {
-			debug("new song")
+			debug("new song");
 
 			if (currentSoundIndex>=sounds.length-1) {
 				currentSoundIndex = 0;
@@ -79,14 +79,23 @@
 
 			var currentSound = sounds[currentSoundIndex];
 			if (currentSound.downloaded) {
-				debug("downloaded")
+				debug("downloaded");
 				playSound(currentSound);
 			} else {
-				debug("starting download")
-				currentSound.ready.connect(function() {
-					debug("finished download")
+				debug("starting download");
+				var interval = Script.setInterval(function() {
+					if (currentSound.downloaded == false) return;
+
+					debug("finished download");
 					playSound(currentSound);
-				});
+
+					Script.clearInterval(interval);
+				}, 500);
+
+				// currentSound.ready.connect(function() {
+				// 	debug("finished download")
+				// 	playSound(currentSound);
+				// });
 			}
 		}
 
