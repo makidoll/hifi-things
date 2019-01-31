@@ -22,10 +22,10 @@
 		return array;
 	}
 
-	this.debug = false;
+	var enableDebugging = false;
 
 	function debug(msg) {
-		if (this.debug) console.log(msg);
+		if (enableDebugging) console.log(msg);
 	}
 
 	this.active = true;
@@ -33,6 +33,7 @@
 
 	this.preload = function(entityID) {
 		var _this = this;
+		_this.active = true;
 
 		var sounds = [];
 		var entity = Entities.getEntityProperties(entityID, ["position", "userData"]); 
@@ -48,12 +49,12 @@
 		if (userData.randomize)
 			sounds = shuffle(sounds);
 
-		this.debug = userData.debug;
+		enableDebugging = userData.debug;
 
 		function playSound(soundObject) {
+			if (_this.active==false) return;
 			debug("playing");
-
-			if (!_this.active) return;
+			
 			_this.currentInjector = Audio.playSound(soundObject, {
 				position: entity.position,
 				volume: userData.volume,
