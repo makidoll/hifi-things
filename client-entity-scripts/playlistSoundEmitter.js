@@ -87,4 +87,11 @@
 
 		playNextSound();
 	}
+
+	this.unload = function() {
+		this.active = false;
+		if (this.currentInjector!=undefined)
+			if (this.currentInjector.playing)
+				this.currentInjector.stop();
+	}
 })
