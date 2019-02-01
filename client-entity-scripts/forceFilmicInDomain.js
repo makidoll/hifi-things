@@ -1,0 +1,22 @@
+(function() {
+	var previousCurve = undefined;
+	this.disable = function() {
+		var foxEssentials = Settings.getValue("cat.maki.foxEssentials.enableFilmicToneMapping");
+		if (foxEssentials != undefined) {
+			Render.getConfig("RenderMainView.ToneMapping")["curve"] = (foxEssentials)? 3: 1;
+			return;
+		}
+
+		if (previousCurve == undefined) return;
+		Render.getConfig("RenderMainView.ToneMapping")["curve"] = previousCurve;
+	}
+
+	this.preload = function() {
+		previousCurve = Render.getConfig("RenderMainView.ToneMapping")["curve"];
+		Render.getConfig("RenderMainView.ToneMapping")["curve"] = 3;
+
+		Window.domainChanged.connect(this.disable);
+	}
+
+	this.unload = this.disable;
+})

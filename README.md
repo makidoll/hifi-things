@@ -19,6 +19,7 @@
 <br><br>
 <img alt="Client Entity Scripts" src="https://maki.cat/svg-text?width=512&weight=700&text=client%20entity%20scripts"/>
 
+- [Force Filmic in Domain](https://hifi.maki.cat/client-entity-scripts/forceFilmicInDomain.js)
 - [Join Leave](https://hifi.maki.cat/client-entity-scripts/joinLeave.js)
 - [Load Avatar](https://hifi.maki.cat/client-entity-scripts/loadAvatar.js)
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
