@@ -1,6 +1,10 @@
 (function() {
+	var interval = undefined;
 	var previousCurve = undefined;
+	
 	this.disable = function() {
+		Script.clearInterval(interval);
+
 		var foxEssentials = Settings.getValue("cat.maki.foxEssentials.enableFilmicToneMapping");
 		if (foxEssentials != undefined) {
 			Render.getConfig("RenderMainView.ToneMapping")["curve"] = (foxEssentials)? 3: 1;
@@ -13,7 +17,11 @@
 
 	this.preload = function() {
 		previousCurve = Render.getConfig("RenderMainView.ToneMapping")["curve"];
+
 		Render.getConfig("RenderMainView.ToneMapping")["curve"] = 3;
+		interval = Script.setInterval(function() {
+			Render.getConfig("RenderMainView.ToneMapping")["curve"] = 3;
+		}, 1000*10);
 
 		Window.domainChanged.connect(this.disable);
 	}
