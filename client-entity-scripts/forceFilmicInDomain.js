@@ -20,7 +20,8 @@
 
 		Render.getConfig("RenderMainView.ToneMapping")["curve"] = 3;
 		interval = Script.setInterval(function() {
-			Render.getConfig("RenderMainView.ToneMapping")["curve"] = 3;
+			if (Render.getConfig("RenderMainView.ToneMapping")["curve"] != 3)
+				Render.getConfig("RenderMainView.ToneMapping")["curve"] = 3;
 		}, 1000*10);
 
 		Window.domainChanged.connect(this.disable);
