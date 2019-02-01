@@ -182,8 +182,8 @@
 
 			var priceInput = document.getElementById("price-input");
 			priceInput.addEventListener("keyup", e=>{
+				resetPriceButtons();
 				if (e.srcElement.value>0) {
-					resetPriceButtons();
 					e.srcElement.className = "active";
 					currentAmount = parseInt(e.srcElement.value);
 				} else {
