@@ -15,7 +15,7 @@
 	this.enterEntity = function (entityID) {
 		//if (entityID!=MyAvatar.sessionUUID) return;
 
-		var entity = Entities.getEntityProperties(entityID, ["href"]);
+		var entity = Entities.getEntityProperties(entityID, ["userData"]);
 		try { var userData = JSON.parse(entity.userData);
 		} catch(err) { return; }
 
