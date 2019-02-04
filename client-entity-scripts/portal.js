@@ -16,8 +16,8 @@
 		//if (entityID!=MyAvatar.sessionUUID) return;
 
 		var entity = Entities.getEntityProperties(entityID, ["href"]);
-		//try { var userData = JSON.parse(entity.userData);
-		//} catch(err) { return; }
+		try { var userData = JSON.parse(entity.userData);
+		} catch(err) { return; }
 
 		// if (!userData.position) return;
 		// var position = userData.position;
@@ -29,8 +29,8 @@
 		// 	position
 		// );
 
-		if (!entity.href) return;
-		Window.location = entity.href;
+		if (!userData.address) return;
+		Window.location = userData.address;
 		if (sound.downloaded)
 			Audio.playSound(sound, {
 				position: MyAvatar.position,
