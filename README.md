@@ -25,7 +25,7 @@
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
 - [Overlay Screen](https://hifi.maki.cat/client-entity-scripts/overlayScreen.js)
 - [Playlist Sound Emitter (works as a server script too)](https://hifi.maki.cat/client-entity-scripts/playlistSoundEmitter.js)
-- [Teleport](https://hifi.maki.cat/client-entity-scripts/teleport.js)
+- [Portal](https://hifi.maki.cat/client-entity-scripts/portal.js)
 - [Zoned Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/zonedPlaylistSoundEmitter.js)
 
 <br><br>
