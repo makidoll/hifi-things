@@ -1,0 +1,41 @@
+/*
+{
+	"address": "" // you can find this in "Navigage > Copy Address to Clipboard"
+}
+*/
+
+(function() {
+	var entityID = undefined;
+	var sound = SoundCache.getSound(Script.resolvePath("teleport.mp3"));
+
+	this.preload = function(_entityID) {
+		entityID = _entityID;
+	}
+
+	this.enterEntity = function (entityID) {
+		//if (entityID!=MyAvatar.sessionUUID) return;
+
+		var entity = Entities.getEntityProperties(entityID, ["href"]);
+		//try { var userData = JSON.parse(entity.userData);
+		//} catch(err) { return; }
+
+		// if (!userData.position) return;
+		// var position = userData.position;
+		// var rotation = (userData.rotation!=undefined)? userData.rotation: 0;
+		
+		// MyAvatar.orientation = Quat.fromPitchYawRollDegrees(0, rotation, 0);
+		// MyAvatar.position = Vec3.sum(
+		// 	Vec3.subtract(MyAvatar.position, MyAvatar.getWorldFeetPosition()),
+		// 	position
+		// );
+
+		if (!entity.href) return;
+		Window.location = entity.href;
+		if (sound.downloaded)
+			Audio.playSound(sound, {
+				position: MyAvatar.position,
+				volume: 0.1,
+				localOnly: true
+			});
+	};
+})
