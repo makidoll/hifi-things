@@ -1,0 +1,29 @@
+{
+	"DataVersion": 0,
+	"Entities": [{
+		"type": "Model",
+		"name": "Tip Jar",
+		"userData": "{\"username\":\"\",\"images\":{\"logo\":\"tip-jar.svg\",\"background\":\"the-spot.jpg\"},\"text\":{\"intro\":\"How much would you like to donate?\",\"custom\":\"Custom amount\",\"message\":\"Thank you so much!\",\"send\":\"Send the tip!\"},\"font\":{\"family\":\"Roboto Condensed\",\"weight\":700,\"size\":{\"small\":24,\"big\":32}},\"amounts\":[50,100,200,500],\"colors\":{\"text\":\"#ffffff\",\"unactive\":{\"text\":\"#1d1f21\",\"border\":\"#ffffff\",\"background\":\"#ffffff\"},\"active\":{\"text\":\"#ffffff\",\"border\":\"#00b4ef\",\"background\":\"#00b4ef\"}}}",
+		"description": "Make sure you edit the user data with your username and style it to your likings!",
+		"dimensions": {
+			"x": 0.3710070550441742,
+			"y": 0.49445685744285583,
+			"z": 0.36454659700393677
+		},
+		"grab": {
+			"grabbable": false,
+			"grabFollowsController": false,
+			"triggerable": true
+		},
+		"animation": {
+			"allowTranslation": false,
+			"loop": false
+		},
+		"damping": 0,
+		"angularDamping": 0,
+		"script": "http://mpassets.highfidelity.com/4d550eff-dee5-485c-bf9b-8390c57e5c56-v1/tip-jar.js",
+		"shapeType": "static-mesh",
+		"modelURL": "http://mpassets.highfidelity.com/4d550eff-dee5-485c-bf9b-8390c57e5c56-v1/tip-jar.fbx"
+	}],
+	"Version": 107
+}
