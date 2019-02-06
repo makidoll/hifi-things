@@ -21,9 +21,9 @@
 		},
 		"damping": 0,
 		"angularDamping": 0,
-		"script": "http://mpassets.highfidelity.com/4d550eff-dee5-485c-bf9b-8390c57e5c56-v1/tip-jar.js",
+		"script": "https://hifi.maki.cat/client-entity-scripts/tip-jar/tip-jar.js",
 		"shapeType": "static-mesh",
-		"modelURL": "http://mpassets.highfidelity.com/4d550eff-dee5-485c-bf9b-8390c57e5c56-v1/tip-jar.fbx"
+		"modelURL": "https://hifi.maki.cat/client-entity-scripts/tip-jar/tip-jar.fbx"
 	}],
 	"Version": 107
 }
