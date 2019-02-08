@@ -1,5 +1,6 @@
 /*
 {
+	"debug": false,
 	"volume": 0.1,
 	"randomize": true,
 	"sounds": [
