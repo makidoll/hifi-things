@@ -59,7 +59,7 @@
 				position: entity.position,
 				volume: userData.volume,
 				loop: false,
-				//localOnly: true,
+				localOnly: true,
 			});
 
 			_this.currentInjector.finished.connect(function() {
