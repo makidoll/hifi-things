@@ -3,7 +3,7 @@
 	"username": "",
 	"images": {
 		"logo": "tip-jar.svg",
-		"background": "thespot.jpg"
+		"background": "the-spot.jpg"
 	},
 	"text": {
 		"intro": "How much would you like to donate?",
