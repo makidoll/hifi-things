@@ -2,8 +2,9 @@
 {
 	"volume": 0.1,
 	"randomize": true,
+	"prefix": "https://hifi.maki.cat/client-scripts/makisThings/sounds/test/", 
 	"sounds": [
-		"https://hifi.maki.cat/client-scripts/makisThings/sounds/test/hairbrush01a.wav"
+		"hairbrush01a.wav"
 	]
 }
 */
@@ -38,10 +39,12 @@
 			if (!entity.userData) return;
 			var userData = JSON.parse(entity.userData);
 
+			var prefix = userData.prefix||"";
+
 			if (userData.sounds)
 				if (userData.sounds.length>0)
 					userData.sounds.forEach(function(soundURL) {
-						sounds.push(SoundCache.getSound(soundURL));
+						sounds.push(SoundCache.getSound(prefix+soundURL));
 					});
 
 			if (userData.randomize)
