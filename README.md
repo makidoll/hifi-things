@@ -27,6 +27,7 @@
 - [Playlist Sound Emitter (works as a server script too)](https://hifi.maki.cat/client-entity-scripts/playlistSoundEmitter.js)
 - [Portal](https://hifi.maki.cat/client-entity-scripts/portal.js)
 - [Tip Jar](https://hifi.maki.cat/client-entity-scripts/tip-jar/tip-jar.js)
+- [Zoned Invisible Web Player](https://hifi.maki.cat/client-entity-scripts/zonedInvisibleWebPlayer.js)
 - [Zoned Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/zonedPlaylistSoundEmitter.js)
 
 <br><br>
