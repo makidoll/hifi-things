@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>portal</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+				transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+			}
+
+			*:focus {
+				outline: none;
+			}
+
+			body {
+				font-family: "Roboto", sans-serif;
+				margin: 40px;
+				background: #1d1f21;
+				color: #fff;
+				overflow-x: hidden;
+			}
+
+			input, button {
+				background: transparent;
+				color: #fff;
+				font-family: "Roboto", sans-serif;
+				font-size: 24px;
+				border: solid 4px #E91E63;
+				border-radius: 50px;
+				padding: 8px 16px;
+				display: block;
+				margin: 0 auto;
+				width: 100%;
+			}
+
+			input {
+				width: calc(100% - 36px);
+			}
+
+			button {
+				background: #E91E63;
+			}
+
+			button:hover {
+				background: transparent;
+			}
+
+			button[disabled] {
+				opacity: 0.5;
+			}
+
+			button[disabled]:hover {
+				background: #E91E63;
+			}
+
+			img {
+				border-radius: 25px;
+				width: 100%;
+			}
+
+			#loading {
+				position: fixed; margin: auto;
+				top: 0; left: 0; right: 0; bottom: 0;
+				background: rgba(29,31,33,0.8);
+			}
+
+			.middle {
+				display: table;
+				width: 100%;
+				height: 100%;
+				text-align: center;
+			}
+
+			.middle>* {
+				display: table-cell;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="loading">
+			<div class="middle"><h1>Checking<br>permissions...</h1></div>
+		</div>
+		<div>
+			<input type="text" id="input-place-name" placeholder="Place name"/>
+			<br>
+			<button id="spawn-portal" disabled>Spawn a portal for a minute!</button>
+			<br>
+			<h1 id="place-name"></h1>
+			<p id="place-desc"></p>
+			<br>
+			<img id="place-thumb"/>
+		</div>
+		<script type="text/javascript">
+			document.getElementById("input-place-name").addEventListener("change", e=>{
+				emitEvent("getPlaceInfo", e.srcElement.value);
+			});
+
+			document.getElementById("spawn-portal").addEventListener("click", e=>{
+				if (!selectedPlace) return;
+				emitEvent("spawnPortal", selectedPlace);
+			});
+
+			if (window.qt) {
+				var _GET = {};
+				if (window.location.search.length>1) {
+					window.location.search.substr(1).split("&").forEach(p=>{
+						p = p.split("=");
+						_GET[p[0]] = p[1];
+					});
+				}
+
+				var uuid = decodeURI(_GET.uuid);
+
+				function emitEvent(key, value) {
+					EventBridge.emitWebEvent(JSON.stringify({
+						key: key, value: value||"",
+						uuid: uuid,
+					}));
+				}
+
+				var selectedPlace = undefined;
+
+				setTimeout(()=>{
+					EventBridge.scriptEventReceived.connect(json=>{
+						try { json = JSON.parse(json);
+						} catch(err) { return; }
+						if (json.uuid != uuid) return;
+
+						switch (json.key) {
+							case "getPermissions":
+								if (json.value) {
+									document.getElementById("loading").remove();
+								} else {
+									document.querySelector("#loading h1").innerHTML = "You don't have<br>permission to rez<br>entities here!";
+								}
+							break;
+							case "getPlaceInfo":
+								selectedPlace = json.value;
+								document.getElementById("place-name").innerHTML = json.value.name;
+								document.getElementById("place-desc").innerHTML = json.value.desc;
+								document.getElementById("place-thumb").src = json.value.thumb;
+								document.getElementById("spawn-portal").disabled = false;
+							break;
+						}
+					});
+
+					emitEvent("getPermissions");
+				}, 200);
+			}
+
+		</script>
+	</body>
+</html>

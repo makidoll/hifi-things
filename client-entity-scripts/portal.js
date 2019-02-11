@@ -33,7 +33,7 @@
 		Window.location = userData.address;
 		if (sound.downloaded)
 			Audio.playSound(sound, {
-				position: MyAvatar.position,
+				//position: MyAvatar.position,
 				volume: 0.1,
 				localOnly: true
 			});

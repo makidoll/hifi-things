@@ -34,27 +34,29 @@ vec3 getColor(vec2 uv) {
 	iUv.y *= -1; 
 
 	float swirliness = (n-0.5)*0.015;
-	iUv += swirliness;
+	iUv.x += swirliness;
 	vec3 color = texture(iChannel0, iUv.xy).rgb;
 
-	float swirlinessLength = length(uv + swirliness*16);
-	if (swirlinessLength>0.3) { color += vec3(1)*0.1; }
-	if (swirlinessLength>0.4) { color += vec3(1)*0.3; }
+	vec2 swirlinessUv = uv;
+	swirlinessUv.y += swirliness*16;
+	float swirlinessLength = length(swirlinessUv);
+	if (swirlinessLength>0.35) { color += vec3(1)*0.1; }
+	if (swirlinessLength>0.425) { color += vec3(1)*0.3; }
 
 	return color;
 }
 
 // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
 float ellipsoid(vec3 p, vec3 r) {
-    float k0 = length(p/r);
-    float k1 = length(p/(r*r));
-    return k0*(k0-1.0)/k1;
+	float k0 = length(p/r);
+	float k1 = length(p/(r*r));
+	return k0*(k0-1.0)/k1;
 }
 
 float box(vec3 p, vec3 b) {
 	vec3 d = abs(p) - b;
 	return length(max(d,0.0))
-         + min(max(d.x,max(d.y,d.z)),0.0); // remove this line for an only partially signed sdf 
+		 + min(max(d.x,max(d.y,d.z)),0.0); // remove this line for an only partially signed sdf 
 }
 
 float sphere(vec3 p, float s) { return length(p)-s; }
@@ -82,25 +84,25 @@ float scene(vec3 p) {
 
 // thanks 1001 from vrchat
 vec3 raymarch(vec3 rayOrigin, vec3 rayDir) {
-		int raySteps = 0;
-		float rayDist = 0;
-		vec3 rayPos = rayOrigin;
+	int raySteps = 0;
+	float rayDist = 0;
+	vec3 rayPos = rayOrigin;
 
-		rayPos *= 1.05; // make slightly smaller
-		rayPos.y += sin(iGlobalTime*2)*0.05; // moving up and down
-		rayPos.z *= 0.8; // fit to bounding box
+	rayPos *= 1.05; // make slightly smaller
+	rayPos.y += sin(iGlobalTime*2)*0.05; // moving up and down
+	rayPos.z *= 0.8; // fit to bounding box
 
-		for (raySteps=0; raySteps<maxSteps; raySteps++) { 
-			float dist = scene(rayPos);
-			rayPos += rayDir*dist;
-			if (dist<accuracy) break;	
-		}
+	for (raySteps=0; raySteps<maxSteps; raySteps++) { 
+		float dist = scene(rayPos);
+		rayPos += rayDir*dist;
+		if (dist<accuracy) break;	
+	}
 
-		float c = (maxSteps-float(raySteps))/maxSteps;
-		if (c<accuracy) discard;
+	float c = (maxSteps-float(raySteps))/maxSteps;
+	if (c<accuracy) discard;
 
-		return rayPos;
-		//return vec3(c);
+	return rayPos;
+	//return vec3(c);
 }
 
 float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
