@@ -86,15 +86,17 @@
 		<div>
 			<input type="text" id="input-place-name" placeholder="Place name"/>
 			<br>
-			<button id="spawn-portal" disabled>Spawn a portal for two minutes!</button>
+			<button id="spawn-portal" disabled>Spawn a portal for a minute!</button>
 			<br>
 			<h1 id="place-name"></h1>
-			<p id="place-desc"></p>
+			<h2 id="place-people"></h2>
+			<h3 style="font-weight: 400;" id="place-desc"></h3>
 			<br>
 			<img id="place-thumb"/>
 		</div>
 		<script type="text/javascript">
 			document.getElementById("input-place-name").addEventListener("change", e=>{
+				document.getElementById("spawn-portal").disabled = true;
 				emitEvent("getPlaceInfo", e.srcElement.value);
 			});
 
@@ -140,8 +142,9 @@
 							case "getPlaceInfo":
 								selectedPlace = json.value;
 								document.getElementById("place-name").innerHTML = json.value.name;
+								document.getElementById("place-people").innerHTML = json.value.people+" people here";
 								document.getElementById("place-desc").innerHTML = json.value.desc;
-								document.getElementById("place-thumb").src = json.value.thumb;
+								document.getElementById("place-thumb").src = json.value.thumbURL;
 								document.getElementById("spawn-portal").disabled = false;
 							break;
 						}

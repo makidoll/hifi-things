@@ -7,6 +7,8 @@ var button = tablet.addButton({
 
 var soundOpening = SoundCache.getSound(Script.resolvePath("portal_open1.wav"));
 
+function atob(r){for(var t,a=String(r),c=0,n="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",o="";a.charAt(0|c)||(n="=",c%1);o+=n.charAt(63&t>>8-c%1*8))t=t<<8|a.charCodeAt(c+=.75);return o}
+
 function emitEvent(key, value) {
 	tablet.emitScriptEvent(JSON.stringify({
 		uuid: uuid,
@@ -14,16 +16,24 @@ function emitEvent(key, value) {
 	}));
 }
 
-function getPlaceInfo(placename, callback) {
+function request(url, callback, blob) {
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function() {
-		if (req.readyState == 4) callback(req.responseText);
+		if (req.readyState == 4) {
+			if (req.status!=200) return;
+			callback(req.responseText);
+		}
 	}
-	req.open("GET", "https://highfidelity.com/places/"+placename);
+	req.open("GET", url, true);
 	req.send();
 }
 
-function spawnPortal(placename, thumbnail) {
+function getPlaceInfo(placename, callback) {
+	request("https://highfidelity.com/places/"+placename, callback);
+}
+
+var lifetime = 60;
+function spawnPortal(place) {
 	var position = Vec3.sum(MyAvatar.getWorldFeetPosition(), Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 1.5, z: -2}));
 	var rotation = Quat.cancelOutRollAndPitch(Camera.orientation);
 
@@ -34,7 +44,7 @@ function spawnPortal(placename, thumbnail) {
 		});
 
 	var parentID = Entities.addEntity({
-		name: "Portal to "+placename,
+		name: "Portal to "+place.name,
 		type: "Box",
 		shape: "Cube",
 		dimensions: {
@@ -50,39 +60,59 @@ function spawnPortal(placename, thumbnail) {
 		ignoreForCollisions: true,
 		grab: {grabbable: false, grabFollowsController: false},
 		userData: JSON.stringify({
-			"address": "hifi://"+placename,
+			"address": "hifi://"+place.name,
 			"ProceduralEntity": {
 				"shaderUrl": "https://hifi.maki.cat/shaders/portal.fs",
-				"channels": [thumbnail],
+				"channels": [place.thumbURL.replace("/lobby/", "/original/")],
 				"uniforms": {
 					"aspectRatio": 2.57971014486
 				},
 				"version": 2
 			}
 		}),
-		lifetime: 120,
+		lifetime: lifetime,
 	});
 
-	Entities.addEntity({
-		name: "Portal text to "+placename,
+	var textEntity = {
+		parentID: parentID,
+		name: "Portal text to "+place.name,
 		type: "Model",
-		modelURL: ("https://maki.cat/3d-text.obj"+
-			"?font=apple_kid"+
-			"&scale=0.05"+
-			"&depth=0.2"+
-			"&spaceOffset=2"+
-			"&lineOffset=-2"+
-			"&frontEmission=ffffff"+
-			"&sideEmission=E91E63"+
-			"&sideDiffuse=010101"+
-			"&text="+placename
-		),
-		position: Vec3.sum(position, {y: 2}),
 		rotation: rotation,
 		collisionless: true,
 		ignoreForCollisions: true,
 		grab: {grabbable: false, grabFollowsController: false},
-	});
+		lifetime: lifetime,
+	};
+
+	textEntity.position = Vec3.sum(position, {y: 1.8});
+	textEntity.modelURL = ("https://maki.cat/3d-text.obj"+
+		"?font=apple_kid"+
+		"&scale=0.02"+
+		"&depth=0.2"+
+		"&spaceOffset=2"+
+		"&lineOffset=-2"+
+		"&frontEmission=ffffff"+
+		"&sideEmission="+place.averageColor+
+		"&frontDiffuse=010101"+
+		"&sideDiffuse=010101"+
+		"&text="+place.people+" people here"
+	);
+	Entities.addEntity(textEntity);
+
+	textEntity.position = Vec3.sum(position, {y: 2.3});
+	textEntity.modelURL = ("https://maki.cat/3d-text.obj"+
+		"?font=apple_kid"+
+		"&scale=0.05"+
+		"&depth=0.2"+
+		"&spaceOffset=2"+
+		"&lineOffset=-2"+
+		"&frontEmission=ffffff"+
+		"&sideEmission="+place.averageColor+
+		"&frontDiffuse=010101"+
+		"&sideDiffuse=010101"+
+		"&text="+place.name
+	);
+	Entities.addEntity(textEntity);
 }
 
 function webEventReceived(json) {
@@ -100,28 +130,31 @@ function webEventReceived(json) {
 				var place = {
 					name: (/<title>(.*?) -/i.exec(body)),
 					desc: (/<p class=['"]places-regular-text places-left-justify['"]>(.*?)<\/p>/i.exec(body)),
-					thumb: (/<img class=['"]places-img['"] src="(.*?)[?'"]/i.exec(body)),
+					thumbURL: (/<img class=['"]places-img['"] src="(.*?)[?'"]/i.exec(body)),
+					people: (/([0-9]{1,10}) (?:people|person) here<\/span>/i.exec(body)),
 				};
 
 				if (place.name == null) return;
 				place = {
 					name: place.name[1],
 					desc: place.desc[1],
-					thumb: place.thumb[1],
+					thumbURL: place.thumbURL[1],
+					people: parseInt(place.people[1]),
 				};
 
-				console.log(place.thumb);
-
-  				emitEvent("getPlaceInfo", place);
+				request("https://maki.cat/average-color?url="+place.thumbURL, function(body) {
+					place.averageColor = body;
+  					emitEvent("getPlaceInfo", place);
+				}, true);
 			});
 		break;
 		case "spawnPortal":
 			if (typeof json.value != "object") return;
-			if (typeof json.value.name != "string") return;
-			if (typeof json.value.thumb != "string") return;
+
+			console.log(JSON.stringify(json.value))
 
 			tablet.gotoHomeScreen();
-			spawnPortal(json.value.name, json.value.thumb.replace("/lobby/", "/original/"));
+			spawnPortal(json.value);
 		break;
 	}
 }
