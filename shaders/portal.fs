@@ -13,6 +13,8 @@ on a cube sized 2, 3, 0.5
 #define maxSteps 48
 #define accuracy 0.01
 
+uniform float aspectRatio = 1; 
+
 vec3 getColor(vec2 uv) {
 	//vec2 nUv = uv*12;
 	vec2 nUv = vec2(uv.x, uv.y*3/2)*12;
@@ -30,7 +32,9 @@ vec3 getColor(vec2 uv) {
 	if (n+pow(d, 10)>1) return vec3(1);
 
 	// correct the uv and make image swirl
-	vec2 iUv = uv-0.5;
+	vec2 iUv = uv;
+	iUv.x /= aspectRatio;
+	iUv += 0.5;
 	iUv.y *= -1; 
 
 	float swirliness = (n-0.5)*0.015;

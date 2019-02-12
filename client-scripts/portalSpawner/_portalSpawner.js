@@ -5,6 +5,8 @@ var button = tablet.addButton({
 	text: "portal",
 });
 
+var soundOpening = SoundCache.getSound(Script.resolvePath("portal_open1.wav"));
+
 function emitEvent(key, value) {
 	tablet.emitScriptEvent(JSON.stringify({
 		uuid: uuid,
@@ -25,6 +27,12 @@ function spawnPortal(placename, thumbnail) {
 	var position = Vec3.sum(MyAvatar.getWorldFeetPosition(), Vec3.multiplyQbyV(Quat.cancelOutRollAndPitch(Camera.orientation), {y: 1.5, z: -2}));
 	var rotation = Quat.cancelOutRollAndPitch(Camera.orientation);
 
+	if (soundOpening.downloaded)
+		Audio.playSound(soundOpening, {
+			position: position,
+			volume: 0.1,
+		});
+
 	var parentID = Entities.addEntity({
 		name: "Portal to "+placename,
 		type: "Box",
@@ -34,21 +42,25 @@ function spawnPortal(placename, thumbnail) {
 			y: 3,
 			z: 0.5,
 		},
+		color: {red:0,green:0,blue:0},
 		position: position,
 		rotation: rotation,
 		script: "https://hifi.maki.cat/client-entity-scripts/portal.js",
 		collisionless: true,
 		ignoreForCollisions: true,
-		grab: {grabbable: true, grabFollowsController: false},
+		grab: {grabbable: false, grabFollowsController: false},
 		userData: JSON.stringify({
 			"address": "hifi://"+placename,
 			"ProceduralEntity": {
 				"shaderUrl": "https://hifi.maki.cat/shaders/portal.fs",
 				"channels": [thumbnail],
+				"uniforms": {
+					"aspectRatio": 2.57971014486
+				},
 				"version": 2
 			}
 		}),
-		lifetime: 60,
+		lifetime: 120,
 	});
 
 	Entities.addEntity({
@@ -69,8 +81,7 @@ function spawnPortal(placename, thumbnail) {
 		rotation: rotation,
 		collisionless: true,
 		ignoreForCollisions: true,
-		grab: {grabbable: true, grabFollowsController: false},
-		lifetime: 60,
+		grab: {grabbable: false, grabFollowsController: false},
 	});
 }
 
@@ -99,6 +110,8 @@ function webEventReceived(json) {
 					thumb: place.thumb[1],
 				};
 
+				console.log(place.thumb);
+
   				emitEvent("getPlaceInfo", place);
 			});
 		break;
@@ -108,7 +121,7 @@ function webEventReceived(json) {
 			if (typeof json.value.thumb != "string") return;
 
 			tablet.gotoHomeScreen();
-			spawnPortal(json.value.name, json.value.thumb);
+			spawnPortal(json.value.name, json.value.thumb.replace("/lobby/", "/original/"));
 		break;
 	}
 }
