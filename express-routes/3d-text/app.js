@@ -136,10 +136,10 @@ function hexToRgb(hex) {
 }
 
 global.app.get("/3d-text-:fd-:fe-:sd-:se.mtl", (req,res)=>{
-	let fd = hexToRgb("#"+req.params.fd).join(" ");
-	let fe = hexToRgb("#"+req.params.fe).join(" ");
-	let sd = hexToRgb("#"+req.params.sd).join(" ");
-	let se = hexToRgb("#"+req.params.se).join(" ");
+	let fd = hexToRgb("#"+req.params.fd); if (fd!=null) fd=fd.join(" ");
+	let fe = hexToRgb("#"+req.params.fe); if (fe!=null) fe=fe.join(" ");
+	let sd = hexToRgb("#"+req.params.sd); if (sd!=null) sd=sd.join(" ");
+	let se = hexToRgb("#"+req.params.se); if (se!=null) se=se.join(" ");
 
 	res.header({"Content-Type": "text/plain"});
 	res.end(
