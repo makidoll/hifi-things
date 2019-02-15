@@ -1,6 +1,5 @@
 /*
 {
-	"debug": false,
 	"volume": 0.1,
 	"randomize": true,
 	"sounds": [
@@ -41,10 +40,12 @@
 		if (!entity.userData) return;
 		var userData = JSON.parse(entity.userData);
 
+		var prefix = userData.prefix||"";
+
 		if (userData.sounds)
 			if (userData.sounds.length>0)
 				userData.sounds.forEach(function(soundURL) {
-					sounds.push(SoundCache.getSound(soundURL));
+					sounds.push(SoundCache.getSound(prefix+soundURL));
 				});
 
 		if (userData.randomize)
@@ -57,10 +58,10 @@
 			debug("playing");
 
 			_this.currentInjector = Audio.playSound(soundObject, {
-				//position: entity.position,
+				position: entity.position,
 				volume: userData.volume,
 				loop: false,
-				localOnly: true,
+				//localOnly: true,
 			});
 
 			_this.currentInjector.finished.connect(function() {

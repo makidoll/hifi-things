@@ -4,6 +4,8 @@
 // }
 
 (function() {
+	var emptyHTML = "data:text/html;base64,PHN0eWxlPip7YmFja2dyb3VuZDojMDAwfTwvc3R5bGU+";
+
 	var overlayID = undefined;
 	var interval = undefined;
 	var dimensions = undefined;
@@ -18,8 +20,17 @@
 		dimensions = entity.dimensions;
 		var userData = JSON.parse(entity.userData);
 
+		var exclude = false;
+		if (userData.exclude) {
+			userData.exclude.forEach(function(username) {
+				if (exclude) return;
+				if (username.toLowerCase()==AccountServices.username.toLowerCase())
+					exclude = true;
+			});
+		}
+
 		overlayID = Overlays.addOverlay("web3d", {
-			url: userData.url,
+			url: (exclude)? emptyHTML: userData.url,
 			maxFPS: 90,
 			alpha: 1,
 			dpi: userData.dpi||10,
