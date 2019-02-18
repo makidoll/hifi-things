@@ -23,7 +23,7 @@ function HeadStacker() {
 		MyAvatar.overrideRoleAnimation(
 			"fly",
 			Script.resolvePath("idle.fbx"),
-			30, true, 0, 1000000
+			30, true, 0, 30
 		);
 		MyAvatar.setCollisionsEnabled(false);
 		MyAvatar.setOtherAvatarsCollisionsEnabled(false);
@@ -64,7 +64,13 @@ function HeadStacker() {
 		if (!this.mountedAvatarID) return;
 
 		//MyAvatar.setParentID("");
-		MyAvatar.restoreRoleAnimation("fly");
+		//MyAvatar.restoreRoleAnimation("fly");
+		MyAvatar.overrideRoleAnimation(
+			"fly",
+			"qrc:///avatar/animations/fly.fbx",
+			30, true, 1, 80
+		);
+
 		MyAvatar.setCollisionsEnabled(true);
 		MyAvatar.setOtherAvatarsCollisionsEnabled(true);
 		Script.setTimeout(function() {
