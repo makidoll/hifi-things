@@ -26,6 +26,7 @@ function HeadStacker() {
 			30, true, 0, 1000000
 		);
 		MyAvatar.setCollisionsEnabled(false);
+		MyAvatar.setOtherAvatarsCollisionsEnabled(false);
 
 		var _this = this;
 		this.interval = Script.setInterval(function() {
@@ -35,18 +36,18 @@ function HeadStacker() {
 			MyAvatar.orientation = avatar.headOrientation;
 			
 			// step foot position to avatar position with head orientation
-			var footPosition = Vec3.mix(
-				MyAvatar.getJointPosition("LeftFoot"),
-				MyAvatar.getJointPosition("RightFoot"),
-				0.5
-			);
+			// var footPosition = Vec3.mix(
+			// 	MyAvatar.getJointPosition("LeftFoot"),
+			// 	MyAvatar.getJointPosition("RightFoot"),
+			// 	0.5
+			// );
 
 			MyAvatar.position = Vec3.sum( 
 				avatar.getJointPosition("Head"),
 				Vec3.multiply( // offset slightly
 					Vec3.subtract( // difference between pos and feet
 						MyAvatar.position,
-						footPosition
+						MyAvatar.getWorldFeetPosition()
 					),
 					1.5
 				)
@@ -65,6 +66,7 @@ function HeadStacker() {
 		//MyAvatar.setParentID("");
 		MyAvatar.restoreRoleAnimation("fly");
 		MyAvatar.setCollisionsEnabled(true);
+		MyAvatar.setOtherAvatarsCollisionsEnabled(true);
 		Script.setTimeout(function() {
 			MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
 		}, 100);
@@ -129,6 +131,7 @@ function webEventReceived(json) {
 		case "resetCollisions":
 			if (!headStacker.mounted)
 				MyAvatar.setCollisionsEnabled(true);
+				MyAvatar.setOtherAvatarsCollisionsEnabled(true);
 		break;
 		case "resetOrientation":
 			if (!headStacker.mounted)
