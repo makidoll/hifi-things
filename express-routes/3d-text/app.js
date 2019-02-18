@@ -65,27 +65,36 @@ function pixelsToObj(pixels, s, d) { // scale, depth
 }
 
 function handleRequest(req, res) {
-	if (!(req.query.font||req.query.scale||req.query.depth||req.query.text))
-		return res.send("<pre>"+
-			"Available fonts:\n"+
-			"\t"+fs.readdirSync(__dirname+"/bdf").map(font=>font.replace(/\.bdf/,"")).join(", ")+"\n"+
-			"\n"+
-			"Required parameters:\n"+
-			"\tfont,\n"+
-			"\tscale (float),\n"+
-			"\tdepth (float),\n"+
-			"\ttext\n"+
-			"\n"+
-			"Optional parameters:\n"+
-			"\tfrontDiffuse (hex color),\n"+
-			"\tfrontEmission (hex color),\n"+
-			"\n"+
-			"\tsideDiffuse (hex color),\n"+
-			"\tsideEmission (hex color),\n"+
-			"\n"+
-			"\tspaceOffset (int),\n"+
-			"\tlineOffset (int)\n"+
-		"</pre>");
+	if (!(req.query.font&&req.query.scale&&req.query.depth&&req.query.text))
+		return res.send(
+			fs.readFileSync(__dirname+"/form.html", "utf8")
+			.replace(/\[fonts\]/gi,
+				fs.readdirSync(__dirname+"/bdf")
+				.map(font=>font.replace(/\.bdf/,""))
+				.map(font=>'<option value="'+font+'">'+font+'</option>')
+				.join("")
+			)
+		);
+		// return res.send("<pre>"+
+		// 	"Available fonts:\n"+
+		// 	"\t"+fs.readdirSync(__dirname+"/bdf").map(font=>font.replace(/\.bdf/,"")).join(", ")+"\n"+
+		// 	"\n"+
+		// 	"Required parameters:\n"+
+		// 	"\tfont,\n"+
+		// 	"\tscale (float),\n"+
+		// 	"\tdepth (float),\n"+
+		// 	"\ttext\n"+
+		// 	"\n"+
+		// 	"Optional parameters:\n"+
+		// 	"\tspaceOffset (int),\n"+
+		// 	"\tlineOffset (int)\n"+
+		// 	"\n"+
+		// 	"\tfrontDiffuse (hex color),\n"+
+		// 	"\tfrontEmission (hex color),\n"+
+		// 	"\n"+
+		// 	"\tsideDiffuse (hex color),\n"+
+		// 	"\tsideEmission (hex color),\n"+
+		// "</pre>");
 
 	let font = __dirname+"/bdf/"+req.query.font+".bdf";
 	let scale = parseFloat(req.query.scale); if (scale+""=="NaN") return res.send("Scale not a number!");
@@ -104,7 +113,7 @@ function handleRequest(req, res) {
 	let obj = pixelsToObj(pixels, scale, depth);
 
 	obj.mtllib = ("/3d-text"+
-		"-"+((req.query.frontDiffuse )? req.query.frontDiffuse : "000000")+
+		"-"+((req.query.frontDiffuse )? req.query.frontDiffuse : "ffffff")+
 		"-"+((req.query.frontEmission)? req.query.frontEmission: "000000")+
 		"-"+((req.query.sideDiffuse  )? req.query.sideDiffuse  : "000000")+
 		"-"+((req.query.sideEmission )? req.query.sideEmission : "000000")+
@@ -127,10 +136,10 @@ function hexToRgb(hex) {
 }
 
 global.app.get("/3d-text-:fd-:fe-:sd-:se.mtl", (req,res)=>{
-	let fd = hexToRgb("#"+req.params.fd).join(" ");
-	let fe = hexToRgb("#"+req.params.fe).join(" ");
-	let sd = hexToRgb("#"+req.params.sd).join(" ");
-	let se = hexToRgb("#"+req.params.se).join(" ");
+	let fd = hexToRgb("#"+req.params.fd); if (fd!=null) fd=fd.join(" ");
+	let fe = hexToRgb("#"+req.params.fe); if (fe!=null) fe=fe.join(" ");
+	let sd = hexToRgb("#"+req.params.sd); if (sd!=null) sd=sd.join(" ");
+	let se = hexToRgb("#"+req.params.se); if (se!=null) se=se.join(" ");
 
 	res.header({"Content-Type": "text/plain"});
 	res.end(

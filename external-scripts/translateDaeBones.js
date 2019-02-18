@@ -1,7 +1,5 @@
-var fs = require("fs");
-
 let translations = [
-	"tu", "hifi"
+	"hifi", "tu", "sl"
 ];
 
 if (process.argv.length<4) {
@@ -9,6 +7,8 @@ if (process.argv.length<4) {
 	console.log("For armatures that have a Mixamo naming scheme.")
 	return;
 }
+
+var fs = require("fs");
 
 let daeFile = "";
 let filename = process.argv[2];
@@ -25,73 +25,76 @@ if (!translations.includes(translateTo)) {
 }
 
 let bones = {
-"Hips": 		{tu: "pelvis"},
+"Hips":         {tu: "pelvis", sl: "mPelvis"},
 // right leg
-"RightUpLeg": 	{tu: "thigh_r"},
-"RightLeg": 	{tu: "calf_r"},
-"RightFoot": 	{tu: "foot_r"},
-"RightToeBase": {tu: "ball_r"},
+"RightUpLeg":   {tu: "thigh_r", sl: "mHipRight"},
+"RightLeg":     {tu: "calf_r",  sl: "mKneeRight"},
+"RightFoot":    {tu: "foot_r",  sl: "mFootRight"},
+"RightToeBase": {tu: "ball_r",  sl: "mToeRight"},
 // left leg
-"LeftUpLeg": 	{tu: "thigh_l"},
-"LeftLeg": 		{tu: "calf_l"},
-"LeftFoot": 	{tu: "foot_l"},
-"LeftToeBase": 	{tu: "ball_l"},
+"LeftUpLeg":    {tu: "thigh_l", sl: "mHipLeft"},
+"LeftLeg":      {tu: "calf_l",  sl: "mKneeLeft"},
+"LeftFoot":     {tu: "foot_l",  sl: "mFootLeft"},
+"LeftToeBase":  {tu: "ball_l",  sl: "mToeLeft"},
 // spine head
-"Spine": 		{tu: "spine_01"},
-"Spine1": 		{tu: "spine_02"},
-"Spine2": 		{tu: "spine_03"},
-"Neck": 		{tu: "neck_01"},
-"Head": 		{tu: "head"},
+"Spine":        {tu: "spine_01", sl: "mTorso"},
+"Spine1":       {tu: "spine_02", sl: "mSpine1"},
+"Spine2":       {tu: "spine_03", sl: "mChest"},
+"Neck":         {tu: "neck_01",  sl: "mNeck"},
+"Head":         {tu: "head",     sl: "mHead"},
+// eyes
+"RightEye":     {tu: "", sl: "mEyeRight"},
+"LeftEye":      {tu: "", sl: "mEyeLeft"},
 // right arm
-"RightShoulder": 	{tu: "clavicle_r"},
-"RightArm": 		{tu: "upperarm_r"},
-"RightForeArm": 	{tu: "lowerarm_r"},
-"RightHand": 		{tu: "hand_r"},
+"RightShoulder":    {tu: "clavicle_r", sl: "mCollarRight"},
+"RightArm":         {tu: "upperarm_r", sl: "mShoulderRight"},
+"RightForeArm":     {tu: "lowerarm_r", sl: "mElbowRight"},
+"RightHand":        {tu: "hand_r",     sl: "mWristRight"},
 // right hand
-"RightHandThumb1": 	{tu: "thumb_01_r"},
-"RightHandThumb2": 	{tu: "thumb_02_r"},
-"RightHandThumb3": 	{tu: "thumb_03_r"},
+"RightHandThumb1":  {tu: "thumb_01_r", sl: "mHandThumb1Right"},
+"RightHandThumb2":  {tu: "thumb_02_r", sl: "mHandThumb2Right"},
+"RightHandThumb3":  {tu: "thumb_03_r", sl: "mHandThumb3Right"},
 
-"RightHandIndex1": 	{tu: "index_01_r"},
-"RightHandIndex2": 	{tu: "index_02_r"},
-"RightHandIndex3": 	{tu: "index_03_r"},
+"RightHandIndex1":  {tu: "index_01_r", sl: "mHandIndex1Right"},
+"RightHandIndex2":  {tu: "index_02_r", sl: "mHandIndex2Right"},
+"RightHandIndex3":  {tu: "index_03_r", sl: "mHandIndex3Right"},
 
-"RightHandMiddle1": {tu: "middle_01_r"},
-"RightHandMiddle2": {tu: "middle_02_r"},
-"RightHandMiddle3": {tu: "middle_03_r"},
+"RightHandMiddle1": {tu: "middle_01_r", sl: "mHandMiddle1Right"},
+"RightHandMiddle2": {tu: "middle_02_r", sl: "mHandMiddle2Right"},
+"RightHandMiddle3": {tu: "middle_03_r", sl: "mHandMiddle3Right"},
 
-"RightHandRing1": 	{tu: "ring_01_r"},
-"RightHandRing2": 	{tu: "ring_02_r"},
-"RightHandRing3": 	{tu: "ring_03_r"},
+"RightHandRing1":   {tu: "ring_01_r", sl: "mHandRing1Right"},
+"RightHandRing2":   {tu: "ring_02_r", sl: "mHandRing2Right"},
+"RightHandRing3":   {tu: "ring_03_r", sl: "mHandRing3Right"},
 
-"RightHandPinky1": 	{tu: "pinky_01_r"},
-"RightHandPinky2": 	{tu: "pinky_02_r"},
-"RightHandPinky3": 	{tu: "pinky_03_r"},
+"RightHandPinky1":  {tu: "pinky_01_r", sl: "mHandPinky1Right"},
+"RightHandPinky2":  {tu: "pinky_02_r", sl: "mHandPinky2Right"},
+"RightHandPinky3":  {tu: "pinky_03_r", sl: "mHandPinky3Right"},
 // left arm
-"LeftShoulder": 	{tu: "clavicle_l"},
-"LeftArm": 			{tu: "upperarm_l"},
-"LeftForeArm": 		{tu: "lowerarm_l"},
-"LeftHand": 		{tu: "hand_l"},
+"LeftShoulder":     {tu: "clavicle_l", sl: "mCollarLeft"},
+"LeftArm":          {tu: "upperarm_l", sl: "mShoulderLeft"},
+"LeftForeArm":      {tu: "lowerarm_l", sl: "mElbowLeft"},
+"LeftHand":         {tu: "hand_l",     sl: "mWristLeft"},
 // left hand
-"LeftHandThumb1": 	{tu: "thumb_01_l"},
-"LeftHandThumb2": 	{tu: "thumb_02_l"},
-"LeftHandThumb3": 	{tu: "thumb_03_l"},
+"LeftHandThumb1":   {tu: "thumb_01_l", sl: "mHandThumb1Left"},
+"LeftHandThumb2":   {tu: "thumb_02_l", sl: "mHandThumb2Left"},
+"LeftHandThumb3":   {tu: "thumb_03_l", sl: "mHandThumb3Left"},
 
-"LeftHandIndex1": 	{tu: "index_01_l"},
-"LeftHandIndex2": 	{tu: "index_02_l"},
-"LeftHandIndex3": 	{tu: "index_03_l"},
+"LeftHandIndex1":   {tu: "index_01_l", sl: "mHandIndex1Left"},
+"LeftHandIndex2":   {tu: "index_02_l", sl: "mHandIndex2Left"},
+"LeftHandIndex3":   {tu: "index_03_l", sl: "mHandIndex3Left"},
 
-"LeftHandMiddle1": 	{tu: "middle_01_l"},
-"LeftHandMiddle2": 	{tu: "middle_02_l"},
-"LeftHandMiddle3": 	{tu: "middle_03_l"},
+"LeftHandMiddle1":  {tu: "middle_01_l", sl: "mHandMiddle1Left"},
+"LeftHandMiddle2":  {tu: "middle_02_l", sl: "mHandMiddle2Left"},
+"LeftHandMiddle3":  {tu: "middle_03_l", sl: "mHandMiddle3Left"},
 
-"LeftHandRing1": 	{tu: "ring_01_l"},
-"LeftHandRing2": 	{tu: "ring_02_l"},
-"LeftHandRing3": 	{tu: "ring_03_l"},
+"LeftHandRing1":    {tu: "ring_01_l", sl: "mHandRing1Left"},
+"LeftHandRing2":    {tu: "ring_02_l", sl: "mHandRing2Left"},
+"LeftHandRing3":    {tu: "ring_03_l", sl: "mHandRing3Left"},
 
-"LeftHandPinky1": 	{tu: "pinky_01_l"},
-"LeftHandPinky2": 	{tu: "pinky_02_l"},
-"LeftHandPinky3": 	{tu: "pinky_03_l"},
+"LeftHandPinky1":   {tu: "pinky_01_l", sl: "mHandPinky1Left"},
+"LeftHandPinky2":   {tu: "pinky_02_l", sl: "mHandPinky2Left"},
+"LeftHandPinky3":   {tu: "pinky_03_l", sl: "mHandPinky3Left"},
 }
 
 Object.keys(bones).reverse().forEach((boneName, i)=>{

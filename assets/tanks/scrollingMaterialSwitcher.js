@@ -44,7 +44,7 @@
 
 			currentImage++;
 			if (currentImage>=images.length) currentImage = 0;
-			console.log(currentImage);
+			//console.log(currentImage);
 
 			materialData.materials.emissiveMap = images[currentImage];
 			materialData.materials.albedoMap = images[currentImage];

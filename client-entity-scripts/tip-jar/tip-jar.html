@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tip Jar</title>
+		<style type="text/css">
+			/*BEGIN CUSTOM VARIABLES*/
+			:root {
+				--font-family: "Roboto Condensed", sans-serif;
+				--font-weight: 700;
+				--font-size-small: 24px;
+				--font-size-big: 32px;
+
+				/*--images-logo: url(tip-jar.svg);
+				--images-background: url(the-spot.jpg);*/
+
+				--colors-text: #ffffff;
+				--colors-unactive-text: #1d1f21;
+				--colors-unactive-border: #ffffff;
+				--colors-unactive-background: #ffffff;
+				--colors-active-text: #ffffff;
+				--colors-active-border: #00b4ef;
+				--colors-active-background: #00b4ef;
+			}
+			/*END CUSTOM VARIABLES*/
+
+			* {
+				margin: 0; padding: 0;
+				transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
+			}
+
+			*:focus { outline: none; }
+
+			*::selection {
+				background: var(--colors-active-background);
+				color: var(--colors-active-text);
+			}
+
+			body {
+				font-family: var(--font-family);
+				background-color: #1d1f21;
+				background-image: linear-gradient(
+					rgba(29, 31, 33, 0.4), 
+					rgba(29, 31, 33, 0.4)
+				), var(--images-background);
+				background-position: center;
+				background-size: cover;
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
+				color: var(--colors-text);
+				font-size: var(--font-size-small);
+				font-weight: var(--font-weight);
+			}
+
+			.icon {
+				display: inline-block;
+				width: 24px;
+				height: 24px;
+				transition: none;
+			}
+
+			#money {
+				width: calc(100% + 40px);
+				margin-left: -20px;
+				text-align: center;
+				font-size: var(--font-size-big);
+			}
+
+			#money td {
+				padding: 5px 0;
+				border-radius: 64px;
+				cursor: pointer;
+				color: var(--colors-unactive-text);
+				border: solid 4px var(--colors-unactive-border); 
+				background: var(--colors-unactive-background);
+				user-select: none;
+			}
+
+			#money .icon {
+				width: 32px;
+				height: 32px;
+				margin-bottom: -4px;
+				fill: var(--colors-unactive-text);
+			}
+
+			#money td.active {
+				color: var(--colors-active-text);
+				border-color: var(--colors-active-border);
+				background: var(--colors-active-background);
+			}
+
+			#money td.active .icon {
+				fill: var(--colors-active-text);
+			}
+
+			#logo {
+				height: 140px;
+				margin-top: 10px;
+				margin-bottom: 20px;
+				background-repeat: no-repeat;
+				background-size: auto 100%;
+				background-position: 0 0;
+				background-image: var(--images-logo);
+			}
+
+			#content {
+				position: absolute; margin: auto;
+				top: 30px; left: 0; right: 0;
+				width: 420px;
+			}
+
+			input[type="number"], textarea, button {
+				width: calc(100% - 8px);
+				height: 48px;
+				border-radius: 64px;
+				font-family: var(--font-family);
+				font-size: var(--font-size-big);
+				text-align: center;
+				font-weight: var(--font-weight);
+				color: var(--colors-unactive-text);
+				border: solid 4px var(--colors-unactive-border); 
+				background: var(--colors-unactive-background);
+			}
+
+			input[type=number]::-webkit-inner-spin-button, 
+			input[type=number]::-webkit-outer-spin-button { 
+				appearance: none; 
+				-moz-appearance: none; 
+				-webkit-appearance: none; 
+				margin: 0; 
+			}
+
+			input[type="number"]::placeholder {
+				/*color: rgba(255,255,255,0.1);*/
+				color: var(--colors-unactive-text);
+				opacity: 0.3;
+			}
+			
+			input[type="number"].active {
+				color: var(--colors-active-text);
+				border-color: var(--colors-active-border);
+				background: var(--colors-active-background);
+			}
+
+			textarea {
+				resize: none;
+				border: none;
+				border-radius: 16px;
+				font-size: var(--font-size-small);
+				padding: 10px 15px;
+				text-align: left;
+				width: calc(100% - 30px);
+				height: 60px;
+			}
+
+			textarea::-webkit-scrollbar {
+				width: 0;
+			}
+
+			button {
+				height: 64px;
+				font-size: var(--font-size-big);
+				color: var(--colors-active-text);
+				border-color: var(--colors-active-border);
+				background: var(--colors-active-background);
+				cursor: pointer;
+			}
+
+			#money td:hover, button:hover {
+				transform: scale(0.9);
+			}
+		</style>
+	</head>
+	<body style="display: none;">
+		<div id="content">		
+			<div id="logo"></div>
+			<p id="intro">How much would you like to donate?</p>
+			<table id="money" cellspacing="20">
+				<tr>
+					<td class="amount-button" id="amount-0" data-amount="50"><svg class="icon" viewBox="0 0 576 576"><path d="M416.2 416.7c-13.8 25.4-33.3 46.4-56.9 61.6-13.4 8.7-28.2 15.5-44 20.2-43.5 12.9-89.3 8.1-129.2-13.5-39.8-21.6-68.9-57.4-81.8-100.9s-8.1-89.3 13.5-129.2c13.8-25.4 33.3-46.4 56.9-61.6 7.7-4.9 15.8-9.3 24.2-12.9l.8 256.8c11.8 7.1 24.8 12.5 38.5 15.9l-1.1-282.6c14.6-1.2 34.9-1.9 57-2.2l1.2 286.6c13.4-2.4 26.2-6.7 38-12.7l-.4-274.2c41.7 0 81.4.7 94.1.7l8.1-37.4c-16.8 0-58.6-.9-102.2-1l-.1-63.9 178-1.2 8.6-38.2-225.6 1.5.4 102c-21.2.3-41.2.8-57 2l-.4-104.1-38.3.6.4 110.3c-49.2 17-89.7 51.3-114.6 97.3-26.5 48.8-32.4 105-16.5 158.3C83.6 448.1 119.2 492 168 518.5c48.8 26.5 105 32.4 158.3 16.5 19.3-5.7 37.4-14.1 53.9-24.7 28.9-18.7 52.9-44.4 69.8-75.5 8.6-15.9 15.1-32.6 19.3-49.7-12.5-2.7-24.9-5.4-37.4-8.1-3.7 13.7-8.9 27-15.7 39.7z"/></svg> 50</td>
+					<td class="amount-button" id="amount-1" data-amount="100"><svg class="icon" viewBox="0 0 576 576"><path d="M416.2 416.7c-13.8 25.4-33.3 46.4-56.9 61.6-13.4 8.7-28.2 15.5-44 20.2-43.5 12.9-89.3 8.1-129.2-13.5-39.8-21.6-68.9-57.4-81.8-100.9s-8.1-89.3 13.5-129.2c13.8-25.4 33.3-46.4 56.9-61.6 7.7-4.9 15.8-9.3 24.2-12.9l.8 256.8c11.8 7.1 24.8 12.5 38.5 15.9l-1.1-282.6c14.6-1.2 34.9-1.9 57-2.2l1.2 286.6c13.4-2.4 26.2-6.7 38-12.7l-.4-274.2c41.7 0 81.4.7 94.1.7l8.1-37.4c-16.8 0-58.6-.9-102.2-1l-.1-63.9 178-1.2 8.6-38.2-225.6 1.5.4 102c-21.2.3-41.2.8-57 2l-.4-104.1-38.3.6.4 110.3c-49.2 17-89.7 51.3-114.6 97.3-26.5 48.8-32.4 105-16.5 158.3C83.6 448.1 119.2 492 168 518.5c48.8 26.5 105 32.4 158.3 16.5 19.3-5.7 37.4-14.1 53.9-24.7 28.9-18.7 52.9-44.4 69.8-75.5 8.6-15.9 15.1-32.6 19.3-49.7-12.5-2.7-24.9-5.4-37.4-8.1-3.7 13.7-8.9 27-15.7 39.7z"/></svg> 100</td>
+				</tr>
+				<tr>
+					<td class="amount-button" id="amount-2" data-amount="200"><svg class="icon" viewBox="0 0 576 576"><path d="M416.2 416.7c-13.8 25.4-33.3 46.4-56.9 61.6-13.4 8.7-28.2 15.5-44 20.2-43.5 12.9-89.3 8.1-129.2-13.5-39.8-21.6-68.9-57.4-81.8-100.9s-8.1-89.3 13.5-129.2c13.8-25.4 33.3-46.4 56.9-61.6 7.7-4.9 15.8-9.3 24.2-12.9l.8 256.8c11.8 7.1 24.8 12.5 38.5 15.9l-1.1-282.6c14.6-1.2 34.9-1.9 57-2.2l1.2 286.6c13.4-2.4 26.2-6.7 38-12.7l-.4-274.2c41.7 0 81.4.7 94.1.7l8.1-37.4c-16.8 0-58.6-.9-102.2-1l-.1-63.9 178-1.2 8.6-38.2-225.6 1.5.4 102c-21.2.3-41.2.8-57 2l-.4-104.1-38.3.6.4 110.3c-49.2 17-89.7 51.3-114.6 97.3-26.5 48.8-32.4 105-16.5 158.3C83.6 448.1 119.2 492 168 518.5c48.8 26.5 105 32.4 158.3 16.5 19.3-5.7 37.4-14.1 53.9-24.7 28.9-18.7 52.9-44.4 69.8-75.5 8.6-15.9 15.1-32.6 19.3-49.7-12.5-2.7-24.9-5.4-37.4-8.1-3.7 13.7-8.9 27-15.7 39.7z"/></svg> 200</td>
+					<td class="amount-button" id="amount-3" data-amount="500"><svg class="icon" viewBox="0 0 576 576"><path d="M416.2 416.7c-13.8 25.4-33.3 46.4-56.9 61.6-13.4 8.7-28.2 15.5-44 20.2-43.5 12.9-89.3 8.1-129.2-13.5-39.8-21.6-68.9-57.4-81.8-100.9s-8.1-89.3 13.5-129.2c13.8-25.4 33.3-46.4 56.9-61.6 7.7-4.9 15.8-9.3 24.2-12.9l.8 256.8c11.8 7.1 24.8 12.5 38.5 15.9l-1.1-282.6c14.6-1.2 34.9-1.9 57-2.2l1.2 286.6c13.4-2.4 26.2-6.7 38-12.7l-.4-274.2c41.7 0 81.4.7 94.1.7l8.1-37.4c-16.8 0-58.6-.9-102.2-1l-.1-63.9 178-1.2 8.6-38.2-225.6 1.5.4 102c-21.2.3-41.2.8-57 2l-.4-104.1-38.3.6.4 110.3c-49.2 17-89.7 51.3-114.6 97.3-26.5 48.8-32.4 105-16.5 158.3C83.6 448.1 119.2 492 168 518.5c48.8 26.5 105 32.4 158.3 16.5 19.3-5.7 37.4-14.1 53.9-24.7 28.9-18.7 52.9-44.4 69.8-75.5 8.6-15.9 15.1-32.6 19.3-49.7-12.5-2.7-24.9-5.4-37.4-8.1-3.7 13.7-8.9 27-15.7 39.7z"/></svg> 500</td>
+				</tr>
+			</table>
+			<input id="price-input" type="number" name="amount" placeholder="Custom amount">
+			<textarea id="message" style="margin-top: 20px;">Thank you so much!</textarea>
+			<button id="submit" style="margin-top: 20px;">Send the tip!</button>
+		</div>
+		<script type="text/javascript">
+			var hfcIcon = '<svg class="icon" viewBox="0 0 576 576"><path d="M416.2 416.7c-13.8 25.4-33.3 46.4-56.9 61.6-13.4 8.7-28.2 15.5-44 20.2-43.5 12.9-89.3 8.1-129.2-13.5-39.8-21.6-68.9-57.4-81.8-100.9s-8.1-89.3 13.5-129.2c13.8-25.4 33.3-46.4 56.9-61.6 7.7-4.9 15.8-9.3 24.2-12.9l.8 256.8c11.8 7.1 24.8 12.5 38.5 15.9l-1.1-282.6c14.6-1.2 34.9-1.9 57-2.2l1.2 286.6c13.4-2.4 26.2-6.7 38-12.7l-.4-274.2c41.7 0 81.4.7 94.1.7l8.1-37.4c-16.8 0-58.6-.9-102.2-1l-.1-63.9 178-1.2 8.6-38.2-225.6 1.5.4 102c-21.2.3-41.2.8-57 2l-.4-104.1-38.3.6.4 110.3c-49.2 17-89.7 51.3-114.6 97.3-26.5 48.8-32.4 105-16.5 158.3C83.6 448.1 119.2 492 168 518.5c48.8 26.5 105 32.4 158.3 16.5 19.3-5.7 37.4-14.1 53.9-24.7 28.9-18.7 52.9-44.4 69.8-75.5 8.6-15.9 15.1-32.6 19.3-49.7-12.5-2.7-24.9-5.4-37.4-8.1-3.7 13.7-8.9 27-15.7 39.7z"/></svg>';
+
+			var _GET = {};
+			if (window.location.search.length>1) {
+				window.location.search.substr(1).split("&").forEach(p=>{
+					p = p.split("=");
+					_GET[p[0]] = p[1];
+				});
+			}
+
+			var uuid = decodeURI(_GET.uuid);
+
+			// fill in
+			if (window.qt) {
+				function fillInWithUserData(data) {
+					// text
+					document.getElementById("intro").innerHTML = data.text.intro||"How much would you like to donate?";
+					document.getElementById("price-input").placeholder = data.text.custom||"Custom amount";
+					document.getElementById("message").innerHTML = data.text.message||"Thank you so much!";
+					document.getElementById("submit").innerHTML = data.text.send||"Send the tip!";
+
+					// amounts
+					var defaultAmounts = [50, 100, 200, 500];
+					for (let i=0; i<4; i++) {
+						let amount = (data.amounts[i]||defaultAmounts[i]);
+						let button = document.getElementById("amount-"+i);
+						button.innerHTML = hfcIcon+" "+amount;
+						button.setAttribute("data-amount", amount);
+					}
+
+					// images and colors
+					document.querySelector("style").innerHTML = 
+					document.querySelector("style").innerHTML.replace(
+						/\/\*BEGIN CUSTOM VARIABLES\*\/(?:[\s\S]*)\/\*END CUSTOM VARIABLES\*\//, 
+					`
+					@import url('https://fonts.googleapis.com/css?family=${data.font.family.replace(/ /g,"+")||"Roboto+Condensed"}:${data.font.weight||700}');
+
+					:root {
+						--font-family: "${data.font.family||"Roboto Condensed"}", sans-serif;
+						--font-weight: ${data.font.weight||700};
+						--font-size-small: ${data.font.size.small||24}px;
+						--font-size-big: ${data.font.size.big||32}px;
+
+						--images-logo: url(${data.images.logo||"tip-jar.svg"});
+						--images-background: url(${data.images.background||"the-spot.jpg"});
+
+						--colors-text: ${data.colors.text||"#ffffff"};
+						--colors-unactive-text: ${data.colors.unactive.text||"#1d1f21"};
+						--colors-unactive-border: ${data.colors.unactive.border||"#ffffff"};
+						--colors-unactive-background: ${data.colors.unactive.background||"#ffffff"};
+						--colors-active-text: ${data.colors.active.text||"#ffffff"};
+						--colors-active-border: ${data.colors.active.border||"#00b4ef"};
+						--colors-active-background: ${data.colors.active.background||"#00b4ef"};
+					}
+					`);
+				}
+
+				var data = {images:{},text:{},font:{size:{}},amounts:[],colors:{unactive:{},active:{}}};
+				setTimeout(()=>{
+					EventBridge.scriptEventReceived.connect(json=>{
+						try { json = JSON.parse(json);
+						} catch(err) { return; }
+						if (json.key!="getData") return;
+						if (json.value==undefined) return;
+
+						fillInWithUserData(json.value);
+						document.body.style.display = "";
+					});
+
+					EventBridge.emitWebEvent(JSON.stringify({
+						uuid: uuid, key: "getData",
+					}));
+				}, 200);
+			}
+
+			// functionality
+			var currentAmount = 0;
+
+			var priceButtons = [];
+			function resetPriceButtons() {
+				priceButtons.forEach(priceButton=>priceButton.className="amount-button");
+			}
+
+			document.querySelectorAll(".amount-button").forEach(priceButton=>{
+				priceButtons.push(priceButton);
+				priceButton.addEventListener("click", e=>{
+					priceInput.value = "";
+					priceInput.className = "amount-button";
+
+					resetPriceButtons();
+					priceButton.className = "amount-button active";
+					
+					currentAmount = parseInt(priceButton.getAttribute("data-amount"));
+				});
+			});
+
+			var priceInput = document.getElementById("price-input");
+			priceInput.addEventListener("keyup", e=>{
+				resetPriceButtons();
+				if (e.srcElement.value>0) {
+					e.srcElement.className = "active";
+					currentAmount = parseInt(e.srcElement.value);
+				} else {
+					e.srcElement.className = "";
+					currentAmount = 0;
+				}
+			});
+
+			var messageInput = document.getElementById("message");
+			messageInput.addEventListener("keyup", e=>{
+				if (e.srcElement.value.length>72)
+					e.srcElement.value = e.srcElement.value.substring(0, 72);
+			});
+
+			document.getElementById("submit").addEventListener("click", e=>{
+				if (currentAmount<=0) return;
+				if (window.qt) {
+					EventBridge.emitWebEvent(JSON.stringify({
+						uuid: uuid,
+						key: "send",
+						value: {
+							amount: currentAmount,
+							message: messageInput.value.substring(0, 72),
+						}
+					}));
+				}
+			});
+		</script>
+	</body>
+</html>

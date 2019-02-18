@@ -1,5 +1,6 @@
 /*
 {
+	"debug": false,
 	"volume": 0.1,
 	"randomize": true,
 	"sounds": [
@@ -23,8 +24,10 @@
 			return array;
 		}
 
+		var enableDebugging = false;
+
 		function debug(msg) {
-			if (false) console.log(msg);
+			if (enableDebugging) console.log(msg);
 		}
 
 		this.active = true;
@@ -32,6 +35,7 @@
 
 		this.preload = function(entityID) {
 			var _this = this;
+			_this.active = true;
 
 			var sounds = [];
 			var entity = Entities.getEntityProperties(entityID, ["position", "userData"]); 
@@ -47,15 +51,17 @@
 			if (userData.randomize)
 				sounds = shuffle(sounds);
 
+			enableDebugging = userData.debug;
+
 			function playSound(soundObject) {
+				if (_this.active==false) return;
 				debug("playing");
 
-				if (!_this.active) return;
 				_this.currentInjector = Audio.playSound(soundObject, {
-					position: entity.position,
+					//position: entity.position,
 					volume: userData.volume,
 					loop: false,
-					//localOnly: true,
+					localOnly: true,
 				});
 
 				_this.currentInjector.finished.connect(function() {
@@ -65,7 +71,7 @@
 			
 			var currentSoundIndex = -1;
 			function playNextSound() {
-				debug("new song")
+				debug("new song");
 
 				if (currentSoundIndex>=sounds.length-1) {
 					currentSoundIndex = 0;
@@ -75,14 +81,23 @@
 
 				var currentSound = sounds[currentSoundIndex];
 				if (currentSound.downloaded) {
-					debug("downloaded")
+					debug("downloaded");
 					playSound(currentSound);
 				} else {
-					debug("starting download")
-					currentSound.ready.connect(function() {
-						debug("finished download")
+					debug("starting download");
+					var interval = Script.setInterval(function() {
+						if (currentSound.downloaded == false) return;
+
+						debug("finished download");
 						playSound(currentSound);
-					});
+
+						Script.clearInterval(interval);
+					}, 500);
+
+					// currentSound.ready.connect(function() {
+					// 	debug("finished download")
+					// 	playSound(currentSound);
+					// });
 				}
 			}
 
@@ -91,7 +106,7 @@
 
 		this.unload = function() {
 			this.active = false;
-			if (this.currentInjector)
+			if (this.currentInjector!=undefined)
 				if (this.currentInjector.playing)
 					this.currentInjector.stop();
 		}
@@ -117,6 +132,6 @@
 
 	this.unload = function() {
 		if (!playlistSoundEmitter) return;
-		playlistSoundEmitter.unload;
+		playlistSoundEmitter.unload();
 	}
 })

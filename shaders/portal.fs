@@ -13,6 +13,8 @@ on a cube sized 2, 3, 0.5
 #define maxSteps 48
 #define accuracy 0.01
 
+uniform float aspectRatio = 1; 
+
 vec3 getColor(vec2 uv) {
 	//vec2 nUv = uv*12;
 	vec2 nUv = vec2(uv.x, uv.y*3/2)*12;
@@ -30,38 +32,40 @@ vec3 getColor(vec2 uv) {
 	if (n+pow(d, 10)>1) return vec3(1);
 
 	// correct the uv and make image swirl
-	vec2 iUv = uv-0.5;
+	vec2 iUv = uv;
+	iUv.x /= aspectRatio;
+	iUv += 0.5;
 	iUv.y *= -1; 
 
 	float swirliness = (n-0.5)*0.015;
-	iUv += swirliness;
+	iUv.x += swirliness;
 	vec3 color = texture(iChannel0, iUv.xy).rgb;
 
-	float swirlinessLength = length(uv + swirliness*16);
-	if (swirlinessLength>0.3) { color += vec3(1)*0.1; }
-	if (swirlinessLength>0.4) { color += vec3(1)*0.3; }
+	vec2 swirlinessUv = uv;
+	swirlinessUv.y += swirliness*16;
+	float swirlinessLength = length(swirlinessUv);
+	if (swirlinessLength>0.35) { color += vec3(1)*0.1; }
+	if (swirlinessLength>0.425) { color += vec3(1)*0.3; }
 
 	return color;
 }
 
 // https://iquilezles.org/www/articles/distfunctions/distfunctions.htm
 float ellipsoid(vec3 p, vec3 r) {
-    float k0 = length(p/r);
-    float k1 = length(p/(r*r));
-    return k0*(k0-1.0)/k1;
+	float k0 = length(p/r);
+	float k1 = length(p/(r*r));
+	return k0*(k0-1.0)/k1;
 }
 
 float box(vec3 p, vec3 b) {
 	vec3 d = abs(p) - b;
 	return length(max(d,0.0))
-         + min(max(d.x,max(d.y,d.z)),0.0); // remove this line for an only partially signed sdf 
+		 + min(max(d.x,max(d.y,d.z)),0.0); // remove this line for an only partially signed sdf 
 }
 
 float sphere(vec3 p, float s) { return length(p)-s; }
 
-float scene(vec3 p) {
-	p /= iWorldScale;
-
+float portal(vec3 p) {
 	float n = snoise(vec3(p.xy*12, 
 		(sin(iGlobalTime)+(iGlobalTime*3))*0.2
 	));
@@ -72,6 +76,14 @@ float scene(vec3 p) {
 	portal = max(-sphere(p-vec3(0,0, 0.7), 0.5), portal);
 	portal = max(-sphere(p-vec3(0,0,-0.7), 0.5), portal);
 	return portal;
+}
+
+float scene(vec3 p) {
+	p /= iWorldScale;
+
+	return max(portal(p), sphere(p, 
+		1-clamp(1-iGlobalTime*0.5, 0, 1)
+	));
 }
 
 // thanks 1001 from vrchat
