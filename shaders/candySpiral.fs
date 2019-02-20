@@ -2,7 +2,7 @@
 {
 	"ProceduralEntity": {
 		"shaderUrl": "https://hifi.maki.cat/shaders/candySpiral.fs",
-		"version": 2
+		"version": 3
 	}
 }
 */
@@ -15,7 +15,7 @@
 #define pink vec3(240, 180, 180)/255.0
 #define white vec3(1,1,1);
 
-float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
+float getProceduralFragment(inout ProceduralFragment frag) {
 	//vec2 uv = _texCoord01.xy;
    	vec2 uv = _position.xz;
 
@@ -29,8 +29,9 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 		v>.5 && v<.75? pink:
 		white;
 
-	diffuse = color;
-	specular = color;
-	shininess = 0;
+	frag.emissive = color;
+	frag.diffuse = vec3(0);
+	frag.specular = vec3(0);
+	frag.roughness = 1;
 	return 0;
 }

@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "",
+		"shaderUrl": "https://hifi.maki.cat/shaders/scrap/sonicAdventure.fs",
 		"version": 4
 	}
 }
@@ -102,7 +102,7 @@ float getProceduralFragmentWithPosition(inout ProceduralFragmentWithPosition fra
     	1
     ));
 
-    frag.position = rayPos;
+	frag.position = rayPos;
 	frag.emissive = color;
 	frag.diffuse = vec3(0);
 	frag.specular = vec3(0);

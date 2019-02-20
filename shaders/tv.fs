@@ -17,8 +17,8 @@
 			"animHeight": 6,
 			"animFPS": 15,
 			"animChannels": 1
-		}
-		"version": 2,
+		},
+		"version": 3
 	}
 }
 */
@@ -83,7 +83,7 @@ void sqeezeUV(vec2 uv, float power) {
 	}
 }
 
-float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
+float getProceduralFragment(inout ProceduralFragment frag) {
 	vec2 uv = (_position.xz+0.5);
 	sqeezeUV(uv, sqeeze);
 	//uv.x += sin(iGlobalTime*100)*jitter;
@@ -124,8 +124,9 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
     if (pixelImageMix>0.7) pixelImageMix = 0.7;
 	vec3 color = mix(pixelColor, imageColor, pixelImageMix);
 
-	diffuse = color.rgb;
-	specular = color.rgb;
-	shininess = 0;
-	return 1;
+	frag.emissive = color;
+	frag.diffuse = vec3(0);
+	frag.specular = vec3(0);
+	frag.roughness = 1;
+	return 0;
 }
