@@ -68,6 +68,6 @@ float getProceduralFragmentWithPosition(inout ProceduralFragmentWithPosition fra
 	frag.emissive = color;
 	frag.diffuse = vec3(0);
 	frag.specular = vec3(0);
-	frag.roughness = 0;
+	frag.roughness = 1;
 	return 0;
 }
