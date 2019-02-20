@@ -3,7 +3,7 @@
 	"ProceduralEntity": {
 		"shaderUrl": "https://hifi.maki.cat/shaders/scrap/caitlynMaki.fs",
 		"version": 4
-	},
+	}
 }
 */
 
