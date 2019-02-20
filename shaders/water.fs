@@ -9,7 +9,7 @@
 			"height": 0.1,
 			"whiteWaves": true
 		},
-		"version": 2
+		"version": 3
 	},
 	"grabbableKey": {"grabbable": false}
 }
@@ -128,8 +128,12 @@ vec3 getSkyboxImageColor(vec3 dir) {
    )).rgb;
 }
 
-// https://github.com/theepicsnail/hifi/tree/master/shaders
 float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
+
+}
+
+// https://github.com/theepicsnail/hifi/tree/master/shaders
+float getProceduralFragment(inout ProceduralFragment frag) {
 	//vec3 worldEye = getEyeWorldPos();
 	//vec3 localPos = _position.xyz;
 	//vec3 worldPos = (iWorldOrientation*(localPos*iWorldScale)) + iWorldPosition;
@@ -153,8 +157,10 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 		}
 	}
 
-	diffuse = color;
-	specular = vec3(0);
-	shininess = 0.5;
-	return 1;
+	//frag.position = rayPos;
+	frag.emissive = color;
+	frag.diffuse = vec3(0);
+	frag.specular = vec3(0);
+	frag.roughness = 0;
+	return 0;
 }
