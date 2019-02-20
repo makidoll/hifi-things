@@ -85,7 +85,7 @@ function spawnPortal(place) {
 				"uniforms": {
 					"aspectRatio": 2.57971014486
 				},
-				"version": 2
+				"version": 3
 			}
 		}),
 		lifetime: lifetime,

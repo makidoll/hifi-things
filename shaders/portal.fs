@@ -5,7 +5,7 @@ on a cube sized 2, 3, 0.5
 	"ProceduralEntity": {
 		"shaderUrl": "https://hifi.maki.cat/shaders/portal.fs",
 		"channels": ["https://hifi.maki.cat/shaders/my-room.jpg"],
-		"version": 2
+		"version": 3
 	}
 }
 */
@@ -109,7 +109,7 @@ vec3 raymarch(vec3 rayOrigin, vec3 rayDir) {
 	//return vec3(c);
 }
 
-float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
+float getProceduralFragment(inout ProceduralFragment frag) {
 	vec3 rayOrigin = _position.xyz * iWorldScale;
 	vec3 eye = (inverse(iWorldOrientation) * (getEyeWorldPos()-iWorldPosition));
 	vec3 rayDir = normalize((rayOrigin - eye));
@@ -118,8 +118,9 @@ float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float s
 
 	vec3 color = getColor(rayPos.xy);
 
-	diffuse = color;
-	specular = vec3(0);
-	shininess = 0.5;
-	return 1.0;
+	frag.emissive = color;
+	frag.diffuse = vec3(0);
+	frag.specular = vec3(0);
+	frag.roughness = 1;
+	return 0;
 }
