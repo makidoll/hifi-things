@@ -77,7 +77,6 @@ function drawNametag(avatarID) {
 	var overlay = Overlays.addOverlay("text3d", {
 		parentID: avatarID,
 		//parentJointIndex: headJointIndex,
-
 		//position: Vec3.sum(avatar.position, headTranslation),
 		
 		position: Vec3.sum(avatar.position, {x:0, 
@@ -96,17 +95,17 @@ function drawNametag(avatarID) {
 		)),
 
 		text: displayName,
-		textAlpha: (config.enabled)? config.textOpacity-0.001: 0,
+		textAlpha: config.textOpacity-0.001,
 		color: config.textColor,
 
 		leftMargin: config.marginWidth,
 		topMargin: config.marginHeight,
 		lineHeight: config.textSize,
 
-		backgroundAlpha: (config.enabled)? config.backgroundOpacity: 0,
+		backgroundAlpha: config.backgroundOpacity,
 		backgroundColor: config.backgroundColor,
 		
-		visable: true, isSolid: false,
+		visable: config.enabled, isSolid: false,
 	});
 
 	// update overlay size
