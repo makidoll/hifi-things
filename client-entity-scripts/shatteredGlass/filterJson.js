@@ -22,10 +22,11 @@ json.Entities.forEach((entity,i)=>{
     entity.animation = {
     	"allowTranslation": false
     };
+    entity.lifetime = 10;
 
     entity.modelURL = entity.modelURL.replace("atp:/Desktop/", "https://hifi.maki.cat/client-entity-scripts/shatteredGlass/glass/")
 
-    console.log(entity);
+    //console.log(entity);
 });
 
 fs.writeFileSync("./glass.json", JSON.stringify(json));
