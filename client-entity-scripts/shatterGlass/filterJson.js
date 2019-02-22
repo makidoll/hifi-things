@@ -1,5 +1,5 @@
 var fs = require("fs");
-var json = JSON.parse(fs.readFileSync("./glass.hifi.json", "utf8"));
+var json = JSON.parse(fs.readFileSync("./original.json", "utf8"));
 
 json.Entities.forEach((entity,i)=>{
 	entity.name = "Shattered Glass "+i;
@@ -24,9 +24,27 @@ json.Entities.forEach((entity,i)=>{
     };
     entity.lifetime = 10;
 
-    entity.modelURL = entity.modelURL.replace("atp:/Desktop/", "https://hifi.maki.cat/client-entity-scripts/shatteredGlass/glass/")
+    entity.modelURL = entity.modelURL.replace("atp:/Desktop/", "https://hifi.maki.cat/client-entity-scripts/shatterGlass/glass/")
 
     //console.log(entity);
 });
 
 fs.writeFileSync("./glass.json", JSON.stringify(json));
+
+json.Entities.forEach((entity,i)=>{
+	entity.name = "PRELOAD Sha... Glass "+i;
+	entity.dynamic = false;
+	entity.gravity = {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    };
+    entity.position = {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    };
+    entity.lifetime = -1;
+});
+
+fs.writeFileSync("./glass-preload.json", JSON.stringify(json));
