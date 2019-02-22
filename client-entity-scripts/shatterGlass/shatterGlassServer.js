@@ -3,6 +3,7 @@
 	var shattering = false;
 
 	function messageReceived(chan, msg) {
+		console.log(chan);
 		console.log(msg);
 
 		if (shattering) return;
