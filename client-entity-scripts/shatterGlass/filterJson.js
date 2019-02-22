@@ -32,7 +32,7 @@ json.Entities.forEach((entity,i)=>{
 fs.writeFileSync("./glass.json", JSON.stringify(json));
 
 json.Entities.forEach((entity,i)=>{
-	entity.name = "PRELOAD Sha... Glass "+i;
+	entity.name = "PRELOAD";
 	entity.dynamic = false;
 	entity.gravity = {
         "x": 0,
