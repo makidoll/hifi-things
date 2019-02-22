@@ -41,7 +41,7 @@
 				Audio.playSound(sound, {
 					position: entityProps.position,
 					volume: 0.5,
-					pitch: Math.Random()*0.5 + 0.4,
+					pitch: Math.random()*0.5 + 0.4,
 				});
 			}
 		}
