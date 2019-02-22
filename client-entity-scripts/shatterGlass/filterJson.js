@@ -4,7 +4,8 @@ var json = JSON.parse(fs.readFileSync("./original.json", "utf8"));
 json.Entities.forEach((entity,i)=>{
 	entity.name = "Shattered Glass "+i;
 	delete entity.id;
-	entity.shapeType = "simple-compound";
+	//entity.shapeType = "simple-compound";
+	entity.shapeType = "box";
 	entity.userData = '{"grabbable_key":["grabbable":false]}}';
 	entity.grab = {
 		grabbable: false,
