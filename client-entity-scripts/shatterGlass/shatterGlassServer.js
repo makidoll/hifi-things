@@ -3,8 +3,10 @@
 	var shattering = false;
 
 	function messageReceived(chan, msg) {
-		if (!entityID) return;
+		console.log(msg);
+
 		if (shattering) return;
+		if (entityID == undefined) return;
 		if (chan != "cat.maki.shatterGlass") return;
 		if (msg != entityID) return;
 
@@ -14,8 +16,8 @@
 		});
 
 
-		
-		
+
+
 
 		Script.setTimeout(function() {
 			shattering = false;
