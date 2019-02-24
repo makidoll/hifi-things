@@ -1,0 +1,127 @@
+{
+  "DataVersion": 0,
+  "Entities": [
+    {
+    "id": "{838ed1a0-32ac-4a15-ac90-939896732586}",
+    "type": "Model",
+    "lastEdited": 1550824148183264,
+    "name": "Glass",
+    "userData": "{\"address\":\"hifi://cutelab/1988.97,-5.62452,2004.58/0,-0.70628,0,0.707933\",\"ProceduralEntity\":{\"shaderUrl\":\"https://hifi.maki.cat/shaders/portal.fs?4\",\"channels\":[\"https://fairy-forest.cutelab.space/portals/cinema.jpg\"],\"version\":3}}",
+    "dimensions": {
+        "x": 5.335000038146973,
+        "y": 2.75,
+        "z": 0.054999999701976776
+    },
+    "rotation": {
+        "x": -0.0000152587890625,
+        "y": 0.9204699993133545,
+        "z": -0.0000152587890625,
+        "w": 0.39073777198791504
+    },
+    "created": 1550818885378336,
+    "lastEditedBy": "{44bde476-86e2-4dfe-8e79-438830892281}",
+    "queryAACube": {
+        "x": -3.0011560916900635,
+        "y": -3.0011560916900635,
+        "z": -3.0011560916900635,
+        "scale": 6.002312183380127
+    },
+    "grab": {
+        "grabbable": false,
+        "grabFollowsController": false,
+        "equippableLeftRotation": {
+            "x": -0.0000152587890625,
+            "y": -0.0000152587890625,
+            "z": -0.0000152587890625,
+            "w": 1
+        },
+        "equippableRightRotation": {
+            "x": -0.0000152587890625,
+            "y": -0.0000152587890625,
+            "z": -0.0000152587890625,
+            "w": 1
+        }
+    },
+    "damping": 0,
+    "angularDamping": 0,
+    "collisionless": true,
+    "ignoreForCollisions": true,
+    "collisionMask": 23,
+    "collidesWith": "static,dynamic,kinematic,otherAvatar,",
+    "scriptTimestamp": 1550820095226,
+    "serverScripts": "https://hifi.maki.cat/client-entity-scripts/shatterGlass/shatterGlassServer.js?21",
+    "shapeType": "box",
+    "modelURL": "https://hifi.maki.cat/client-entity-scripts/shatterGlass/glass.fbx",
+    "animation": {
+        "allowTranslation": false
+    },
+    "clientOnly": false,
+    "avatarEntity": false,
+    "localEntity": false,
+    "faceCamera": false,
+    "isFacingAvatar": false
+},
+    {
+    "id": "{3f1cb03e-cda4-47f9-b965-8214da08e960}",
+    "type": "Box",
+    "lastEdited": 1550824136207923,
+    "visible": false,
+    "name": "Glass Handler",
+    "position": {
+        "x": -0.000005245208740234375,
+        "y": -0.0000016689300537109375,
+        "z": 0.00002956390380859375
+    },
+    "dimensions": {
+        "x": 5.335000038146973,
+        "y": 2.75,
+        "z": 1
+    },
+    "rotation": {
+        "x": -0.0000152587890625,
+        "y": -0.0000152587890625,
+        "z": -0.0000152587890625,
+        "w": 1
+    },
+    "created": 1550820337508616,
+    "lastEditedBy": "{44bde476-86e2-4dfe-8e79-438830892281}",
+    "parentID": "{838ed1a0-32ac-4a15-ac90-939896732586}",
+    "queryAACube": {
+        "x": -12.543978691101074,
+        "y": -0.40676116943359375,
+        "z": 44.03693389892578,
+        "scale": 6.084794521331787
+    },
+    "canCastShadow": false,
+    "grab": {
+        "grabbable": false,
+        "grabFollowsController": false,
+        "equippableLeftRotation": {
+            "x": -0.0000152587890625,
+            "y": -0.0000152587890625,
+            "z": -0.0000152587890625,
+            "w": 1
+        },
+        "equippableRightRotation": {
+            "x": -0.0000152587890625,
+            "y": -0.0000152587890625,
+            "z": -0.0000152587890625,
+            "w": 1
+        }
+    },
+    "damping": 0,
+    "angularDamping": 0,
+    "collisionless": true,
+    "ignoreForCollisions": true,
+    "script": "https://hifi.maki.cat/client-entity-scripts/shatterGlass/shatterGlassClient.js?20",
+    "shape": "Cube",
+    "clientOnly": false,
+    "avatarEntity": false,
+    "localEntity": false,
+    "faceCamera": false,
+    "isFacingAvatar": false
+}
+    ],
+  "Id": "{ece7a9c8-471f-4935-be2a-94bb7d57be5f}",
+  "Version": 111
+}

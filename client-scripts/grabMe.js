@@ -113,8 +113,10 @@ var button = tablet.addButton({
 
 var grabMe = new GrabMe();
 
-function clicked() {
+function clicked(forceActive) {
+	if (!(Entities.canRez() || Entities.canRezTmp())) return;
 	var newActive = !grabMe.active;
+	if (forceActive) newActive = forceActive;
 
 	if (newActive) {
 		grabMe.enable();
@@ -126,6 +128,17 @@ function clicked() {
 		isActive: newActive,
 		icon: (newActive)? icons.black: icons.white
 	});
+}
+
+function messageReceived(chan, msg, uuid, localOnly) {
+	if (!localOnly) return;
+	if (chan != "cat.maki.grabMe") return;
+
+	switch(msg) {
+		case "enable": clicked(true); break;
+		case "disable": clicked(false); break;
+		case "toggle": clicked(); break;
+	}
 }
 
 button.clicked.connect(clicked);
