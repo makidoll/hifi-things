@@ -142,8 +142,17 @@ function messageReceived(chan, msg, uuid, localOnly) {
 }
 
 button.clicked.connect(clicked);
+
+Messages.subscribe("cat.maki.grabMe");
+Messages.messageReceived.connect(messageReceived);
+
 Script.scriptEnding.connect(function() {
 	grabMe.disable();
-	tablet.removeButton(button);
+
 	button.clicked.disconnect(clicked);
+
+	Messages.unsubscribe("cat.maki.grabMe");
+	Messages.messageReceived.disconnect(messageReceived);
+
+	tablet.removeButton(button);
 });
