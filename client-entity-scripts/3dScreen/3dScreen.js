@@ -34,13 +34,17 @@
 			dpi: userData.dpi,
 			maxFPS: 90,
 
-			position: Vec3.multiplyQbyV(
-				entity.rotation,
-				Vec3.sum(
-					entity.position,
-					{z: -0.1}
-				)
+			position: Vec3.sum(
+				entity.position,
+				{z: -0.1}
 			),
+			// position: Vec3.multiplyQbyV(
+			// 	entity.rotation,
+			// 	Vec3.sum(
+			// 		entity.position,
+			// 		{z: -0.1}
+			// 	)
+			// ),
 			rotation: entity.rotation,
 			dimensions: entity.dimensions,
 		}, "local");
