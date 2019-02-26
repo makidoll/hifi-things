@@ -1,3 +1,13 @@
+/*
+{
+	"ProceduralEntity": {
+		"shaderUrl": "https://hifi.maki.cat/client-entity-scripts/3dScreen/3dScreen.fs",
+		"channels": ["resource://spectatorCameraFrame"],
+		"version": 3
+	}
+}
+*/
+
 float getProceduralFragment(inout ProceduralFragment frag) {
 	vec2 uv = _position.xy+0.5;
 	uv.x *= 0.5; // left eye
