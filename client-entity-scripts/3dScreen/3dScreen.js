@@ -1,7 +1,8 @@
 /*
 {
-	"resolution": 256,
-	"fov": 45
+	"res": 128,
+	"url": "https://www.webrtc-experiment.com/screen/?s=Maki&p=cutecutecute&codecs=vp8",
+	"dpi": 20
 }
 */
 
