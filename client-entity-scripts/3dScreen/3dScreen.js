@@ -2,7 +2,8 @@
 {
 	"res": 128,
 	"url": "https://www.webrtc-experiment.com/screen/?s=Maki&p=cutecutecute&codecs=vp8",
-	"dpi": 20
+	"dpi": 20,
+	"fov": 177.45
 }
 */
 
@@ -16,7 +17,7 @@
 		Render.getConfig("SecondaryCameraJob.ToneMapping").curve = 0;
 		Render.getConfig("SecondaryCamera").farClipPlaneDistance = 1;
 		Render.getConfig("SecondaryCamera").attachedEntityId = _this.entityID;
-		Render.getConfig("SecondaryCamera").vFoV = 177.45;
+		Render.getConfig("SecondaryCamera").vFoV = userData.fov;
 		Render.getConfig("SecondaryCamera").resetSizeSpectatorCamera(
 			entity.dimensions.x*userData.res,
 			entity.dimensions.y*userData.res
@@ -60,6 +61,7 @@
 		if (typeof userData.res != "number") return;
 		if (typeof userData.url != "string") return;
 		if (typeof userData.dpi != "number") return;
+		if (typeof userData.fov != "number") return;
 
 		_this.initCamera(entity, userData);
 		_this.initOverlay(entity, userData);
