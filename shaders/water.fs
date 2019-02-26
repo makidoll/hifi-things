@@ -128,10 +128,6 @@ vec3 getSkyboxImageColor(vec3 dir) {
    )).rgb;
 }
 
-float getProceduralColors(inout vec3 diffuse, inout vec3 specular, inout float shininess) {
-
-}
-
 // https://github.com/theepicsnail/hifi/tree/master/shaders
 float getProceduralFragment(inout ProceduralFragment frag) {
 	//vec3 worldEye = getEyeWorldPos();
