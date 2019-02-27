@@ -76,7 +76,7 @@
 		<video controls muted></video>
 
 		<br><br>
-		<div style="width: 500px">
+		<div style="width: 640px;">
 			<h2 style=" margin-bottom: 10px;">Current URL</h2>
 			<input type="url"/>
 			<br><br>
@@ -164,25 +164,26 @@
 			}
 
 			video.addEventListener("play", e=>{
-				setInfo({
-					playing: true,
-					position: video.currentTime,
-				});
+				//console.log(e)
+				// setInfo({
+				// 	playing: true,
+				// 	position: video.currentTime,
+				// });
 			});
 
 			video.addEventListener("pause", e=>{
-				setInfo({
-					playing: false,
-					position: video.currentTime,
-				});
+				// setInfo({
+				// 	playing: false,
+				// 	position: video.currentTime,
+				// });
 			});
 
-			// video.addEventListener("seeked", e=>{
-			// 	console.log(video.currentTime)
-			// 	setInfo({
-			// 		position: video.currentTime,
-			// 	});
-			// });
+			video.addEventListener("seeked", e=>{
+				//console.log(video.currentTime)
+				// setInfo({
+				// 	position: video.currentTime,
+				// });
+			});
 
 			function updateButton() {
 				let info = {
