@@ -15,12 +15,14 @@ app.use("/video-sync", require("./video=sync/app")({
 
 */
 
-var socket = require("socket.io");
+//var socket = require("socket.io");
+
 var express = require("express");
 var path = require("path");
 var fs = require("fs");
 
 module.exports = function(opts) {
+
 	if (opts.io == undefined) return (req,res,next)=>next();
 	if (opts.rooms == undefined) return (req,res,next)=>next();
 	Object.assign(this, opts);
