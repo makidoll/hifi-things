@@ -1,6 +1,6 @@
 /*
 {
-	"res": 128,
+	"res": 64,
 	"url": "https://www.webrtc-experiment.com/screen/?s=Maki&p=cutecutecute&codecs=vp8",
 	"dpi": 20,
 	"fov": 177.45
@@ -10,29 +10,30 @@
 (function() {
 	var _this = this;
 
+	_this.userData = undefined;
 	_this.entityID = undefined;
 	_this.webEntityID = undefined;
 
-	_this.initCamera = function(entity, userData) {
+	_this.initCamera = function(entity) {
 		Render.getConfig("SecondaryCameraJob.ToneMapping").curve = 0;
 		Render.getConfig("SecondaryCamera").farClipPlaneDistance = 1;
 		Render.getConfig("SecondaryCamera").attachedEntityId = _this.entityID;
-		Render.getConfig("SecondaryCamera").vFoV = userData.fov;
+		Render.getConfig("SecondaryCamera").vFoV = _this.userData.fov;
 		Render.getConfig("SecondaryCamera").resetSizeSpectatorCamera(
-			entity.dimensions.x*userData.res,
-			entity.dimensions.y*userData.res
+			entity.dimensions.x*_this.userData.res,
+			entity.dimensions.y*_this.userData.res
 		);
 		Render.getConfig("SecondaryCamera").enableSecondaryCameraRenderConfigs(true);
 	}
 
-	_this.initOverlay = function(entity, userData) {
+	_this.initOverlay = function(entity) {
 		_this.webEntityID = Entities.addEntity({
 			type: "Web",
 			name: "cat.maki.3dScreen",
 			parentID: _this.entityID,
 
-			sourceUrl: userData.url,
-			dpi: userData.dpi,
+			sourceUrl: _this.userData.url,
+			dpi: _this.userData.dpi,
 			maxFPS: 90,
 
 			position: Vec3.sum(
@@ -51,20 +52,30 @@
 		}, "local");
 	}
 
+	_this.geometryChanged = function() {
+		var entity = Entities.getEntityProperties(_this.entityID, ["dimensions"]);
+		Render.getConfig("SecondaryCamera").resetSizeSpectatorCamera(
+			entity.dimensions.x*_this.userData.res,
+			entity.dimensions.y*_this.userData.res
+		);
+	}
+
 	_this.preload = function(entityID) {
 		_this.entityID = entityID;
 		var entity = Entities.getEntityProperties(_this.entityID, ["userData", "rotation", "dimensions", "position"]);
 
-		try { var userData = JSON.parse(entity.userData);
+		try { _this.userData = JSON.parse(entity.userData);
 		} catch(err) { return; }
 
-		if (typeof userData.res != "number") return;
-		if (typeof userData.url != "string") return;
-		if (typeof userData.dpi != "number") return;
-		if (typeof userData.fov != "number") return;
+		if (typeof _this.userData.res != "number") return;
+		if (typeof _this.userData.url != "string") return;
+		if (typeof _this.userData.dpi != "number") return;
+		if (typeof _this.userData.fov != "number") return;
 
-		_this.initCamera(entity, userData);
-		_this.initOverlay(entity, userData);
+		_this.initCamera(entity);
+		_this.initOverlay(entity);
+
+		Window.geometryChanged.connect(_this.geometryChanged);
 	};
 	
 	_this.unload = function() {
@@ -77,5 +88,7 @@
 		).forEach(function(webEntityID) {
 			Entities.deleteEntity(_this.webEntityID);
 		});
+
+		Window.geometryChanged.disconnect(_this.geometryChanged);
 	};
 })
