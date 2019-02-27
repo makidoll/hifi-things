@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>[room_name] - video sync</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0; padding: 0;
+				transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
+			}
+
+			body {
+				background: #1d1f21;
+				font-family: "Roboto", sans-serif;
+				margin: 50px;
+				color: #fff;
+			}
+
+			#verify {
+				position: fixed; margin: auto;
+				top: 0; left: 0; right: 0; bottom: 0;
+				background: rgba(29,31,33,0.9);
+			}
+
+			#verify>div {
+				position: fixed; margin: auto;
+				top: 0; left: 0; right: 0; bottom: 0;
+				width: 300px; height: 90px;
+				text-align: center;
+				color: #fff;
+			}
+
+			input, button {
+				background: #fff;
+				border: solid 4px #fff;
+				border-radius: 50px;
+				font-family: "Roboto", sans-serif;
+				font-size: 16px;
+				padding: 8px 16px;
+				width: calc(100% - 40px);
+			}
+
+			input:focus, button:focus {
+				outline: none;
+				border: solid 4px #E91E63;
+			}
+
+			button {
+				border: solid 4px #E91E63;
+				background: #E91E63;
+				color: #fff;
+				width: 100%;
+				font-weight: 700;
+				cursor: pointer;
+			}
+
+			button:hover {
+				transform: scale(0.9);
+			}
+
+			h1, h2 {
+				font-weight: 400;
+			}
+
+			video {
+				width: 640px;
+				height: 360px;
+				background: #000;
+				border-radius: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1><b>[room_name]</b> - video sync</h1>
+		<br>
+		<video controls muted></video>
+
+		<br><br>
+		<div style="width: 500px">
+			<h2 style=" margin-bottom: 10px;">Current URL</h2>
+			<input type="url"/>
+			<br><br>
+			<h2 style=" margin-bottom: 10px;">Current Volume</h2>
+			<input type="number" min="0" max="1" step="0.001"/>
+			<br><br>
+			<button style="width: 50%" onclick="updateButton()">Update</button>
+		</div>
+		
+		<div style="margin-top: 50px; width: 750px;">		
+			<h2>List of hosted movies</h2>
+			<br>
+			<table style="width: 100%; margin: -25px; table-layout: fixed;" cellspacing="25">
+				<tr>
+					<td><button onclick="setSrc('https://maki.cat/webm/despicable-me.webm')">Despicable Me 3D</button></td>
+					<td><button onclick="setSrc('https://maki.cat/webm/avatar.webm')">Avatar 3D</button></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="verify"><div>
+			<h1><b>[room_name]</b> password</h1>
+			<input style="margin-top: 10px" type="password"/>
+		</div></div>
+		<script src="../socket.io.js"></script>
+		<script type="text/javascript">
+			var socket = io("[namespace]");
+			var password = "";
+			var video = document.querySelector("video");
+
+			document.querySelector("input[type=password]").addEventListener("keydown", e=>{
+				if (e.keyCode != 13) return;
+				e.srcElement.disabled = true;
+				password = e.srcElement.value;
+				socket.emit("verify", password);
+			});
+
+			socket.on("verify", correct=>{
+				if (!correct) {
+					alert("Invalid password");
+					document.location = document.location.href.replace("/admin", "");
+				} else {
+					document.getElementById("verify").style.opacity = "0";
+					setTimeout(()=>{
+						document.getElementById("verify").remove();
+					}, 200);
+				}
+			});
+
+			let actualPosition = 0;
+			setInterval(()=>{
+				if (!video.paused) actualPosition++;
+				if (Math.abs(video.currentTime-actualPosition)>2) { // seconds
+					console.log("out of sync");
+					socket.emit("getInfo");
+				}
+			}, 1000);
+
+			socket.on("getInfo", info=>{
+				console.log(info);
+				actualPosition = info.position;
+
+				if (video.src != info.src) video.src = info.src;
+				if (video.playing != info.playing) {
+					if (info.playing) {
+						video.play();
+					} else {
+						video.pause();
+					}
+				} 
+
+				video.currentTime = info.position;
+				video.volume = info.volume;
+
+				document.querySelector("input[type=url]").value = info.src;
+				document.querySelector("input[type=number]").value = info.volume;
+			});
+			socket.emit("getInfo");
+
+			function setInfo(info) {
+				if (!password) return;
+				info.password = password;
+				socket.emit("setInfo", info);
+			}
+
+			video.addEventListener("play", e=>{
+				setInfo({
+					playing: true,
+					position: video.currentTime,
+				});
+			});
+
+			video.addEventListener("pause", e=>{
+				setInfo({
+					playing: false,
+					position: video.currentTime,
+				});
+			});
+
+			// video.addEventListener("seeked", e=>{
+			// 	console.log(video.currentTime)
+			// 	setInfo({
+			// 		position: video.currentTime,
+			// 	});
+			// });
+
+			function updateButton() {
+				let info = {
+					volume: parseFloat(document.querySelector('input[type=number]').value),
+				};
+
+				let src = document.querySelector('input[type=url]').value;
+				if (src != video.src) {
+					info.src = src;
+					info.position = 0;
+				}
+
+				setInfo(info);
+			}
+
+			function setSrc(src) {
+				if (src != video.src) {
+					setInfo({
+						src: src,
+						position: 0
+					});
+				}
+			}
+		</script>
+	</body>
+</html>
