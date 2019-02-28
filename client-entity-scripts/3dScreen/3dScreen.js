@@ -74,9 +74,9 @@
 					r: 255, g: 255, b: 255,
 				},
 				dimensions: {
-					x: entity.dimensions.x,
-					y: entity.dimensions.x,
-					z: entity.dimensions.x,
+					x: entity.dimensions.x*8,
+					y: entity.dimensions.x*8,
+					z: entity.dimensions.x*8,
 				},
 				localPosition: {
 					x: light[0] * entity.dimensions.x/2,
