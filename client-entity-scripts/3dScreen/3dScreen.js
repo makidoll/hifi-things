@@ -70,9 +70,7 @@
 
 				intensity: 24,
 				falloffRadius: entity.dimensions.x/3,
-				color: {
-					r: 255, g: 255, b: 255,
-				},
+				color: {r: 0, g: 0, b: 0},
 				dimensions: {
 					x: entity.dimensions.x*8,
 					y: entity.dimensions.x*8,
