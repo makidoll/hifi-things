@@ -68,7 +68,7 @@
 				name: "cat.maki.3dScreen",
 				parentID: entityID,
 
-				intensity: 32,
+				intensity: 24,
 				falloffRadius: entity.dimensions.x/3,
 				color: {
 					r: 255, g: 255, b: 255,
