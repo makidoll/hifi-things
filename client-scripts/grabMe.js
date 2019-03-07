@@ -61,6 +61,7 @@ function GrabMe() {
 
 		Controller.disableMapping("com.highfidelity.controllerDispatcher");
 		MyAvatar.setCollisionsEnabled(false);
+		MyAvatar.setOtherAvatarsCollisionsEnabled(false);
 
 		interval = Script.setInterval(function() {
 			if (!entityID) return;
@@ -93,6 +94,7 @@ function GrabMe() {
 		
 		Controller.enableMapping("com.highfidelity.controllerDispatcher");
 		MyAvatar.setCollisionsEnabled(true);
+		MyAvatar.setOtherAvatarsCollisionsEnabled(true);
 
 		if (interval) Script.clearInterval(interval);
 
