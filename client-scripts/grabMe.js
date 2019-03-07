@@ -30,7 +30,7 @@ function GrabMe() {
 		entityID = Entities.addEntity({
 			name: "Grab Me - "+MyAvatar.sessionDisplayName,
 			type: "Box",
-			grab: { grab: true },
+			grab: {grabbable: true},
 			collisionless: true,
 			//parentID: MyAvatar.sessionUUID,
 			canCastShadow: false,
@@ -38,7 +38,7 @@ function GrabMe() {
 			dimensions: { x: 0.15, y: 0.4, z: 0.15 },
 			userData: JSON.stringify({
 				ProceduralEntity: {
-					shaderUrl: Script.resolvePath("../shaders/invisible.fs"),
+					//shaderUrl: Script.resolvePath("../shaders/invisible.fs"),
 					version: 2,
 				}
 			}),
@@ -73,10 +73,10 @@ function GrabMe() {
 			
 			if (!Vec3.withinEpsilon(MyAvatar.position, entity.position, 0.075))
 				MyAvatar.position = entity.position;
-
 			//MyAvatar.orientation = entity.rotation; 
 		}, 1000);
 
+		// this is now broken for some reason when near grabbing???
 		MyAvatar.setParentID(entityID);
 	}
 
