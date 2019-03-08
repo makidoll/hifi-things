@@ -12,6 +12,11 @@ function HeadStacker() {
 
 	this.interval = undefined;
 
+	this.previousCollisions = {
+		world: true,
+		avatars: true,
+	}
+
 	this.mount = function(avatarID) {
 		if (this.interval) Script.clearInterval(this.interval);
 
@@ -25,6 +30,11 @@ function HeadStacker() {
 			Script.resolvePath("idle.fbx"),
 			30, true, 0, 30
 		);
+
+		this.previousCollisions = {
+			world: MyAvatar.getCollisionsEnabled(),
+			avatars: MyAvatar.getOtherAvatarsCollisionsEnabled(),
+		}
 		MyAvatar.setCollisionsEnabled(false);
 		MyAvatar.setOtherAvatarsCollisionsEnabled(false);
 
@@ -71,8 +81,8 @@ function HeadStacker() {
 			30, true, 1, 80
 		);
 
-		MyAvatar.setCollisionsEnabled(true);
-		MyAvatar.setOtherAvatarsCollisionsEnabled(true);
+		MyAvatar.setCollisionsEnabled(this.previousCollisions.world);
+		MyAvatar.setOtherAvatarsCollisionsEnabled(this.previousCollisions.avatars);
 		Script.setTimeout(function() {
 			MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
 		}, 100);
