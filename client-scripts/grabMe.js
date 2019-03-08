@@ -12,7 +12,7 @@ function GrabMe() {
 //     }
 
 // 	function updateHandFunctions() {
-//         Messages.sendMessage("Hifi-Grab-Disable", JSON.stringify({
+//         Messages.sendLocalMessage("Hifi-Grab-Disable", JSON.stringify({
 //             holdEnabled: !active,
 //             nearGrabEnabled: !active,
 //             farGrabEnabled: !active
@@ -29,19 +29,31 @@ function GrabMe() {
 
 		entityID = Entities.addEntity({
 			name: "Grab Me - "+MyAvatar.sessionDisplayName,
-			type: "Box",
-			grab: {grabbable: true},
+			type: "Text",
+			entityHostType: "domain",
+			grab: {
+				grabbable: true,
+				//equippable: true,
+				//equippableRightRotation: Quat.fromPitchYawRollDegrees(0,0,-90),
+				//equippableRightPosition: {x:0,y:0,z:0},
+			},
 			collisionless: true,
+			collisionMask: 0,
 			//parentID: MyAvatar.sessionUUID,
 			canCastShadow: false,
 			position: MyAvatar.position,
 			dimensions: { x: 0.15, y: 0.4, z: 0.15 },
-			userData: JSON.stringify({
-				ProceduralEntity: {
-					//shaderUrl: Script.resolvePath("../shaders/invisible.fs"),
-					version: 2,
-				}
-			}),
+			// userData: JSON.stringify({
+			// 	ProceduralEntity: {
+			// 		shaderUrl: Script.resolvePath("../shaders/invisible.fs"),
+			// 		version: 2,
+			// 	}
+			// }),
+			backgroundAlpha: 0,
+			//damping: 0,
+			//angularDamping: 0,
+			//restitution: 0,
+			//friction: 1,
 			lifetime: 60*60*24, // 24 hours
 			rotation: MyAvatar.orientation,
 		});
@@ -50,11 +62,7 @@ function GrabMe() {
 
 		//tablet.screenChanged.connect(onTabletScreenChanged);
 		//updateHandFunctions();
-		Messages.sendMessage("Hifi-Hand-Drop", "both");
-		Messages.sendMessage("Hifi-Hand-Drop", "both");
-		Messages.sendMessage("Hifi-Hand-Drop", "both");
-		Messages.sendMessage("Hifi-Hand-Drop", "both");
-		Messages.sendMessage("Hifi-Hand-Drop", "both");
+		Messages.sendLocalMessage("Hifi-Hand-Drop", "both");
 
 		previousScale = MyAvatar.scale;
 		MyAvatar.scale = 0.274;
@@ -73,11 +81,17 @@ function GrabMe() {
 			
 			if (!Vec3.withinEpsilon(MyAvatar.position, entity.position, 0.075))
 				MyAvatar.position = entity.position;
-			//MyAvatar.orientation = entity.rotation; 
+				//MyAvatar.orientation = entity.rotation; 
 		}, 1000);
 
-		// this is now broken for some reason when near grabbing???
+		// this is now broken for some reason when near grabbing a cube???
 		MyAvatar.setParentID(entityID);
+
+		MyAvatar.overrideRoleAnimation(
+			"fly",
+			Script.resolvePath("idle.fbx"),
+			30, true, 0, 30
+		);
 	}
 
 	this.disable = function() {
@@ -99,6 +113,12 @@ function GrabMe() {
 		if (interval) Script.clearInterval(interval);
 
 		MyAvatar.setParentID("");
+
+		MyAvatar.overrideRoleAnimation(
+			"fly",
+			"qrc:///avatar/animations/fly.fbx",
+			30, true, 1, 80
+		);
 	}
 }
 
