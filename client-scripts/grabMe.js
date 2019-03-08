@@ -3,6 +3,11 @@ function GrabMe() {
 	this.active = false;
 	var interval = undefined;
 	var previousScale = 1;
+	var previousCollisions = {
+		world: true,
+		avatars: true,
+	}
+
 // 	var isTabletDisplayed = false;
 // 	var tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
 
@@ -68,6 +73,11 @@ function GrabMe() {
 		MyAvatar.scale = 0.274;
 
 		Controller.disableMapping("com.highfidelity.controllerDispatcher");
+
+		previousCollisions = {
+			world: MyAvatar.getCollisionsEnabled(),
+			avatars: MyAvatar.getOtherAvatarsCollisionsEnabled(),
+		}
 		MyAvatar.setCollisionsEnabled(false);
 		MyAvatar.setOtherAvatarsCollisionsEnabled(false);
 
@@ -107,8 +117,8 @@ function GrabMe() {
 		MyAvatar.orientation = Quat.cancelOutRollAndPitch(MyAvatar.orientation);
 		
 		Controller.enableMapping("com.highfidelity.controllerDispatcher");
-		MyAvatar.setCollisionsEnabled(true);
-		MyAvatar.setOtherAvatarsCollisionsEnabled(true);
+		MyAvatar.setCollisionsEnabled(previousCollisions.world);
+		MyAvatar.setOtherAvatarsCollisionsEnabled(previousCollisions.avatars);
 
 		if (interval) Script.clearInterval(interval);
 
