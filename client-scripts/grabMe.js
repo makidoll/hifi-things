@@ -148,7 +148,7 @@ var grabMe = new GrabMe();
 function clicked(forceActive) {
 	if (!(Entities.canRez() || Entities.canRezTmp())) return;
 	var newActive = !grabMe.active;
-	if (forceActive) newActive = forceActive;
+	if (forceActive!=undefined) newActive = forceActive;
 
 	if (newActive) {
 		grabMe.enable();
@@ -173,10 +173,17 @@ function messageReceived(chan, msg, uuid, localOnly) {
 	}
 }
 
+function keyPressEvent(e) {
+	if (e.text != "ESC") return;
+	clicked(false);
+}
+
 button.clicked.connect(clicked);
 
 Messages.subscribe("cat.maki.grabMe");
 Messages.messageReceived.connect(messageReceived);
+
+Controller.keyPressEvent.connect(keyPressEvent);
 
 Script.scriptEnding.connect(function() {
 	grabMe.disable();
@@ -185,6 +192,8 @@ Script.scriptEnding.connect(function() {
 
 	Messages.unsubscribe("cat.maki.grabMe");
 	Messages.messageReceived.disconnect(messageReceived);
+
+	Controller.keyPressEvent.disconnect(keyPressEvent);
 
 	tablet.removeButton(button);
 });
