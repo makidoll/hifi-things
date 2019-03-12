@@ -155,8 +155,21 @@ float getProceduralFragment(inout ProceduralFragment frag) {
 
 	//frag.position = rayPos;
 	frag.emissive = color;
+	frag.normal = vec3(0);
 	frag.diffuse = vec3(0);
 	frag.specular = vec3(0);
 	frag.roughness = 1;
 	return 0;
 }
+
+struct ProceduralFragment {
+    vec3 normal;
+    vec3 diffuse;
+    vec3 specular;
+    vec3 emissive;
+    float alpha;
+    float roughness;
+    float metallic;
+    float occlusion;
+    float scattering;
+};
