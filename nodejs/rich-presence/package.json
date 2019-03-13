@@ -1,0 +1,10 @@
+{
+	"name": "hifi-rich-presence",
+	"main": "app.js",
+	"author": "Maki",
+	"license": "GPLv3",
+	"dependencies": {
+		"discord-rpc": "^3.0.1",
+		"ws": "^6.2.0"
+	}
+}
