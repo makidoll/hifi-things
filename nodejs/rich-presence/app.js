@@ -1,46 +1,73 @@
 const clientId = "555501224045314068";
+const placeIcons = [
+	"astral",
+	"caitlyn",
+	"cutelab",
+	"duckpond",
+	"maker",
+	"mexico",
+	"mirrors",
+	"solace",
+	"tanks",
+	"thespot",
+	"tin-land"
+];
+
+// program starts here
 
 const DiscordRPC = require("discord-rpc");
+const WebSocket = require("ws");
+const Mitt = require("mitt");
 
-DiscordRPC.register(clientId);
+//DiscordRPC.register(clientId);
+const events = new Mitt();
 const client = new DiscordRPC.Client({
 	transport: "ipc",
 	scopes: ["rpc", "rpc.api", "messages.read"],
 });
+const wss = new WebSocket.Server({
+	port: 9876,
+});
+
+wss.on("connection", ws=>{
+	console.log("New connection!")
+	ws.on("message", data=>{
+		let json = undefined;
+		try { json = JSON.parse(data); }
+		catch(err) { return; }
+		if (json==undefined) return;
+
+		events.emit("update", json);
+	});
+});
 
 client.on("ready", ()=>{
-	// client.setActivity({
-	// 	details: "test number 1",
-	// 	state: 'test number 2',
-	// 	startTimestamp: 0,
-	// 	largeImageKey: 'icon',
-	// 	largeImageText: 'icon!',
-	// 	smallImageKey: 'icon',
-	// 	smallImageText: 'small icon!',
-	// 	instance: true,
-	// 	party: {
-	// 		id: "thespot",
-	// 		size: [1, 100]
-	// 	},
-	// 	secrets: {
-	//         join: "thespot",
-	//     },
-	// });
-	client.setActivity({
-		details: "hifi://thespot",
-		state: "2 people",
+	function updatePresence(data) { // place, people
+		let lPlace = data.place.toLowerCase();
+		let people = data.people+" "+((data.people==1)?"person":"people");
 
-		partyId: "thespot",
+		console.log("At hifi://"+data.place+" ("+people+")");
 
-		spectateSecret: "thespot-secret",
+		client.setActivity({
+			details: "hifi://"+data.place,
+			state: people,
 
-		largeImageKey: "icon",
-		smallImageKey: "icon",
+			smallImageKey: "logo",
+			largeImageKey:
+				(placeIcons.includes(lPlace))?
+					lPlace:"paradise-island",
 
-		instance: true,
-  	});
+			//partyId: "thespot",
+			//spectateSecret: "thespot-secret",
+			//instance: true,
+	  	});
+	}
 
-  	client.connect();
+	events.on("update", data=>{
+		updatePresence(data);
+	})
+
+  	//client.connect();
 });
 
 client.login({clientId}).catch(console.error);
