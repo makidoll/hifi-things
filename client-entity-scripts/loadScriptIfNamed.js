@@ -53,6 +53,6 @@
 	}
 
 	this.unload = function() {
-		Script.clearInterval(interval);
+		if (interval) Script.clearInterval(interval);
 	}
 });
