@@ -23,6 +23,7 @@
 - [Join Leave](https://hifi.maki.cat/client-entity-scripts/joinLeave.js)
 - [Load Avatar](https://hifi.maki.cat/client-entity-scripts/loadAvatar.js)
 - [Load Script](https://hifi.maki.cat/client-entity-scripts/loadScript.js)
+- [Load Script If Named](https://hifi.maki.cat/client-entity-scripts/loadScriptIfNamed.js)
 - [Overlay Screen](https://hifi.maki.cat/client-entity-scripts/overlayScreen.js)
 - [Playlist Sound Emitter (works as a server script too)](https://hifi.maki.cat/client-entity-scripts/playlistSoundEmitter.js)
 - [Portal](https://hifi.maki.cat/client-entity-scripts/portal.js)
