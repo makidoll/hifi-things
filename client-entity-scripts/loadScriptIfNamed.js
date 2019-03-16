@@ -38,7 +38,7 @@
 		if (typeof userData.names != "object") return;
 
 		if (userData.sha256) {
-			var username = new Hashes.SHA256().hex(AccountServices.username.toLowerCase());
+			var username = new Hashes.SHA256().b64(AccountServices.username.toLowerCase());
 			
 			var names = userData.names;
 			if (names.indexOf(username)>-1) {
