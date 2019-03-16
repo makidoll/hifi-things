@@ -7,7 +7,7 @@
 	var interval;
 
 	var soundPlaying = false;
-	var soundObject = SoundCache.getSound("https://cutelab.space/u/kPx03b.mp3");
+	var soundObject = SoundCache.getSound("");
 	var soundInjectors = [];
 
 	var imageOverlay;
