@@ -50,17 +50,18 @@ Object.keys(defaultConfig).forEach(function (key){
 });
 loadConfig(preConfig);
 
-var nametags = {}; // id: {avatar, overlay, displayName}
+var nametags = {}; // id: {avatar, entity, displayName}
 var reloadNametagsInterval = null;
 
 // script functions
 function debug(msg) { print("DEBUG - "+msg); }
 
-function calcNewSize(overlay, displayName) {
-	var textSize = Overlays.textSize(overlay, displayName);
+function calcNewSize(entity, displayName) {
+	var textSize = Entities.textSize(entity, displayName);
+
 	return {
 		x: textSize.width+config.marginWidth*2,
-		y: textSize.height+config.marginHeight*2,
+		y: textSize.height+config.marginHeight*2 - 0.1*(config.textSize*10),
 	}
 }
 
@@ -74,7 +75,9 @@ function drawNametag(avatarID) {
 	//var headJointIndex = avatar.getJointIndex("Head");
 	//var headTranslation = avatar.getJointTranslation("head");
 
-	var overlay = Overlays.addOverlay("text3d", {
+	var entity = Entities.addEntity({
+		type: "Text",
+
 		parentID: avatarID,
 		//parentJointIndex: headJointIndex,
 		//position: Vec3.sum(avatar.position, headTranslation),
@@ -89,13 +92,14 @@ function drawNametag(avatarID) {
 		// 	z: 0,
 		// }),
 
-		isFacingAvatar: config.facingAvatar,
+		dimensions: {x:0,y:0,z:0},
+		billboardMode: (config.facingAvatar)? "yaw": "none",
 		orientation: Quat.multiply(avatar.orientation, Quat.fromPitchYawRollDegrees(
-			0, 180, 0
+			0, 90, 0
 		)),
 
 		text: displayName,
-		textAlpha: config.textOpacity-0.001,
+		textAlpha: config.textOpacity,
 		color: config.textColor,
 
 		leftMargin: config.marginWidth,
@@ -106,17 +110,19 @@ function drawNametag(avatarID) {
 		backgroundColor: config.backgroundColor,
 		
 		visable: config.enabled, isSolid: false,
-	});
+	}, "local");
 
-	// update overlay size
-	Overlays.editOverlay(overlay, {
-		size: calcNewSize(overlay, displayName),
-	});
+	// update entity size
+	Script.setTimeout(function() {
+		Entities.editEntity(entity, {
+			dimensions: calcNewSize(entity, displayName),
+		});
+	}, 100);
 
 	// add to nametags ^^
 	var nametag = {
 		avatar: avatar,
-		overlay: overlay,
+		entity: entity,
 		displayName: avatar.sessionDisplayName
 	};
 
@@ -142,8 +148,8 @@ function drawAllNametags() {
 function deleteNametag(id) {
 	id = id+"";
 	if (!nametags[id]) return;
-	Overlays.deleteOverlay(
-		nametags[id].overlay
+	Entities.deleteEntity(
+		nametags[id].entity
 	);
 	delete nametags[id];
 }
@@ -196,9 +202,9 @@ function reloadNametags() {
 			if (config.debug) debug("\tAvatar updated");
 			nametag.displayName = avatar.sessionDisplayName;
 
-			Overlays.editOverlay(nametag.overlay, {
+			Entities.editEntity(nametag.entity, {
 				text: nametag.displayName,
-				size: calcNewSize(nametag.overlay, nametag.displayName),
+				size: calcNewSize(nametag.entity, nametag.displayName),
 			});
 		}
 	});
