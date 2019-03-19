@@ -117,7 +117,7 @@ function drawNametag(avatarID) {
 		Entities.editEntity(entity, {
 			dimensions: calcNewSize(entity, displayName),
 		});
-	}, 100);
+	}, 500);
 
 	// add to nametags ^^
 	var nametag = {
