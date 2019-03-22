@@ -18,7 +18,7 @@
 	_this.initDynamicLights = function(entityID) {
 		var entity = Entities.getEntityProperties(entityID, ["dimensions"]);
 
-		_this.dynamicLightsID = [
+		dynamicLightsID = [
 			[-1, 1], [ 0, 1], [ 1, 1],
 			[-1, 0],          [ 1, 0],
 			[-1,-1], [ 0,-1], [ 1,-1],
@@ -46,19 +46,20 @@
 	}
 
 	_this.webEventReceived = function(entityID, msg) {
-		if (entityID != _this.webEntityID) return;
+		//console.log(entityID+" - "+msg);
+		if (entityID != overlayID) return;
 		msg = msg.split(",");
 
-		Entities.editEntity(_this.dynamicLightsID[0], {color:{r:msg[ 0],g:msg[ 1],b:msg[ 2]}});
-		Entities.editEntity(_this.dynamicLightsID[1], {color:{r:msg[ 3],g:msg[ 4],b:msg[ 5]}});
-		Entities.editEntity(_this.dynamicLightsID[2], {color:{r:msg[ 6],g:msg[ 7],b:msg[ 8]}});
+		Entities.editEntity(dynamicLightsID[0], {color:{r:msg[ 0],g:msg[ 1],b:msg[ 2]}});
+		Entities.editEntity(dynamicLightsID[1], {color:{r:msg[ 3],g:msg[ 4],b:msg[ 5]}});
+		Entities.editEntity(dynamicLightsID[2], {color:{r:msg[ 6],g:msg[ 7],b:msg[ 8]}});
 
-		Entities.editEntity(_this.dynamicLightsID[3], {color:{r:msg[ 9],g:msg[10],b:msg[11]}});
-		Entities.editEntity(_this.dynamicLightsID[4], {color:{r:msg[12],g:msg[13],b:msg[14]}});
+		Entities.editEntity(dynamicLightsID[3], {color:{r:msg[ 9],g:msg[10],b:msg[11]}});
+		Entities.editEntity(dynamicLightsID[4], {color:{r:msg[12],g:msg[13],b:msg[14]}});
 
-		Entities.editEntity(_this.dynamicLightsID[5], {color:{r:msg[15],g:msg[16],b:msg[17]}});
-		Entities.editEntity(_this.dynamicLightsID[6], {color:{r:msg[18],g:msg[19],b:msg[20]}});
-		Entities.editEntity(_this.dynamicLightsID[7], {color:{r:msg[21],g:msg[22],b:msg[23]}});
+		Entities.editEntity(dynamicLightsID[5], {color:{r:msg[15],g:msg[16],b:msg[17]}});
+		Entities.editEntity(dynamicLightsID[6], {color:{r:msg[18],g:msg[19],b:msg[20]}});
+		Entities.editEntity(dynamicLightsID[7], {color:{r:msg[21],g:msg[22],b:msg[23]}});
 	}
 
 	_this.preload = function(entityID) {
@@ -106,7 +107,7 @@
 
 		if (userData.dynamicLights) {
 			dynamicLights = true;
-			_this.initDynamicLights(entity.parentID);
+			_this.initDynamicLights(entityID);
 			Entities.webEventReceived.connect(_this.webEventReceived);
 		}
 	}
@@ -114,6 +115,7 @@
 	this.unload = function() {
 		if (overlayID) Entities.deleteEntity(overlayID);
 		if (interval) Script.clearInterval(interval);
+
 		if (dynamicLights) {
 			dynamicLightsID.forEach(function(dynamicLightID) {
 				Entities.deleteEntity(dynamicLightID);
