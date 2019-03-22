@@ -1,1 +1,1 @@
-runas /profile /user:anonymous "\"F:\Steam\steamapps\common\High Fidelity\interface.exe\" --disable-displays=\"OpenVR (Vive)\" --disable-inputs=\"OpenVR (Vive)\""
+runas /profile /user:anonymous "\"F:\Steam\steamapps\common\High Fidelity\interface.exe\" --disable-displays=\"OpenVR (Vive)\" --disable-inputs=\"OpenVR (Vive)\" file:///"

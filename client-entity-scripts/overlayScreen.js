@@ -29,24 +29,25 @@
 			});
 		}
 
-		overlayID = Overlays.addOverlay("web3d", {
-			url: (exclude)? emptyHTML: userData.url,
+		overlayID = Entities.addEntity({
+			type: "Web",
+			sourceUrl: (exclude)? emptyHTML: userData.url,
 			maxFPS: 90,
 			alpha: 1,
 			dpi: userData.dpi||10,
-			grabbable: false,
+			grab: {grabbable: false},
 			position: entity.position,
 			rotation: entity.rotation,
 			dimensions: entity.dimensions,
 			parentID: entityID,
 			showKeyboardFocusHighlight: false,
-		});
+		}, "local");
 
 		interval = Script.setInterval(function() {
 			var entity = Entities.getEntityProperties(entityID, ["dimensions"]);
 
 			if (!Vec3.withinEpsilon(entity.dimensions, dimensions, 0.001)) {
-				Overlays.editOverlay(overlayID, {
+				Entities.editEntity(overlayID, {
 					dimensions: entity.dimensions
 				});
 			}
@@ -54,7 +55,7 @@
 	}
 
 	this.unload = function() {
-		if (overlayID) Overlays.deleteOverlay(overlayID);
+		if (overlayID) Entities.deleteEntity(overlayID);
 		if (interval) Script.clearInterval(interval);
 	}
 })

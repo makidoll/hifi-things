@@ -93,7 +93,7 @@ function drawNametag(avatarID) {
 		// }),
 
 		dimensions: {x:0,y:0,z:0},
-		billboardMode: (config.facingAvatar)? "yaw": "none",
+		billboardMode: (config.facingAvatar)? "full": "none",
 		orientation: Quat.multiply(avatar.orientation, Quat.fromPitchYawRollDegrees(
 			0, 90, 0
 		)),
