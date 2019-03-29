@@ -47,7 +47,7 @@ function request(url, callback, blob) {
 }
 
 function getPlaceInfo(placename, callback) {
-	request("https://highfidelity.com/places/"+placename, callback);
+	request("https://metaverse.highfidelity.com/places/"+placename, callback);
 }
 
 var lifetime = 60;
