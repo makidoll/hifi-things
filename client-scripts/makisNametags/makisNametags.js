@@ -204,7 +204,7 @@ function reloadNametags() {
 
 			Entities.editEntity(nametag.entity, {
 				text: nametag.displayName,
-				size: calcNewSize(nametag.entity, nametag.displayName),
+				dimensions: calcNewSize(nametag.entity, nametag.displayName),
 			});
 		}
 	});
