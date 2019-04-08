@@ -39,6 +39,13 @@
 		<video></video>
 		<script src="socket.io.js"></script>
 		<script type="text/javascript">
+			var _GET = {};
+			window.location.search.substr(1).split("&").forEach(function(e, i) {
+				if (e=="") return;
+				let param = e.split("=");
+				_GET[param[0]] = param[1];
+			});
+
 			var socket = io("[namespace]");
 			var video = document.querySelector("video");
 
@@ -69,40 +76,44 @@
 			});
 			socket.emit("getInfo");
 
-			let canvas = document.createElement("canvas");
-			canvas.width = canvas.height = 3;
-			//document.body.appendChild(canvas);
+			if (_GET.dynamicLights) {
+				let canvas = document.createElement("canvas");
+				canvas.width = canvas.height = 3;
+				//document.body.appendChild(canvas);
 
-			//let debug = document.createElement("h2");
-			//document.body.appendChild(debug);
+				//let debug = document.createElement("h2");
+				//document.body.appendChild(debug);
 
-			let ctx = canvas.getContext("2d");
+				let ctx = canvas.getContext("2d");
 
-			function getColors() {
-				let colors = new Array();
-				[
-					ctx.getImageData(0,0,1,1).data,
-					ctx.getImageData(1,0,1,1).data,
-					ctx.getImageData(2,0,1,1).data,
+				function getColors() {
+					let colors = new Array();
+					[
+						ctx.getImageData(0,0,1,1).data,
+						ctx.getImageData(1,0,1,1).data,
+						ctx.getImageData(2,0,1,1).data,
 
-					ctx.getImageData(0,1,1,1).data,
-					ctx.getImageData(2,1,1,1).data,
+						ctx.getImageData(0,1,1,1).data,
+						ctx.getImageData(2,1,1,1).data,
 
-					ctx.getImageData(0,2,1,1).data,
-					ctx.getImageData(1,2,1,1).data,
-					ctx.getImageData(2,2,1,1).data,
-				].forEach(c=>{
-					colors = colors.concat([c[0],c[1],c[2]]);
-				});
-				//debug.textContent = colors.join(",");
-				return colors.join(",");
+						ctx.getImageData(0,2,1,1).data,
+						ctx.getImageData(1,2,1,1).data,
+						ctx.getImageData(2,2,1,1).data,
+					].forEach(c=>{
+						colors = colors.concat([c[0],c[1],c[2]]);
+					});
+					//debug.textContent = colors.join(",");
+					return colors.join(",");
+				}
+
+				let renderWidth = 3;
+				if (_GET["3D"])renderWidth = 6;
+
+				if (window.qt) setInterval(()=>{
+					ctx.drawImage(video, 0, 0, renderWidth, 3);
+					EventBridge.emitWebEvent(getColors());
+				}, 1000/30);
 			}
-
-			if (window.qt) setInterval(()=>{
-				//ctx.drawImage(video, 0, 0, 6, 3);
-				ctx.drawImage(video, 0, 0, 3, 3);
-				EventBridge.emitWebEvent(getColors());
-			}, 1000/30);
 		</script>
 	</body>
 </html>
