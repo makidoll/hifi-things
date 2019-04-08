@@ -68,15 +68,31 @@
 				background: #000;
 				border-radius: 10px;
 			}
+
+			.poster {
+				cursor: pointer;
+				border-radius: 25px;
+				width: 100%;
+			}
+
+			.poster:hover {
+				transform: scale(0.95);
+			}
 		</style>
 	</head>
 	<body>
 		<h1><b>[room_name]</b> - video sync</h1>
 		<br>
-		<video controls muted></video>
+		<video muted></video>
 
 		<br><br>
 		<div style="width: 640px;">
+			<button style="width: 50%" onclick="setInfo({playing:true})">Play</button>
+			<br><br>
+			<button style="width: 50%" onclick="setInfo({playing:false})">Pause</button>
+			<br><br>
+			<button style="width: 50%" onclick="setInfo({position:0})">Back to the start</button>
+			<br><br>
 			<h2 style=" margin-bottom: 10px;">Current URL</h2>
 			<input type="url"/>
 			<br><br>
@@ -89,11 +105,19 @@
 		<div style="margin-top: 50px; width: 750px;">		
 			<h2>List of hosted movies</h2>
 			<br>
+			<h2>3D</h2>
+			<br>
 			<table style="width: 100%; margin: -25px; table-layout: fixed;" cellspacing="25">
 				<tr>
-					<td><button onclick="setSrc('https://maki.cat/webm/despicable-me.webm')">Despicable Me 3D</button></td>
-					<td><button onclick="setSrc('https://maki.cat/webm/avatar.webm')">Avatar 3D</button></td>
-					<td></td>
+					<td><img class="poster"
+						src="https://img.yts.am/assets/images/movies/zootopia_2016/medium-cover.jpg"
+						onclick="setSrc('https://maki.cat/webm/3d/zootopia.webm')"/></td>
+					<td><img class="poster"
+						src="https://img.yts.am/assets/images/movies/Despicable_Me_2010/medium-cover.jpg"
+						onclick="setSrc('https://maki.cat/webm/3d/despicable-me.webm')"/></td>
+					<td><img class="poster"
+						src="https://img.yts.am/assets/images/movies/Avatar_2009/medium-cover.jpg"
+						onclick="setSrc('https://maki.cat/webm/3d/avatar.webm')"/></td>
 				</tr>
 			</table>
 		</div>

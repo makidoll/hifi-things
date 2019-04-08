@@ -17,6 +17,22 @@
 				width: 100vw;
 				height: 100vh;
 			}
+
+			canvas {
+				position: fixed; margin: auto;
+				top: 0; left: 0;
+				width: 256px;
+				height: 256px;
+				image-rendering: pixelated;
+			}
+
+			h2 {
+				position: fixed; margin: auto;
+				top: 256px; left: 0;
+				image-rendering: pixelated;
+				text-shadow: 0 0 32px #000;
+				color: #fff;
+			}
 		</style>
 	</head>
 	<body>
@@ -52,6 +68,41 @@
 				video.volume = info.volume;
 			});
 			socket.emit("getInfo");
+
+			let canvas = document.createElement("canvas");
+			canvas.width = canvas.height = 3;
+			//document.body.appendChild(canvas);
+
+			//let debug = document.createElement("h2");
+			//document.body.appendChild(debug);
+
+			let ctx = canvas.getContext("2d");
+
+			function getColors() {
+				let colors = new Array();
+				[
+					ctx.getImageData(0,0,1,1).data,
+					ctx.getImageData(1,0,1,1).data,
+					ctx.getImageData(2,0,1,1).data,
+
+					ctx.getImageData(0,1,1,1).data,
+					ctx.getImageData(2,1,1,1).data,
+
+					ctx.getImageData(0,2,1,1).data,
+					ctx.getImageData(1,2,1,1).data,
+					ctx.getImageData(2,2,1,1).data,
+				].forEach(c=>{
+					colors = colors.concat([c[0],c[1],c[2]]);
+				});
+				//debug.textContent = colors.join(",");
+				return colors.join(",");
+			}
+
+			if (window.qt) setInterval(()=>{
+				//ctx.drawImage(video, 0, 0, 6, 3);
+				ctx.drawImage(video, 0, 0, 3, 3);
+				EventBridge.emitWebEvent(getColors());
+			}, 1000/30);
 		</script>
 	</body>
 </html>
