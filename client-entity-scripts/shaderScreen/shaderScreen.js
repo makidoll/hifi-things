@@ -3,7 +3,6 @@
 	"res": 64,
 	"url": "https://www.webrtc-experiment.com/screen/?s=Maki&p=cutecutecute&codecs=vp8",
 	"dpi": 20
-	//"fov": 177.45
 }
 */
 
@@ -32,7 +31,7 @@
 	_this.initWebEntity = function(entity) {
 		_this.webEntityID = Entities.addEntity({
 			type: "Web",
-			name: "cat.maki.3dScreen",
+			name: "cat.maki.shaderScreen",
 			parentID: _this.entityID,
 
 			sourceUrl: _this.userData.url,
@@ -65,7 +64,7 @@
 		].map(function(light) {
 			return Entities.addEntity({
 				type: "Light",
-				name: "cat.maki.3dScreen",
+				name: "cat.maki.shaderScreen",
 				parentID: entityID,
 
 				intensity: 16,
@@ -141,7 +140,7 @@
 
 		// doesnt even work ergh...
 		Entities.findEntitiesByName(
-			"cat.maki.3dScreen", MyAvatar.position,
+			"cat.maki.shaderScreen", MyAvatar.position,
 			100000, false
 		).forEach(function(webEntityID) {
 			Entities.deleteEntity(webEntityID);
