@@ -67,7 +67,7 @@
 				name: "cat.maki.shaderScreen",
 				parentID: entityID,
 
-				intensity: 16,
+				intensity: 12,
 				falloffRadius: entity.dimensions.x/3,
 				color: {r: 0, g: 0, b: 0},
 				dimensions: {
@@ -82,6 +82,12 @@
 				},
 			}, "local");
 		});
+	}
+
+	_this.messageReceived = function(chan, message, senderID, localOnly) {
+		if (!localOnly) return;
+		if (chan!="cat.maki.shaderScreen") return;
+		Entities.emitScriptEvent(_this.webEntityID, message);
 	}
 
 	_this.geometryChanged = function() {
@@ -128,6 +134,9 @@
 
 		Window.geometryChanged.connect(_this.geometryChanged);
 		Entities.webEventReceived.connect(_this.webEventReceived);
+
+		Messages.subscribe("cat.maki.shaderScreen");
+		Messages.messageReceived.connect(_this.messageReceived);
 	};
 	
 	_this.unload = function() {
@@ -148,5 +157,8 @@
 
 		Window.geometryChanged.disconnect(_this.geometryChanged);
 		Entities.webEventReceived.disconnect(_this.webEventReceived);
+
+		Messages.unsubscribe("cat.maki.shaderScreen");
+		Messages.messageReceived.disconnect(_this.messageReceived);
 	};
 })
