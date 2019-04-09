@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/client-entity-scripts/3dScreen/screen.fs",
+		"shaderUrl": "https://hifi.maki.cat/client-entity-scripts/shaderScreen/screen.fs",
 		"channels": ["resource://spectatorCameraFrame"],
 		"version": 3
 	}
@@ -14,9 +14,11 @@ float getProceduralFragment(inout ProceduralFragment frag) {
 	//uv.x += cam_getStereoSide()*0.5; // right eye
 
 	frag.emissive = texture(iChannel0, uv).rgb;
-	frag.normal = vec3(0);
+	frag.normal = iWorldOrientation*vec3(1);
 	frag.diffuse = vec3(0);
 	frag.specular = vec3(0);
+	frag.occlusion = 0;
 	frag.roughness = 1;
+	frag.metallic = 1; // i dont know...
 	return 0;
 }

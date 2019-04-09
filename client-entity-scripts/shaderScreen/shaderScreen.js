@@ -1,6 +1,6 @@
 /*
 {
-	"res": 64,
+	"res": 96,
 	"url": "https://www.webrtc-experiment.com/screen/?s=Maki&p=cutecutecute&codecs=vp8",
 	"dpi": 20
 }
