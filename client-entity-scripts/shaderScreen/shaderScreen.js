@@ -87,7 +87,7 @@
 	_this.messageReceived = function(chan, message, senderID, localOnly) {
 		if (!localOnly) return;
 		if (chan!="cat.maki.shaderScreen") return;
-		Entities.emitScriptEvent(_this.webEntityID, message);
+		Overlays.getOverlayObject(_this.webEntityID).emitScriptEvent(message);
 	}
 
 	_this.geometryChanged = function() {
