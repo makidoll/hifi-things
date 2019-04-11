@@ -13,11 +13,8 @@
 
 	this.openUrl = function() {
 		var entity = Entities.getEntityProperties(this.entityID, ["userData"]);
-		console.log(entity.userData)
-		try {
-			var userData = JSON.parse(entity.userData);
+		try { var userData = JSON.parse(entity.userData);
 		} catch(err) { return; }
-		console.log(userData)
 
 		if (userData.url!=undefined) Window.openUrl(userData.url);
 	}
