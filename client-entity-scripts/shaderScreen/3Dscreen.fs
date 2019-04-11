@@ -23,14 +23,14 @@ float getProceduralFragment(inout ProceduralFragment frag) {
 		// crop height
 		float screenSize = height/width;
 		float borderSize = (1-screenSize)/2; 
-		if (uv.y > 1-borderSize) uv.y = 1-borderSize;
-		if (uv.y < borderSize) uv.y = borderSize;
+		if (uv.y > 1-borderSize) return;
+		if (uv.y < borderSize) return;
 	} else {
 		// crop width
 		float screenSize = width/height;
 		float borderSize = (1-screenSize)/2;
-		if (uv.x > 1-borderSize) uv.x = 1-borderSize;
-		if (uv.x < borderSize) uv.x = borderSize;
+		if (uv.x > 1-borderSize) return;
+		if (uv.x < borderSize) return;
 	}
 
 	vec3 color = texture(iChannel0, uv).rgb;
