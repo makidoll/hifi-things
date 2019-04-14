@@ -50,7 +50,8 @@
 - [Portal](https://hifi.maki.cat/shaders/portal.fs)
 - [Portal Minimal](https://hifi.maki.cat/shaders/portalMinimal.fs)
 - [Reflective Sphere](https://hifi.maki.cat/shaders/reflectiveSphere.fs)
-- [Stereo Image](https://hifi.maki.cat/shaders/stereoImage.fs)
+- [Reflective Sphere](https://hifi.maki.cat/shaders/reflectiveSphere.fs)
+- [SBS Image](https://hifi.maki.cat/shaders/sbsImage.fs)
 - [TV](https://hifi.maki.cat/shaders/tv.fs)
 - [Water](https://hifi.maki.cat/shaders/water.fs)
 
