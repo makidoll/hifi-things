@@ -34,7 +34,6 @@ float getProceduralFragment(inout ProceduralFragment frag) {
 	}
 
 	frag.specular = vec3(0);
-	frag.occlusion = 0;
 	frag.roughness = 1;
 
 	return 0;
