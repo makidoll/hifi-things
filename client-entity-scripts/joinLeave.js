@@ -21,7 +21,6 @@
 
 		if (joinAudio) if (joinAudio.downloaded)
 			Audio.playSound(joinAudio, {
-				position: MyAvatar.position,
 				volume: 0.08,
 				localOnly: true,
 			});
@@ -32,7 +31,6 @@
 
 		if (leaveAudio) if (leaveAudio.downloaded)
 			Audio.playSound(leaveAudio, {
-				position: MyAvatar.position,
 				volume: 0.08,
 				localOnly: true,
 			});
