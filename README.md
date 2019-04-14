@@ -15,6 +15,7 @@
 - [Maki's Things](https://hifi.maki.cat/client-scripts/makisThings/makisThings.js)
 - [Head Stacker](https://hifi.maki.cat/client-scripts/headStacker/headStacker.js)
 - [Grab Me](https://hifi.maki.cat/client-scripts/grabMe.js)
+- [Where Are My Friends](https://hifi.maki.cat/client-scripts/whereAreMyFriends/whereAreMyFriends.js)
 
 <br><br>
 ## client entity scripts

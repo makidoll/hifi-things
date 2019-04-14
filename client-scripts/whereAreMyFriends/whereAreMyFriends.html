@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Hifi Friends</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0; padding: 0;
+				transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
+			}
+
+			*:focus {
+				outline: none;
+			}
+
+			body::-webkit-scrollbar {
+			    width: 0;
+			}
+			 
+			body::-webkit-scrollbar-track {
+			    background-color: rgba(29,31,33,0.2);
+			}
+			 
+			body::-webkit-scrollbar-thumb {
+			  	background-color: rgba(29,31,33,0.6);
+			}
+
+			body {
+				font-family: "Roboto Condensed", sans-serif;
+				color: #fff;
+				background: #1d1f21;
+				overflow-x: hidden;
+				user-select: none;
+			}
+
+			a:hover {
+				transform: scale(0.9);
+			}
+
+			#intro {
+				position: fixed; margin: auto;
+				top: 0; left: 0; right: 0;
+				padding: 10px 20px;
+				background: #E91E63;
+			}
+
+			#places {
+				margin-top: 75px;
+				width: 100%;
+			}
+
+			.place { 
+				display: inline-block;
+				width: calc(100% - 20px);
+				padding: 0 10px;
+			}
+
+			.place:nth-child(even) {
+				background: rgba(255,255,255,0.05);
+			}
+
+			.place>h1 {
+				width: 100%;
+				padding: 20px 10px;
+			}
+
+			.user {
+				width: calc(25% - 20px);
+				margin: 0 10px;
+				display: inline-block;
+				margin-bottom: 20px;
+				cursor: pointer;
+			}
+
+			.user:hover {
+				transform: scale(0.9);
+			}
+
+			.user>img {
+				width: calc(100% - 8px);
+				border: solid 4px #fff;
+				height: auto;
+				border-radius: 100%;
+			}
+
+			.user>p {
+				width: 100%;
+				margin-top: 4px;
+				text-align: center;
+				overflow: hidden;
+			}
+
+			table {
+				table-layout: fixed;
+				width: 100%;
+			}
+
+			.icon {
+				width: 32px; height: 32px;
+				fill: #fff;
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- <h1>copy output from <a target="_blank" href="https://metaverse.highfidelity.com/api/v1/users?filter=connections">here</a></h1>
+		<textarea id="json"></textarea><br>
+		<button onclick="processJSON()">process</button> -->
+		<div id="intro">
+			<table>
+				<tr>
+					<td style="width: 70%">
+						<img style="width: 100%;" src="whereAreMyFriends.svg"/>
+					</td>
+					<td >
+						<a href="javascript:refreshConnections()"
+							style="background: #fff; padding: 4px; width: 32px; height: 32px; border-radius: 100%; display: block; margin-left: auto;">
+							<svg style="fill: #000;" class="icon" viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+						</a>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<div id="places"></div>
+		<script type="text/javascript">
+			function processJSON(json) {
+				let places = {};
+				json.data.users.forEach(user=>{
+					if (!user.online) return
+					let placename = user.location.root.name;
+
+					// let placename = "Offline"
+					// if (user.online)
+					// 	placename = user.location.root.name;
+
+					// add place
+					if (places[placename]==undefined)
+						places[placename] = [];
+
+					// add user to place
+					places[placename].push({
+						username: user.username,
+						connection: user.connection,
+						avatar: user.images.thumbnail,
+					});
+				});
+
+				// process places
+				let elPlaces = document.getElementById("places");
+				elPlaces.innerHTML = "";
+
+				Object.keys(places).forEach(placename=>{
+					let elPlace = document.createElement("div");
+					elPlace.className = "place";
+					elPlace.innerHTML = "<h1>"+placename+"</h1>";
+
+					let users = places[placename];
+					users.forEach(user=>{
+						let elUser = document.createElement("div");
+						elUser.className = "user";
+						elUser.addEventListener("click", e=>{
+							if (window.qt) emitEvent("gotoUser", user.username);
+						});
+
+						let elUserAvatar = document.createElement("img");
+						elUserAvatar.src = user.avatar;
+						if (user.connection=="connection") elUserAvatar.style.borderColor = "#9395FF"
+						else if (user.connection=="friend") elUserAvatar.style.borderColor = "#1AC667";
+						elUser.appendChild(elUserAvatar);
+
+						let elUserUsername = document.createElement("p");
+						elUserUsername.textContent = user.username;
+						elUser.appendChild(elUserUsername);
+
+						elPlace.appendChild(elUser);
+					});
+
+					elPlaces.appendChild(elPlace);
+				});
+			}
+
+			// let json = document.getElementById("json").value;
+			// try { json = JSON.parse(json); } catch(err) { 
+			// 	document.getElementById("json").value = "";
+			// 	return alert("Invalid JSON");
+			// }
+			// console.log(json);
+			// processJSON(json);
+
+			// hifi
+
+			if (window.qt) {
+				function emitEvent(key, value) {
+					EventBridge.emitWebEvent(JSON.stringify({
+						key: key, value: value,
+						uuid: "cat.maki.whereAreMyFriends",
+					}));
+				}
+
+				setTimeout(()=>{
+					EventBridge.scriptEventReceived.connect(json=>{
+						try { json = JSON.parse(json); } catch(err) { return; }
+						if (json.uuid!="cat.maki.whereAreMyFriends") return;
+
+						switch(json.key) {
+							case "getConnections":
+								processJSON(json.value);
+								window.scrollTo(0,0);
+								break;
+						}
+					});
+					
+					emitEvent("getConnections");
+				}, 100);
+			}
+
+			function refreshConnections() {
+				if (window.qt) emitEvent("getConnections");
+			}
+		</script>
+	</body>
+</html>
