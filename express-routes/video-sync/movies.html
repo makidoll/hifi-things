@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>[room_name] - movies</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				background: #1d1f21;
+				overflow: hidden;
+				font-family: "Roboto", sans-serif;
+				color: #fff;
+			}
+
+			#content {
+				position: absolute; margin: auto;
+				top: 20px; left: 20px; right: 20px;
+			}
+
+			#backdrop {
+				position: fixed; margin: auto;
+				top: 0; left: 0; right: 0; bottom: 0;
+				background-size: cover;
+				background-position: center;
+				opacity: 0.1;
+			}
+
+			h1 {
+				font-weight: 400;
+			}
+
+			#posters {
+				width: calc(100% + 20px)
+			}
+
+			#posters>div {
+				width: 200px;
+				height: 300px;
+				border-radius: 10px;
+				display: inline-block;
+				margin-right: 20px;
+				margin-bottom: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="backdrop"></div>
+		<div id="content">
+			<h1>Available Movies <span style="font-weight: 300;">(work in progress)</span></h1>
+			<br>
+			<div id="posters"></div>
+		</div>
+		<script src="https://maki.cat/video-sync/socket.io.js"></script>
+		<script type="text/javascript">
+			// add posters
+			let postersDiv = document.getElementById("posters");
+			[posters].forEach(poster=>{
+				let posterDiv = document.createElement("div");
+				posterDiv.style.backgroundImage = "url("+poster+")";
+				postersDiv.appendChild(posterDiv);
+			});
+
+			// listen to backdrop change
+			var socket = io("[namespace]");
+			var backdrop = document.getElementById("backdrop");
+
+			socket.on("getInfo", info=>{
+				if (info.backdrop!=undefined) {
+					backdrop.style.backgroundImage = "url("+info.backdrop+")";
+				}
+			});
+
+			socket.emit("getInfo");
+		</script>
+	</body>
+</html>

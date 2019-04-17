@@ -36,8 +36,8 @@
 		</style>
 	</head>
 	<body>
-		<video></video>
-		<script src="../socket.io.js"></script>
+		<video crossorigin="Anonymous"></video>
+		<script src="https://maki.cat/video-sync/socket.io.js"></script>
 		<script type="text/javascript">
 			var _GET = {};
 			window.location.search.substr(1).split("&").forEach(function(e, i) {
@@ -59,59 +59,105 @@
 			}, 1000);
 
 			socket.on("getInfo", info=>{
-				console.log(info);
-				actualPosition = info.position;
+				if (info.src!=undefined) if (video.src!=info.src) video.src = info.src;
 
-				if (video.src != info.src) video.src = info.src;
-				if (video.playing != info.playing) {
-					if (info.playing) {
-						video.play();
-					} else {
-						video.pause();
+				if (info.playing!=undefined) {
+					if (video.playing != info.playing) {
+						if (info.playing) {
+							video.play();
+						} else {
+							video.pause();
+						}
 					}
-				} 
+				}
 
-				video.currentTime = info.position;
-				video.volume = info.volume;
+				if (info.position!=undefined) {
+					video.currentTime = info.position;
+					actualPosition = info.position;
+				}
+
+				if (info.volume!=undefined) video.volume = info.volume;
 			});
 			socket.emit("getInfo");
 
-			if (_GET.dynamicLights) {
-				let canvas = document.createElement("canvas");
-				canvas.width = canvas.height = 3;
-				//document.body.appendChild(canvas);
+			// hifi 
 
+			if (window.qt) {
+				EventBridge.scriptEventReceived.connect(message=>{
+					var params = message.split(" ");
+					switch(params[0]) {
+						case "volume":
+							video.volume = parseFloat(params[1]);
+							break;
+					}
+
+				});
+			}
+
+			// dynamic lights
+
+			var canvas;
+			var ctx;
+
+			if (_GET.dynamicLights) {
+				canvas = document.createElement("canvas");
+				canvas.width = canvas.height = 30;
+
+				//document.body.appendChild(canvas);
 				//let debug = document.createElement("h2");
 				//document.body.appendChild(debug);
 
-				let ctx = canvas.getContext("2d");
+				ctx = canvas.getContext("2d");
+
+				function getAverageColor(x, y) {
+					let average = [0,0,0];
+					let colors = ctx.getImageData(x*10,y*10,10,10).data;
+
+					for (var i=0; i<100; i++) {
+						let index = i*4;
+						average[0]+=colors[index  ]; 
+						average[1]+=colors[index+1]; 
+						average[2]+=colors[index+2]; 
+					}
+
+					return [
+						Math.floor(average[0]/100), 
+						Math.floor(average[1]/100),
+						Math.floor(average[2]/100)
+					];
+				}
 
 				function getColors() {
 					let colors = new Array();
 					[
-						ctx.getImageData(0,0,1,1).data,
-						ctx.getImageData(1,0,1,1).data,
-						ctx.getImageData(2,0,1,1).data,
-
-						ctx.getImageData(0,1,1,1).data,
-						ctx.getImageData(2,1,1,1).data,
-
-						ctx.getImageData(0,2,1,1).data,
-						ctx.getImageData(1,2,1,1).data,
-						ctx.getImageData(2,2,1,1).data,
+						// top
+						getAverageColor(0,0),
+						getAverageColor(1,0),
+						getAverageColor(2,0),
+						// middle
+						getAverageColor(0,1),
+						getAverageColor(2,1),
+						// bottom
+						getAverageColor(0,2),
+						getAverageColor(1,2),
+						getAverageColor(2,2),
 					].forEach(c=>{
 						colors = colors.concat([c[0],c[1],c[2]]);
 					});
-					//debug.textContent = colors.join(",");
+
 					return colors.join(",");
 				}
 
-				let renderWidth = 3;
-				if (_GET["3D"])renderWidth = 6;
+				let renderWidth = canvas.width;
+				if (_GET["3D"])renderWidth = canvas.width*2;
 
-				if (window.qt) setInterval(()=>{
-					ctx.drawImage(video, 0, 0, renderWidth, 3);
-					EventBridge.emitWebEvent(getColors());
+				setInterval(()=>{
+					ctx.drawImage(video, 0, 0, renderWidth, canvas.height);
+
+					let color = getColors();
+					//debug.textContent = getColors();
+
+					if (window.qt) EventBridge.emitWebEvent(color);
 				}, 1000/30);
 			}
 		</script>
