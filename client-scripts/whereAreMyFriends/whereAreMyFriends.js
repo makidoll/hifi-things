@@ -1,10 +1,10 @@
-function getConnections(callback) {
+function getConnections(resolve) {
 	var req = new XMLHttpRequest();
 	req.onreadystatechange = function() {
 		if (req.readyState == 4 && req.status == 200) {
 			var json = req.responseText;
 			try { json = JSON.parse(json); } catch(err) { return; }
-			callback(json);
+			resolve(json);
 		}
 	}
 	req.open("GET", AccountServices.metaverseServerURL+"/api/v1/users?filter=connections", true);
