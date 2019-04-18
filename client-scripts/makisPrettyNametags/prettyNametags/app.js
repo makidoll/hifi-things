@@ -1,4 +1,4 @@
-var puppeteer = require("puppeteer");
+var puppeteer = require("puppeteer-core");
 var express = require("express");
 var mitt = require("mitt");
 var fs = require("fs");
@@ -17,7 +17,15 @@ var viewport = [
 ];	
 
 (async ()=>{
-	const browser = await puppeteer.launch();
+	const browser = await puppeteer.launch({
+		executablePath: "google-chrome-unstable",
+		args: ["--no-sandbox"],
+		defaultViewport: {
+			width: viewport[0],
+			height: viewport[1],
+			deviceScaleFactor: 1,
+		},
+	});
 	browserRunning = true;
 	console.log("Browser running");
 
@@ -33,11 +41,11 @@ var viewport = [
 		if (info.admin) html = html.replace(/<!--admin([\s\S]*?)-->/g, "$1");
 
 		const page = await browser.newPage();
-		await page.setViewport({
+		/*await page.setViewport({
 			width: viewport[0],
 			height: viewport[1],
 			deviceScaleFactor: 1
-		})
+		})*/
 
 		page.on("requestfinished", async ()=>{
 			//const width = await page.$eval("#nametag", el=>el.offsetWidth*4);
@@ -132,10 +140,10 @@ app.get("/", (req,res)=>{
 	}
 });
 
-app.listen(8080);
+app.listen(8082);
 
 /*
-http://127.0.0.1:8080
+https://maki.cat/prettyNametags
 ?username=Maki
 &connection=friend
 &admin=true

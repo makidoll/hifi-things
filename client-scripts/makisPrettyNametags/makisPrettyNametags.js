@@ -24,7 +24,7 @@ function updateNametagEntity(nametag) {
 
 	Entities.editEntity(nametag.entity, {
 		alpha: 1,
-		imageURL: ("https://maki.cat/prettyNametags"+
+		imageURL: ("https://maki.cat/prettyNametags/"+
 			"?username="+(nametag.username||"anonymous")+
 			"&avatarURL="+nametag.avatarURL+
 			"&connection="+nametag.connection+
