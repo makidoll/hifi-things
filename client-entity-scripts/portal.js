@@ -60,18 +60,21 @@
 		try { var userData = JSON.parse(entity.userData);
 		} catch(err) { return; }
 
-		// if (!userData.position) return;
-		// var position = userData.position;
-		// var rotation = (userData.rotation!=undefined)? userData.rotation: 0;
-		
-		// MyAvatar.orientation = Quat.fromPitchYawRollDegrees(0, rotation, 0);
-		// MyAvatar.position = Vec3.sum(
-		// 	Vec3.subtract(MyAvatar.position, MyAvatar.getWorldFeetPosition()),
-		// 	position
-		// );
-
 		if (!userData.address) return;
+
+		// move user back slightly so that there is no loop
+		MyAvatar.position = Vec3.sum(
+			MyAvatar.position,
+			Vec3.multiplyQbyV(MyAvatar.orientation, {x:0,y:0,z:1.5})
+		);
+
+		MyAvatar.orientation = Quat.multiply(
+			MyAvatar.orientation,
+			Quat.fromPitchYawRollDegrees(0,180,0)
+		);
+
 		Window.location = userData.address;
+
 		if (soundTeleport)
 			if (soundTeleport.downloaded)
 				Audio.playSound(soundTeleport, {
