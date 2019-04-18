@@ -13,7 +13,7 @@
 
 	this.preload = function(_entityID) {
 		entityID = _entityID;
-		var entity = Entities.getEntityProperties(entityID, ["position"]);
+		//var entity = Entities.getEntityProperties(entityID, ["position"]);
 
 		soundTeleport = SoundCache.getSound(Script.resolvePath("sounds/sl_teleport.mp3"));
 
@@ -56,20 +56,30 @@
 	this.enterEntity = function (entityID) {
 		//if (entityID!=MyAvatar.sessionUUID) return;
 
-		var entity = Entities.getEntityProperties(entityID, ["userData"]);
+		var entity = Entities.getEntityProperties(entityID, ["userData", "position", "rotation"]);
 		try { var userData = JSON.parse(entity.userData);
 		} catch(err) { return; }
 
 		if (!userData.address) return;
 
 		// move user back slightly so that there is no loop
+		// MyAvatar.position = Vec3.sum(
+		// 	MyAvatar.position,
+		// 	Vec3.multiplyQbyV(MyAvatar.orientation, {x:0,y:0,z:1.5})
+		// );
+
+		// MyAvatar.orientation = Quat.multiply(
+		// 	MyAvatar.orientation,
+		// 	Quat.fromPitchYawRollDegrees(0,180,0)
+		// );
+
 		MyAvatar.position = Vec3.sum(
-			MyAvatar.position,
-			Vec3.multiplyQbyV(MyAvatar.orientation, {x:0,y:0,z:1.5})
+			entity.position,
+			Vec3.multiplyQbyV(entity.rotation, {x:0,y:0,z:1})
 		);
 
 		MyAvatar.orientation = Quat.multiply(
-			MyAvatar.orientation,
+			entity.rotation,
 			Quat.fromPitchYawRollDegrees(0,180,0)
 		);
 
