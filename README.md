@@ -43,6 +43,7 @@
 
 - [Candy Spiral](https://hifi.maki.cat/shaders/candySpiral.fs)
 - [Greenscreen](https://hifi.maki.cat/shaders/greenscreen.fs)
+- [Ground Portal](https://hifi.maki.cat/shaders/groundPortal.fs)
 - [Invisible](https://hifi.maki.cat/shaders/invisible.fs)
 - [Lava Lamp](https://hifi.maki.cat/shaders/lavaLamp.fs)
 - [Lava Lamp Image](https://hifi.maki.cat/shaders/lavaLampImage.fs)
@@ -69,6 +70,7 @@
 ## batch files
 
 - [defaultScripts.js modifier (run as admin)](https://hifi.maki.cat/batch-files/defaultScripts-modifier.bat)
+- [Force close Hifi](https://hifi.maki.cat/batch-files/force-close-hifi.bat)
 - [Run HiFi as anonymous](https://hifi.maki.cat/batch-files/run-hifi-as-anonymous.bat)
 - [Video to WebM (19.4 MB .zip)](https://hifi.maki.cat/batch-files/video-to-webm.zip)
 
