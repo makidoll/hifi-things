@@ -34,6 +34,26 @@ const mongoose = require("mongoose");
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const { spawn } = require("child_process");
+
+let getVideoDurationFromURL = url=>new Promise((resolve,reject)=>{
+	let args = "-v error -select_streams v:0 -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "+url;
+	const ffprobe = spawn("ffprobe", args.split(" "));
+	
+	ffprobe.stdout.on("data", data=>{
+		try {
+			let dur = data.toString();
+			dur = parseFloat(dur);
+			return resolve(dur);
+		} catch(err) {
+			return reject();
+		};
+	});
+	
+	ffprobe.stderr.on("data", data=>{
+		reject();
+	});
+});
 
 module.exports = function(opts) {
 
@@ -72,12 +92,17 @@ module.exports = function(opts) {
 			src: "",
 			playing: false,
 			position: 0,
+			duration: -1,
 			volume: 0.05,
 			backdrop: "",
 		};
 
 		setInterval(()=>{
 			if (room.info.playing) room.info.position++;
+			if (room.info.position>room.info.duration) {
+				room.info.position = 0;
+				room.io.emit("getInfo", {position: room.info.position});
+			}
 		}, 1000);
 
 		// database
@@ -304,7 +329,14 @@ module.exports = function(opts) {
 			socket.on("setInfo", info=>{
 				if (info.password != room.password) return;
 				
-				if (info.src!=undefined) room.info.src = info.src;
+				if (info.src!=undefined) {
+					room.info.src = info.src;
+					getVideoDurationFromURL(info.src).then(duration=>{
+						room.info.duration = duration;
+					}).catch(err=>{
+						room.info.duration = -1;
+					});
+				}
 				if (info.playing!=undefined) room.info.playing = info.playing;
 				if (info.position!=undefined) room.info.position = info.position;
 				if (info.volume!=undefined) room.info.volume = info.volume;
