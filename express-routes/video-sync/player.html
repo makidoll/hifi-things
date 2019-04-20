@@ -43,16 +43,20 @@
 			window.location.search.substr(1).split("&").forEach(function(e, i) {
 				if (e=="") return;
 				let param = e.split("=");
-				_GET[param[0]] = param[1];
+				let value = param[1];
+				if (value==undefined) value = null; 
+				_GET[param[0]] = value;
 			});
 
 			var socket = io("[namespace]");
 			var video = document.querySelector("video");
 
-			let actualPosition = 0;
+			let playing = false;
+			let position = 0;
+
 			setInterval(()=>{
-				if (!video.paused) actualPosition++;
-				if (Math.abs(video.currentTime-actualPosition)>2) { // seconds
+				if (playing) position++;
+				if (Math.abs(video.currentTime-position)>2) { // seconds
 					console.log("out of sync");
 					socket.emit("getInfo");
 				}
@@ -62,6 +66,7 @@
 				if (info.src!=undefined) if (video.src!=info.src) video.src = info.src;
 
 				if (info.playing!=undefined) {
+					playing = info.playing;
 					if (video.playing != info.playing) {
 						if (info.playing) {
 							video.play();
@@ -73,12 +78,18 @@
 
 				if (info.position!=undefined) {
 					video.currentTime = info.position;
-					actualPosition = info.position;
+					position = info.position;
 				}
 
 				if (info.volume!=undefined) video.volume = info.volume;
 			});
 			socket.emit("getInfo");
+
+			// controls
+
+			if (_GET.controls===null) {
+				video.controls = true;
+			}
 
 			// hifi 
 
