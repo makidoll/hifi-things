@@ -29,8 +29,16 @@ var viewport = [
 	browserRunning = true;
 	console.log("Browser running");
 
-	events.on("generateNametag", async info=>{ // {id,username,avatarURL,connection,admin}
-		let html = fs.readFileSync(__dirname+"/nametag.html", "utf8");
+	events.on("generateNametag", async info=>{ // {id,username,avatarURL,connection,admin,theme}
+		let filename = "nametag";
+		if (info.theme) filename+="-"+info.theme;
+
+		let html;
+		try {
+			html = fs.readFileSync(__dirname+"/"+filename+".html", "utf8");
+		} catch(err) { 
+			html = fs.readFileSync(__dirname+"/nametag.html", "utf8");
+		}
 
 		html = html.replace(/\[username\]/g, info.username);
 		html = html.replace(/\[avatarURL\]/g, info.avatarURL);
@@ -80,6 +88,7 @@ const generateNametag = info=>new Promise((resolve,reject)=>{
 		avatarURL: String,
 		connection: String,
 		admin: Boolean,
+		theme: String // optional
 	} */
 
 	let infoKey = JSON.stringify(info);
@@ -122,6 +131,7 @@ app.get("/", (req,res)=>{
 			avatarURL: req.query.avatarURL.split("?")[0],
 			connection: req.query.connection,
 			admin: req.query.admin!="false",
+			theme: req.query.theme
 		}).then(buffer=>{
 			res.setHeader("Content-Type", "image/png");
 			//res.setHeader("Nametag-Width", nametag.width)
