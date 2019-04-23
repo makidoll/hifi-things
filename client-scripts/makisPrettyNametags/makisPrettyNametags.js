@@ -82,6 +82,11 @@ function updateNametag(nametag, details) {
 	if (updated) updateNametagEntity(nametag);
 }
 
+function deleteNametag(id) {
+	Entities.deleteEntity(nametags[id].entity);
+	delete nametags[id];
+}
+
 function updateUserLocal(id) {
 	var localUser = AvatarList.getAvatar(id);
 	var nametag = nametags[id];
@@ -89,8 +94,7 @@ function updateUserLocal(id) {
 	if (localUser.sessionUUID == null) {
 		if (nametag==undefined) return; // doesnt exist
 		// must have left
-		Entities.deleteEntity(nametag.entity);
-		delete nametag;
+		deleteNametag(id);
 		return;
 	}
 
@@ -173,6 +177,12 @@ function avatarRemovedEvent(id) {
 	gracefullyUpdateUsersAPI();
 }
 
+function hostChanged() {
+	Object.keys(nametags).forEach(function(id) {
+		deleteNametag(id);
+	});
+}
+
 function usernameFromIDReply(id, username, machineFingerprint, isAdmin) {
 	var nametag = nametags[id];
 	if (nametag==undefined) return;
@@ -197,7 +207,7 @@ var updateIntervalAPI = Script.setInterval(function() {
 AvatarList.avatarAddedEvent.connect(avatarAddedEvent);
 AvatarList.avatarRemovedEvent.connect(avatarRemovedEvent);
 // AvatarList.avatarSessionChangedEvent.connect(avatarSessionChangedEvent);
-
+location.hostChanged.connect(hostChanged);
 Users.usernameFromIDReply.connect(usernameFromIDReply);
 
 Script.scriptEnding.connect(function() {
@@ -207,7 +217,7 @@ Script.scriptEnding.connect(function() {
 	AvatarList.avatarAddedEvent.disconnect(avatarAddedEvent);
 	AvatarList.avatarRemovedEvent.disconnect(avatarRemovedEvent);
 	// AvatarList.avatarSessionChangedEvent.disconnect(avatarSessionChangedEvent);
-
+	location.hostChanged.disconnect(hostChanged);
 	Users.usernameFromIDReply.disconnect(usernameFromIDReply);
 
 	Object.keys(nametags).forEach(function(id) {
