@@ -84,7 +84,7 @@ function updateNametag(nametag, details) {
 }
 
 function deleteNametag(id) {
-	Entities.deleteEntity(nametag[id].entity);
+	Entities.deleteEntity(nametags[id].entity);
 	delete nametags[id];
 }
 
