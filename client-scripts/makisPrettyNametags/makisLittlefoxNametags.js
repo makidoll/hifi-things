@@ -28,7 +28,8 @@ function updateNametagEntity(nametag) {
 			"?username="+(nametag.username||"anonymous")+
 			"&avatarURL="+nametag.avatarURL+
 			"&connection="+nametag.connection+
-			"&admin="+nametag.admin
+			"&admin="+nametag.admin+
+			"&theme=littlefox"
 		),
 	});
 }
