@@ -1,12 +1,21 @@
 // put the script on a model where the url is an fst and has a name
+// also works if the fst is in the description
 
 (function() {
 	this.loadAvatar = function(entityID) {
-		var entity = Entities.getEntityProperties(entityID, ["modelURL", "name"]);
+		var entity = Entities.getEntityProperties(entityID, ["modelURL", "description", "name"]);
 
-		var confirm = Window.confirm("Would you like to load the avatar: "+entity.name);
+		var confirmMessage = (entity.name)?
+			"Would you like to load the avatar: "+entity.name:
+			"Would you like to load this avatar?";
+
+		var confirm = Window.confirm(confirmMessage);
 		if (confirm) {
-			MyAvatar.useFullAvatarURL(entity.modelURL, entity.name);
+			if (entity.description) {
+				MyAvatar.useFullAvatarURL(entity.description, entity.name);
+			} else {
+				MyAvatar.useFullAvatarURL(entity.modelURL, entity.name);
+			}
 		} else {
 			tablet.gotoHomeScreen();
 		}
