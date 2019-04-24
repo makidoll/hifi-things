@@ -8,8 +8,8 @@
 		var confirmMessage = (entity.name)?
 			"Would you like to load the avatar: "+entity.name:
 			"Would you like to load this avatar?";
-
 		var confirm = Window.confirm(confirmMessage);
+		
 		if (confirm) {
 			if (entity.description) {
 				MyAvatar.useFullAvatarURL(entity.description, entity.name);
