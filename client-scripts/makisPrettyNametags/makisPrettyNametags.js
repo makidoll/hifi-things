@@ -50,6 +50,11 @@ function addNametag(id, details) {
 		parentID: id,
 		localPosition: {y:1},
 		dimensions: {x:scale, y:scale/8},
+		grab: {
+			grabbable: false,
+			grabFollowsController: false,
+			equippable: false,
+		}
 
 		type: "Image",
 		emissive: true,
@@ -168,8 +173,10 @@ updateUsersLocal();
 gracefullyUpdateUsersAPI();
 
 function avatarAddedEvent(id) {
-	updateUserLocal(id);
-	gracefullyUpdateUsersAPI();
+	Script.setTimeout(function() {
+		updateUserLocal(id);
+		gracefullyUpdateUsersAPI();
+	}, 1000);
 }
 
 function avatarRemovedEvent(id) {
