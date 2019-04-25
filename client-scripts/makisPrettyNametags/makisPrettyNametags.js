@@ -54,7 +54,7 @@ function addNametag(id, details) {
 			grabbable: false,
 			grabFollowsController: false,
 			equippable: false,
-		}
+		},
 
 		type: "Image",
 		emissive: true,
