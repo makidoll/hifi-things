@@ -8,9 +8,14 @@
 				padding: 0;
 			}
 
+			*:focus, *:fullscreen {
+				outline: none;
+			}
+
 			html, body {
 				overflow: hidden;
 				background: #000;
+				user-select: none;
 			}
 
 			video {
@@ -53,11 +58,12 @@
 
 			let playing = false;
 			let position = 0;
+			let outOfSync = false;
 
 			setInterval(()=>{
 				if (playing) position++;
 				if (Math.abs(video.currentTime-position)>2) { // seconds
-					console.log("out of sync");
+					outOfSync = true;
 					socket.emit("getInfo");
 				}
 			}, 1000);
@@ -81,7 +87,11 @@
 					position = info.position;
 				}
 
-				if (info.volume!=undefined) video.volume = info.volume;
+				if (!outOfSync)
+					if (info.volume!=undefined)
+						video.volume = info.volume;
+
+				outOfSync = false;
 			});
 			socket.emit("getInfo");
 
