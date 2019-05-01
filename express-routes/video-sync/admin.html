@@ -368,8 +368,10 @@
 				document.getElementById("range-value").textContent = secondsToTime(video.currentTime);
 			}, 1000);
 
+			let lastInfo = {}; // never used (for debugging)
 			socket.on("getInfo", info=>{
 				console.log(info);
+				lastInfo = info;
 				
 				if (info.src!=undefined) {
 					if (video.src!=info.src) video.src = info.src;
