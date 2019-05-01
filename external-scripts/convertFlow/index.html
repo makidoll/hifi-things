@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Convert Old Flow To Fst</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700:Roboto+Mono:400" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0; padding: 0;
+				transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+			}
+
+			*:focus {
+				outline: none;
+			}
+
+			body {
+				margin: 50px;
+				width: calc(100% - 100px);
+				font-family: "Roboto", sans-serif;
+			}
+
+			textarea {
+				width: calc(100% - 20px);
+				resize: none;
+				font-family: "Roboto Mono", monospace;
+				font-size: 1em;
+				white-space: pre;
+				padding: 10px;
+				border-radius: 10px;
+			}
+
+			button {
+				font-family: "Roboto", sans-serif;
+				font-size: 1em;
+				padding: 10px 20px;
+				border: solid 4px #E91E63;
+				background: #E91E63;
+				color: #fff;
+				border-radius: 100px;
+				cursor: pointer;
+				font-weight: 700;
+			}
+
+			button:hover {
+				background: transparent;
+				color: #E91E63;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: separate;
+				table-layout: fixed;
+			}
+
+			h1, h2 {
+				font-weight: 400;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Convert <b>old flow.js</b> to <b>new .fst flow</b></h1>
+		<br><br>
+		<h2>Copy your <b>flow.js</b> data here:</h2>
+		<br>
+		<textarea style="width: 600px;" id="data" rows="8" placeholder="CUSTOM_FLOW_DATA = { }&#10;CUSTOM_COLLISION_DATA = { }"></textarea>
+		<br><br>
+		<button onclick="process()">Convert to .fst flow</button>
+		<br><br><br>
+		<div id="output" style="display: none; opacity: 0;">
+			<h2 style="display: inline-block;">In your avatar <b>.fst</b>, remove</h2>
+			<textarea readonly style="display: inline-block; width: 150px; text-align: center; margin: 0 8px; margin-bottom: -12px;" rows="1">script = flow.js</textarea>
+			<h2 style="display: inline-block;">and paste:</h2>
+			<br><br>
+			<textarea readonly id="output-textarea"></textarea>
+		</div>
+		<script type="text/javascript">
+			//var flowData = document.getElementById("flow-data");
+			//var collisionData = document.getElementById("collision-data");
+
+			function process() {
+				//eval(flowData.value);
+				//eval(collisionData.value);
+				eval(document.getElementById("data").value);
+
+				if (window.CUSTOM_FLOW_DATA==undefined) {
+					alert("CUSTOM_FLOW_DATA not found!");
+					return;
+				}
+
+				if (window.CUSTOM_COLLISION_DATA==undefined) {
+					alert("CUSTOM_COLLISION_DATA not found!");
+					return;
+				}
+
+				let value = "";
+				let rows = 0;
+
+				Object.keys(window.CUSTOM_FLOW_DATA).forEach(key=>{
+					let data = {};
+					data[key] = window.CUSTOM_FLOW_DATA[key];
+
+					value += "flowPhysicsData = "+JSON.stringify(data)+"\n";
+					rows++;
+				});
+
+				Object.keys(window.CUSTOM_COLLISION_DATA).forEach(key=>{
+					let data = {};
+					data[key] = window.CUSTOM_COLLISION_DATA[key];
+
+					value += "flowCollisionsData = "+JSON.stringify(data)+"\n";
+					rows++;
+				});
+
+				let output = document.getElementById("output");
+				let textarea = document.getElementById("output-textarea");
+
+				textarea.value = value.slice(0,-1);
+				textarea.rows = rows;
+
+				if (output.style.display == "none") {
+					output.style.display = "block";
+					setTimeout(()=>{
+						output.style.opacity = "1";
+					}, 100);
+				}
+			}
+		</script>
+	</body>
+</html>
