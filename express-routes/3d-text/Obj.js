@@ -47,6 +47,14 @@ module.exports = function() {
 			this.mtl[mtl].texture = properties.texture;
 	}
 
+	this.scale = function(scale) { // [x,y,z]
+		this.v.forEach(pos=>{
+			pos[0] *= scale[0];
+			pos[1] *= scale[1];
+			pos[2] *= scale[2];
+		});
+	}
+
 	this.exportObj = function() {
 		let data = "";
 		if (this.mtllib)
@@ -75,7 +83,6 @@ module.exports = function() {
 
 	this.exportMtl = function() {
 		let data = "";
-
 
 		Object.keys(this.mtl).forEach(mtl=>{
 			data += (

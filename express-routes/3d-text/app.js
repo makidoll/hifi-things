@@ -13,16 +13,18 @@ function printPixels(pixels, w, h) {
 	console.log(canvas.map(col=>col.join("")).join("\n"));
 }
 
-function pixelsToObj(pixels, s, d) { // scale, depth
+function pixelsToObj(pixels) {
 	let obj = new Obj();
+	let s = 1; // scale
+	let d = 1; // depth
 
 	function pixelExists(x, y) {
 		for (let i=0; i<pixels.length; i++) {
 			let pixel = pixels[i];
 			if (pixel==undefined) continue;
 			if (
-				 pixel.x*s == x &&
-				-pixel.y*s == y
+				 pixel.x == x &&
+				-pixel.y == y
 			) return true;
 		}
 		return false;
@@ -104,11 +106,12 @@ function pixelsToObj(pixels, s, d) { // scale, depth
 	}
 
 	pixels.forEach(pixel=>{
-		addPixel(pixel.x*s, -pixel.y*s);
+		addPixel(pixel.x, -pixel.y);
 	});
 
 	return obj;
 }
+
 var objCache = {} // hashmap of req.query
 
 function handleRequest(req, res) {
@@ -149,6 +152,11 @@ function handleRequest(req, res) {
 	let pixels = font.getPixels(text, spaceOffset, lineOffset);
 
 	let obj = pixelsToObj(pixels, scale, depth);
+	obj.scale([
+		req.query.scale,
+		req.query.scale,
+		req.query.depth,
+	]);
 
 	obj.mtllib = ("/3d-text"+
 		"-"+((req.query.frontDiffuse )? req.query.frontDiffuse : "ffffff")+
