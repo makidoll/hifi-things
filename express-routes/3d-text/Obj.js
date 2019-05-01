@@ -14,20 +14,22 @@ module.exports = function() {
 
 		this.v.push(pos);
 		this.vt.push(uv||[0,0]);
+
+		return this.v.length-1; // index
 	}
 
-	// this.addF = function(indicies, mtl) { // [0,1,2,...]
-	// 	if (!this.f[mtl]) this.f[mtl]=[];
-	// 	this.f[mtl].push(indicies.map(i=>i+1));
-	// }
+	this.addF = function(indicies, mtl) { // [0,1,2,...]
+		if (!this.f[mtl]) this.f[mtl]=[];
+		this.f[mtl].push(indicies.map(i=>i+1));
+	}
 
 	this.addToF = function(indicies, mtl) { // [0,1,2,...]
 		if (!this.f[mtl]) this.f[mtl]=[];
 
 		let totalIndicies = 0;
-		Object.values(this.f).forEach(a=>{
-			a.forEach(b=>{
-				totalIndicies += b.length
+		Object.values(this.f).forEach(mtl=>{
+			mtl.forEach(face=>{
+				totalIndicies += face.length
 			});
 		});
 

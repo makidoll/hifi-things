@@ -14,47 +14,93 @@ function printPixels(pixels, w, h) {
 }
 
 function pixelsToObj(pixels, s, d) { // scale, depth
-
 	let obj = new Obj();
 
+	function pixelExists(x, y) {
+		for (let i=0; i<pixels.length; i++) {
+			let pixel = pixels[i];
+			if (pixel==undefined) continue;
+			if (
+				 pixel.x*s == x &&
+				-pixel.y*s == y
+			) return true;
+		}
+		return false;
+	}
+
+	function getV(newV) { // returns vertex index (finds or adds)
+		for (let i=0; i<obj.v.length; i++) {
+			let v = obj.v[i];
+
+			if (
+				v[0]==newV[0] &&
+				v[1]==newV[1] &&
+				v[2]==newV[2]
+
+			) return i;
+		}
+
+		return obj.addV(newV);
+	}
+
 	function addPixel(x, y) {
-		obj.addV([x+s, y,   0]);
-		obj.addV([x+s, y+s, 0]);
-		obj.addV([x,   y+s, 0]);
-		obj.addV([x,   y,   0]);
-		obj.addToF([0,1,2,3], "front");
+		let front = [
+			getV([x+s, y,   0]),
+			getV([x+s, y+s, 0]),
+			getV([x,   y+s, 0]),
+			getV([x,   y,   0]),
+		];
+		obj.addF(front, "front");
 
-		obj.addV([x+s, y,   -d]);
-		obj.addV([x+s, y+s, -d]);
-		obj.addV([x,   y+s, -d]);
-		obj.addV([x,   y,   -d]);
-		obj.addToF([3,2,1,0], "front");
+		let back = [
+			getV([x+s, y,   -d]),
+			getV([x+s, y+s, -d]),
+			getV([x,   y+s, -d]),
+			getV([x,   y,   -d]),
+		];
+		obj.addF(back.reverse(), "front");
 
-		// left, right
-		obj.addV([x, y,    0]);
-		obj.addV([x, y+s,  0]);
-		obj.addV([x, y+s, -d]);
-		obj.addV([x, y,   -d]);
-		obj.addToF([0,1,2,3], "side");
+		// side faces (checks neighbouring pixel)
 
-		obj.addV([x+s, y,    0]);
-		obj.addV([x+s, y+s,  0]);
-		obj.addV([x+s, y+s, -d]);
-		obj.addV([x+s, y,   -d]);
-		obj.addToF([3,2,1,0], "side");
+		if (!pixelExists(x-1, y)) {
+			let left = [
+				getV([x, y,    0]),
+				getV([x, y+s,  0]),
+				getV([x, y+s, -d]),
+				getV([x, y,   -d]),
+			];
+			obj.addF(left, "side");
+		}
+		
+		if (!pixelExists(x+1, y)) {
+			let right = [
+				getV([x+s, y,    0]),
+				getV([x+s, y+s,  0]),
+				getV([x+s, y+s, -d]),
+				getV([x+s, y,   -d]),
+			];
+			obj.addF(right.reverse(), "side");
+		}
 
-		// top, bottom
-		obj.addV([x  , y+s, -d]);
-		obj.addV([x  , y+s,  0]);
-		obj.addV([x+s, y+s,  0]);
-		obj.addV([x+s, y+s, -d]);
-		obj.addToF([0,1,2,3], "side");
+		if (!pixelExists(x, y+1)) {
+			let top = [
+				getV([x  , y+s, -d]),
+				getV([x  , y+s,  0]),
+				getV([x+s, y+s,  0]),
+				getV([x+s, y+s, -d]),
+			];
+			obj.addF(top, "side");
+		}
 
-		obj.addV([x  , y, -d]);
-		obj.addV([x  , y,  0]);
-		obj.addV([x+s, y,  0]);
-		obj.addV([x+s, y, -d]);
-		obj.addToF([3,2,1,0], "side");
+		if (!pixelExists(x, y-1)) {
+			let bottom = [
+				getV([x  , y, -d]),
+				getV([x  , y,  0]),
+				getV([x+s, y,  0]),
+				getV([x+s, y, -d]),
+			];
+			obj.addF(bottom.reverse(), "side");
+		}
 	}
 
 	pixels.forEach(pixel=>{
@@ -63,8 +109,21 @@ function pixelsToObj(pixels, s, d) { // scale, depth
 
 	return obj;
 }
+var objCache = {} // hashmap of req.query
 
 function handleRequest(req, res) {
+	// cache!
+	let cacheKey = JSON.stringify(req.query); 
+	let cachedObj = objCache[cacheKey];
+
+	if (cachedObj != undefined) {
+		console.log("cache")
+		res.header({"Content-Type": "text/plain"});
+		res.end(cachedObj);
+		return;
+	}
+
+	// check if form is needed to be sent
 	if (!(req.query.font&&req.query.scale&&req.query.depth&&req.query.text))
 		return res.send(
 			fs.readFileSync(__dirname+"/form.html", "utf8")
@@ -75,32 +134,11 @@ function handleRequest(req, res) {
 				.join("")
 			)
 		);
-		// return res.send("<pre>"+
-		// 	"Available fonts:\n"+
-		// 	"\t"+fs.readdirSync(__dirname+"/bdf").map(font=>font.replace(/\.bdf/,"")).join(", ")+"\n"+
-		// 	"\n"+
-		// 	"Required parameters:\n"+
-		// 	"\tfont,\n"+
-		// 	"\tscale (float),\n"+
-		// 	"\tdepth (float),\n"+
-		// 	"\ttext\n"+
-		// 	"\n"+
-		// 	"Optional parameters:\n"+
-		// 	"\tspaceOffset (int),\n"+
-		// 	"\tlineOffset (int)\n"+
-		// 	"\n"+
-		// 	"\tfrontDiffuse (hex color),\n"+
-		// 	"\tfrontEmission (hex color),\n"+
-		// 	"\n"+
-		// 	"\tsideDiffuse (hex color),\n"+
-		// 	"\tsideEmission (hex color),\n"+
-		// "</pre>");
 
 	let font = __dirname+"/bdf/"+req.query.font+".bdf";
 	let scale = parseFloat(req.query.scale); if (scale+""=="NaN") return res.send("Scale not a number!");
 	let depth = parseFloat(req.query.depth); if (depth+""=="NaN") return res.send("Depth not a number!");
 	let text = req.query.text;
-
 	
 	if (!fs.existsSync(font)) return res.send("Font not found!");
 
@@ -119,8 +157,11 @@ function handleRequest(req, res) {
 		"-"+((req.query.sideEmission )? req.query.sideEmission : "000000")+
 	".mtl");
 
+	let objFile = obj.exportObj();
+	objCache[cacheKey] = objFile;
+
 	res.header({"Content-Type": "text/plain"});
-	res.end(obj.exportObj());
+	res.end(objFile);
 }
 
 global.app.get("/3d-text", handleRequest);
@@ -151,6 +192,7 @@ global.app.get("/3d-text-:fd-:fe-:sd-:se.mtl", (req,res)=>{
 		"Ke "+fe+"\n"+ // emissive
 		"Ni 1\n"+ // optical density (refraction)
 		"illum 1\n"+ //
+
 		"newmtl side\n"+
 		"Ns 0\n"+ // specular
 		"Ka 1 1 1\n"+ // ambient
