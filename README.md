@@ -77,6 +77,8 @@
 <br><br>
 ## external scripts
 
+- [Docker compose generator](https://github.com/makitsune/hifi-things/tree/master/external-scripts/dockerComposeGenerator)
+- [Convert old flow.js to new .fst flow](https://hifi.maki.cat/external-scripts/convertFlow.html)
 - [Music to atp:/ normalized](https://hifi.maki.cat/external-scripts/musicToAtpNormalized.js)
 - [Translate .dae bones](https://hifi.maki.cat/external-scripts/translateDaeBones.js)
 - [Video to multiple spritesheets](https://hifi.maki.cat/external-scripts/videoToMultipleSpritesheets.js)
