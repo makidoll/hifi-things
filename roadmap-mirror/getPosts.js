@@ -96,7 +96,6 @@ getData(URL).then(data=>{
 
 			// get each individual post
 			let posts = [];
-			let downloadedPosts = 0;
 
 			for (let i=0; i<data.posts.length; i++) {
 				let post = data.posts[i];
