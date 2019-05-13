@@ -88,3 +88,9 @@
 ## express routes
 
 - [3D Text .obj](https://github.com/makitsune/hifi-things/tree/master/express-routes/3d-text)
+- [Video Sync](https://github.com/makitsune/hifi-things/tree/master/express-routes/video-sync)
+
+<br><br>
+## roadmap mirror
+
+- [Feature Requests](https://hifi.maki.cat/roadmap-mirror/feature-requests)
