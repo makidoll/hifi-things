@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>[title]</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				font-family: "Roboto", sans-serif;
+				margin: 50px;
+			}
+
+			.post {
+				width: 800px;
+				margin-bottom: 50px;
+			}
+
+			.post td:nth-child(1) { width: 0; }
+
+			.post .score {
+				font-size: 1.5em;
+				background: #f44336;
+				padding: 8px 12px;
+				border-radius: 128px;
+				margin-right: 16px;
+				color: #fff;
+			}
+
+			.post .title {
+				font-weight: 700;
+				font-size: 1.5em;
+				margin-bottom: 8px;
+			}
+
+			.post svg {
+				fill: #fff;
+			}
+
+			table td {
+				vertical-align: top;
+			}
+
+			svg {
+				width: 24px;
+				height: 24px;
+				display: inline-block;
+				margin-bottom: -4px;
+			}
+
+			a, a:active, a:hover, a:link, a:visited {
+				text-decoration: inherit;
+				color: #f44336;
+				font-weight: 700;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 style="margin-bottom: 8px;">[title]</h1>
+		<p>Download the json file: <a href="../[filename]">[filename]</a></p>
+		<p style="margin-bottom: 50px;">Date of scrape: <b>[date]</b></a></p>
+		[posts]
+		<!-- <script type="text/javascript">
+			function getJSON(filename) {
+				return new Promise((resolve,reject)=>{
+					let req = new XMLHttpRequest();
+					req.addEventListener("loadend", function(e) {
+						try {
+							let json = JSON.parse(this.responseText);
+							return resolve(json);
+						} catch(err) {
+							return reject();
+						}
+					});
+					req.open("GET", filename);
+					req.send();
+				});
+			}
+
+			function addPost(post) {
+				let element = document.createElement("div");
+				element.className = "post";
+				element.innerHTML = (
+					"<table>"+
+						"<td>"+
+							"<p class='score'>"+post.score+"</p>"+
+						"</td>"+
+						"<td>"+
+							"<p class='title'>"+post.title+"</p>"+
+							"<p class='details'>"+post.details+"</p>"+
+						"</td>"+
+					"</table>"
+				);
+				document.body.appendChild(element);
+			}
+
+			getJSON("feature-requests.json").then(posts=>{
+				console.log(posts[0]);
+				posts.forEach(post=>{
+					addPost(post);
+				});
+			}).catch(err=>{
+				console.log("Failed to fetch posts");
+			});
+		</script> -->
+	</body>
+</html>
