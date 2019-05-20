@@ -19,6 +19,9 @@
 		if (userData.url!=undefined) Window.openUrl(userData.url);
 	}
 
-	this.startNearTrigger = function() { this.openUrl() }
-	this.clickDownOnEntity = function() { this.openUrl() }
+	this.startNearTrigger = function() { this.openUrl(); }
+	this.clickDownOnEntity = function(e) {
+		if (e.button != "Primary") return;
+		this.openUrl();
+	}
 })
