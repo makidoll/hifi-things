@@ -1,7 +1,12 @@
 var fs = require("fs");
 
 let boards = fs.readdirSync(".");
-boards = boards.filter(name=>name.includes(".json"));
+boards = boards.filter(name=>{
+	if (name.includes(".json")) {
+		if (name.includes("package-lock")) return false;
+		return true;
+	}
+});
 
 boards.forEach(filename=>{
 	let path = filename.replace(/\.json/gi, "");
