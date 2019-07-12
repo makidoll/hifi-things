@@ -31,11 +31,13 @@ let bones = {
 "RightLeg":     {tu: "calf_r",  sl: "mKneeRight"},
 "RightFoot":    {tu: "foot_r",  sl: "mFootRight"},
 "RightToeBase": {tu: "ball_r",  sl: "mToeRight"},
+"RightToe":     {tu: "ball_r",  sl: "mToeRight"},
 // left leg
 "LeftUpLeg":    {tu: "thigh_l", sl: "mHipLeft"},
 "LeftLeg":      {tu: "calf_l",  sl: "mKneeLeft"},
 "LeftFoot":     {tu: "foot_l",  sl: "mFootLeft"},
 "LeftToeBase":  {tu: "ball_l",  sl: "mToeLeft"},
+"LeftToe":      {tu: "ball_l",  sl: "mToeLeft"},
 // spine head
 "Spine":        {tu: "spine_01", sl: "mTorso"},
 "Spine1":       {tu: "spine_02", sl: "mSpine1"},

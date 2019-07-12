@@ -2,26 +2,27 @@ var uuid = Uuid.generate();
 var tablet = Tablet.getTablet("com.highfidelity.interface.tablet.system");
 var button = tablet.addButton({
 	text: "Portals",
+	icon: Script.resolvePath("icon/icon01.svg"),
 });
 
-var buttonAnimation = [Script.resolvePath("icon/icon01.svg"),Script.resolvePath("icon/icon02.svg"),Script.resolvePath("icon/icon03.svg"),Script.resolvePath("icon/icon04.svg"),Script.resolvePath("icon/icon05.svg"),Script.resolvePath("icon/icon06.svg"),Script.resolvePath("icon/icon07.svg"),Script.resolvePath("icon/icon08.svg"),Script.resolvePath("icon/icon09.svg"),Script.resolvePath("icon/icon10.svg"),Script.resolvePath("icon/icon11.svg"),Script.resolvePath("icon/icon12.svg"),Script.resolvePath("icon/icon13.svg"),Script.resolvePath("icon/icon14.svg"),Script.resolvePath("icon/icon15.svg"),Script.resolvePath("icon/icon16.svg"),Script.resolvePath("icon/icon17.svg"),Script.resolvePath("icon/icon18.svg"),Script.resolvePath("icon/icon19.svg"),Script.resolvePath("icon/icon20.svg"),Script.resolvePath("icon/icon21.svg"),Script.resolvePath("icon/icon22.svg"),Script.resolvePath("icon/icon23.svg"),Script.resolvePath("icon/icon24.svg"),Script.resolvePath("icon/icon25.svg"),Script.resolvePath("icon/icon26.svg"),Script.resolvePath("icon/icon27.svg"),Script.resolvePath("icon/icon28.svg"),Script.resolvePath("icon/icon29.svg"),Script.resolvePath("icon/icon30.svg"),Script.resolvePath("icon/icon31.svg"),Script.resolvePath("icon/icon32.svg"),Script.resolvePath("icon/icon33.svg"),Script.resolvePath("icon/icon34.svg"),Script.resolvePath("icon/icon35.svg"),Script.resolvePath("icon/icon36.svg"),Script.resolvePath("icon/icon37.svg"),Script.resolvePath("icon/icon38.svg"),Script.resolvePath("icon/icon39.svg"),Script.resolvePath("icon/icon40.svg"),Script.resolvePath("icon/icon41.svg"),Script.resolvePath("icon/icon42.svg"),Script.resolvePath("icon/icon43.svg"),Script.resolvePath("icon/icon44.svg"),Script.resolvePath("icon/icon45.svg"),Script.resolvePath("icon/icon46.svg"),Script.resolvePath("icon/icon47.svg"),Script.resolvePath("icon/icon48.svg"),Script.resolvePath("icon/icon49.svg"),Script.resolvePath("icon/icon50.svg"),Script.resolvePath("icon/icon51.svg"),Script.resolvePath("icon/icon52.svg"),Script.resolvePath("icon/icon53.svg"),Script.resolvePath("icon/icon54.svg"),Script.resolvePath("icon/icon55.svg"),Script.resolvePath("icon/icon56.svg"),Script.resolvePath("icon/icon57.svg"),Script.resolvePath("icon/icon58.svg"),Script.resolvePath("icon/icon59.svg"),Script.resolvePath("icon/icon60.svg")];
+// var buttonAnimation = [Script.resolvePath("icon/icon01.svg"),Script.resolvePath("icon/icon02.svg"),Script.resolvePath("icon/icon03.svg"),Script.resolvePath("icon/icon04.svg"),Script.resolvePath("icon/icon05.svg"),Script.resolvePath("icon/icon06.svg"),Script.resolvePath("icon/icon07.svg"),Script.resolvePath("icon/icon08.svg"),Script.resolvePath("icon/icon09.svg"),Script.resolvePath("icon/icon10.svg"),Script.resolvePath("icon/icon11.svg"),Script.resolvePath("icon/icon12.svg"),Script.resolvePath("icon/icon13.svg"),Script.resolvePath("icon/icon14.svg"),Script.resolvePath("icon/icon15.svg"),Script.resolvePath("icon/icon16.svg"),Script.resolvePath("icon/icon17.svg"),Script.resolvePath("icon/icon18.svg"),Script.resolvePath("icon/icon19.svg"),Script.resolvePath("icon/icon20.svg"),Script.resolvePath("icon/icon21.svg"),Script.resolvePath("icon/icon22.svg"),Script.resolvePath("icon/icon23.svg"),Script.resolvePath("icon/icon24.svg"),Script.resolvePath("icon/icon25.svg"),Script.resolvePath("icon/icon26.svg"),Script.resolvePath("icon/icon27.svg"),Script.resolvePath("icon/icon28.svg"),Script.resolvePath("icon/icon29.svg"),Script.resolvePath("icon/icon30.svg"),Script.resolvePath("icon/icon31.svg"),Script.resolvePath("icon/icon32.svg"),Script.resolvePath("icon/icon33.svg"),Script.resolvePath("icon/icon34.svg"),Script.resolvePath("icon/icon35.svg"),Script.resolvePath("icon/icon36.svg"),Script.resolvePath("icon/icon37.svg"),Script.resolvePath("icon/icon38.svg"),Script.resolvePath("icon/icon39.svg"),Script.resolvePath("icon/icon40.svg"),Script.resolvePath("icon/icon41.svg"),Script.resolvePath("icon/icon42.svg"),Script.resolvePath("icon/icon43.svg"),Script.resolvePath("icon/icon44.svg"),Script.resolvePath("icon/icon45.svg"),Script.resolvePath("icon/icon46.svg"),Script.resolvePath("icon/icon47.svg"),Script.resolvePath("icon/icon48.svg"),Script.resolvePath("icon/icon49.svg"),Script.resolvePath("icon/icon50.svg"),Script.resolvePath("icon/icon51.svg"),Script.resolvePath("icon/icon52.svg"),Script.resolvePath("icon/icon53.svg"),Script.resolvePath("icon/icon54.svg"),Script.resolvePath("icon/icon55.svg"),Script.resolvePath("icon/icon56.svg"),Script.resolvePath("icon/icon57.svg"),Script.resolvePath("icon/icon58.svg"),Script.resolvePath("icon/icon59.svg"),Script.resolvePath("icon/icon60.svg")];
 
-var buttonAnimationFrame = 0;
-var buttonAnimationFrameIncrement = 1;
-var buttonAnimationInterval = Script.setInterval(function() {
-	buttonAnimationFrame += buttonAnimationFrameIncrement;
+// var buttonAnimationFrame = 0;
+// var buttonAnimationFrameIncrement = 1;
+// var buttonAnimationInterval = Script.setInterval(function() {
+// 	buttonAnimationFrame += buttonAnimationFrameIncrement;
 
-	if (buttonAnimationFrame>60) {
-		buttonAnimationFrameIncrement = -1;
-		buttonAnimationFrame = 59;
-	} else if (buttonAnimationFrame<0) {
-		buttonAnimationFrameIncrement = 1;
-		buttonAnimationFrame = 1;
-	}
+// 	if (buttonAnimationFrame>60) {
+// 		buttonAnimationFrameIncrement = -1;
+// 		buttonAnimationFrame = 59;
+// 	} else if (buttonAnimationFrame<0) {
+// 		buttonAnimationFrameIncrement = 1;
+// 		buttonAnimationFrame = 1;
+// 	}
 
-	var frame = buttonAnimation[buttonAnimationFrame];
-	if (frame != undefined) button.editProperties({icon:frame});
-}, 1000/60);
+// 	var frame = buttonAnimation[buttonAnimationFrame];
+// 	if (frame != undefined) button.editProperties({icon:frame});
+// }, 1000/60);
 
 var soundOpening = SoundCache.getSound(Script.resolvePath("portal_open1.wav"));
 
@@ -189,5 +190,5 @@ Script.scriptEnding.connect(function() {
 	button.clicked.disconnect(buttonClicked);
 
 	tablet.removeButton(button);
-	Script.clearInterval(buttonAnimationInterval);
+	//Script.clearInterval(buttonAnimationInterval);
 });
