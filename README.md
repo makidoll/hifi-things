@@ -36,6 +36,7 @@
 <br><br>
 ## server entity scripts
 
+- [Random Animation Player](https://hifi.maki.cat/server-entity-scripts/randomAnimationPlayer.js)
 - [Rainbow Material](https://hifi.maki.cat/server-entity-scripts/rainbowMaterial.js)
 
 <br><br>
