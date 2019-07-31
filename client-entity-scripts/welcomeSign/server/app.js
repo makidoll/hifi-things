@@ -135,6 +135,8 @@ const getPlaceDetails = placeName=>new Promise((resolve,reject)=>{
 
 			let host = (/Host:(?:.*?)src="(.*?)"(?:.*?)<a(?:.*?)>(.*?)<\/a>/i.exec(html));
 			details.hostAvatarURL = host[1];
+			details.hostAvatarURL = details.hostAvatarURL.replace(/\/tiny\//i, "/hero/");
+
 			details.hostUsername = host[2];
 		} catch(err) {
 			return reject("Details not found");
