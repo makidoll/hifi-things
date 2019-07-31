@@ -17,8 +17,8 @@ var viewport = [
 
 (async ()=>{
 	const browser = await puppeteer.launch({
-		executablePath: "google-chrome-unstable",
-		//executablePath: "C:/Program Files (x86)/Google/Chrome Dev/Application/chrome.exe",
+		//executablePath: "google-chrome-unstable",
+		executablePath: "C:/Program Files (x86)/Google/Chrome Dev/Application/chrome.exe",
 		args: ["--no-sandbox"],
 		defaultViewport: {
 			width: viewport[0],
@@ -43,7 +43,8 @@ var viewport = [
 		html = html.replace(/\[hostAvatarURL\]/gi, info.hostAvatarURL);
 
 		const page = await browser.newPage();
-		page.on("requestfinished", async ()=>{
+
+		page.on("load", async ()=>{
 			const buffer = await page.screenshot({
 				type: "png",
 				omitBackground: true,
@@ -59,10 +60,12 @@ var viewport = [
 				buffer: buffer,
 			});
 
-			page.close();
+			setTimeout(()=>{
+				page.close().catch(err=>{});
+			}, 1000*10);
 		});
 
-		try { await page.setContent(html); } catch(err) {}
+		page.setContent(html, {waitUntil: "networkidle0"}).catch(err=>{});
 	});
 })();
 
@@ -156,12 +159,12 @@ app.get("/", (req,res)=>{
 			info.hostUsername = placeDetails.hostUsername;
 			info.hostAvatarURL = placeDetails.hostAvatarURL;
 
-			console.log(info);
 			generatePlaceSign(info).then(buffer=>{
 				res.setHeader("Content-Type", "image/png");
 				res.end(buffer);
 			}).catch(err=>{
 				console.log(err);
+				res.end();
 			});
 		}).catch(err=>{
 			console.log(err);
@@ -171,10 +174,6 @@ app.get("/", (req,res)=>{
 		console.log(err);
 		res.end();
 	});
-
-	return;
-
-
 });
 
 app.listen(8085);

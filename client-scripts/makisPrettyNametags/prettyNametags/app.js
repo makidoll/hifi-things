@@ -55,7 +55,7 @@ var viewport = [
 			deviceScaleFactor: 1
 		})*/
 
-		page.on("requestfinished", async ()=>{
+		page.on("load", async ()=>{
 			//const width = await page.$eval("#nametag", el=>el.offsetWidth*4);
 
 			const buffer = await page.screenshot({
@@ -74,10 +74,12 @@ var viewport = [
 				//width: width/256,
 			});
 
-			page.close();
+			setTimeout(()=>{
+				page.close().catch(err=>{});
+			}, 1000*10);
 		});
 
-		try { await page.setContent(html); } catch(err) {} 
+		page.setContent(html, {waitUntil: "networkidle0"}).catch(err=>{});
 	});
 })();
 
