@@ -17,8 +17,8 @@ var viewport = [
 
 (async ()=>{
 	const browser = await puppeteer.launch({
-		//executablePath: "google-chrome-unstable",
-		executablePath: "C:/Program Files (x86)/Google/Chrome Dev/Application/chrome.exe",
+		executablePath: "google-chrome-unstable",
+		//executablePath: "C:/Program Files (x86)/Google/Chrome Dev/Application/chrome.exe",
 		args: ["--no-sandbox"],
 		defaultViewport: {
 			width: viewport[0],
