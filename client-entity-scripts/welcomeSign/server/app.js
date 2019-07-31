@@ -9,7 +9,7 @@ var events = mitt();
 
 var browserRunning = false;
 
-var scale = 2;
+var scale = 3;
 var viewport = [
 	400*scale,
 	200*scale
@@ -116,7 +116,11 @@ const getUserDetails = username=>new Promise((resolve,reject)=>{
 
 		return resolve(details);
 	}).catch(err=>{
-		return reject("User not found");
+		//return reject("User not found");
+		return resolve({
+			avatarURL: "https://metaverse.highfidelity.com/assets/users/hero-default-user-d5a4727d1ad1fb9d9cd26383e26e2697dfd9f4d2f3f81da86c4990771ca8810d.png",
+			username: "anonymous",
+		});
 	});
 });
 
