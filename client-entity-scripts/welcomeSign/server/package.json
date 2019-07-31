@@ -1,0 +1,15 @@
+{
+  "name": "welcome-sign",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mitt": "^1.1.3",
+    "puppeteer-core": "^1.19.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
+  },
+  "author": "Maki",
+  "license": "GPL-3.0"
+}

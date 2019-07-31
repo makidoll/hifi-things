@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+
+			}
+
+			html {
+				zoom: 2;
+			}
+
+			#sign {
+				display: inline-block;
+				width: 400px;
+				height: 200px;
+				position: relative;
+				overflow: hidden;
+
+				font-family: "Roboto", sans-serif;
+			}
+
+			#sign > .header {
+				position: absolute; margin: auto;
+				top: 10px; left: 160px; right: 0;
+				height: 750px;
+				color: #fff;
+			}
+
+			#sign > .avatar {
+				position: absolute; margin: auto;
+				width: 150px;
+				height: 150px;
+				border-radius: 100%;
+				box-shadow: 5px 5px 0 rgba(0,0,0,0.2);
+				background-image: url([avatarURL]);
+				background-size: cover;
+				background-position: center center;
+			}
+
+			#sign > .desc {
+				position: absolute; margin: auto;
+				top: 75px; left: 75px; right: 0;
+				height: 67.5px;
+				padding-left: 85px;
+				padding-top: 7.5px;
+				padding-right: 15px;
+				color: #fff;
+				overflow: hidden;
+				text-shadow: 1px 1px 0px rgba(0,0,0,0.6);
+				border-top-right-radius: 16px;
+				border-bottom-right-radius: 16px;
+			}
+
+			#sign > .desc:before,
+			#sign > .desc:after {
+				content: "";
+				position: absolute;
+				top: 0; bottom: 0;
+				left: 0; right: 0;
+				display: block;
+				width: 100%;
+				height: 100%;
+			}
+
+			#sign > .desc:before {
+				z-index: -2;
+				background: #1d1f21;
+			}
+
+			#sign > .desc:after {
+				z-index: -1;
+				background-image: 
+					linear-gradient(
+		    			rgba(29,31,33,0.3), 
+		    			rgba(29,31,33,0.3)
+		    		),
+					url([placeThumb]);
+				background-size: cover;
+				background-position: center;
+				filter: blur(2px);
+			}
+
+			#sign > .hosted-by {
+				position: absolute; margin: auto;
+				top: 160px; left: 75px; right: 10px;
+				color: #fff;
+			}
+
+			#sign > .hosted-by > .username {
+				text-align: right;
+				width: 100%;
+			}
+
+			#sign > .hosted-by > .username > img {
+				width: 30px;
+				height: 30px;
+				border-radius: 100%;
+				margin-bottom: -10px;
+				margin-right: 2.5px;
+				margin-left: 7.5px;
+				/*margin-left: 17.5px;*/
+			}
+		</style>
+	</head>
+	<body>
+		<div id="sign">
+			<div class="header">
+				<p style="font-weight: 300;">Hey <span style="font-weight: 400;">[username]</span>, you're at</p>
+				<p style="font-size: 2em; font-weight: 700;">[placeName]</p>
+			</div>
+			<div class="desc">
+				<p>[placeDesc]</p>
+			</div>
+			<div class="avatar"></div>
+			<div class="hosted-by">
+				<div class="username"><span style="font-weight: 300; opacity: 0.5;">Hosted by</span> <img src="[hostAvatarURL]"/> [hostUsername]</div>
+			</div>
+		</div>
+	</body>
+</html>
