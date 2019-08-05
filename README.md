@@ -33,6 +33,7 @@
 - [Tip Jar](https://hifi.maki.cat/client-entity-scripts/tip-jar/tip-jar.js)
 - [Zoned Invisible Web Player](https://hifi.maki.cat/client-entity-scripts/zonedInvisibleWebPlayer.js)
 - [Zoned Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/zonedPlaylistSoundEmitter.js)
+- [Welcome Sign](https://hifi.maki.cat/client-entity-scripts/welcomeSign/welcomeSign.js)
 
 <br><br>
 ## server entity scripts
