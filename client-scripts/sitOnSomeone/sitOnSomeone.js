@@ -78,7 +78,7 @@ function unmount() {
 		//MyAvatar.setCollisionsEnabled(previousCollisions.world);
 		//MyAvatar.setOtherAvatarsCollisionsEnabled(previousCollisions.avatars);
 		MyAvatar.setCollisionsEnabled(true);
-		MyAvatar.setOtherAvatarsCollisionsEnabled(true);
+		MyAvatar.setOtherAvatarsCollisionsEnabled(false);
 	}, 100);
 
 	attachedAvatarID = undefined;
