@@ -2,10 +2,11 @@
 <html>
 	<head>
 		<title>[room_name] - video sync</title>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
 		<style type="text/css">
 			* {
-				margin: 0;
-				padding: 0;
+				margin: 0; padding: 0;
+				transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
 			}
 
 			*:focus, *:fullscreen {
@@ -16,6 +17,7 @@
 				overflow: hidden;
 				background: #000;
 				user-select: none;
+				font-family: "Roboto", sans-serif;
 			}
 
 			video {
@@ -38,10 +40,50 @@
 				text-shadow: 0 0 32px #000;
 				color: #fff;
 			}
+
+			@keyframes aahfuck {
+				0% { background-position: 0 0; }
+				100% { background-position: -200vw 0; }
+			}
+
+			#get-a-click-from-the-user-so-that-the-video-can-start-playing {
+				position: fixed; margin: auto;
+				top: 0; left: 0; right: 0; bottom: 0;
+				z-index: 99999999999999;
+				background-image:
+					linear-gradient(
+						0deg,
+						rgba(0,0,0,0.6),
+						rgba(0,0,0,0.6)
+					), url(https://cutelab.space/rainbow.png);
+				background-size: 200vw 100vh;
+				background-position: 0 0;
+				animation-name: aahfuck;
+				animation-duration: 10s;
+				animation-iteration-count: infinite;
+				animation-timing-function: linear;
+			}
+
+			#get-a-click-from-the-user-so-that-the-video-can-start-playing .text {
+				position: fixed; margin: auto;
+				top: 0; left: 0; right: 0; bottom: 0;
+				height: 240px;
+				color: #fff;
+				font-size: 80px;
+				font-weight: 300;
+				text-align: center;
+				line-height: 80px;
+			}
 		</style>
 	</head>
 	<body>
 		<video crossorigin="Anonymous"></video>
+		<div id="get-a-click-from-the-user-so-that-the-video-can-start-playing" style="opacity: 1;">
+			<div class="text">
+				click here to<br>start the stream<br>
+				<span style="font-size: 40px; opacity: 0.6;">hifi broke the cinema :(</span>
+			</div>
+		</div>
 		<script src="https://maki.cat/video-sync/socket.io.js"></script>
 		<script type="text/javascript">
 			var _GET = {};
@@ -93,7 +135,16 @@
 
 				outOfSync = false;
 			});
-			socket.emit("getInfo");
+
+			// socket.emit("getInfo");
+			let fuckYouHifi = document.getElementById("get-a-click-from-the-user-so-that-the-video-can-start-playing");
+			fuckYouHifi.addEventListener("click", e=>{
+				fuckYouHifi.style.opacity = "0";
+				setTimeout(()=>{
+					fuckYouHifi.remove();
+				}, 200);
+				socket.emit("getInfo");
+			});
 
 			// controls
 
