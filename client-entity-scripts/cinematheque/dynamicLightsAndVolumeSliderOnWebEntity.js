@@ -1,13 +1,13 @@
 (function() {
 	var _this = this;
 	
-	var entityID;
+	var webEntityID;
 
 	var dynamicLights = false;
 	var dynamicLightsID = [];
 
 	_this.initDynamicLights = function() {
-		var entity = Entities.getEntityProperties(entityID, ["dimensions"]);
+		var entity = Entities.getEntityProperties(webEntityID, ["dimensions"]);
 
 		dynamicLightsID = [
 			[-1, 1], [ 0, 1], [ 1, 1],
@@ -17,7 +17,7 @@
 			return Entities.addEntity({
 				type: "Light",
 				name: "cat.maki.screen",
-				parentID: entityID,
+				parentID: webEntityID,
 
 				intensity: 16,
 				falloffRadius: entity.dimensions.x/3,
@@ -36,8 +36,8 @@
 		});
 	}
 
-	_this.webEventReceived = function(_entityID, msg) {
-		if (_entityID != entityID) return;
+	_this.webEventReceived = function(_webEntityID, msg) {
+		if (_webEntityID != webEntityID) return;
 		msg = msg.split(",");
 
 		Entities.editEntity(dynamicLightsID[0], {color:{r:msg[ 0],g:msg[ 1],b:msg[ 2]}});
@@ -52,23 +52,34 @@
 		Entities.editEntity(dynamicLightsID[7], {color:{r:msg[21],g:msg[22],b:msg[23]}});
 	}
 
-	_this.preload = function(_entityID) {
-		entityID = _entityID;
+	_this.messageReceived = function(chan, message, senderID, localOnly) {
+		if (!localOnly) return;
+		if (chan!="cat.maki.shaderScreen") return;
+		Overlays.getOverlayObject(webEntityID).emitScriptEvent(message);
+	}
 
-		dynamicLights = true;
-		if (dynamicLights) {
-			_this.initDynamicLights();
-			Entities.webEventReceived.connect(_this.webEventReceived);
-		}
+	_this.preload = function(_webEntityID) {
+		webEntityID = _webEntityID;
+
+		// dynamic lights
+		_this.initDynamicLights();
+		Entities.webEventReceived.connect(_this.webEventReceived);
+
+		// volume slider
+		Messages.subscribe("cat.maki.shaderScreen");
+		Messages.messageReceived.connect(_this.messageReceived);
 	}
 
 	this.unload = function() {
-		if (dynamicLights) {
-			Entities.webEventReceived.disconnect(_this.webEventReceived);
+		// dynamic lights
+		Entities.webEventReceived.disconnect(_this.webEventReceived);
 
-			dynamicLightsID.forEach(function(dynamicLightID) {
-				Entities.deleteEntity(dynamicLightID);
-			});
-		}
+		dynamicLightsID.forEach(function(dynamicLightID) {
+			Entities.deleteEntity(dynamicLightID);
+		});
+
+		// volume slider
+		Messages.unsubscribe("cat.maki.shaderScreen");
+		Messages.messageReceived.disconnect(_this.messageReceived);
 	}
 })
