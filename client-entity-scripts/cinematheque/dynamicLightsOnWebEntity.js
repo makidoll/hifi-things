@@ -1,10 +1,12 @@
 (function() {
 	var _this = this;
+	
+	var entityID;
 
 	var dynamicLights = false;
 	var dynamicLightsID = [];
 
-	_this.initDynamicLights = function(entityID) {
+	_this.initDynamicLights = function() {
 		var entity = Entities.getEntityProperties(entityID, ["dimensions"]);
 
 		dynamicLightsID = [
@@ -34,9 +36,8 @@
 		});
 	}
 
-	_this.webEventReceived = function(entityID, msg) {
-		//console.log(entityID+" - "+msg);
-		if (entityID != overlayID) return;
+	_this.webEventReceived = function(_entityID, msg) {
+		if (_entityID != entityID) return;
 		msg = msg.split(",");
 
 		Entities.editEntity(dynamicLightsID[0], {color:{r:msg[ 0],g:msg[ 1],b:msg[ 2]}});
@@ -52,9 +53,11 @@
 	}
 
 	_this.preload = function(entityID) {
+		entityID = entityID;
+
 		dynamicLights = true;
 		if (dynamicLights) {
-			_this.initDynamicLights(entityID);
+			_this.initDynamicLights();
 			Entities.webEventReceived.connect(_this.webEventReceived);
 		}
 	}
@@ -65,14 +68,6 @@
 
 			dynamicLightsID.forEach(function(dynamicLightID) {
 				Entities.deleteEntity(dynamicLightID);
-			});
-
-			// doesnt even work ergh...
-			Entities.findEntitiesByName(
-				"cat.maki.screen", MyAvatar.position,
-				100000, false
-			).forEach(function(webEntityID) {
-				Entities.deleteEntity(webEntityID);
 			});
 		}
 	}
