@@ -52,8 +52,8 @@
 		Entities.editEntity(dynamicLightsID[7], {color:{r:msg[21],g:msg[22],b:msg[23]}});
 	}
 
-	_this.preload = function(entityID) {
-		entityID = entityID;
+	_this.preload = function(_entityID) {
+		entityID = _entityID;
 
 		dynamicLights = true;
 		if (dynamicLights) {
