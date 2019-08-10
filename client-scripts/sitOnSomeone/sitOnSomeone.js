@@ -88,6 +88,17 @@ function unmount() {
 	emitEvent("eject");
 }
 
+function safeMount(avatarID) {
+	if (attachedAvatarID) {
+		unmount();
+		Script.setTimeout(function() {
+			mount(avatarID);
+		}, 200);
+	} else {
+		mount(avatarID);
+	}
+}
+
 // tablet stuff
 
 var uuid = "cat.maki.sitOnSomeone";
@@ -133,15 +144,7 @@ function webEventReceived(json) {
 		break;
 		case "sit":
 			if (!json.value) return;
-
-			if (attachedAvatarID) {
-				unmount();
-				Script.setTimeout(function() {
-					mount(json.value);
-				}, 200);
-			} else {
-				mount(json.value);
-			}
+			safeMount(json.value);
 		break;
 		case "eject":
 			unmount();
@@ -149,12 +152,34 @@ function webEventReceived(json) {
 	}
 }
 
+function messageReceived(chan, msg, uuid, localOnly) {
+	if (!localOnly) return;
+	if (chan != "cat.maki.sitOnSomeone") return;
+	msg = msg.split(",");
+
+	switch (msg[0]) {
+		case "sit": 
+			if (msg.length<2) return;
+			safeMount(msg[1]);
+		break;
+		case "eject":
+			unmount();
+		break;
+	}
+}
+
+Messages.subscribe("cat.maki.sitOnSomeone");
+Messages.messageReceived.connect(messageReceived);
+
 tablet.webEventReceived.connect(webEventReceived);
 button.clicked.connect(buttonClicked);
 location.hostChanged.connect(unmount);
 
 Script.scriptEnding.connect(function() {
 	unmount();
+
+	Messages.unsubscribe("cat.maki.sitOnSomeone");
+	Messages.messageReceived.disconnect(messageReceived);
 
 	tablet.webEventReceived.disconnect(webEventReceived);
 	button.clicked.disconnect(buttonClicked);
