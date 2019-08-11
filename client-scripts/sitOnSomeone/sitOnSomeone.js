@@ -41,8 +41,6 @@ function update() {
 // }
 
 function mount(avatarID) {
-	if (button.getProperties().isActive) return;
-
 	var avatar = AvatarList.getAvatar(avatarID);
 	if (avatar.displayName == MyAvatar.displayName) return;
 
@@ -66,7 +64,7 @@ function mount(avatarID) {
 }
 
 function unmount() {
-	if (!button.getProperties().isActive) return;
+	if (!attachedAvatarID) return;
 
 	rolesToOverride.forEach(function(role) {
 		MyAvatar.restoreRoleAnimation(role);
