@@ -1,5 +1,5 @@
 var animationURL = Script.resolvePath("sitting.fbx");
-var animationURL = "https://hifi-content.s3.amazonaws.com/Experiences/Releases/marketPlaceItems/sitPoint/2019-01-17_10-05-51/appResources/appData/resources/animations/sittingIdle.fbx";
+//var animationURL = "https://hifi-content.s3.amazonaws.com/Experiences/Releases/marketPlaceItems/sitPoint/2019-01-17_10-05-51/appResources/appData/resources/animations/sittingIdle.fbx";
 AnimationCache.prefetch(animationURL);
 
 // function getAvatar(displayName) {
@@ -12,9 +12,11 @@ AnimationCache.prefetch(animationURL);
 // 	return undefined;
 // }
 
-var rolesToOverride = MyAvatar.getAnimationRoles().filter(function(role) {
-	return !(role.indexOf("right")===0 || role.indexOf("left")===0);
-});
+function rolesToOverride() {
+	return MyAvatar.getAnimationRoles().filter(function(role) {
+        return !(role.indexOf("right")===0 || role.indexOf("left")===0);
+    });
+}
 
 var attachedAvatarID = undefined;
 var attachedAvatarDisplayName = undefined;
@@ -51,9 +53,11 @@ function mount(avatarID) {
 	MyAvatar.setCollisionsEnabled(false);
 	MyAvatar.setOtherAvatarsCollisionsEnabled(false);
 
-	rolesToOverride.forEach(function(role) {
-		MyAvatar.overrideRoleAnimation(role, animationURL, 1, true, 1, 1);
-	});
+	var roles = rolesToOverride();
+    for (i in roles) {
+        MyAvatar.restoreRoleAnimation(roles[i]);
+        MyAvatar.overrideRoleAnimation(roles[i], animationURL, 1, true, 0, 1);
+    }
 
 	attachedAvatarID = avatarID;
 	attachedAvatarDisplayName = avatar.displayName;
@@ -66,9 +70,10 @@ function mount(avatarID) {
 function unmount() {
 	if (!attachedAvatarID) return;
 
-	rolesToOverride.forEach(function(role) {
-		MyAvatar.restoreRoleAnimation(role);
-	});
+	var roles = rolesToOverride();
+    for (i in roles) {
+        MyAvatar.restoreRoleAnimation(roles[i]);
+    }
 
 	Script.update.disconnect(update);
 	Script.setTimeout(function() {
