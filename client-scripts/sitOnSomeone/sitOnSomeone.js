@@ -99,6 +99,14 @@ function safeMount(avatarID) {
 	}
 }
 
+function toggleMount(avatarID) {
+	if (attachedAvatarID) {
+		unmount();
+	} else {
+		mount(avatarID);
+	}
+}
+
 // tablet stuff
 
 var uuid = "cat.maki.sitOnSomeone";
@@ -159,9 +167,15 @@ function messageReceived(chan, msg, uuid, localOnly) {
 
 	switch (msg[0]) {
 		case "sit": 
-			if (msg.length<2) return;
+			if (msg.length<2) break;
 			safeMount(msg[1]);
 		break;
+
+		case "toggle":
+			if (msg.length<2) break;
+			toggleMount(msg[1]);
+		break;
+
 		case "eject":
 			unmount();
 		break;
