@@ -91,6 +91,7 @@
 ## express routes
 
 - [3D Text .obj](https://github.com/makitsune/hifi-things/tree/master/express-routes/3d-text)
+- [Minecraft Skin Hifi](https://github.com/makitsune/hifi-things/tree/master/express-routes/mc-skin-hifi)
 - [Video Sync](https://github.com/makitsune/hifi-things/tree/master/express-routes/video-sync)
 
 <br><br>
