@@ -2,6 +2,7 @@
 const request = require("request-promise-native");
 const express = require("express");
 const Jimp = require("jimp");
+const fs = require("fs");
 
 var app = express();
 
@@ -81,6 +82,34 @@ app.get("/:username", (req,res)=>{
 	}).catch(err=>{
 		return res.end();
 	})
+});
+
+app.get("/:username", (req,res)=>{
+	if (!req.params.username) return res.end();
+
+	let username = req.params.username;
+	if (username.toLowerCase().endsWith(".fst")) {
+		username = username.substring(0, username.length-4);
+	}
+
+	let fst = fs.readFileSync(__dirname+"/avatar.fst", "utf8");
+	let url = "https://maki.cat/mc-hifi/skin/"+username;
+	let materialMap = {
+		all: {
+			materials: {
+				unlit: true,
+				albedoMap: url,
+				opacityMap: url,
+			}
+		}
+	}
+	fst += "\n"+materialMap;
+
+	res.end(fst);
+});
+
+app.get("/avatar.fbx", (req,res)=>{
+	res.send(fs.readFileSync(__dirname+"/avatar.fbx", "urf8"));
 });
 
 var port = 8086;
