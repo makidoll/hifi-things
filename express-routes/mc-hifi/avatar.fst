@@ -1,8 +1,7 @@
-name = Minecraft
+name = Minecraft Avatar
 type = body+head
 scale = 0.9
 filename = avatar.fbx
-texdir = textures
 joint = jointRoot = Hips
 joint = jointLean = Spine
 joint = jointHead = Head

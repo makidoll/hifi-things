@@ -85,7 +85,7 @@ app.get("/skin/:username", (req,res)=>{
 });
 
 app.get("/avatar.fbx", (req,res)=>{
-	res.send(fs.readFileSync(__dirname+"/avatar.fbx"));
+	res.end(fs.readFileSync(__dirname+"/avatar.fbx"));
 });
 
 app.get("/:username", (req,res)=>{
@@ -109,7 +109,7 @@ app.get("/:username", (req,res)=>{
 	}
 	fst += "\nmaterialMap = "+JSON.stringify(materialMap);
 
-	res.send(fst);
+	res.end(fst);
 });
 
 var port = 8086;
