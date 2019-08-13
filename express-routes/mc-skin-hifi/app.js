@@ -53,13 +53,12 @@ var skinCache = {};
 app.get("/:username", (req,res)=>{
 	if (!req.params.username) return res.end();
 
-	let username = req.params.username;
-	if (username.toLowerCase().endsWith(".png")) {
+	let username = req.params.username.toLowerCase();
+	if (username.endsWith(".png")) {
 		username = username.substring(0, username.length-4);
 	}
 
 	if (skinCache[username]!=undefined) {
-		res.setHeader("")
 		res.end(skinCache[username]);
 		return;
 	}
@@ -84,6 +83,7 @@ app.get("/:username", (req,res)=>{
 	})
 });
 
-app.listen(8080, ()=>{
-	console.log("Server up on *:8080");
+var port = 8086;
+app.listen(port, ()=>{
+	console.log("Server up on *:"+port);
 });
