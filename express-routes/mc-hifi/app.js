@@ -57,6 +57,7 @@ app.get("/skin.png", async (req,res)=>{
 
 	let cacheKey = req.query.username||req.query.skin;
 	if (skinCache[cacheKey]!=undefined) {
+		res.setHeader("Content-Type", "image/png");
 		res.end(skinCache[cacheKey]);
 		return;
 	}
@@ -82,6 +83,7 @@ app.get("/skin.png", async (req,res)=>{
 		image.resize(4096, 4096, Jimp.RESIZE_NEAREST_NEIGHBOR);
 		image.getBufferAsync(Jimp.MIME_PNG).then(buffer=>{
 			skinCache[cacheKey] = buffer;
+			res.setHeader("Content-Type", "image/png");
 			res.end(buffer);
 		}).catch(err=>{
 			return res.end();
