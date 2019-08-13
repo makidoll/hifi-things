@@ -53,6 +53,7 @@ var skinCache = {};
 
 app.get("/skin.png", async (req,res)=>{
 	if (!req.query.username && !req.query.url) return res.end();
+	if (req.query.url) req.query.url = req.query.url.replace(/^(http|https):\/([^\/])/gi, "$1://$2");
 
 	let cacheKey = req.query.username||req.query.url;
 	if (skinCache[cacheKey]!=undefined) {
@@ -94,6 +95,7 @@ app.get("/avatar.fbx", (req,res)=>{
 
 app.get("/avatar.fst", (req,res)=>{
 	if (!req.query.username && !req.query.url) return res.end();
+	if (req.query.url) req.query.url = req.query.url.replace(/^(http|https):\/([^\/])/gi, "$1://$2");
 
 	let url = "https://maki.cat/mc-hifi/skin.png";
 	if (req.query.username) url += "?username="+req.query.username;
