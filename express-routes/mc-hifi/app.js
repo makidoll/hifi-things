@@ -107,7 +107,7 @@ app.get("/:username", (req,res)=>{
 			}
 		}
 	}
-	fst += "\n"+JSON.stringify(materialMap);
+	fst += "\nmaterialMap = "+JSON.stringify(materialMap);
 
 	res.send(fst);
 });
