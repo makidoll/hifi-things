@@ -52,10 +52,10 @@ const getSkin = username=>new Promise((resolve, reject)=>{
 var skinCache = {};
 
 app.get("/skin.png", async (req,res)=>{
-	if (!req.query.username && !req.query.url) return res.end();
-	if (req.query.url) req.query.url = req.query.url.replace(/^(http|https):\/([^\/])/gi, "$1://$2");
+	if (!req.query.username && !req.query.skin) return res.end();
+	//if (req.query.url) req.query.url = req.query.url.replace(/^(http|https):\/([^\/])/gi, "$1://$2");
 
-	let cacheKey = req.query.username||req.query.url;
+	let cacheKey = req.query.username||req.query.skin;
 	if (skinCache[cacheKey]!=undefined) {
 		res.end(skinCache[cacheKey]);
 		return;
@@ -66,9 +66,11 @@ app.get("/skin.png", async (req,res)=>{
 	try {	
 		if (req.query.username != undefined) {
 			skin = await getSkin(req.query.username);
-		} else if (req.query.url != undefined) {
+		} else if (req.query.skin != undefined) {
+			skin = await fs.readFileSync(__dirname+"/skins/"+req.query.skin+".png");
+		}/* else if (req.query.url != undefined) {
 			skin = await request({url:req.query.url,encoding:null});
-		}
+		}*/
 	} catch(err) {
 		return res.end();
 	}
@@ -94,12 +96,12 @@ app.get("/avatar.fbx", (req,res)=>{
 });
 
 app.get("/avatar.fst", (req,res)=>{
-	if (!req.query.username && !req.query.url) return res.end();
-	if (req.query.url) req.query.url = req.query.url.replace(/^(http|https):\/([^\/])/gi, "$1://$2");
+	if (!req.query.username && !req.query.skin) return res.end();
+	//if (req.query.url) req.query.url = req.query.url.replace(/^(http|https):\/([^\/])/gi, "$1://$2");
 
 	let url = "https://maki.cat/mc-hifi/skin.png";
 	if (req.query.username) url += "?username="+req.query.username;
-	if (req.query.url) url += "?url="+req.query.url;
+	if (req.query.skin) url += "?skin="+req.query.skin;
 
 	let fst = fs.readFileSync(__dirname+"/avatar.fst", "utf8");
 	let materialMap = {
