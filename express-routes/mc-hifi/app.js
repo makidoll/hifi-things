@@ -51,7 +51,7 @@ const getSkin = username=>new Promise((resolve, reject)=>{
 
 var skinCache = {};
 
-app.get("/:username", (req,res)=>{
+app.get("/skin/:username", (req,res)=>{
 	if (!req.params.username) return res.end();
 
 	let username = req.params.username.toLowerCase();
@@ -105,11 +105,11 @@ app.get("/:username", (req,res)=>{
 	}
 	fst += "\n"+materialMap;
 
-	res.end(fst);
+	res.send(fst);
 });
 
 app.get("/avatar.fbx", (req,res)=>{
-	res.send(fs.readFileSync(__dirname+"/avatar.fbx", "urf8"));
+	res.send(fs.readFileSync(__dirname+"/avatar.fbx"));
 });
 
 var port = 8086;
