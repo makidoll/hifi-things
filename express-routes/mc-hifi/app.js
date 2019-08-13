@@ -51,53 +51,55 @@ const getSkin = username=>new Promise((resolve, reject)=>{
 
 var skinCache = {};
 
-app.get("/skin/:username", (req,res)=>{
-	if (!req.params.username) return res.end();
+app.get("/skin.png", async (req,res)=>{
+	if (!req.query.username && !req.query.url) return res.end();
 
-	let username = req.params.username.toLowerCase();
-	if (username.endsWith(".png")) {
-		username = username.substring(0, username.length-4);
-	}
-
-	if (skinCache[username]!=undefined) {
-		res.end(skinCache[username]);
+	let cacheKey = req.query.username||req.query.url;
+	if (skinCache[cacheKey]!=undefined) {
+		res.end(skinCache[cacheKey]);
 		return;
 	}
 
-	getSkin(username).then(skin=>{
-		Jimp.read(skin).then(image=>{
-			if (image.bitmap.height==32)
-				image.contain(64, 64, Jimp.VERTICAL_ALIGN_TOP);
+	let skin;
 
-			image.resize(4096, 4096, Jimp.RESIZE_NEAREST_NEIGHBOR);
-			image.getBufferAsync(Jimp.MIME_PNG).then(buffer=>{
-				skinCache[username] = buffer;
-				res.end(buffer);
-			}).catch(err=>{
-				return res.end();
-			});
+	try {	
+		if (req.query.username != undefined) {
+			skin = await getSkin(req.query.username);
+		} else if (req.query.url != undefined) {
+			skin = await request({url:req.query.url,encoding:null});
+		}
+	} catch(err) {
+		return res.end();
+	}
+
+	Jimp.read(skin).then(image=>{
+		if (image.bitmap.height==32)
+			image.contain(64, 64, Jimp.VERTICAL_ALIGN_TOP);
+
+		image.resize(4096, 4096, Jimp.RESIZE_NEAREST_NEIGHBOR);
+		image.getBufferAsync(Jimp.MIME_PNG).then(buffer=>{
+			skinCache[cacheKey] = buffer;
+			res.end(buffer);
 		}).catch(err=>{
 			return res.end();
 		});
 	}).catch(err=>{
 		return res.end();
-	})
+	});
 });
 
 app.get("/avatar.fbx", (req,res)=>{
 	res.end(fs.readFileSync(__dirname+"/avatar.fbx"));
 });
 
-app.get("/:username", (req,res)=>{
-	if (!req.params.username) return res.end();
+app.get("/avatar.fst", (req,res)=>{
+	if (!req.query.username && !req.query.url) return res.end();
 
-	let username = req.params.username;
-	if (username.toLowerCase().endsWith(".fst")) {
-		username = username.substring(0, username.length-4);
-	}
+	let url = "https://maki.cat/mc-hifi/skin.png";
+	if (req.query.username) url += "?username="+req.query.username;
+	if (req.query.url) url += "?url="+req.query.url;
 
 	let fst = fs.readFileSync(__dirname+"/avatar.fst", "utf8");
-	let url = "https://maki.cat/mc-hifi/skin/"+username;
 	let materialMap = {
 		all: {
 			materials: {
