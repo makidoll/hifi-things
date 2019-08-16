@@ -1,7 +1,9 @@
+#!/usr/bin/env node
+
 var fs = require("fs");
 var YAML = require("yaml");
 
-var config = require(__dirname+"/domains.js")
+var config = require("./domains.js")
 var services = {};
 
 var command = "sh -c \""+
@@ -10,17 +12,7 @@ var command = "sh -c \""+
 "\"";
 
 Object.keys(config.domains).forEach(name=>{
-	let port = config.domains[name][0];
-	// port = [
-	//      {
-	//              start: port,
-	//              end: port+9,
-	//      },
-	//      {
-	//              start: port+7900,
-	//              end: port+7900+9,
-	//      }
-	// ]
+	let port = config.domains[name];
 	port = [
 		{
 			start: port,
@@ -39,7 +31,7 @@ Object.keys(config.domains).forEach(name=>{
 			port[0].start+"-"+port[0].end+":40100-40109",
 			port[0].start+"-"+port[0].end+":40100-40109/udp",
 			port[1].start+"-"+port[1].end,
-		port[1].start+"-"+port[1].end+"/udp",
+      		port[1].start+"-"+port[1].end+"/udp",
 		],
 		volumes: [
 			"./domains/"+name+":/root/.local/share/High Fidelity" 
@@ -49,6 +41,7 @@ Object.keys(config.domains).forEach(name=>{
 		],
 		command: command,
 		restart: "always",
+		network_mode: "bridge",
 	};
 });
 
