@@ -67,6 +67,7 @@
 <br><br>
 ## sites
 
+- [Audio Control](https://hifi.maki.cat/sites/audio-control)
 - [Digital Time](https://hifi.maki.cat/sites/digital-time)
 
 <br><br>

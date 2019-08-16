@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+		<style type="text/css">
+			* { margin: 0; padding: 0; }
+			body {
+				font-family: "Roboto", sans-serif;
+				background-color: #1d1f21;
+			}
+			#content {
+				position: fixed; margin: auto;
+				top: 50px; right: 50px;
+				bottom: 50px; left: 50px;
+				background-color: rgba(255,255,255,0.1);
+			}
+			#content #title {
+				position: fixed; margin: auto;
+				top: 50px; right: 50px; left: 50px;
+				height: 60px;
+				padding: 20px 0;
+				font-size: 48px;
+				text-align: center;
+				background-color: rgba(255,255,255,0.1);
+				color: rgba(255,255,255,0.6);
+			}
+			@keyframes rainbow-bg {
+				0%   { background: rgb(255, 102, 102) /*hsl(  0deg, 100%, 70%);*/ }
+				10%  { background: rgb(255, 194, 102) /*hsl( 36deg, 100%, 70%);*/ }
+				20%  { background: rgb(255, 255, 102) /*hsl( 72deg, 100%, 70%);*/ }
+				30%  { background: rgb(133, 255, 102) /*hsl(108deg, 100%, 70%);*/ }
+				40%  { background: rgb(102, 255, 163) /*hsl(144deg, 100%, 70%);*/ }
+				50%  { background: rgb(102, 255, 255) /*hsl(180deg, 100%, 70%);*/ }
+				60%  { background: rgb(102, 163, 255) /*hsl(216deg, 100%, 70%);*/ }
+				70%  { background: rgb(133, 102, 255) /*hsl(252deg, 100%, 70%);*/ }
+				80%  { background: rgb(224, 102, 255) /*hsl(288deg, 100%, 70%);*/ }
+				90%  { background: rgb(255, 102, 194) /*hsl(324deg, 100%, 70%);*/ }
+				100% { background: rgb(255, 102, 102) /*hsl(360deg, 100%, 70%);*/ }
+			}
+			#content .volume {
+				position: fixed; margin: auto;
+				top: 150px; bottom: 50px;
+				left: 50px; right: 50px;
+			}
+
+			#content #volume-amount {
+				height: 100%;
+				animation: rainbow-bg 30s linear infinite forwards; 
+			}
+
+			#content #volume-text {
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+				font-size: 64px;
+				opacity: 0.25;
+				color: #fff;
+			}
+		</style>
+		<style type="text/css" id="style"></style>
+		<script type="text/css" id="dark">
+			body {
+				background-color: #fff;
+			}
+			#content {
+				background-color: rgba(0,0,0,0.2);
+			}
+			#content #title {
+				background-color: rgba(0,0,0,0.1);
+				color: rgba(0,0,0,0.6);
+			}
+			#content #volume-text {
+				color: #000;
+			}
+		</script>
+	</head>
+	<audio id="audio" loop></audio>
+	<body>
+		<iframe src="silence.ogg" allow="autoplay" style="display: none;"></iframe>
+		<div id="content">
+			<div id="title">
+				<marquee scrollamount="20"></marquee>
+			</div>
+			<div class="volume">
+				<div id="volume-amount"></div>
+			</div>
+			<div class="volume" style="display: table; width: calc(100% - 100px);">
+				<div id="volume-text">100%</div>
+			</div>
+		</div>
+		<script type="text/javascript">
+			var _GET = {};
+			window.location.search.substr(1).split("&").forEach(function(e, i) {
+				let param = e.split("=");
+				_GET[param[0]] = param[1];
+			});
+
+			if (_GET.light && _GET.light!="false" && _GET.light!="0") {
+				let style = document.createElement("style");
+				style.innerHTML = document.getElementById("dark").innerHTML;
+				document.body.appendChild(style);
+			}
+
+			var div = {
+				title: document.getElementById("title"),
+				volume_amount: document.getElementById("volume-amount"),
+				volume_text: document.getElementById("volume-text"),
+			};
+
+			var audio = document.getElementById("audio");
+
+			if (_GET.stream) {
+				audio.src = _GET.stream;
+				function tryPlaying() {	
+					audio.play().then(()=>{
+						if (_GET.random == "true")
+							audio.currentTime = Math.random()*audio.duration
+					}).catch(()=>{
+						setTimeout(()=>{
+							tryPlaying();
+						}, 200);
+					});
+				}
+				tryPlaying();
+				
+				let marquee = "<marquee";
+				if (_GET.speed) marquee+= ' scrollamount="'+_GET.speed+'"';
+				marquee += ">"+_GET.stream+"</marquee>";
+				div.title.innerHTML = marquee;
+			}
+
+			function changeVolume(amount) { // 0 to 1
+				// friggin volume sliders are weird ok
+				//audio.volume = Math.pow(amount, 2)/10;
+				audio.volume = amount/4;
+				div.volume_amount.style.width = (amount*100)+"%";
+				div.volume_text.textContent = Math.floor(amount*100)+"%";
+			}
+
+			if (_GET.volume) changeVolume(_GET.volume);
+
+			document.body.appendChild(audio);
+
+			document.addEventListener("click", e=>{
+				let max = (document.body.clientWidth - 100);
+				let volume = ((e.clientX-50)/max);
+				if (volume<0) volume=0;
+				if (volume>1) volume=1;
+				changeVolume(volume);
+			});
+		</script>
+	</body>
+</html>
