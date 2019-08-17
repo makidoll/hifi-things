@@ -24,9 +24,8 @@ var attachedAvatarDisplayName = undefined;
 function update() {
 	var avatar = AvatarList.getAvatar(attachedAvatarID);
 	if (avatar.displayName == "") {
-		Script.update.disconnect(update);
 		unmount();
-		return;
+		return Script.update.disconnect(update);
 	}
 
 	MyAvatar.setCollisionsEnabled(false);
