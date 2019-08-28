@@ -8,7 +8,7 @@
 
 Most of this repo will be written in TypeScript soon.
 
-## [hifi types](https://github.com/makitsune/hifi-types)
+## [hifi scripting api types](https://github.com/makitsune/hifi-types)
 
 ## client scripts
 
