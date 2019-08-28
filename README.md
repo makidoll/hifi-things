@@ -2,10 +2,13 @@
 
 > ❤️ Things that I've made for High Fidelity
 
-<br><br>
 [<img alt="Cutelab" src="https://hifi.maki.cat/cutelab.gif"/>](https://cutelab.space)
 - [https://cutelab.space](https://cutelab.space)
 - [https://github.com/cutelab-fairies](https://github.com/cutelab-fairies)
+
+Most of this repo will be written in TypeScript soon.
+
+## [hifi types](https://github.com/makitsune/hifi-types)
 
 ## client scripts
 
@@ -33,13 +36,11 @@
 - [Zoned Playlist Sound Emitter](https://hifi.maki.cat/client-entity-scripts/zonedPlaylistSoundEmitter.js)
 - [Welcome Sign](https://hifi.maki.cat/client-entity-scripts/welcomeSign/welcomeSign.js)
 
-<br><br>
 ## server entity scripts
 
 - [Random Animation Player](https://hifi.maki.cat/server-entity-scripts/randomAnimationPlayer.js)
 - [Rainbow Material](https://hifi.maki.cat/server-entity-scripts/rainbowMaterial.js)
 
-<br><br>
 ## shaders
 
 - [Candy Spiral](https://hifi.maki.cat/shaders/candySpiral.fs)
@@ -57,18 +58,15 @@
 - [TV](https://hifi.maki.cat/shaders/tv.fs)
 - [Water](https://hifi.maki.cat/shaders/water.fs)
 
-<br><br>
 ## avatars
 
 - [Lumpy Space Princess](https://hifi.maki.cat/avatars/lsp.fst)
 
-<br><br>
 ## sites
 
 - [Audio Control](https://hifi.maki.cat/sites/audio-control)
 - [Digital Time](https://hifi.maki.cat/sites/digital-time)
 
-<br><br>
 ## batch files
 
 - [defaultScripts.js modifier (run as admin)](https://hifi.maki.cat/batch-files/defaultScripts-modifier.bat)
@@ -76,7 +74,6 @@
 - [Run HiFi as anonymous](https://hifi.maki.cat/batch-files/run-hifi-as-anonymous.bat)
 - [Video to WebM (19.4 MB .zip)](https://hifi.maki.cat/batch-files/video-to-webm.zip)
 
-<br><br>
 ## external scripts
 
 - [Docker compose generator](https://github.com/makitsune/hifi-things/tree/master/external-scripts/dockerComposeGenerator)
@@ -86,14 +83,12 @@
 - [Video to multiple spritesheets](https://hifi.maki.cat/external-scripts/videoToMultipleSpritesheets.js)
 - [.obj to .svg](https://hifi.maki.cat/external-scripts/objToSvg.js)
 
-<br><br>
 ## express routes
 
 - [3D Text .obj](https://github.com/makitsune/hifi-things/tree/master/express-routes/3d-text)
 - [Minecraft Skin Hifi](https://github.com/makitsune/hifi-things/tree/master/express-routes/mc-skin-hifi)
 - [Video Sync](https://github.com/makitsune/hifi-things/tree/master/express-routes/video-sync)
 
-<br><br>
 ## roadmap mirror
 
 - [Feature Requests](https://hifi.maki.cat/roadmap-mirror/feature-requests)
