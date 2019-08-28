@@ -9,6 +9,6 @@
 		"lib": ["ES5"],
 	},
 	"exclude": [
-		"typings/unfinished-auto-types"
+		"typings-broken"
 	]
 }

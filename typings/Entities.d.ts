@@ -172,7 +172,17 @@ declare namespace Entities {
 	}
 	*/
 
-	type ActionType = string;
+	enum ActionType {
+		farGrab = "far-grab",
+		hold = "hold",
+		offset = "offset",
+		tractor = "tractor",
+		travelOriented = "travel-oriented",
+		hinge = "hinge",
+		slider = "slider",
+		coneTwist = "cone-twist",
+		ballSocket = "ball-socket",
+	}
 
 	interface AmbientLight {
 		ambientIntensity: number;
@@ -191,7 +201,11 @@ declare namespace Entities {
 		hold: boolean;
 	}
 
-	type AvatarPriorityMode = string;
+	enum AvatarPriorityMode {
+		inherit = "inherit",
+		crowd = "crowd",
+		hero = "hero",
+	}
 
 	interface Bloom {
 		bloomIntensity: number
@@ -206,9 +220,17 @@ declare namespace Entities {
 		dimensions: Vec3;
 	}
 
-	type ComponentMode = string;
+	enum ComponentMode {
+		inherit = "inherit",
+		disabled = "disabled",
+		enabled = "enabled",
+	}
 
-	type EntityHostType = string;
+	enum EntityHostType {
+		domain = "domain",
+		avatar = "avatar",
+		local = "local",
+	}
 
 	interface EntityProperties {
 		id: Uuid;
@@ -715,9 +737,28 @@ declare namespace Entities {
 		maximum: string;
 	}
 
-	type EntityType = string;
+	enum EntityType {
+		Shape = "Shape",
+		Box = "Box",
+		Sphere = "Sphere",
+		Model = "Model",
+		Text = "Text",
+		Image = "Image",
+		Web = "Web",
+		ParticleEffect = "ParticleEffect",
+		Line = "Line",
+		PolyLine = "PolyLine",
+		PolyVox = "PolyVox",
+		Grid = "Grid",
+		Gizmo = "Gizmo",
+		Light = "Light",
+		Zone = "Zone",
+		Material = "Material",
+	}
 
-	type GizmoType = string;
+	enum GizmoType {
+		ring = "ring",
+	}
 
 	interface Grab {
 		grabbable: boolean;
@@ -793,13 +834,29 @@ declare namespace Entities {
 		materials: Entities.Material|Entities.Material[];
 	}
 
-	type NestableType = string;
+	enum NestableType {
+		entity = "entity",
+		avatar = "avatar",
+		unknown = "unknown",
+	}
 
-	type PhysicsMotionType = string;
+	enum PhysicsMotionType {
+		static = "static",
+		kinematic = "kinematic",
+		dynamic = "dynamic",
+	}
 
-	type PolyVoxSurfaceStyle = number;
+	enum PolyVoxSurfaceStyle {
+		marchingCubes,
+		cubic,
+		edgedCubic,
+		edgedMarchingCubes,
+	}
 
-	type PrimitiveMode = string;
+	enum PrimitiveMode {
+		solid = "solid",
+		lines = "lines",
+	}
 
 	interface Pulse {
 		min: number;
@@ -809,7 +866,11 @@ declare namespace Entities {
 		alphaMode: Entities.PulseMode;
 	}
 
-	type PulseMode = string;
+	enum PulseMode {
+		none = "none",
+		in = "in",
+		out = "out",
+	}
 
 	interface RayToEntityIntersectionResult {
 		intersects: boolean;
@@ -830,7 +891,11 @@ declare namespace Entities {
 		drawCalls: number;
 	}
 
-	type RenderLayer = string;
+	enum RenderLayer {
+		world = "world",
+		front = "front",
+		hud = "hud",
+	}
 
 	interface RingGizmo {
 		startAngle: number;
@@ -853,7 +918,22 @@ declare namespace Entities {
 		minorTickMarksColor: Color;
 	}
 
-	type Shape = string;
+	enum Shape {
+		Circle = "Circle",
+		Cone = "Cone",
+		Cube = "Cube",
+		Cylinder = "Cylinder",
+		Dodecahedron = "Dodecahedron",
+		Hexadon = "Hexadon",
+		Icosahedron = "Icosahedron",
+		Octagon = "Octagon",
+		Octahedron = "Octahedron",
+		Quad = "Quad",
+		Sphere = "Sphere",
+		Tetrahedron = "Tetrahedron",
+		Torus = "Torus",
+		Triangle = "Triangle",
+	}
 
 	interface Skybox {
 		color: Color;

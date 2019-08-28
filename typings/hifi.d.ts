@@ -11,16 +11,22 @@ https://apidocs.highfidelity.com
 Namespaces are ordered as:
 - Properties
 - Methods
+- Signals
 - Types
 
 */
+
+// undocumented
+//
 
 declare namespace console {
 	function log(message: string): void;
 	function err(message: string): void;
 }
 
-// classes
+declare type Timer = object;
+
+// global classes
 // 
 
 declare interface AudioInjectorOptions {
@@ -67,7 +73,7 @@ declare class TabletProxy {
 	gotoHomeScreen(): void;
 }
 
-// globals
+// global types
 //
 
 declare interface AACube {
@@ -102,7 +108,13 @@ declare enum BoxFace {
 	UNKNOWN_FACE = "UNKNOWN_FACE",
 }
 
-declare type CollisionMask = number;
+declare enum CollisionMask {
+	static = 1,
+	dynamic = 2,
+	kinematic = 4,
+	myAvatar = 8,
+	otherAvatars = 16,
+};
 
 declare interface Color extends Vec3 {}
 declare interface ColorFloat extends Vec3 {}
@@ -193,7 +205,10 @@ declare enum ShapeType {
 	multisphere = "multisphere",
 }
 
-declare type Timer = object;
+declare interface Size {
+	height?: number;
+	width?: number;
+}
 
 declare type Uuid = string;
 

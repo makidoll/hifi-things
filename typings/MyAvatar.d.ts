@@ -1,6 +1,4 @@
 declare namespace MyAvatar {
-	enum SitStandModelType {ForceSit, ForceStand, Auto, DisableHMDLean}
-
 	var position: Vec3;
 	var scale: number;
 	var density: number;
@@ -87,4 +85,6 @@ declare namespace MyAvatar {
 	var allowTeleporting: boolean;
 
 	function useFullAvatarURL(modelURL: string, name: string): void;
+
+	enum SitStandModelType {ForceSit, ForceStand, Auto, DisableHMDLean}
 }

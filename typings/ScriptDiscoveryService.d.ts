@@ -1,6 +1,6 @@
 declare namespace ScriptDiscoveryService {
 	function getRunning(): Script[]; 
-	interface Script {
+	interface Script { // undocumented
 		local: boolean;
 		name: string;
 		path: string;
