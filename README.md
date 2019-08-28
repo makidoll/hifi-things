@@ -7,7 +7,6 @@
 - [https://cutelab.space](https://cutelab.space)
 - [https://github.com/cutelab-fairies](https://github.com/cutelab-fairies)
 
-<br><br>
 ## client scripts
 
 - [<img height="40" alt="Fox Essentials" src="https://scripts.cutelab.space/foxEssentials/app/assets/logo.svg"/>](https://github.com/cutelab-fairies/scripts)<br><br>
@@ -18,7 +17,6 @@
 - [Grab Me](https://hifi.maki.cat/client-scripts/grabMe.js)
 - [Where Are My Friends](https://hifi.maki.cat/client-scripts/whereAreMyFriends/whereAreMyFriends.js)
 
-<br><br>
 ## client entity scripts
 
 - [Force Filmic in Domain](https://hifi.maki.cat/client-entity-scripts/forceFilmicInDomain.js)
