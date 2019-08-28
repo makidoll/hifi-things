@@ -6,10 +6,9 @@
 (()=>{
 	class LoadAvatar implements ClientEntityScript {
 		loadAvatar(entityID: Uuid) {
-			let entity: Entities.EntityProperties = 
-			Entities.getEntityProperties(entityID,
+			let entity = Entities.getEntityProperties(entityID,
 				["modelURL", "description", "name"]
-			);
+			) as Entities.EntityPropertiesModel;
 
 			let confirm = Window.confirm((entity.name)?
 				"Would you like to load the avatar: "+entity.name:
