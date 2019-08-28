@@ -22,7 +22,7 @@ declare namespace Window {
 	function getDeviceSize(): Vec2;
 	function getDisplayPluginCount(): number;
 	function getDisplayPluginName(index: number): string;
-	function getLastDomainConnectionError(): ConnectionRefusedReason;
+	function getLastDomainConnectionError(): Window.ConnectionRefusedReason;
 	function hasFocus(): boolean;
 	function isDisplayPluginHmd(index: number): boolean;
 	function isPhysicsEnabled(): boolean;
@@ -30,7 +30,7 @@ declare namespace Window {
 	function makeConnection(success: boolean, description: string): void;
 	function openAndroidActivity(activityName: string, backToScene: boolean): void;
 	function openMessageBox(title: string, text: string,
-			buttons: MessageBoxButton, defaultButton: MessageBoxButton): number;
+			buttons: Window.MessageBoxButton, defaultButton: Window.MessageBoxButton): number;
 	function openURL(url: string): void;
 	function openWebBrowser(): void;
 	function prompt(message: string, defaultText?: string): string;
@@ -40,7 +40,7 @@ declare namespace Window {
 	function save(title?: string, directory?: string, nameFilter?: string): string;
 	function saveAsync(title?: string, directory?: string, nameFilter?: string): void;
 	function setActiveDisplayPlugin(index: number): void;
-	function setDisplayTexture(texture: DisplayTexture): boolean;
+	function setDisplayTexture(texture: Window.DisplayTexture): boolean;
 	function setFocus(): void;
 	function shareSnapshot(path: string, href?: string): void;
 	function showAssetServer(uploadFile?: string): void;
@@ -50,7 +50,7 @@ declare namespace Window {
 	function takeSnapshot(notify?: boolean, includeAnimated?: boolean,
 		aspectRatio?: number, filename?: string): void;
 	function updateMessageBox(id: number, title: string, text: string,
-		buttons: MessageBoxButton, defaultButton: MessageBoxButton): void;
+		buttons: Window.MessageBoxButton, defaultButton: Window.MessageBoxButton): void;
 
 	var announcement: Signal;
 	var assetsDirChanged: Signal;
