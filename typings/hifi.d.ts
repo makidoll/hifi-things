@@ -114,7 +114,7 @@ declare enum CollisionMask {
 	kinematic = 4,
 	myAvatar = 8,
 	otherAvatars = 16,
-};
+}
 
 declare interface Color extends Vec3 {}
 declare interface ColorFloat extends Vec3 {}
