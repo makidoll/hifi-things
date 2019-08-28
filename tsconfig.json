@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"pretty": true,
+		"removeComments": false,
+
+		"strict": true,
+
+		"target": "ES3",
+		"lib": ["ES5"],
+	},
+	"exclude": [
+		"typings/unfinished-auto-types"
+	]
+}

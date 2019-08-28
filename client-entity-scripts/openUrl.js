@@ -1,27 +1,37 @@
+"use strict";
 /*
 {
-	"url": "https://google.com"
+    "url": "https://google.com"
 }
 */
-
-(function() {
-	this.entityID;
-
-	this.preload = function(_entityID) {
-		this.entityID = _entityID;
-	}
-
-	this.openUrl = function() {
-		var entity = Entities.getEntityProperties(this.entityID, ["userData"]);
-		try { var userData = JSON.parse(entity.userData);
-		} catch(err) { return; }
-
-		if (userData.url!=undefined) Window.openUrl(userData.url);
-	}
-
-	this.startNearTrigger = function() { this.openUrl(); }
-	this.clickDownOnEntity = function(e) {
-		if (e.button != "Primary") return;
-		this.openUrl();
-	}
-})
+(function () {
+    var OpenURL = /** @class */ (function () {
+        function OpenURL() {
+            this.entityID = "";
+        }
+        OpenURL.prototype.preload = function (entityID) {
+            this.entityID = entityID;
+        };
+        OpenURL.prototype.openURL = function () {
+            var entity = Entities.getEntityProperties(this.entityID, ["userData"]);
+            var userData;
+            try {
+                userData = JSON.parse(entity.userData);
+            }
+            catch (err) {
+                return;
+            }
+            if (userData.url != undefined)
+                Window.openURL(userData.url);
+        };
+        OpenURL.prototype.startNearTrigger = function () {
+            this.openURL();
+        };
+        OpenURL.prototype.clickDownOnEntity = function (_, mouseEvent) {
+            if (mouseEvent.button != "Primary")
+                return;
+            this.openURL();
+        };
+        return OpenURL;
+    }());
+});
