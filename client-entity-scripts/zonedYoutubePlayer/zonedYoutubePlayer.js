@@ -1,6 +1,7 @@
 "use strict";
 /*
 box entity
+- dimensions 16,0,9 and resize
 - turn off visable
 - add zone as child
 - add userdata
