@@ -3,8 +3,9 @@
 		"pretty": true,
 		"removeComments": false,
 		"strict": true,
-		"target": "es5",
+		"target": "es3",
 		"lib": ["es5"],
+		//"downlevelIteration": true,
 	},
 	"exclude": [
 		"typings-broken"

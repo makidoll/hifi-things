@@ -67,7 +67,7 @@
 			// move user back slightly so that there is no loop
 			// MyAvatar.position = Vec3.sum(
 			// 	MyAvatar.position,
-			// 	Vec3.multiplyQbyV(MyAvatar.orientation, {x:0,y:0,z:1.5})
+			// 	Vec3.multiplyQbyV(MyAvatar.orientation, {x:0,y:0,z:1.5} as Vec3)
 			// );
 
 			// MyAvatar.orientation = Quat.multiply(
@@ -77,7 +77,7 @@
 
 			MyAvatar.position = Vec3.sum(
 				entity.position,
-				Vec3.multiplyQbyV(entity.rotation, {x:0,y:0,z:1})
+				Vec3.multiplyQbyV(entity.rotation, {x:0,y:0,z:1} as Vec3)
 			);
 
 			MyAvatar.orientation = Quat.multiply(

@@ -2,25 +2,26 @@
 (function () {
     var ForceFilmicInDomain = /** @class */ (function () {
         function ForceFilmicInDomain() {
+            var _this = this;
             this.interval = {};
             this.previousCurve = -1;
+            this.disable = function () {
+                Script.clearInterval(_this.interval);
+                var foxEssentials = Settings.getValue("cat.maki.foxEssentials.enableFilmicToneMapping");
+                if (foxEssentials != undefined) {
+                    _this.setCurve(foxEssentials ? 3 : 1);
+                    return;
+                }
+                if (_this.previousCurve == undefined)
+                    return;
+                _this.setCurve(_this.previousCurve);
+            };
         }
         ForceFilmicInDomain.prototype.setCurve = function (i) {
             Render.getConfig("RenderMainView.ToneMapping")["curve"] = i;
         };
         ForceFilmicInDomain.prototype.getCurve = function () {
             return Render.getConfig("RenderMainView.ToneMapping")["curve"];
-        };
-        ForceFilmicInDomain.prototype.disable = function () {
-            Script.clearInterval(this.interval);
-            var foxEssentials = Settings.getValue("cat.maki.foxEssentials.enableFilmicToneMapping");
-            if (foxEssentials != undefined) {
-                this.setCurve(foxEssentials ? 3 : 1);
-                return;
-            }
-            if (this.previousCurve == undefined)
-                return;
-            this.setCurve(this.previousCurve);
         };
         ForceFilmicInDomain.prototype.preload = function () {
             var _this = this;

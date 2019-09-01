@@ -31,8 +31,8 @@
 			this.loadAvatar(entityID);
 		}
 
-		clickDownOnEntity(entityID: Uuid, mouseEvent: MouseEvent) {
-			if (mouseEvent.isLeftButton) this.loadAvatar(entityID);
+		clickDownOnEntity(entityID: Uuid, event: PointerEvent) {
+			if (event.isLeftButton) this.loadAvatar(entityID);
 		}
 	}
 
