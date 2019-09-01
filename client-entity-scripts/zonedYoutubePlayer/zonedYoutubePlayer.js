@@ -10,9 +10,7 @@ box entity
     "controls": false,
     "dpi": 5
 }
-
-for some reason you cant interact with
-the web entity. i dont know why
+- insert script url
 */
 (function () {
     var ZonedYoutubePlayer = /** @class */ (function () {
