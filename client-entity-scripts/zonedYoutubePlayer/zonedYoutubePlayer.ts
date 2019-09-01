@@ -1,7 +1,7 @@
 /*
 box entity
-- dimensions 16,0,9 and resize
-- turn off visable
+- dimensions 16,9,0 and resize
+- turn off visible
 - add zone as child
 - add userdata
 {
@@ -89,8 +89,8 @@ box entity
 			if (!userData.videoID) return;
 
 			// create local web entity
-			//let url = Script.resolvePath("player.html")+(
-			let url = "http://127.0.0.1:8080/player.html"+(
+			let url = Script.resolvePath("player.html")+(
+			//let url = "http://127.0.0.1:8080/player.html"+(
 				"?id="+entityID+
 				"&videoID="+userData.videoID+
 				((userData.controls)? "&controls=1": "")+
