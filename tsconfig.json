@@ -5,7 +5,6 @@
 		"strict": true,
 		"target": "es3",
 		"lib": ["es5"],
-		//"downlevelIteration": true,
 	},
 	"exclude": [
 		"typings-broken"
