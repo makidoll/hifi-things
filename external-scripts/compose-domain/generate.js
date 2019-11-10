@@ -3,7 +3,7 @@
 var fs = require("fs");
 var YAML = require("yaml");
 
-var config = require("./domains.js");
+var config = require("./config.js");
 var services = {};
 
 Object.keys(config.domains).forEach(name => {
