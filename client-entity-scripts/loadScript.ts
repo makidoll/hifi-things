@@ -51,8 +51,8 @@
 			this.loadScript();
 		};
 
-		clickDownOnEntity(entityID: Uuid, mouseEvent: MouseEvent) {
-			if (mouseEvent.isLeftButton) this.loadScript();
+		clickDownOnEntity(entityID: Uuid, event: PointerEvent) {
+			if (event.isLeftButton) this.loadScript();
 		}
 	}
 

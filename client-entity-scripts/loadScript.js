@@ -51,8 +51,8 @@
             this.loadScript();
         };
         ;
-        LoadScript.prototype.clickDownOnEntity = function (entityID, mouseEvent) {
-            if (mouseEvent.isLeftButton)
+        LoadScript.prototype.clickDownOnEntity = function (entityID, event) {
+            if (event.isLeftButton)
                 this.loadScript();
         };
         return LoadScript;

@@ -27,8 +27,8 @@
         OpenURL.prototype.startNearTrigger = function () {
             this.openURL();
         };
-        OpenURL.prototype.clickDownOnEntity = function (_, mouseEvent) {
-            if (mouseEvent.button != "Primary")
+        OpenURL.prototype.clickDownOnEntity = function (_, event) {
+            if (event.button != "Primary")
                 return;
             this.openURL();
         };

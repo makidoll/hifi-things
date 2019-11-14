@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+
+			body {
+				background: #000;
+				overflow: hidden;
+			}
+
+			#player {
+				width: 100vw !important;
+				height: 100vh !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="player"></div>
+		<iframe src="silence.ogg" allow="autoplay" style="display: none;"></iframe>
+		<script type="text/javascript">
+			var _GET = {};
+			if (window.location.search.length>1) {
+				window.location.search.substr(1).split("&").forEach(p=>{
+					p = p.split("=");
+					_GET[p[0]] = decodeURI(p[1]);
+				});
+			}
+
+			var player;
+			function onYouTubeIframeAPIReady() {
+				player = new YT.Player("player", {
+					videoId: _GET.videoID,
+					playerVars: {
+						autoplay: 0,
+						controls: (_GET.controls=="1")?1:0,
+						loop: 0,
+						fs: 0,
+						rel: 0,
+					},
+					events: {
+						"onReady": e=>{
+							//e.target.playVideo();
+						},
+					}
+				});
+			}
+
+			var tag = document.createElement("script");
+			tag.src = "https://www.youtube.com/iframe_api";
+			var firstScriptTag = document.getElementsByTagName("script")[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+
+			if (window.qt) {
+				setTimeout(()=>{
+					EventBridge.scriptEventReceived.connect(msg=>{
+						try {
+							msg = msg.split(",");
+							if (msg.length<2) return;
+							if (msg[0] != _GET.id) return;
+
+							console.log(msg[1]);
+
+							switch(msg[1]) {
+								case "play":
+									if (_GET.restartOnEnter == "1") {
+										player.seekTo(0).playVideo();
+									} else {
+										player.playVideo();
+									}
+									break;
+								case "pause":
+									player.pauseVideo();
+									break;
+							}
+						} catch(err) {}
+					});
+				}, 200);
+			}
+		</script>
+	</body>
+</html>

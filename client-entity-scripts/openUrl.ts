@@ -26,8 +26,8 @@
 			this.openURL();
 		}
 
-		clickDownOnEntity(_: Uuid, mouseEvent: MouseEvent) {
-			if (mouseEvent.button != "Primary") return;
+		clickDownOnEntity(_: Uuid, event: PointerEvent) {
+			if (event.button != "Primary") return;
 			this.openURL();
 		}
 	}

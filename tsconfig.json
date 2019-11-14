@@ -3,8 +3,8 @@
 		"pretty": true,
 		"removeComments": false,
 		"strict": true,
-		"target": "es5",
-		"lib": ["es5"],
+		"target": "es3",
+		"lib": ["es5"]
 	},
 	"exclude": [
 		"typings-broken"

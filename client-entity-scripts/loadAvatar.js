@@ -28,8 +28,8 @@
         LoadAvatar.prototype.startFarTrigger = function (entityID) {
             this.loadAvatar(entityID);
         };
-        LoadAvatar.prototype.clickDownOnEntity = function (entityID, mouseEvent) {
-            if (mouseEvent.isLeftButton)
+        LoadAvatar.prototype.clickDownOnEntity = function (entityID, event) {
+            if (event.isLeftButton)
                 this.loadAvatar(entityID);
         };
         return LoadAvatar;

@@ -11,7 +11,7 @@
 			return (Render.getConfig("RenderMainView.ToneMapping") as any)["curve"];
 		}
 
-		disable() {
+		disable = ()=>{
 			Script.clearInterval(this.interval);
 
 			var foxEssentials = Settings.getValue("cat.maki.foxEssentials.enableFilmicToneMapping");
