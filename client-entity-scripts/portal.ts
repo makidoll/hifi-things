@@ -77,7 +77,7 @@
 
 			MyAvatar.position = Vec3.sum(
 				entity.position,
-				Vec3.multiplyQbyV(entity.rotation, {x:0,y:0,z:1})
+				Vec3.multiplyQbyV(entity.rotation, {x:0,y:0,z:1} as Vec3)
 			);
 
 			MyAvatar.orientation = Quat.multiply(

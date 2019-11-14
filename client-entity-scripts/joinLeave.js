@@ -1,68 +1,75 @@
-// userData = {
-// 	announce: true,
-// 	joinAudio: "https://maki.cat/hifi/sounds/elevatorJoin.mp3",
-// 	leaveAudio: "https://maki.cat/hifi/sounds/elevatorLeave.mp3"
-// }
-
-(function() {
-	var announce = true;
-	var joinAudio = undefined;
-	var leaveAudio = undefined;
-
-	var avatarDisplayNames = {}
-
-	function avatarAddedEvent(sessionUUID) {
-		var avatar = AvatarList.getAvatar(sessionUUID);
-
-		Script.setTimeout(function() {	
-			avatarDisplayNames[sessionUUID] = avatar.sessionDisplayName;
-			Window.displayAnnouncement(avatar.sessionDisplayName+" joined the domain");
-		}, 500);
-
-		if (joinAudio) if (joinAudio.downloaded)
-			Audio.playSound(joinAudio, {
-				volume: 0.08,
-				localOnly: true,
-			});
-	}
-
-	function avatarRemovedEvent(sessionUUID) {
-		Window.displayAnnouncement(avatarDisplayNames[sessionUUID]+" left the domain");
-
-		if (leaveAudio) if (leaveAudio.downloaded)
-			Audio.playSound(leaveAudio, {
-				volume: 0.08,
-				localOnly: true,
-			});
-	}
-
-	this.preload = function(entityID) {
-		var userData = Entities.getEntityProperties(entityID, ["userData"]).userData;
-		try { userData = JSON.parse(userData);
-		} catch(err) { userData = {}; }
-
-		if (userData.announce == false) announce = false;
-
-		joinAudio = (userData.joinAudio)?
-			SoundCache.getSound(userData.joinAudio):
-			SoundCache.getSound("https://maki.cat/hifi/sounds/elevatorJoin.mp3");
-
-		leaveAudio = (userData.leaveAudio)?
-			SoundCache.getSound(userData.leaveAudio):
-			SoundCache.getSound("https://maki.cat/hifi/sounds/elevatorLeave.mp3");
-
-		if (announce) AvatarList.getAvatarIdentifiers().forEach(function(sessionUUID) {
-			avatarDisplayNames[sessionUUID] =
-				AvatarList.getAvatar(sessionUUID).sessionDisplayName;
-		});
-
-		AvatarManager.avatarAddedEvent.connect(avatarAddedEvent);
-		AvatarManager.avatarRemovedEvent.connect(avatarRemovedEvent);
-	}
-
-	this.unload = function() {
-		AvatarManager.avatarAddedEvent.disconnect(avatarAddedEvent);
-		AvatarManager.avatarRemovedEvent.disconnect(avatarRemovedEvent);
-	}
-
+"use strict";
+/*
+userData = {
+    "announce": true,
+    "joinAudio": "https://maki.cat/hifi/sounds/elevatorJoin.mp3",
+    "leaveAudio": "https://maki.cat/hifi/sounds/elevatorLeave.mp3"
+}
+*/
+(function () {
+    var JoinLeave = /** @class */ (function () {
+        function JoinLeave() {
+            this.announce = true;
+            this.joinAudio = {};
+            this.leaveAudio = {};
+            this.avatarDisplayNames = {};
+        }
+        JoinLeave.prototype.avatarAddedEvent = function (sessionUUID) {
+            var _this = this;
+            var avatar = AvatarManager.getAvatar(sessionUUID);
+            Script.setTimeout(function () {
+                _this.avatarDisplayNames[sessionUUID] = avatar.sessionDisplayName;
+                Window.displayAnnouncement(avatar.sessionDisplayName + " joined the domain");
+            }, 500);
+            if (this.joinAudio)
+                if (this.joinAudio.downloaded)
+                    Audio.playSound(this.joinAudio, {
+                        volume: 0.08,
+                        localOnly: true,
+                    });
+        };
+        JoinLeave.prototype.avatarRemovedEvent = function (sessionUUID) {
+            Window.displayAnnouncement(this.avatarDisplayNames[sessionUUID] + " left the domain");
+            if (this.leaveAudio)
+                if (this.leaveAudio.downloaded)
+                    Audio.playSound(this.leaveAudio, {
+                        volume: 0.08,
+                        localOnly: true
+                    });
+        };
+        JoinLeave.prototype.preload = function (entityID) {
+            var userData;
+            var entity = Entities.getEntityProperties(entityID, ["userData"]);
+            try {
+                userData = JSON.parse(entity.userData);
+            }
+            catch (err) {
+                userData = {};
+            }
+            if (userData.announce == false)
+                this.announce = false;
+            this.joinAudio = (userData.joinAudio) ?
+                SoundCache.getSound(userData.joinAudio) :
+                SoundCache.getSound("https://maki.cat/hifi/sounds/elevatorJoin.mp3");
+            this.leaveAudio = (userData.leaveAudio) ?
+                SoundCache.getSound(userData.leaveAudio) :
+                SoundCache.getSound("https://maki.cat/hifi/sounds/elevatorLeave.mp3");
+            if (this.announce) {
+                var sessionUUIDs = AvatarManager.getAvatarIdentifiers();
+                for (var i in sessionUUIDs) {
+                    var sessionUUID = sessionUUIDs[i];
+                    this.avatarDisplayNames[sessionUUID] =
+                        AvatarManager.getAvatar(sessionUUID).sessionDisplayName;
+                }
+            }
+            AvatarManager.avatarAddedEvent.connect(this.avatarAddedEvent.bind(this));
+            AvatarManager.avatarRemovedEvent.connect(this.avatarRemovedEvent.bind(this));
+        };
+        JoinLeave.prototype.unload = function () {
+            AvatarManager.avatarAddedEvent.disconnect(this.avatarAddedEvent.bind(this));
+            AvatarManager.avatarRemovedEvent.disconnect(this.avatarRemovedEvent.bind(this));
+        };
+        return JoinLeave;
+    }());
+    return new JoinLeave();
 });
