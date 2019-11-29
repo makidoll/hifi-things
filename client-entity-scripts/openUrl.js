@@ -12,7 +12,9 @@
             this.entityID = entityID;
         };
         OpenURL.prototype.openURL = function () {
-            var entity = Entities.getEntityProperties(this.entityID, ["userData"]);
+            var entity = Entities.getEntityProperties(this.entityID, [
+                "userData",
+            ]);
             var userData;
             try {
                 userData = JSON.parse(entity.userData);

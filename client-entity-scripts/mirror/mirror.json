@@ -1,0 +1,53 @@
+{
+	"DataVersion": 0,
+	"Entities": [
+		{
+			"id": "{f0daabb8-432e-40ed-aa06-58be75c9f67c}",
+			"type": "Model",
+			"name": "Mirror",
+			"userData": "{\"resolution\":1024,\"farClip\":32}",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			},
+			"dimensions": {
+				"x": 3,
+				"y": 2,
+				"z": 0
+			},
+			"rotation": {
+				"x": 0,
+				"y": 0,
+				"z": 0,
+				"w": 1
+			},
+			"script": "https://hifi.maki.cat/client-entity-scripts/mirror/mirrorReflection.js",
+			"modelURL": "https://hifi.maki.cat/client-entity-scripts/mirror/mirror.fbx"
+		},
+		{
+			"type": "Zone",
+			"parentID": "{f0daabb8-432e-40ed-aa06-58be75c9f67c}",
+			"name": "Mirror Zone",
+			"position": {
+				"x": 0,
+				"y": 0,
+				"z": 3
+			},
+			"dimensions": {
+				"x": 6,
+				"y": 4,
+				"z": 6
+			},
+			"rotation": {
+				"x": 0,
+				"y": 0,
+				"z": 0,
+				"w": 1
+			},
+			"script": "https://hifi.maki.cat/client-entity-scripts/mirror/mirrorZone.js",
+			"shapeType": "box"
+		}
+	],
+	"Version": 125
+}

@@ -4,7 +4,7 @@
 }
 */
 
-(()=>{
+() => {
 	class OpenURL implements ClientEntityScript {
 		entityID: Uuid = "";
 
@@ -13,13 +13,18 @@
 		}
 
 		openURL() {
-			let entity = Entities.getEntityProperties(this.entityID, ["userData"]);
-			let userData: {url: string};
+			let entity = Entities.getEntityProperties(this.entityID, [
+				"userData",
+			]);
+			let userData: { url: string };
 
-			try { userData = JSON.parse(entity.userData);
-			} catch(err) { return; }
+			try {
+				userData = JSON.parse(entity.userData);
+			} catch (err) {
+				return;
+			}
 
-			if (userData.url!=undefined) Window.openURL(userData.url);
+			if (userData.url != undefined) Window.openURL(userData.url);
 		}
 
 		startNearTrigger() {
@@ -31,4 +36,4 @@
 			this.openURL();
 		}
 	}
-});
+};
