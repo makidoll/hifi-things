@@ -1,4 +1,3 @@
-"use strict";
 (function () {
     var ForceFilmicInDomain = /** @class */ (function () {
         function ForceFilmicInDomain() {

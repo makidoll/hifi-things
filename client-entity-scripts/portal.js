@@ -1,4 +1,3 @@
-"use strict";
 /*
 {
     "address": "" // you can find this in "Navigage > Copy Address to Clipboard"

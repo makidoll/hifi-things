@@ -1,4 +1,3 @@
-"use strict";
 (function () {
     var ForceGoodGraphics = /** @class */ (function () {
         function ForceGoodGraphics() {

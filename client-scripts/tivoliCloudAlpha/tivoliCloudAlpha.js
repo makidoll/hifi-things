@@ -1,4 +1,3 @@
-"use strict";
 var TivoliCloud = /** @class */ (function () {
     function TivoliCloud() {
         var _this = this;

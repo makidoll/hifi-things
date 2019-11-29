@@ -1,4 +1,3 @@
-"use strict";
 /*
 {
     "url": "https://google.com"

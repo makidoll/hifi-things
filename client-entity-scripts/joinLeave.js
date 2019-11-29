@@ -1,4 +1,3 @@
-"use strict";
 /*
 userData = {
     "announce": true,
@@ -25,7 +24,7 @@ userData = {
                 if (this.joinAudio.downloaded)
                     Audio.playSound(this.joinAudio, {
                         volume: 0.08,
-                        localOnly: true,
+                        localOnly: true
                     });
         };
         JoinLeave.prototype.avatarRemovedEvent = function (sessionUUID) {

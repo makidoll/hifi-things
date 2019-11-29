@@ -1,4 +1,3 @@
-"use strict";
 /*
 - Enable triggerable
 - Enter in userData

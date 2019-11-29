@@ -2,11 +2,7 @@
 	"compilerOptions": {
 		"pretty": true,
 		"removeComments": false,
-		"strict": true,
 		"target": "es3",
 		"lib": ["es5"]
-	},
-	"exclude": [
-		"typings-broken"
-	]
+	}
 }

@@ -1,4 +1,3 @@
-"use strict";
 /*
 - Enable triggerable
 - Enter url in modelURL or description

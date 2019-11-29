@@ -1,4 +1,3 @@
-"use strict";
 /*
 box entity
 - dimensions 16,9,0 and resize
