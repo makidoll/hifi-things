@@ -3,6 +3,8 @@
 		"pretty": true,
 		"removeComments": false,
 		"target": "es3",
-		"lib": ["es5"]
-	}
+		"lib": ["es5"],
+		"types": []
+	},
+	"include": ["**/*", "types"]
 }
