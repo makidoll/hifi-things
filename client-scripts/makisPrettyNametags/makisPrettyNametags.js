@@ -62,6 +62,7 @@ function addNametag(id, details) {
 		billboardMode: "full",
 		imageURL: "",
 		alpha: 0,
+		isVisibleInSecondaryCamera: false
 	}, "local");
 
 	updateNametagEntity(nametag);
