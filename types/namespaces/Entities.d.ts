@@ -3,6 +3,10 @@ declare namespace Entities {
 	var keyboardFocusEntity: Uuid;
 
 	// methods
+	type Partial<T> = {
+		[K in keyof T]?: T[K];
+	};
+
 	function addEntity(
 		properties:
 			| EntityProperties
@@ -24,7 +28,6 @@ declare namespace Entities {
 			| EntityPropertiesZone,
 		entityHostType: EntityHostType,
 	): Uuid;
-
 	function addEntity(
 		properties:
 			| EntityProperties
@@ -46,19 +49,36 @@ declare namespace Entities {
 			| EntityPropertiesZone,
 		avatarEntity: boolean,
 	): Uuid;
-
 	function callEntityMethod(
 		entityID: Uuid,
 		method: string,
 		parameters?: string[],
 	): void;
-
 	function deleteEntity(entityID: Uuid): void;
-
+	function editEntity<T>(
+		entityID: Uuid,
+		properties: Partial<
+			| EntityProperties
+			| EntityPropertiesBox
+			| EntityPropertiesGizmo
+			| EntityPropertiesGrid
+			| EntityPropertiesImage
+			| EntityPropertiesLight
+			| EntityPropertiesLine
+			| EntityPropertiesMaterial
+			| EntityPropertiesModel
+			| EntityPropertiesParticleEffect
+			| EntityPropertiesPolyLine
+			| EntityPropertiesPolyVox
+			| EntityPropertiesShape
+			| EntityPropertiesSphere
+			| EntityPropertiesText
+			| EntityPropertiesWeb
+			| EntityPropertiesZone
+		>,
+	): Uuid;
 	function emitScriptEvent(entityID: Uuid, message: string): void;
-
 	function getChildrenIDs(entityID: Uuid): Uuid[];
-
 	function getEntityProperties(
 		entityID: any,
 		desiredProperties?: string[],

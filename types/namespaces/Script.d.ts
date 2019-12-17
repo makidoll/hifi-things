@@ -12,4 +12,5 @@ declare namespace Script {
 	function clearTimeout(timer: Timer): void;
 
 	const scriptEnding: Signal;
+	const update: Signal;
 }
