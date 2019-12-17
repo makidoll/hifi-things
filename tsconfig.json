@@ -6,5 +6,6 @@
 		"lib": ["es5"],
 		"types": []
 	},
-	"include": ["**/*", "types"]
+	"include": ["**/*", "types"],
+	"exclude": ["external-scripts"]
 }

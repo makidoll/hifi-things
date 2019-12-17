@@ -11,13 +11,11 @@ var browserRunning = false;
 var cache = {};
 
 var scale = 2;
-var viewport = [
-	512*scale,
-	64*scale
-];	
+var viewport = [512 * scale, 64 * scale];
 
-(async ()=>{
+(async () => {
 	const browser = await puppeteer.launch({
+		headless: false,
 		executablePath: "google-chrome-unstable",
 		args: ["--no-sandbox"],
 		defaultViewport: {
@@ -29,22 +27,30 @@ var viewport = [
 	browserRunning = true;
 	console.log("Browser running");
 
-	events.on("generateNametag", async info=>{ // {id,username,avatarURL,connection,admin,theme}
+	events.on("generateNametag", async info => {
+		// {id,username,avatarURL,connection,admin,theme}
 		let filename = "nametag";
-		if (info.theme) filename+="-"+info.theme;
+		if (info.theme) filename += "-" + info.theme;
 
 		let html;
 		try {
-			html = fs.readFileSync(__dirname+"/"+filename+".html", "utf8");
-		} catch(err) { 
-			html = fs.readFileSync(__dirname+"/nametag.html", "utf8");
+			html = fs.readFileSync(
+				__dirname + "/" + filename + ".html",
+				"utf8",
+			);
+		} catch (err) {
+			html = fs.readFileSync(__dirname + "/nametag.html", "utf8");
 		}
 
 		html = html.replace(/\[username\]/g, info.username);
 		html = html.replace(/\[avatarURL\]/g, info.avatarURL);
 		switch (info.connection) {
-			case "connection": html = html.replace(/<!--connection([\s\S]*?)-->/g, "$1"); break;
-			case "friend": html = html.replace(/<!--friend([\s\S]*?)-->/g, "$1"); break;
+			case "connection":
+				html = html.replace(/<!--connection([\s\S]*?)-->/g, "$1");
+				break;
+			case "friend":
+				html = html.replace(/<!--friend([\s\S]*?)-->/g, "$1");
+				break;
 		}
 		if (info.admin) html = html.replace(/<!--admin([\s\S]*?)-->/g, "$1");
 
@@ -55,17 +61,18 @@ var viewport = [
 			deviceScaleFactor: 1
 		})*/
 
-		page.on("load", async ()=>{
+		page.on("load", async () => {
 			//const width = await page.$eval("#nametag", el=>el.offsetWidth*4);
 
 			const buffer = await page.screenshot({
 				type: "png",
 				omitBackground: true,
 				clip: {
-					x: 0, y: 0,
+					x: 0,
+					y: 0,
 					width: viewport[0],
 					height: viewport[1],
-				}
+				},
 			});
 
 			events.emit("generateNametagReceive", {
@@ -74,18 +81,19 @@ var viewport = [
 				//width: width/256,
 			});
 
-			setTimeout(()=>{
-				page.close().catch(err=>{});
-			}, 1000*10);
+			page.close().catch(err => {});
+			//setTimeout(() => {
+			//}, 1000 * 10);
 		});
 
-		page.setContent(html, {waitUntil: "networkidle0"}).catch(err=>{});
+		page.setContent(html, { waitUntil: "networkidle0" }).catch(err => {});
 	});
 })();
 
 let lastID = 0;
-const generateNametag = info=>new Promise((resolve,reject)=>{
-	/* info = {
+const generateNametag = info =>
+	new Promise((resolve, reject) => {
+		/* info = {
 		username: String,
 		avatarURL: String,
 		connection: String,
@@ -93,38 +101,39 @@ const generateNametag = info=>new Promise((resolve,reject)=>{
 		theme: String // optional
 	} */
 
-	let infoKey = JSON.stringify(info);
+		let infoKey = JSON.stringify(info);
 
-	// check cache
-	let cachedBuffer = cache[infoKey];
-	if (cachedBuffer!=undefined) {
-		return resolve(cachedBuffer);
-	}
+		// check cache
+		let cachedBuffer = cache[infoKey];
+		if (cachedBuffer != undefined) {
+			return resolve(cachedBuffer);
+		}
 
-	// generate id for the event handler
-	let id = lastID;
-	lastID++;
-	if (lastID>10000) lastID = 0;
+		// generate id for the event handler
+		let id = lastID;
+		lastID++;
+		if (lastID > 10000) lastID = 0;
 
-	function receive(info) { // {id,buffer}
-		if (info.id != id) return;
-		resolve(info.buffer);
-		cache[infoKey] = info.buffer;
-		events.off("generateNametagReceive", receive);
-		return;
-	}
+		function receive(info) {
+			// {id,buffer}
+			if (info.id != id) return;
+			resolve(info.buffer);
+			cache[infoKey] = info.buffer;
+			events.off("generateNametagReceive", receive);
+			return;
+		}
 
-	events.on("generateNametagReceive", receive);
+		events.on("generateNametagReceive", receive);
 
-	info.id = id;
-	events.emit("generateNametag", info);
-});
+		info.id = id;
+		events.emit("generateNametag", info);
+	});
 
-app.get("/", (req,res)=>{
-	if (req.query.username==undefined) return res.end();
-	if (req.query.avatarURL==undefined) return res.end();
-	if (req.query.connection==undefined) return res.end();
-	if (req.query.admin==undefined) return res.end();
+app.get("/", (req, res) => {
+	if (req.query.username == undefined) return res.end();
+	if (req.query.avatarURL == undefined) return res.end();
+	if (req.query.connection == undefined) return res.end();
+	if (req.query.admin == undefined) return res.end();
 
 	function completeReq() {
 		//console.log("Generating "+req.query.username);
@@ -132,17 +141,19 @@ app.get("/", (req,res)=>{
 			username: req.query.username,
 			avatarURL: req.query.avatarURL.split("?")[0],
 			connection: req.query.connection,
-			admin: req.query.admin!="false",
-			theme: req.query.theme
-		}).then(buffer=>{
-			res.setHeader("Content-Type", "image/png");
-			//res.setHeader("Nametag-Width", nametag.width)
-			res.end(buffer);
-		}).catch(err=>{});
+			admin: req.query.admin != "false",
+			theme: req.query.theme,
+		})
+			.then(buffer => {
+				res.setHeader("Content-Type", "image/png");
+				//res.setHeader("Nametag-Width", nametag.width)
+				res.end(buffer);
+			})
+			.catch(err => {});
 	}
 
 	if (!browserRunning) {
-		let interval = setInterval(()=>{
+		let interval = setInterval(() => {
 			if (!browserRunning) return;
 			clearInterval(interval);
 			completeReq();
