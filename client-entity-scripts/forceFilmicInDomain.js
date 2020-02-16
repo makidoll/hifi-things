@@ -2,30 +2,27 @@
     var ForceFilmicInDomain = /** @class */ (function () {
         function ForceFilmicInDomain() {
             var _this = this;
-            this.interval = {};
-            this.previousCurve = -1;
             this.disable = function () {
                 Script.clearInterval(_this.interval);
                 var foxEssentials = Settings.getValue("cat.maki.foxEssentials.enableFilmicToneMapping");
-                if (foxEssentials != undefined) {
-                    _this.setCurve(foxEssentials ? 3 : 1);
-                    return;
-                }
-                if (_this.previousCurve == undefined)
-                    return;
-                _this.setCurve(_this.previousCurve);
+                if (foxEssentials != null)
+                    return _this.setCurve(foxEssentials ? 3 : 1);
+                //if (this.previousCurve != null)
+                //	return this.setCurve(this.previousCurve);
+                _this.setCurve(1);
             };
         }
-        ForceFilmicInDomain.prototype.setCurve = function (i) {
-            Render.getConfig("RenderMainView.ToneMapping")["curve"] = i;
+        //previousCurve: ToneMappingCurve;
+        ForceFilmicInDomain.prototype.setCurve = function (c) {
+            Render.getConfig("RenderMainView.ToneMapping")["curve"] = c;
         };
         ForceFilmicInDomain.prototype.getCurve = function () {
             return Render.getConfig("RenderMainView.ToneMapping")["curve"];
         };
         ForceFilmicInDomain.prototype.preload = function () {
+            //this.previousCurve = this.getCurve();
             var _this = this;
-            this.previousCurve = this.getCurve();
-            this.setCurve(3);
+            this.setCurve(3); // filmic
             this.interval = Script.setInterval(function () {
                 if (_this.getCurve() != 3)
                     _this.setCurve(3);
