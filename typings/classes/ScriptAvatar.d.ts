@@ -1,0 +1,57 @@
+declare class ScriptAvatar {
+	position: Vec3;
+	scale: number;
+	handPosition: Vec3;
+	bodyPitch: number;
+	bodyYaw: number;
+	bodyRoll: number;
+	orientation: Quat;
+	headOrientation: Quat;
+	headPitch: number;
+	headYaw: number;
+	headRoll: number;
+	velocity: Vec3;
+	angularVelocity: Vec3;
+	sessionUUID: Uuid;
+	displayName: string;
+	sessionDisplayName: string;
+	lookAtSnappingEnabled: boolean;
+	skeletonModelURL: string;
+	jointNames: string[];
+	audioLoudness: number;
+	audioAverageLoudness: number;
+	sensorToWorldMatrix: Mat4;
+	controllerLeftHandMatrix: Mat4;
+	controllerRightHandMatrix: Mat4;
+	skeletonOffset: Vec3;
+
+	getAbsoluteJointRotationInObjectFrame(index: number): Quat;
+	getAbsoluteJointTranslationInObjectFrame(index: number): Vec3;
+	getAcceleration(): Vec3;
+	getDefaultJointRotation(index: number): Quat;
+	getDefaultJointTranslation(index: number): Vec3;
+	getHandState(): HandState;
+	getJointIndex(name: string): number;
+	getJointNames(): string[];
+	getJointPosition(index: number): Vec3;
+	getJointPosition(name: string): Vec3;
+	getJointRotation(index: number): Quat;
+	getJointRotation(name: string): Quat;
+	getJointRotations(): Quat[];
+	getJointTranslation(index: number): Quat;
+	getJointTranslation(name: string): Vec3;
+	getJointTranslations(): Vec3[];
+	getLeftPalmPosition(): Vec3;
+	getLeftPalmRotation(): Quat;
+	getNeckPosition(): Vec3;
+	getParentID(): Uuid;
+	getParentJointIndex(): number;
+	getSkeleton(): SkeletonJoint[];
+	getSkeletonOffset(): Vec3;
+	isJointDataValid(index: number): boolean;
+
+	readonly displayNameChanged: Signal<() => any>;
+	readonly lookAtSnappingChanged: Signal<(enabled: boolean) => any>;
+	readonly sessionDisplayNameChanged: Signal<() => any>;
+	readonly skeletonModelURLChanged: Signal<() => any>;
+}

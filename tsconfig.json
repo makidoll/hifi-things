@@ -1,11 +1,10 @@
 {
 	"compilerOptions": {
-		"pretty": true,
-		"removeComments": false,
 		"target": "es3",
 		"lib": ["es5"],
-		"types": []
+		"types": [],
+		"removeComments": false
 	},
-	"include": ["**/*", "types"],
+	"include": ["**/*", "typings"],
 	"exclude": ["external-scripts"]
 }
