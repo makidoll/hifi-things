@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/invisible.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/invisible.fs",
 		"version": 2
 	}
 }

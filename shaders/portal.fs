@@ -3,8 +3,8 @@ on a cube sized 2, 3, 0.5
 
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/portal.fs",
-		"channels": ["https://hifi.maki.cat/shaders/my-room.jpg"],
+		"shaderUrl": "https://hifi.maki.cafe/shaders/portal.fs",
+		"channels": ["https://hifi.maki.cafe/shaders/my-room.jpg"],
 		"version": 3
 	}
 }

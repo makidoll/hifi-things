@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/client-entity-scripts/welcomeSign/thePalace.fs",
+		"shaderUrl": "https://hifi.maki.cafe/client-entity-scripts/welcomeSign/thePalace.fs",
 		"version": 3,
 		"uniforms": {
 			"size": 6,

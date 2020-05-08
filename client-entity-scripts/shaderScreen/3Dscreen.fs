@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/client-entity-scripts/shaderScreen/3dScreen.fs",
+		"shaderUrl": "https://hifi.maki.cafe/client-entity-scripts/shaderScreen/3dScreen.fs",
 		"channels": ["resource://spectatorCameraFrame"],
 		"version": 3
 	}

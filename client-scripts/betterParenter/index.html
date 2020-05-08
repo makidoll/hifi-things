@@ -2,11 +2,15 @@
 <html>
 	<head>
 		<title>Better Parenter</title>
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400" rel="stylesheet">
+		<link
+			href="https://fonts.googleapis.com/css?family=Roboto:400"
+			rel="stylesheet"
+		/>
 		<style type="text/css">
 			* {
-				margin: 0; padding: 0;
-				transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
+				margin: 0;
+				padding: 0;
+				transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
 			}
 
 			*:focus {
@@ -23,23 +27,23 @@
 			}
 
 			body::-webkit-scrollbar {
-			    width: 12px;
-			}
-			 
-			body::-webkit-scrollbar-track {
-			    background-color: rgba(255,255,255,0.2);
-			}
-			 
-			body::-webkit-scrollbar-thumb {
-			  	background-color: rgba(255,255,255,0.6);
+				width: 12px;
 			}
 
-			input[type=number]::-webkit-inner-spin-button, 
-			input[type=number]::-webkit-outer-spin-button { 
-				appearance: none; 
-				-moz-appearance: none; 
-				-webkit-appearance: none; 
-				margin: 0; 
+			body::-webkit-scrollbar-track {
+				background-color: rgba(255, 255, 255, 0.2);
+			}
+
+			body::-webkit-scrollbar-thumb {
+				background-color: rgba(255, 255, 255, 0.6);
+			}
+
+			input[type="number"]::-webkit-inner-spin-button,
+			input[type="number"]::-webkit-outer-spin-button {
+				appearance: none;
+				-moz-appearance: none;
+				-webkit-appearance: none;
+				margin: 0;
 			}
 
 			.entity {
@@ -47,9 +51,8 @@
 				height: 20px;
 				border-collapse: collapse;
 				cursor: move;
-				transition: 
-					200ms opacity cubic-bezier(0.4, 0.0, 0.2, 1),
-					100ms outline cubic-bezier(0.4, 0.0, 0.2, 1);
+				transition: 200ms opacity cubic-bezier(0.4, 0, 0.2, 1),
+					100ms outline cubic-bezier(0.4, 0, 0.2, 1);
 				background-color: #fff;
 				position: relative;
 				table-layout: fixed;
@@ -62,30 +65,34 @@
 				text-overflow: ellipsis;
 			}
 
-			.entity>tr>td:nth-child(1) {
-				background: rgba(255,255,255,0.15);
+			.entity > tr > td:nth-child(1) {
+				background: rgba(255, 255, 255, 0.15);
 				width: 24px;
-				fill: rgba(255,255,255,0.9);
+				fill: rgba(255, 255, 255, 0.9);
 				text-align: center;
 				cursor: pointer;
 			}
 
-			.entity>tr>td:nth-child(2) {
-				background: rgba(255,255,255,0.075);
+			.entity > tr > td:nth-child(2) {
+				background: rgba(255, 255, 255, 0.075);
 				width: 60px;
 				text-align: center;
 			}
 
-			.entity>tr>td:nth-child(3) {
-				width: 40%
+			.entity > tr > td:nth-child(3) {
+				width: 40%;
 			}
 
-			.entity>tr>td:nth-child(4) {
+			.entity > tr > td:nth-child(4) {
 				opacity: 0.6;
 				font-size: 12px;
 			}
 
-			a, a:link, a:active, a:hover, a:visited {
+			a,
+			a:link,
+			a:active,
+			a:hover,
+			a:visited {
 				color: inherit;
 				text-decoration: inherit;
 			}
@@ -111,7 +118,8 @@
 			}
 
 			.icon {
-				width: 24px; height: 24px;
+				width: 24px;
+				height: 24px;
 				display: inline-block;
 				margin-bottom: -6px;
 				transition: none;
@@ -125,18 +133,18 @@
 				font-family: "Roboto";
 				color: #fff;
 				width: calc(100% - 28px);
-				border: solid 4px rgba(255,255,255,0.6);
+				border: solid 4px rgba(255, 255, 255, 0.6);
 				background: transparent;
 				padding: 5px 10px;
 				font-size: 16px;
 			}
 
 			input::placeholder {
-				color: rgba(255,255,255,0.6);
+				color: rgba(255, 255, 255, 0.6);
 			}
 
 			input::selection {
-				background: rgba(255,255,255,0.15);
+				background: rgba(255, 255, 255, 0.15);
 			}
 		</style>
 	</head>
@@ -144,18 +152,56 @@
 		<table style="margin-bottom: 20px; width: 100%;">
 			<tr>
 				<td style="width: 160px; vertical-align: bottom;">
-					<h1><span id="found-entities">0</span> <span style="font-size: 24px;">found</span></h1>
-					<h1><span id="selected-entities">0</span> <span style="font-size: 24px;">selected</span></h1>
-				</td>				<td style="text-align: right; vertical-align: bottom;">
-					<a href="javascript:reload()"><div class="button"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 12H1l4-4 4 4H6c0 3.31 2.69 6 6 6 1.01 0 1.97-.25 2.8-.7l1.46 1.46A7.93 7.93 0 0 1 12 20c-4.42 0-8-3.58-8-8zm14 0c0-3.31-2.69-6-6-6-1.01 0-1.97.25-2.8.7L7.74 5.24A7.93 7.93 0 0 1 12 4c4.42 0 8 3.58 8 8h3l-4 4-4-4h3z"/></svg> Reload</div></a>
-					<a href="javascript:clearSelection()"><div class="button"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg> Deselect All</div></a>
+					<h1>
+						<span id="found-entities">0</span>
+						<span style="font-size: 24px;">found</span>
+					</h1>
+					<h1>
+						<span id="selected-entities">0</span>
+						<span style="font-size: 24px;">selected</span>
+					</h1>
+				</td>
+				<td style="text-align: right; vertical-align: bottom;">
+					<a href="javascript:reload()"
+						><div class="button">
+							<svg
+								class="icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+							>
+								<path
+									d="M4 12H1l4-4 4 4H6c0 3.31 2.69 6 6 6 1.01 0 1.97-.25 2.8-.7l1.46 1.46A7.93 7.93 0 0 1 12 20c-4.42 0-8-3.58-8-8zm14 0c0-3.31-2.69-6-6-6-1.01 0-1.97.25-2.8.7L7.74 5.24A7.93 7.93 0 0 1 12 4c4.42 0 8 3.58 8 8h3l-4 4-4-4h3z"
+								/>
+							</svg>
+							Reload
+						</div></a
+					>
+					<a href="javascript:clearSelection()"
+						><div class="button">
+							<svg
+								class="icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+							>
+								<path
+									d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"
+								/>
+							</svg>
+							Deselect All
+						</div></a
+					>
 				</td>
 			</tr>
 		</table>
 		<table style="margin-bottom: 20px; width: 100%; table-layout: fixed;">
 			<tr>
 				<td style="width: 100%; padding-right: 2.5px;">
-					<input type="text" id="search-entities" autocomplete="off" placeholder="Search for entity"/>
+					<input
+						type="text"
+						id="search-entities"
+						autocomplete="off"
+						placeholder="Search for entity"
+					/>
 				</td>
 				<!-- <td style="width: 20%; padding-left: 2.5px;">
 					<input type="number" id="search-radius" autocomplete="off" placeholder="Radius"/>
@@ -164,72 +210,79 @@
 		</table>
 		<script type="text/javascript">
 			var icons = {
-				checkboxActive: '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
-				checkboxInactive: '<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>'
-			}
+				checkboxActive:
+					'<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>',
+				checkboxInactive:
+					'<svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>',
+			};
 
 			function lerp(v0, v1, a) {
-				return v0*(1-a)+v1*a;
+				return v0 * (1 - a) + v1 * a;
 			}
 
-			function rgbaToCssRgb(r,g,b,a) {
-				a = 1-a;
-				return "rgb("+
-					lerp(r,255,a).toFixed()+","+
-					lerp(g,255,a).toFixed()+","+
-					lerp(b,255,a).toFixed()+
-				")";
+			function rgbaToCssRgb(r, g, b, a) {
+				a = 1 - a;
+				return (
+					"rgb(" +
+					lerp(r, 255, a).toFixed() +
+					"," +
+					lerp(g, 255, a).toFixed() +
+					"," +
+					lerp(b, 255, a).toFixed() +
+					")"
+				);
 			}
 
 			function findChild(id, children) {
-				for (var i=0; i<children.length; i++) {
+				for (var i = 0; i < children.length; i++) {
 					if (children[i].id == id) return children[i];
 
 					let child = findChild(id, children[i].children);
 					if (child) return child;
 				}
 				return undefined;
-			};
+			}
 
 			function getEntityElFromInnerEls(innerEl) {
 				if (!innerEl) return undefined;
 				if (innerEl.nodeName == "TABLE") return innerEl;
 				if (innerEl.nodeName == "TR") return innerEl.parentElement;
-				if (innerEl.nodeName == "TD") return innerEl.parentElement.parentElement;
+				if (innerEl.nodeName == "TD")
+					return innerEl.parentElement.parentElement;
 				return undefined;
 			}
 
 			function EventHandler() {
 				var functions = {}; // {event: [function, ...]};
 
-				this.on = (event, callback)=>{
+				this.on = (event, callback) => {
 					if (!functions[event]) functions[event] = [];
 
 					let i = functions[event].indexOf(callback);
-					if (i>-1) return false;
+					if (i > -1) return false;
 
 					functions[event].push(callback);
 					return true;
-				}
+				};
 
-				this.off = (event, callback)=>{
+				this.off = (event, callback) => {
 					if (!functions[event]) return false;
 
 					let i = functions[event].indexOf(callback);
-					if (i<0) return false; 
+					if (i < 0) return false;
 
-					functions[event].splice(i,1);
+					functions[event].splice(i, 1);
 					return true;
-				}
+				};
 
-				this.emit = (event, argument)=>{
+				this.emit = (event, argument) => {
 					if (!functions[event]) return false;
 
-					functions[event].forEach(cb=>{
+					functions[event].forEach(cb => {
 						cb(argument);
 					});
 					return true;
-				}
+				};
 			}
 
 			function Entity(id, props, entityList) {
@@ -247,7 +300,7 @@
 				let active = document.createElement("td");
 				active.style.padding = "0 7.5px";
 				active.innerHTML = icons.checkboxInactive;
-				active.addEventListener("click", e=>{
+				active.addEventListener("click", e => {
 					if (this.selected) {
 						this.disableSelection();
 					} else {
@@ -265,45 +318,48 @@
 				tr.appendChild(name);
 
 				let file = document.createElement("td");
-				if (this.props.filename)
-					file.textContent = this.props.filename;
+				if (this.props.filename) file.textContent = this.props.filename;
 				tr.appendChild(file);
 
 				this.element.appendChild(tr);
 
 				// functions
 				this.children = [];
-				this.addChild = entity=>{
+				this.addChild = entity => {
 					this.children.push(entity);
-				}
+				};
 
-				this.enableSelection = ()=>{
+				this.enableSelection = () => {
 					this.selected = true;
 					active.innerHTML = icons.checkboxActive;
 					entityList.selectEntity(this.id);
-				}
+				};
 
-				this.disableSelection = (aesthetically)=>{
+				this.disableSelection = aesthetically => {
 					this.selected = false;
 					active.innerHTML = icons.checkboxInactive;
 					if (!aesthetically) entityList.deselectEntity(this.id);
-				}
+				};
 
-				entityList.events.on("clearSelection", ()=>{this.disableSelection(true)});
+				entityList.events.on("clearSelection", () => {
+					this.disableSelection(true);
+				});
 
-				this.setParent = parent=>{
+				this.setParent = parent => {
 					// unparent this and remove from parents children
 					if (this.parent) {
-						let parentThisIndex = this.parent.children.indexOf(this);
-						this.parent.children.splice(parentThisIndex,1);
+						let parentThisIndex = this.parent.children.indexOf(
+							this,
+						);
+						this.parent.children.splice(parentThisIndex, 1);
 						this.parent = undefined;
 					} else {
 						let parentThisIndex = entityList.children.indexOf(this);
 						if (parentThisIndex)
-							entityList.children.splice(parentThisIndex,1);
+							entityList.children.splice(parentThisIndex, 1);
 					}
 
-					let hifiSetParent = {entityID:this.id, parentID:""}
+					let hifiSetParent = { entityID: this.id, parentID: "" };
 
 					if (parent) {
 						parent.addChild(this);
@@ -314,35 +370,43 @@
 					}
 
 					if (window.qt) emitEvent("setParent", hifiSetParent);
-				}
+				};
 
-				this.forEachChild = cb=>{
-					this.children.forEach(child=>{
+				this.forEachChild = cb => {
+					this.children.forEach(child => {
 						cb(child);
 						child.forEachChild(cb);
-					})
-				}
+					});
+				};
 
 				// dragging and dropping
-				let startingMouse = {x: undefined, y: undefined};
-				let lastMouse = {x: undefined, y: undefined};
+				let startingMouse = { x: undefined, y: undefined };
+				let lastMouse = { x: undefined, y: undefined };
 				let lastHighlight = undefined;
-				let outlineStyle = "solid 4px "+rgbaToCssRgb(29,31,33,0.1); 
+				let outlineStyle = "solid 4px " + rgbaToCssRgb(29, 31, 33, 0.1);
 
-				let mousemove = e=> {			
-					let translate = "translate("+
-						(e.clientX - startingMouse.x)+"px,"+
-						(e.clientY - startingMouse.y + window.pageYOffset)+"px"
-					")";
+				let mousemove = e => {
+					let translate =
+						"translate(" +
+						(e.clientX - startingMouse.x) +
+						"px," +
+						(e.clientY - startingMouse.y + window.pageYOffset) +
+						"px";
+					(")");
 
 					this.element.style.transform = translate;
-					this.forEachChild(child=>{
+					this.forEachChild(child => {
 						child.element.style.transform = translate;
 					});
 
-					let highlight = document.elementFromPoint(e.clientX, e.clientY);
+					let highlight = document.elementFromPoint(
+						e.clientX,
+						e.clientY,
+					);
 					highlight = getEntityElFromInnerEls(highlight);
-					if (highlight) if (!highlight.getAttribute("data-id")) highlight = undefined
+					if (highlight)
+						if (!highlight.getAttribute("data-id"))
+							highlight = undefined;
 
 					if (highlight) {
 						if (highlight != lastHighlight) {
@@ -352,7 +416,7 @@
 							}
 
 							highlight.style.zIndex = "500";
-							highlight.style.outline = outlineStyle
+							highlight.style.outline = outlineStyle;
 							lastHighlight = highlight;
 						}
 					} else {
@@ -362,27 +426,30 @@
 						}
 						lastHighlight = undefined;
 					}
-				}
+				};
 
 				let mouseSelected = false;
 
-				let updateEntityWithMouse = (mousedown, e)=>{
+				let updateEntityWithMouse = (mousedown, e) => {
 					if (mousedown) {
 						this.element.style.zIndex = "1000";
 						this.element.style.opacity = "0.5";
-						this.forEachChild(child=>{
+						this.forEachChild(child => {
 							child.element.style.zIndex = "1000";
 							child.element.style.opacity = "0.5";
 						});
 
 						let rect = this.element.getBoundingClientRect();
-						let topBottomHalfDiff = (rect.bottom-rect.top)/2;
+						let topBottomHalfDiff = (rect.bottom - rect.top) / 2;
 						startingMouse = {
-							x: rect.left-topBottomHalfDiff,
-							y: rect.top+topBottomHalfDiff + window.pageYOffset
+							x: rect.left - topBottomHalfDiff,
+							y:
+								rect.top +
+								topBottomHalfDiff +
+								window.pageYOffset,
 						};
 
-						mousemove({clientX: e.clientX, clientY: e.clientY});
+						mousemove({ clientX: e.clientX, clientY: e.clientY });
 						document.addEventListener("mousemove", mousemove);
 					} else {
 						// reset styles to default
@@ -395,17 +462,27 @@
 
 						// check its new parent
 						if (!mouseSelected) return;
-						setTimeout(()=>{
-							let newParent = document.elementFromPoint(e.clientX, e.clientY);
+						setTimeout(() => {
+							let newParent = document.elementFromPoint(
+								e.clientX,
+								e.clientY,
+							);
 							newParent = getEntityElFromInnerEls(newParent);
 
 							if (newParent) {
-								let newParentID = newParent.getAttribute("data-id");
+								let newParentID = newParent.getAttribute(
+									"data-id",
+								);
 								if (newParentID == this.id) return; // cant self parent (shouldnt happen)
-								if (this.parent) if (newParentID == this.parent.id) return; // no point re-parenting
-								if (findChild(newParentID, this.children)) return; // cant parent to one of its children
+								if (this.parent)
+									if (newParentID == this.parent.id) return; // no point re-parenting
+								if (findChild(newParentID, this.children))
+									return; // cant parent to one of its children
 
-								newParent = findChild(newParentID, entityList.children);
+								newParent = findChild(
+									newParentID,
+									entityList.children,
+								);
 								if (newParent) {
 									this.setParent(newParent);
 								} else {
@@ -416,23 +493,23 @@
 							}
 
 							entityList.render();
-						},5);
+						}, 5);
 
 						mouseSelected = false;
 					}
-				}
+				};
 
-				this.element.addEventListener("mousedown", e=>{
-					if (e.button!=0) return;
+				this.element.addEventListener("mousedown", e => {
+					if (e.button != 0) return;
 
 					// ignore if its the checkbox el
-					if (e.path.indexOf(active)>-1) return
+					if (e.path.indexOf(active) > -1) return;
 
 					mouseSelected = true;
 					updateEntityWithMouse(true, e);
 				});
 
-				document.addEventListener("mouseup", e=>{
+				document.addEventListener("mouseup", e => {
 					updateEntityWithMouse(false, e);
 				});
 			}
@@ -444,90 +521,116 @@
 				this.searchTerm = "";
 
 				this.children = [];
-				this.addChild = entity=>{
+				this.addChild = entity => {
 					this.children.push(entity);
-				}
+				};
 
 				let selectedAmount = 0;
-				let selectedEntitiesAmountEl = document.getElementById("selected-entities");
-				this.updateSelectedEntitiesAmountEl = ()=>{
+				let selectedEntitiesAmountEl = document.getElementById(
+					"selected-entities",
+				);
+				this.updateSelectedEntitiesAmountEl = () => {
 					selectedEntitiesAmountEl.textContent = selectedAmount;
-				}
+				};
 
 				let foundAmount = 0;
-				let foundEntitiesAmountEl = document.getElementById("found-entities");
-				this.updateFoundEntitiesAmountEl = ()=>{
+				let foundEntitiesAmountEl = document.getElementById(
+					"found-entities",
+				);
+				this.updateFoundEntitiesAmountEl = () => {
 					foundEntitiesAmountEl.textContent = foundAmount;
-				}
+				};
 
-				this.selectEntity = entityID=>{
+				this.selectEntity = entityID => {
 					if (window.qt) emitEvent("selectEntity", entityID);
 					selectedAmount++;
-					
-					this.updateSelectedEntitiesAmountEl();
-				}
 
-				this.deselectEntity = entityID=>{
+					this.updateSelectedEntitiesAmountEl();
+				};
+
+				this.deselectEntity = entityID => {
 					if (window.qt) emitEvent("deselectEntity", entityID);
 					selectedAmount--;
 
 					this.updateSelectedEntitiesAmountEl();
 					this.render();
-				}
+				};
 
-				this.clearSelection = ()=>{
+				this.clearSelection = () => {
 					this.events.emit("clearSelection");
 					selectedAmount = 0;
 					this.updateSelectedEntitiesAmountEl();
 					this.render();
-				}
+				};
 
-				this.render = ()=>{
+				this.render = () => {
 					let newEntitiesElement = document.createElement("div");
 					let indentLevel = 0; // _layers of abstraction_ lol
 
 					this.searchTerm = this.searchTerm.toLowerCase();
 					foundAmount = 0;
 
-					let renderEntity = (entity, indentLevel, search)=>{
+					let renderEntity = (entity, indentLevel, search) => {
 						//console.log(entity.name+", "+indentLevel);
 
 						entity.element.style.display = "table";
-						entity.element.style.marginLeft = (indentLevel*20)+"px";
-						entity.element.style.width = "calc(100% - "+(indentLevel*20)+"px)";
-						entity.element.style.backgroundColor = rgbaToCssRgb(29,31,33,
-							0.95 - (0.05+(indentLevel*0.05))
+						entity.element.style.marginLeft =
+							indentLevel * 20 + "px";
+						entity.element.style.width =
+							"calc(100% - " + indentLevel * 20 + "px)";
+						entity.element.style.backgroundColor = rgbaToCssRgb(
+							29,
+							31,
+							33,
+							0.95 - (0.05 + indentLevel * 0.05),
 						);
 
 						search.tree.push(entity.element);
 						if (this.searchTerm) {
-							if (search.active==false) {
+							if (search.active == false) {
 								if (entity.selected) {
 									search.active = true; // keeping selections always visible
 								} else {
-									let entitySearch = (entity.props.type+" "+entity.props.name+" "+entity.props.filename).toLowerCase();
-									if (entitySearch.indexOf(this.searchTerm)>-1) search.active = true;
+									let entitySearch = (
+										entity.props.type +
+										" " +
+										entity.props.name +
+										" " +
+										entity.props.filename
+									).toLowerCase();
+									if (
+										entitySearch.indexOf(this.searchTerm) >
+										-1
+									)
+										search.active = true;
 								}
 							}
 						}
 
 						newEntitiesElement.appendChild(entity.element);
 
-						entity.children.forEach(child=>{
-							search = renderEntity(child, indentLevel+1, search);
+						entity.children.forEach(child => {
+							search = renderEntity(
+								child,
+								indentLevel + 1,
+								search,
+							);
 						});
 
 						return search;
 					};
 
-					this.children.forEach(entity=>{
-						let search = renderEntity(entity, indentLevel, {active:!this.searchTerm, tree:[]});
+					this.children.forEach(entity => {
+						let search = renderEntity(entity, indentLevel, {
+							active: !this.searchTerm,
+							tree: [],
+						});
 						//console.log(search)
 
 						if (search.active) {
 							foundAmount += search.tree.length;
 						} else {
-							search.tree.forEach(element=>{
+							search.tree.forEach(element => {
 								element.style.display = "none";
 							});
 						}
@@ -540,30 +643,39 @@
 					if (this.element) this.element.remove();
 					document.body.appendChild(newEntitiesElement);
 					this.element = newEntitiesElement;
-				}
+				};
 
-				this.import = hifiEntities=>{
-					// using an object because problems when splicing and iterating at the same time 
+				this.import = hifiEntities => {
+					// using an object because problems when splicing and iterating at the same time
 					let newEntities = {};
 
 					// fill newEntities
-					hifiEntities.forEach(hifiEntity=>{
-						let newEntity = new Entity(hifiEntity.id, {
-							parentID: hifiEntity.parentID,
-							type: hifiEntity.type,
-							name: hifiEntity.name,
-							filename: (hifiEntity.modelURL)? hifiEntity.modelURL.split("/").pop(): "",
-						}, this);
+					hifiEntities.forEach(hifiEntity => {
+						let newEntity = new Entity(
+							hifiEntity.id,
+							{
+								parentID: hifiEntity.parentID,
+								type: hifiEntity.type,
+								name: hifiEntity.name,
+								filename: hifiEntity.modelURL
+									? hifiEntity.modelURL.split("/").pop()
+									: "",
+							},
+							this,
+						);
 
 						newEntities[hifiEntity.id] = newEntity;
 					});
 
 					// parent everything together
-					Object.keys(newEntities).forEach(newEntityID=>{
+					Object.keys(newEntities).forEach(newEntityID => {
 						let newEntity = newEntities[newEntityID];
 
 						if (newEntity.props.parentID) {
-							let parent = findChild(newEntity.props.parentID, Object.values(newEntities));
+							let parent = findChild(
+								newEntity.props.parentID,
+								Object.values(newEntities),
+							);
 							if (!parent) return;
 
 							newEntity.parent = parent;
@@ -580,9 +692,9 @@
 					} else {
 						this.render();
 					}
-				}
+				};
 
-				this.importExample = ()=>{
+				this.importExample = () => {
 					let testEntities = [
 						{
 							type: "Box",
@@ -598,7 +710,8 @@
 						},
 						{
 							type: "Model",
-							modelURL: "https://maki.cat/aljksd/askdjaklsd/coolModel.fbx",
+							modelURL:
+								"https://maki.cafe/aljksd/askdjaklsd/coolModel.fbx",
 
 							id: "c",
 							parentID: "a",
@@ -613,24 +726,29 @@
 						},
 						{
 							type: "Model",
-							modelURL: "https://alsdkajskd/asdjklaks/niceeeeeeeee.fbx?laksjd11",
+							modelURL:
+								"https://alsdkajskd/asdjklaks/niceeeeeeeee.fbx?laksjd11",
 
 							id: "e",
-							name: "niceee!! its entity E"
+							name: "niceee!! its entity E",
 						},
 						{
 							type: "Model",
 							modelURL: "https://alsdkajskd/asdjklaks/ok.fbx?hi",
 
 							id: "f",
-							name: "oh my its entity F"
-						}
+							name: "oh my its entity F",
+						},
 					];
 
 					function shuffle(array) {
-						var currentIndex = array.length, temporaryValue, randomIndex;
+						var currentIndex = array.length,
+							temporaryValue,
+							randomIndex;
 						while (0 !== currentIndex) {
-							randomIndex = Math.floor(Math.random() * currentIndex);
+							randomIndex = Math.floor(
+								Math.random() * currentIndex,
+							);
 							currentIndex -= 1;
 							temporaryValue = array[currentIndex];
 							array[currentIndex] = array[randomIndex];
@@ -640,33 +758,40 @@
 					}
 
 					this.import(shuffle(testEntities));
-				}
+				};
 			}
 
-			let entityList = new EntityList;
+			let entityList = new EntityList();
 			//entityList.importExample();
-			
+
 			if (window.qt) {
 				var _GET = {};
-				if (window.location.search.length>1) {
-					window.location.search.substr(1).split("&").forEach(p=>{
-						p = p.split("=");
-						_GET[p[0]] = p[1];
-					});
+				if (window.location.search.length > 1) {
+					window.location.search
+						.substr(1)
+						.split("&")
+						.forEach(p => {
+							p = p.split("=");
+							_GET[p[0]] = p[1];
+						});
 				}
 
 				var uuid = decodeURI(_GET.uuid);
 				function emitEvent(key, value) {
-					EventBridge.emitWebEvent(JSON.stringify({
-						key: key, value: value||"",
-						uuid: uuid,
-					}));
+					EventBridge.emitWebEvent(
+						JSON.stringify({
+							key: key,
+							value: value || "",
+							uuid: uuid,
+						}),
+					);
 				}
 
-				setTimeout(()=>{
-					EventBridge.scriptEventReceived.connect(json=>{
-						try { json = JSON.parse(json);
-						} catch(err) {}
+				setTimeout(() => {
+					EventBridge.scriptEventReceived.connect(json => {
+						try {
+							json = JSON.parse(json);
+						} catch (err) {}
 						if (json.uuid != uuid) return;
 
 						switch (json.key) {
@@ -680,16 +805,20 @@
 				}, 200);
 			}
 
-			function reload() { if (window.qt) emitEvent("updateEntities"); }
+			function reload() {
+				if (window.qt) emitEvent("updateEntities");
+			}
 			function clearSelection() {
 				if (window.qt) emitEvent("clearSelection");
 				entityList.clearSelection();
 			}
 
-			document.getElementById("search-entities").addEventListener("keyup", e=>{
-				entityList.searchTerm = e.srcElement.value;
-				entityList.render();
-			})
+			document
+				.getElementById("search-entities")
+				.addEventListener("keyup", e => {
+					entityList.searchTerm = e.srcElement.value;
+					entityList.render();
+				});
 
 			// document.getElementById("search-radius").addEventListener("change", e=>{
 			// 	emitEvent("updateRadius", e.srcElement.value)

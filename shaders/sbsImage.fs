@@ -2,7 +2,7 @@
 {
 	"_comment": "channels in order: diffuse, orm, normal",
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/sbsImage.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/sbsImage.fs",
 		"channels": [
 			"https://cutelab.space/u/V1RdYM.jpg"
 		],

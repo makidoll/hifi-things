@@ -1,8 +1,8 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/tv.fs",
-		"channels": ["https://hifi.maki.cat/shaders/goats.jpg"],
+		"shaderUrl": "https://hifi.maki.cafe/shaders/tv.fs",
+		"channels": ["https://hifi.maki.cafe/shaders/goats.jpg"],
 		"uniforms": {
 			"sqeeze": 6,
 			"scale": 100,

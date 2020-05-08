@@ -1,10 +1,10 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/birthdayHat.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/birthdayHat.fs",
 		"version": 3,
 		"channels": [
-			"https://hifi.maki.cat/shaders/birthdayHat.png"
+			"https://hifi.maki.cafe/shaders/birthdayHat.png"
 		]
 	}
 }

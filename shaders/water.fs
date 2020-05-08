@@ -1,8 +1,8 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/water.fs",
-		"channels": ["https://hifi.maki.cat/shaders/my-room.jpg"],
+		"shaderUrl": "https://hifi.maki.cafe/shaders/water.fs",
+		"channels": ["https://hifi.maki.cafe/shaders/my-room.jpg"],
 		"uniforms": {
 			"scale": 1,
 			"speed": 1,

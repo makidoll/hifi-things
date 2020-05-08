@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/scrap/sonicAdventure.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/scrap/sonicAdventure.fs",
 		"version": 4
 	}
 }

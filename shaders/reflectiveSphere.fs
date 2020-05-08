@@ -1,8 +1,8 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/reflectiveSphere.fs",
-		"channels": ["https://hifi.maki.cat/shaders/my-room.jpg"],
+		"shaderUrl": "https://hifi.maki.cafe/shaders/reflectiveSphere.fs",
+		"channels": ["https://hifi.maki.cafe/shaders/my-room.jpg"],
 		"version": 2
 	},
 	"grabbableKey": {"grabbable": false}

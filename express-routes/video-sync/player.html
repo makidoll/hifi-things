@@ -2,18 +2,24 @@
 <html>
 	<head>
 		<title>[room_name] - video sync</title>
-		<link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
+		<link
+			href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap"
+			rel="stylesheet"
+		/>
 		<style type="text/css">
 			* {
-				margin: 0; padding: 0;
-				transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+				margin: 0;
+				padding: 0;
+				transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 			}
 
-			*:focus, *:fullscreen {
+			*:focus,
+			*:fullscreen {
 				outline: none;
 			}
 
-			html, body {
+			html,
+			body {
 				overflow: hidden;
 				background: #000;
 				user-select: none;
@@ -26,36 +32,48 @@
 			}
 
 			canvas {
-				position: fixed; margin: auto;
-				top: 0; left: 0;
+				position: fixed;
+				margin: auto;
+				top: 0;
+				left: 0;
 				width: 256px;
 				height: 256px;
 				image-rendering: pixelated;
 			}
 
 			h2 {
-				position: fixed; margin: auto;
-				top: 256px; left: 0;
+				position: fixed;
+				margin: auto;
+				top: 256px;
+				left: 0;
 				image-rendering: pixelated;
 				text-shadow: 0 0 32px #000;
 				color: #fff;
 			}
 
 			@keyframes aahfuck {
-				0% { background-position: 0 0; }
-				100% { background-position: -200vw 0; }
+				0% {
+					background-position: 0 0;
+				}
+				100% {
+					background-position: -200vw 0;
+				}
 			}
 
 			#get-a-click-from-the-user-so-that-the-video-can-start-playing {
-				position: fixed; margin: auto;
-				top: 0; left: 0; right: 0; bottom: 0;
+				position: fixed;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
 				z-index: 99999999999999;
-				background-image:
-					linear-gradient(
+				background-image: linear-gradient(
 						0deg,
-						rgba(0,0,0,0.6),
-						rgba(0,0,0,0.6)
-					), url(https://cutelab.space/rainbow.png);
+						rgba(0, 0, 0, 0.6),
+						rgba(0, 0, 0, 0.6)
+					),
+					url(https://cutelab.space/rainbow.png);
 				background-size: 200vw 100vh;
 				background-position: 0 0;
 				animation-name: aahfuck;
@@ -64,9 +82,14 @@
 				animation-timing-function: linear;
 			}
 
-			#get-a-click-from-the-user-so-that-the-video-can-start-playing .text {
-				position: fixed; margin: auto;
-				top: 0; left: 0; right: 0; bottom: 0;
+			#get-a-click-from-the-user-so-that-the-video-can-start-playing
+				.text {
+				position: fixed;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
 				height: 240px;
 				color: #fff;
 				font-size: 80px;
@@ -78,22 +101,30 @@
 	</head>
 	<body>
 		<video crossorigin="Anonymous"></video>
-		<div id="get-a-click-from-the-user-so-that-the-video-can-start-playing" style="opacity: 1;">
+		<div
+			id="get-a-click-from-the-user-so-that-the-video-can-start-playing"
+			style="opacity: 1;"
+		>
 			<div class="text">
-				click here to<br>start the stream<br>
-				<span style="font-size: 40px; opacity: 0.6;">hifi broke the cinema :(</span>
+				click here to<br />start the stream<br />
+				<span style="font-size: 40px; opacity: 0.6;"
+					>hifi broke the cinema :(</span
+				>
 			</div>
 		</div>
-		<script src="https://maki.cat/video-sync/socket.io.js"></script>
+		<script src="https://maki.cafe/video-sync/socket.io.js"></script>
 		<script type="text/javascript">
 			var _GET = {};
-			window.location.search.substr(1).split("&").forEach(function(e, i) {
-				if (e=="") return;
-				let param = e.split("=");
-				let value = param[1];
-				if (value==undefined) value = null; 
-				_GET[param[0]] = value;
-			});
+			window.location.search
+				.substr(1)
+				.split("&")
+				.forEach(function (e, i) {
+					if (e == "") return;
+					let param = e.split("=");
+					let value = param[1];
+					if (value == undefined) value = null;
+					_GET[param[0]] = value;
+				});
 
 			var socket = io("[namespace]");
 			var video = document.querySelector("video");
@@ -102,18 +133,20 @@
 			let position = 0;
 			let outOfSync = false;
 
-			setInterval(()=>{
+			setInterval(() => {
 				if (playing) position++;
-				if (Math.abs(video.currentTime-position)>2) { // seconds
+				if (Math.abs(video.currentTime - position) > 2) {
+					// seconds
 					outOfSync = true;
 					socket.emit("getInfo");
 				}
 			}, 1000);
 
-			socket.on("getInfo", info=>{
-				if (info.src!=undefined) if (video.src!=info.src) video.src = info.src;
+			socket.on("getInfo", info => {
+				if (info.src != undefined)
+					if (video.src != info.src) video.src = info.src;
 
-				if (info.playing!=undefined) {
+				if (info.playing != undefined) {
 					playing = info.playing;
 					if (video.playing != info.playing) {
 						if (info.playing) {
@@ -124,23 +157,24 @@
 					}
 				}
 
-				if (info.position!=undefined) {
+				if (info.position != undefined) {
 					video.currentTime = info.position;
 					position = info.position;
 				}
 
 				if (!outOfSync)
-					if (info.volume!=undefined)
-						video.volume = info.volume;
+					if (info.volume != undefined) video.volume = info.volume;
 
 				outOfSync = false;
 			});
 
 			// socket.emit("getInfo");
-			let fuckYouHifi = document.getElementById("get-a-click-from-the-user-so-that-the-video-can-start-playing");
-			fuckYouHifi.addEventListener("click", e=>{
+			let fuckYouHifi = document.getElementById(
+				"get-a-click-from-the-user-so-that-the-video-can-start-playing",
+			);
+			fuckYouHifi.addEventListener("click", e => {
 				fuckYouHifi.style.opacity = "0";
-				setTimeout(()=>{
+				setTimeout(() => {
 					fuckYouHifi.remove();
 				}, 200);
 				socket.emit("getInfo");
@@ -148,21 +182,20 @@
 
 			// controls
 
-			if (_GET.controls===null) {
+			if (_GET.controls === null) {
 				video.controls = true;
 			}
 
-			// hifi 
+			// hifi
 
 			if (window.qt) {
-				EventBridge.scriptEventReceived.connect(message=>{
+				EventBridge.scriptEventReceived.connect(message => {
 					var params = message.split(" ");
-					switch(params[0]) {
+					switch (params[0]) {
 						case "volume":
 							video.volume = parseFloat(params[1]);
 							break;
 					}
-
 				});
 			}
 
@@ -182,20 +215,20 @@
 				ctx = canvas.getContext("2d");
 
 				function getAverageColor(x, y) {
-					let average = [0,0,0];
-					let colors = ctx.getImageData(x*10,y*10,10,10).data;
+					let average = [0, 0, 0];
+					let colors = ctx.getImageData(x * 10, y * 10, 10, 10).data;
 
-					for (var i=0; i<100; i++) {
-						let index = i*4;
-						average[0]+=colors[index  ]; 
-						average[1]+=colors[index+1]; 
-						average[2]+=colors[index+2]; 
+					for (var i = 0; i < 100; i++) {
+						let index = i * 4;
+						average[0] += colors[index];
+						average[1] += colors[index + 1];
+						average[2] += colors[index + 2];
 					}
 
 					return [
-						Math.floor(average[0]/100), 
-						Math.floor(average[1]/100),
-						Math.floor(average[2]/100)
+						Math.floor(average[0] / 100),
+						Math.floor(average[1] / 100),
+						Math.floor(average[2] / 100),
 					];
 				}
 
@@ -203,34 +236,34 @@
 					let colors = new Array();
 					[
 						// top
-						getAverageColor(0,0),
-						getAverageColor(1,0),
-						getAverageColor(2,0),
+						getAverageColor(0, 0),
+						getAverageColor(1, 0),
+						getAverageColor(2, 0),
 						// middle
-						getAverageColor(0,1),
-						getAverageColor(2,1),
+						getAverageColor(0, 1),
+						getAverageColor(2, 1),
 						// bottom
-						getAverageColor(0,2),
-						getAverageColor(1,2),
-						getAverageColor(2,2),
-					].forEach(c=>{
-						colors = colors.concat([c[0],c[1],c[2]]);
+						getAverageColor(0, 2),
+						getAverageColor(1, 2),
+						getAverageColor(2, 2),
+					].forEach(c => {
+						colors = colors.concat([c[0], c[1], c[2]]);
 					});
 
 					return colors.join(",");
 				}
 
 				let renderWidth = canvas.width;
-				if (_GET["3D"])renderWidth = canvas.width*2;
+				if (_GET["3D"]) renderWidth = canvas.width * 2;
 
-				setInterval(()=>{
+				setInterval(() => {
 					ctx.drawImage(video, 0, 0, renderWidth, canvas.height);
 
 					let color = getColors();
 					//debug.textContent = getColors();
 
 					if (window.qt) EventBridge.emitWebEvent(color);
-				}, 1000/30);
+				}, 1000 / 30);
 			}
 		</script>
 	</body>

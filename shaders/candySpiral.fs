@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/candySpiral.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/candySpiral.fs",
 		"version": 3
 	}
 }

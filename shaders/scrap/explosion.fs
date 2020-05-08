@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/scrap/explosion.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/scrap/explosion.fs",
 		"version": 3
 	}
 }

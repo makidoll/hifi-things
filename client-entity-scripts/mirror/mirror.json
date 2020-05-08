@@ -22,8 +22,8 @@
 				"z": 0,
 				"w": 1
 			},
-			"script": "https://hifi.maki.cat/client-entity-scripts/mirror/mirrorReflection.js",
-			"modelURL": "https://hifi.maki.cat/client-entity-scripts/mirror/mirror.fbx"
+			"script": "https://hifi.maki.cafe/client-entity-scripts/mirror/mirrorReflection.js",
+			"modelURL": "https://hifi.maki.cafe/client-entity-scripts/mirror/mirror.fbx"
 		},
 		{
 			"type": "Zone",
@@ -45,7 +45,7 @@
 				"z": 0,
 				"w": 1
 			},
-			"script": "https://hifi.maki.cat/client-entity-scripts/mirror/mirrorZone.js",
+			"script": "https://hifi.maki.cafe/client-entity-scripts/mirror/mirrorZone.js",
 			"shapeType": "box"
 		}
 	],

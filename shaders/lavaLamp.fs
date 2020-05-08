@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/lavaLamp.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/lavaLamp.fs",
 		"uniforms": {
 			"blobScale": 2,
 			"blobDepth": 2,

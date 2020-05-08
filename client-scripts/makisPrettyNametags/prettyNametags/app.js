@@ -166,7 +166,7 @@ app.get("/", (req, res) => {
 app.listen(8082);
 
 /*
-https://maki.cat/prettyNametags
+https://maki.cafe/prettyNametags
 ?username=Maki
 &connection=friend
 &admin=true

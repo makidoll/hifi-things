@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/greenscreen.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/greenscreen.fs",
 		"version": 2
 	}
 }

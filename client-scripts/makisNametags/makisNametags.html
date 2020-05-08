@@ -2,11 +2,15 @@
 <html>
 	<head>
 		<title>Maki's Nametags</title>
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+		<link
+			href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+			rel="stylesheet"
+		/>
 		<style type="text/css">
 			* {
-				margin: 0; padding: 0;
-				transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+				margin: 0;
+				padding: 0;
+				transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 			}
 
 			body {
@@ -15,15 +19,22 @@
 				font-size: 16px;
 			}
 
-			a,a:link,a:hover,a:visited,a:active {
+			a,
+			a:link,
+			a:hover,
+			a:visited,
+			a:active {
 				color: inherit;
 				text-decoration: inherit;
 			}
 
 			#header {
 				background-color: #1d1f21;
-				position: fixed; margin: auto;
-				top: 0; left: 0; right: 0;
+				position: fixed;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
 				height: 40px;
 				padding: 15px 0;
 				color: #fff;
@@ -33,19 +44,25 @@
 			.icon {
 				display: inline-block;
 				margin-bottom: -6px;
-				width: 24px; height: 24px;
+				width: 24px;
+				height: 24px;
 				fill: #000;
 			}
 
 			#header .icon {
-				width: 36px; height: 36px;
+				width: 36px;
+				height: 36px;
 				margin-bottom: -8px;
 				fill: #fff;
 			}
 
 			#content {
-				position: fixed; margin: auto;
-				top: 70px; left: 0; right: 0; bottom: 0;
+				position: fixed;
+				margin: auto;
+				top: 70px;
+				left: 0;
+				right: 0;
+				bottom: 0;
 				padding: 20px 25px;
 			}
 
@@ -66,8 +83,12 @@
 				font-weight: 700;
 			}
 
-			.half-table td:nth-child(odd) { padding-right: 12.5px; }
-			.half-table td:nth-child(even) { padding-left: 12.5px; }
+			.half-table td:nth-child(odd) {
+				padding-right: 12.5px;
+			}
+			.half-table td:nth-child(even) {
+				padding-left: 12.5px;
+			}
 
 			input {
 				border: none;
@@ -75,7 +96,7 @@
 				font-family: "Roboto", sans-serif;
 				font-size: 22px;
 				padding: 5px;
-				background-color: rgba(0,0,0,0.1);
+				background-color: rgba(0, 0, 0, 0.1);
 				border-radius: 8px;
 				width: 100%;
 			}
@@ -94,22 +115,35 @@
 				height: 36px;
 			}
 
-			input[type=checkbox]:before,
-			input[type=checkbox]:after {
-		         content: ""; display: block;
-		         position: absolute; margin: auto;
-		         top: 0; left: 0; right: 0; bottom: 0;
-		         border-radius: 8px;
-		         transition: all 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+			input[type="checkbox"]:before,
+			input[type="checkbox"]:after {
+				content: "";
+				display: block;
+				position: absolute;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				border-radius: 8px;
+				transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 			}
 
-			input[type=checkbox]:before { background-color: #f44336; }
-			input[type=checkbox]:after { background-color: #8bc34a; opacity: 0; }
-			input[type=checkbox]:checked:after { opacity: 1; }
+			input[type="checkbox"]:before {
+				background-color: #f44336;
+			}
+			input[type="checkbox"]:after {
+				background-color: #8bc34a;
+				opacity: 0;
+			}
+			input[type="checkbox"]:checked:after {
+				opacity: 1;
+			}
 
 			input[type="number"]::-webkit-outer-spin-button,
 			input[type="number"]::-webkit-inner-spin-button {
-				-webkit-appearance: none; margin: 0;
+				-webkit-appearance: none;
+				margin: 0;
 			}
 
 			input:focus {
@@ -121,62 +155,164 @@
 	</head>
 	<body>
 		<div id="header">
-			<h1><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"/></svg> Maki's Nametags</h1>
+			<h1>
+				<svg
+					class="icon"
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+				>
+					<path
+						d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 4c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 12H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V19z"
+					/>
+				</svg>
+				Maki's Nametags
+			</h1>
 		</div>
 		<div id="content">
 			<!-- <p>You can change the config of your nametags here!</p><br> -->
 			<table class="half-table">
 				<tr>
-					<td><p>Enabled</p>
-					<input id="config-enabled" type="checkbox"></td>
-					<td><p>Text Size</p>
-					<input id="config-textSize" type="number" min="0"></td>
+					<td>
+						<p>Enabled</p>
+						<input id="config-enabled" type="checkbox" />
+					</td>
+
+					<td>
+						<p>Text Size</p>
+						<input id="config-textSize" type="number" min="0" />
+					</td>
 				</tr>
 				<tr>
-					<td><p>Margin Width</p>
-					<input id="config-marginWidth" type="number" min="0"></td>
-					<td><p>Margin Height</p>
-					<input id="config-marginHeight" type="number" min="0"></td>
-				</tr>
-				<tr><td><br></td></tr>
-				<tr>
-					<td><p>Text Color</p>
-					<input id="config-textColor" type="color"></td>
-					<td><p>Background Color</p>
-					<input id="config-backgroundColor" type="color"></td>
+					<td>
+						<p>Margin Width</p>
+						<input id="config-marginWidth" type="number" min="0" />
+					</td>
+
+					<td>
+						<p>Margin Height</p>
+						<input id="config-marginHeight" type="number" min="0" />
+					</td>
 				</tr>
 				<tr>
-					<td><p>Text Opacity</p>
-					<input id="config-textOpacity" type="number" min="0" max="1"></td>
-					<td><p>Background Opacity</p>
-					<input id="config-backgroundOpacity" type="number" min="0" max="1"></td>
-				</tr>
-				<tr><td><br></td></tr>
-				<tr>
-					<td><p>Height Offset</p>
-					<input id="config-heightOffset" type="number"></td>
-					<td><p>Facing Avatar</p>
-					<input id="config-facingAvatar" type="checkbox"></td>
+					<td><br /></td>
 				</tr>
 				<tr>
-					<td><p>Draw Own</p>
-					<input id="config-drawOwn" type="checkbox"></td>
-					<td><p>Debug Console</p>
-					<input id="config-debug" type="checkbox"></td>
+					<td>
+						<p>Text Color</p>
+						<input id="config-textColor" type="color" />
+					</td>
+
+					<td>
+						<p>Background Color</p>
+						<input id="config-backgroundColor" type="color" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>Text Opacity</p>
+						<input
+							id="config-textOpacity"
+							type="number"
+							min="0"
+							max="1"
+						/>
+					</td>
+
+					<td>
+						<p>Background Opacity</p>
+						<input
+							id="config-backgroundOpacity"
+							type="number"
+							min="0"
+							max="1"
+						/>
+					</td>
+				</tr>
+				<tr>
+					<td><br /></td>
+				</tr>
+				<tr>
+					<td>
+						<p>Height Offset</p>
+						<input id="config-heightOffset" type="number" />
+					</td>
+
+					<td>
+						<p>Facing Avatar</p>
+						<input id="config-facingAvatar" type="checkbox" />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<p>Draw Own</p>
+						<input id="config-drawOwn" type="checkbox" />
+					</td>
+
+					<td>
+						<p>Debug Console</p>
+						<input id="config-debug" type="checkbox" />
+					</td>
 				</tr>
 			</table>
 			<table style="width: 100%; height: 60px;">
 				<tr>
 					<td style="vertical-align: bottom;">
 						<p>
-							Made by <a href="https://maki.cat" target="_blank" style="font-weight: 700;">Maki</a> with <svg class="icon" style="fill: #f44336;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg><br>
+							Made by
+							<a
+								href="https://maki.cafe"
+								target="_blank"
+								style="font-weight: 700;"
+								>Maki</a
+							>
+							with
+							<svg
+								class="icon"
+								style="fill: #f44336;"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+							>
+								<path
+									d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+								/></svg
+							><br />
 							I'm still working on better VR support~
 						</p>
 					</td>
-					<td style="opacity: 0.5; text-align: right; vertical-align: bottom;">
-						<a href="https://github.com/makitsune/hifi-stuff" target="_blank"><svg class="icon" viewBox="-2 -2 28 28" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> View Repo</a>
+					<td
+						style="
+							opacity: 0.5;
+							text-align: right;
+							vertical-align: bottom;
+						"
+					>
+						<a
+							href="https://github.com/makitsune/hifi-stuff"
+							target="_blank"
+							><svg
+								class="icon"
+								viewBox="-2 -2 28 28"
+								xmlns="http://www.w3.org/2000/svg"
+							>
+								<path
+									d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+								/>
+							</svg>
+							View Repo</a
+						>
 						<div style="margin-bottom: 4px;"></div>
-						<a href="javascript:resetConfig()"><svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg> Reset Config</a>
+						<a href="javascript:resetConfig()"
+							><svg
+								class="icon"
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+							>
+								<path
+									d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"
+								/>
+							</svg>
+							Reset Config</a
+						>
 					</td>
 				</tr>
 			</table>
@@ -190,84 +326,128 @@
 			marginWidth: 5,
 			marginHeight: 3,
 
-			textColor: {red:255, green:255, blue:255},
+			textColor: { red: 255, green: 255, blue: 255 },
 			textOpacity: 1,
-			backgroundColor: {red:29, green:31, blue:33},
+			backgroundColor: { red: 29, green: 31, blue: 33 },
 			backgroundOpacity: 0.5,
 
 			heightOffset: 1,
 			facingAvatar: true,
-			
+
 			drawOwn: false,
-			debug: false
+			debug: false,
 		};
 
 		var _GET = {};
-		if (window.location.search.length>1) {
-			window.location.search.substr(1).split("&").forEach(p=>{
-				p = p.split("=");
-				_GET[p[0]] = p[1];
-			});
+		if (window.location.search.length > 1) {
+			window.location.search
+				.substr(1)
+				.split("&")
+				.forEach(p => {
+					p = p.split("=");
+					_GET[p[0]] = p[1];
+				});
 		}
 
 		if (window.qt) {
 			function emitEvent(key, value) {
 				if (window.qt) {
-					EventBridge.emitWebEvent(JSON.stringify({
-						key: key, value: value,
-						uuid: decodeURI(_GET.uuid),
-					}));
+					EventBridge.emitWebEvent(
+						JSON.stringify({
+							key: key,
+							value: value,
+							uuid: decodeURI(_GET.uuid),
+						}),
+					);
 				}
 			}
 		}
 
 		function hexToRgb(hex) {
-			hex = hex.match(/[A-Za-z0-9]{2}/g).map(v=>parseInt(v,16));
-			return {red: hex[0], green: hex[1], blue: hex[2]};
+			hex = hex.match(/[A-Za-z0-9]{2}/g).map(v => parseInt(v, 16));
+			return { red: hex[0], green: hex[1], blue: hex[2] };
 		}
 
 		function rgbToHex(rgb) {
-			rgb = {red:rgb.red, green:rgb.green, blue:rgb.blue};
-			return "#"+Object.values(rgb).map(v=>("0"+v.toString(16)).slice(-2)).join("");
+			rgb = { red: rgb.red, green: rgb.green, blue: rgb.blue };
+			return (
+				"#" +
+				Object.values(rgb)
+					.map(v => ("0" + v.toString(16)).slice(-2))
+					.join("")
+			);
 		}
 
-		function btoa(r){for(var n,t,a=String(r).replace(/[=]+$/,""),e=0,o=0,f="";t=a.charAt(o++);~t&&(n=e%4?64*n+t:t,e++%4)?f+=String.fromCharCode(255&n>>(-2*e&6)):0)t="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(t);return f}
+		function btoa(r) {
+			for (
+				var n,
+					t,
+					a = String(r).replace(/[=]+$/, ""),
+					e = 0,
+					o = 0,
+					f = "";
+				(t = a.charAt(o++));
+				~t && ((n = e % 4 ? 64 * n + t : t), e++ % 4)
+					? (f += String.fromCharCode(255 & (n >> ((-2 * e) & 6))))
+					: 0
+			)
+				t = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(
+					t,
+				);
+			return f;
+		}
 
 		var config = {};
 		try {
-			config = JSON.parse(btoa(_GET.config))
-		} catch(err) {}
+			config = JSON.parse(btoa(_GET.config));
+		} catch (err) {}
 
-		Object.keys(config).forEach(key=>{
+		Object.keys(config).forEach(key => {
 			let value = config[key];
-			let el = document.getElementById("config-"+key);
-			if (el==null) return;
+			let el = document.getElementById("config-" + key);
+			if (el == null) return;
 
 			switch (el.type) {
-				case "checkbox": el.checked = value; break;
-				case "color": el.value = rgbToHex(value); break;
-				default: el.value = value; break;
+				case "checkbox":
+					el.checked = value;
+					break;
+				case "color":
+					el.value = rgbToHex(value);
+					break;
+				default:
+					el.value = value;
+					break;
 			}
 
-			let update = ()=>{
+			let update = () => {
 				// turn input els into config
-				Object.keys(config).forEach(key=>{
-					let el = document.getElementById("config-"+key);
-					if (el==null) return;
+				Object.keys(config).forEach(key => {
+					let el = document.getElementById("config-" + key);
+					if (el == null) return;
 
 					switch (el.type) {
-						case "checkbox": config[key] = el.checked; break;
-						case "color": config[key] = hexToRgb(el.value); break;
-						default: config[key] = el.value; break;
+						case "checkbox":
+							config[key] = el.checked;
+							break;
+						case "color":
+							config[key] = hexToRgb(el.value);
+							break;
+						default:
+							config[key] = el.value;
+							break;
 					}
 				});
 				emitEvent("config", config);
 			};
 
-			switch(el.type) {
-				case "checkbox": case "color":
-					el.addEventListener("change", update); break;
-				default: el.addEventListener("keyup", update); break;
+			switch (el.type) {
+				case "checkbox":
+				case "color":
+					el.addEventListener("change", update);
+					break;
+				default:
+					el.addEventListener("keyup", update);
+					break;
 			}
 		});
 
@@ -275,12 +455,14 @@
 			if (confirm("Are you sure you want to reset your config?")) {
 				emitEvent("config", defaultConfig);
 				//close();
-				document.location = (document.location.href.split("?")[0]+
-					"?uuid="+_GET.uuid+
-					"&config="+JSON.stringify(defaultConfig)
-				);
+				document.location =
+					document.location.href.split("?")[0] +
+					"?uuid=" +
+					_GET.uuid +
+					"&config=" +
+					JSON.stringify(defaultConfig);
 				//document.location = "data:text/html,<h1>hifi should normally close the tablet now.. um...</h1><h2>one day, ill eventually fix this.. its 5 am right now...... i need sleep..............</h2>";
-			};
-		};
+			}
+		}
 	</script>
 </html>

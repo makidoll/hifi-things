@@ -1,7 +1,7 @@
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "https://hifi.maki.cat/shaders/scrap/caitlynMaki.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/scrap/caitlynMaki.fs",
 		"version": 4
 	}
 }

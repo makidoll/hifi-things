@@ -2,11 +2,15 @@
 <html>
 	<head>
 		<title>[room_name] - video sync admin</title>
-		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+		<link
+			href="https://fonts.googleapis.com/css?family=Roboto:400,700"
+			rel="stylesheet"
+		/>
 		<style type="text/css">
 			* {
-				margin: 0; padding: 0;
-				transition: 200ms all cubic-bezier(0.4, 0.0, 0.2, 1);
+				margin: 0;
+				padding: 0;
+				transition: 200ms all cubic-bezier(0.4, 0, 0.2, 1);
 			}
 
 			body {
@@ -18,27 +22,38 @@
 			}
 
 			#content {
-				position: absolute; margin: auto;
-				top: 20px; left: 0; right: 0;
+				position: absolute;
+				margin: auto;
+				top: 20px;
+				left: 0;
+				right: 0;
 				width: 420px;
 				padding-bottom: 20px;
 			}
 
 			#add-movie {
-				position: fixed; margin: auto;
-				top: 0; left: 0; right: 0; bottom: 0;
-				background: rgba(29,31,33,0.9);
+				position: fixed;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(29, 31, 33, 0.9);
 			}
 
-			#add-movie>div {
-				margin: 0 auto; 
+			#add-movie > div {
+				margin: 0 auto;
 				margin-top: 20px;
 				width: 420px;
 			}
 
 			#backdrop {
-				position: fixed; margin: auto;
-				top: 0; left: 0; right: 0; bottom: 0;
+				position: fixed;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
 				background-size: cover;
 				background-position: center;
 				opacity: 0.1;
@@ -58,25 +73,38 @@
 			}
 
 			body::-webkit-scrollbar-thumb {
-				background: rgba(255,255,255,0.4);
+				background: rgba(255, 255, 255, 0.4);
 			}
 
 			#verify {
-				position: fixed; margin: auto;
-				top: 0; left: 0; right: 0; bottom: 0;
-				background: rgba(29,31,33,0.9);
+				position: fixed;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(29, 31, 33, 0.9);
 			}
 
-			#verify>div {
-				position: fixed; margin: auto;
-				top: 0; left: 0; right: 0; bottom: 0;
-				width: 300px; height: 90px;
+			#verify > div {
+				position: fixed;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: 300px;
+				height: 90px;
 				text-align: center;
 				color: #fff;
 			}
 
-			a,a:link,a:visited,a:hover,a:active {
-				color: #E91E63;
+			a,
+			a:link,
+			a:visited,
+			a:hover,
+			a:active {
+				color: #e91e63;
 				text-decoration: none;
 			}
 
@@ -98,13 +126,13 @@
 			input[type="password"]:focus,
 			button:focus {
 				outline: none;
-				border: solid 4px #E91E63;
+				border: solid 4px #e91e63;
 			}
 
 			button {
 				display: inline-block;
-				border: solid 4px #E91E63;
-				background: #E91E63;
+				border: solid 4px #e91e63;
+				background: #e91e63;
 				color: #fff;
 				width: 100%;
 				font-weight: 700;
@@ -115,7 +143,9 @@
 				transform: scale(0.95);
 			}
 
-			h1, h2, h3 {
+			h1,
+			h2,
+			h3 {
 				font-weight: 400;
 			}
 
@@ -137,15 +167,15 @@
 			}
 
 			br {
-			   display: block;
-			   margin: 10px 0;
-			   content: " ";
-			   line-height: 0;
+				display: block;
+				margin: 10px 0;
+				content: " ";
+				line-height: 0;
 			}
 
 			table {
 				width: 100%;
-				margin: 0 -5px; 
+				margin: 0 -5px;
 				table-layout: fixed;
 			}
 
@@ -160,16 +190,32 @@
 				fill: #fff;
 			}
 
-			#playing>.play { display: inline-block; opacity: 0.5; }
-			#playing>.pause  { display: none; }
+			#playing > .play {
+				display: inline-block;
+				opacity: 0.5;
+			}
+			#playing > .pause {
+				display: none;
+			}
 
-			#playing.paused>*, #playing.playing>* { opacity: 1; }
+			#playing.paused > *,
+			#playing.playing > * {
+				opacity: 1;
+			}
 
-			#playing.paused>.play  { display: inline-block; } 
-			#playing.paused>.pause { display: none; } 
+			#playing.paused > .play {
+				display: inline-block;
+			}
+			#playing.paused > .pause {
+				display: none;
+			}
 
-			#playing.playing>.play  { display: none; } 
-			#playing.playing>.pause { display: inline-block; } 
+			#playing.playing > .play {
+				display: none;
+			}
+			#playing.playing > .pause {
+				display: inline-block;
+			}
 
 			input[type="range"] {
 				-webkit-appearance: none;
@@ -177,7 +223,7 @@
 				width: 100%;
 				height: 10px;
 				border-radius: 5px;
-				background: rgba(255,255,255,0.2);
+				background: rgba(255, 255, 255, 0.2);
 				outline: none;
 			}
 
@@ -192,7 +238,7 @@
 				height: 20px;
 				border-radius: 10px;
 				cursor: pointer;
-				background: #E91E63;
+				background: #e91e63;
 			}
 
 			input[type="range"]:disabled::-webkit-slider-thumb {
@@ -204,9 +250,9 @@
 				margin-left: -20px;
 			}
 
-			#movies>div {
+			#movies > div {
 				display: inline-block;
-				width:  calc(200px / 1.47);
+				width: calc(200px / 1.47);
 				height: calc(300px / 1.47);
 				background-size: cover;
 				background-position: center;
@@ -215,7 +261,7 @@
 				margin-bottom: 10px;
 			}
 
-			#movies>div:hover {
+			#movies > div:hover {
 				transform: scale(0.9);
 			}
 		</style>
@@ -224,23 +270,60 @@
 		<div id="backdrop"></div>
 		<div id="content">
 			<h1><b>[room_name]</b> video sync</h1>
-			<br>
+			<br />
 			<video id="video" muted crossorigin="Anonymous"></video>
 			<table style="margin-top: -5px; margin-bottom: 10px;">
 				<tr>
-					<td style="width: 10%" id="playing">
-						<button class="play" onclick="setInfo({playing:true})" style="padding: 0; padding-right: 24px; height: 32px;">
-							<svg class="icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+					<td style="width: 10%;" id="playing">
+						<button
+							class="play"
+							onclick="setInfo({playing:true})"
+							style="
+								padding: 0;
+								padding-right: 24px;
+								height: 32px;
+							"
+						>
+							<svg class="icon" viewBox="0 0 24 24">
+								<path d="M8 5v14l11-7z" />
+							</svg>
 						</button>
-						<button class="pause" onclick="setInfo({playing:false})" style="padding: 0; padding-right: 24px; height: 32px;">
-							<svg class="icon" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+						<button
+							class="pause"
+							onclick="setInfo({playing:false})"
+							style="
+								padding: 0;
+								padding-right: 24px;
+								height: 32px;
+							"
+						>
+							<svg class="icon" viewBox="0 0 24 24">
+								<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+							</svg>
 						</button>
 					</td>
 					<td>
-						<input id="movie-seek" type="range" min="0" max="0" step="0.001" disabled/>
+						<input
+							id="movie-seek"
+							type="range"
+							min="0"
+							max="0"
+							step="0.001"
+							disabled
+						/>
 						<div style="margin-top: 5px;">
-							<p id="range-value" style="float: left; opacity: 0.5;">0:00</p>
-							<p id="range-max" style="float: right; opacity: 0.5;">0:00</p>
+							<p
+								id="range-value"
+								style="float: left; opacity: 0.5;"
+							>
+								0:00
+							</p>
+							<p
+								id="range-max"
+								style="float: right; opacity: 0.5;"
+							>
+								0:00
+							</p>
 						</div>
 					</td>
 				</tr>
@@ -249,74 +332,117 @@
 			<h3>Video URL</h3>
 			<table>
 				<tr>
-					<td><input id="movie-url" type="url"/></td>
-					<td style="width: 25%"><button onclick="updateButton('src')">Update</button></td>
+					<td><input id="movie-url" type="url" /></td>
+					<td style="width: 25%;">
+						<button onclick="updateButton('src')">Update</button>
+					</td>
 				</tr>
 			</table>
-			<br>
+			<br />
 
-			<h3>Volume for everyone <span style="font-size: 16px;">(default for new users)</span></h3>
+			<h3>
+				Volume for everyone
+				<span style="font-size: 16px;">(default for new users)</span>
+			</h3>
 			<table>
 				<tr>
-					<td><input id="movie-volume" type="number" min="0" max="1" step="0.001"/></td>
-					<td style="width: 25%"><button onclick="updateButton('volume')">Update</button></td>
+					<td>
+						<input
+							id="movie-volume"
+							type="number"
+							min="0"
+							max="1"
+							step="0.001"
+						/>
+					</td>
+					<td style="width: 25%;">
+						<button onclick="updateButton('volume')">Update</button>
+					</td>
 				</tr>
 			</table>
-			<br>
+			<br />
 
 			<h2 style="margin-top: 20px;">Movies</h2>
-			<button onclick="toggleAddMovie()" style="margin-top: 10px;">Add Movie</button>
+			<button onclick="toggleAddMovie()" style="margin-top: 10px;">
+				Add Movie
+			</button>
 			<div style="margin-top: 20px;" id="movies"></div>
 		</div>
 
-		<div id="add-movie" style="display: none;"><div>
-			<table style="width: auto;">
-				<tr>
-					<td>
-						<a href="javascript:toggleAddMovie()">
-							<svg class="icon" style="width: 32px; height: 32px;" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-						</a>
-					</td>
-					<td style="vertical-align: top"><h2>Add Movie</h2></td>
-				</tr>
-			</table>
+		<div id="add-movie" style="display: none;">
+			<div>
+				<table style="width: auto;">
+					<tr>
+						<td>
+							<a href="javascript:toggleAddMovie()">
+								<svg
+									class="icon"
+									style="width: 32px; height: 32px;"
+									viewBox="0 0 24 24"
+								>
+									<path
+										d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+									/>
+								</svg>
+							</a>
+						</td>
+						<td style="vertical-align: top;"><h2>Add Movie</h2></td>
+					</tr>
+				</table>
 
-			<h3>Video URL</h3>
-			<table>
-				<tr>
-					<td><input id="add-movie-video" type="url"></td>
-				</tr>
-			</table>
-			<br>
+				<h3>Video URL</h3>
+				<table>
+					<tr>
+						<td><input id="add-movie-video" type="url" /></td>
+					</tr>
+				</table>
+				<br />
 
-			<h3>The Movie Database URL</h3>
-			<p>Search at <a target="_blank" href="https://themoviedb.org/movie">themoviedb.org/movie</a></p>
-			<table>
-				<tr>
-					<td><input id="add-movie-tmdb" type="url"></td>
-				</tr>
-			</table>
-			<br> 
+				<h3>The Movie Database URL</h3>
+				<p>
+					Search at
+					<a target="_blank" href="https://themoviedb.org/movie"
+						>themoviedb.org/movie</a
+					>
+				</p>
+				<table>
+					<tr>
+						<td><input id="add-movie-tmdb" type="url" /></td>
+					</tr>
+				</table>
+				<br />
 
-			<button onclick="addMovie()" style="margin-top: 10px;">Add Movie</button>
-		</div></div>
+				<button onclick="addMovie()" style="margin-top: 10px;">
+					Add Movie
+				</button>
+			</div>
+		</div>
 
-		<div id="verify"><div>
-			<h1><b>[room_name]</b> password</h1>
-			<input style="margin-top: 10px" id="verify-password" type="password"/>
-		</div></div>
-		<script src="https://maki.cat/video-sync/socket.io.js"></script>
+		<div id="verify">
+			<div>
+				<h1><b>[room_name]</b> password</h1>
+				<input
+					style="margin-top: 10px;"
+					id="verify-password"
+					type="password"
+				/>
+			</div>
+		</div>
+		<script src="https://maki.cafe/video-sync/socket.io.js"></script>
 		<script type="text/javascript">
 			var socket = io("[namespace]");
 			var password = "";
 			var video = document.getElementById("video");
 
 			var _GET = {};
-			window.location.search.substr(1).split("&").forEach(function(e, i) {
-				if (e=="") return;
-				let param = e.split("=");
-				_GET[param[0]] = decodeURI(param[1]);
-			});
+			window.location.search
+				.substr(1)
+				.split("&")
+				.forEach(function (e, i) {
+					if (e == "") return;
+					let param = e.split("=");
+					_GET[param[0]] = decodeURI(param[1]);
+				});
 
 			function secondsToTime(totalSeconds) {
 				let hours = Math.floor(totalSeconds / 3600);
@@ -327,85 +453,98 @@
 				minutes = String(minutes).padStart(2, "0");
 				hours = String(hours).padStart(2, "0");
 				seconds = String(seconds).padStart(2, "0");
-				return hours+":"+minutes+":"+seconds;
+				return hours + ":" + minutes + ":" + seconds;
 			}
 
-			document.getElementById("verify-password").addEventListener("keydown", e=>{
-				if (e.keyCode != 13) return;
-				e.srcElement.disabled = true;
-				password = e.srcElement.value;
-				socket.emit("verify", password);
-			});
+			document
+				.getElementById("verify-password")
+				.addEventListener("keydown", e => {
+					if (e.keyCode != 13) return;
+					e.srcElement.disabled = true;
+					password = e.srcElement.value;
+					socket.emit("verify", password);
+				});
 
 			if (_GET.password) {
 				password = _GET.password;
 				document.getElementById("verify").remove();
 			}
 
-			socket.on("verify", correct=>{
+			socket.on("verify", correct => {
 				if (!correct) {
 					alert("Invalid password");
-					document.location = document.location.href.replace("/admin", "");
+					document.location = document.location.href.replace(
+						"/admin",
+						"",
+					);
 				} else {
 					document.getElementById("verify").style.opacity = "0";
-					setTimeout(()=>{
+					setTimeout(() => {
 						document.getElementById("verify").remove();
 					}, 200);
 				}
 			});
 
 			let actualPosition = 0;
-			setInterval(()=>{
-				if (video.paused) return 
+			setInterval(() => {
+				if (video.paused) return;
 
 				actualPosition++;
 
-				if (Math.abs(video.currentTime-actualPosition)>2) { // seconds
+				if (Math.abs(video.currentTime - actualPosition) > 2) {
+					// seconds
 					console.log("out of sync");
 					socket.emit("getInfo");
 				}
 
-				document.getElementById("range-value").textContent = secondsToTime(video.currentTime);
+				document.getElementById(
+					"range-value",
+				).textContent = secondsToTime(video.currentTime);
 			}, 1000);
 
 			let lastInfo = {}; // never used (for debugging)
-			socket.on("getInfo", info=>{
+			socket.on("getInfo", info => {
 				console.log(info);
 				lastInfo = info;
-				
-				if (info.src!=undefined) {
-					if (video.src!=info.src) video.src = info.src;
+
+				if (info.src != undefined) {
+					if (video.src != info.src) video.src = info.src;
 					document.getElementById("movie-url").value = info.src;
 				}
 
-				if (info.playing!=undefined) {
+				if (info.playing != undefined) {
 					if (video.playing != info.playing) {
 						if (info.playing) {
 							video.play();
-							document.getElementById("playing").className = "playing";
+							document.getElementById("playing").className =
+								"playing";
 						} else {
 							video.pause();
-							document.getElementById("playing").className = "paused";
+							document.getElementById("playing").className =
+								"paused";
 						}
-					} 
+					}
 				}
 
-				if (info.position!=undefined) {
+				if (info.position != undefined) {
 					video.currentTime = info.position;
 					actualPosition = info.position;
 					document.getElementById("movie-seek").value = info.position;
 
-					document.getElementById("range-value").textContent = secondsToTime(info.position);
+					document.getElementById(
+						"range-value",
+					).textContent = secondsToTime(info.position);
 					document.getElementById("range-value").style.opacity = "1";
 				}
-				
-				if (info.volume!=undefined) {
+
+				if (info.volume != undefined) {
 					video.volume = info.volume;
 					document.getElementById("movie-volume").value = info.volume;
 				}
 
-				if (info.backdrop!=undefined) {
-					document.getElementById("backdrop").style.backgroundImage = "url("+info.backdrop+")";
+				if (info.backdrop != undefined) {
+					document.getElementById("backdrop").style.backgroundImage =
+						"url(" + info.backdrop + ")";
 				}
 			});
 			socket.emit("getInfo");
@@ -416,15 +555,19 @@
 				socket.emit("setInfo", info);
 			}
 
-			document.getElementById("movie-seek").addEventListener("change", e=>{
-				setInfo({position: e.target.value});
-			});
+			document
+				.getElementById("movie-seek")
+				.addEventListener("change", e => {
+					setInfo({ position: e.target.value });
+				});
 
-			video.addEventListener("durationchange", e=>{
+			video.addEventListener("durationchange", e => {
 				document.getElementById("movie-seek").max = e.target.duration;
 				document.getElementById("movie-seek").disabled = false;
 
-				document.getElementById("range-max").textContent = secondsToTime(e.target.duration);
+				document.getElementById(
+					"range-max",
+				).textContent = secondsToTime(e.target.duration);
 				document.getElementById("range-max").style.opacity = "1";
 			});
 
@@ -435,7 +578,7 @@
 							src: src,
 							position: 0,
 							playing: true,
-							backdrop: backdrop
+							backdrop: backdrop,
 						};
 
 						if (backdrop) info.backdrop = backdrop;
@@ -448,28 +591,30 @@
 				switch (type) {
 					case "src":
 						let src = document.getElementById("movie-url").value;
-						if (src!=video.src) {
-							setInfo({src:src,position:0,backdrop:""});
+						if (src != video.src) {
+							setInfo({ src: src, position: 0, backdrop: "" });
 						}
 						break;
 
 					case "volume":
-						let volume = parseFloat(document.getElementById("movie-volume").value);
-						setInfo({volume:volume});
+						let volume = parseFloat(
+							document.getElementById("movie-volume").value,
+						);
+						setInfo({ volume: volume });
 						break;
-				}				
+				}
 			}
 
 			// movies
 
 			let moviesDiv = document.getElementById("movies");
 
-			[movies].forEach(movie=>{
+			[movies].forEach(movie => {
 				let div = document.createElement("div");
-				div.style.backgroundImage = "url("+movie.poster+")";
-				div.addEventListener("click", ()=>{
+				div.style.backgroundImage = "url(" + movie.poster + ")";
+				div.addEventListener("click", () => {
 					setSrc(movie.video, movie.backdrop);
-					window.scrollTo(0,0);
+					window.scrollTo(0, 0);
 				});
 				moviesDiv.appendChild(div);
 			});
@@ -483,15 +628,15 @@
 					// turn on
 					addMovieDiv.style.opacity = "0";
 					addMovieDiv.style.display = "block";
-					setTimeout(()=>{
+					setTimeout(() => {
 						addMovieDiv.style.opacity = "1";
 					}, 10);
 				} else {
 					// turn off
 					addMovieDiv.style.opacity = "0";
-					setTimeout(()=>{
+					setTimeout(() => {
 						addMovieDiv.style.display = "none";
-					}, 200)
+					}, 200);
 				}
 			}
 
@@ -503,11 +648,14 @@
 				});
 			}
 
-			socket.on("api-addMovie", info=>{
+			socket.on("api-addMovie", info => {
 				if (info.success) {
-					window.location = window.location.href.split("?")[0]+"?password="+password;
+					window.location =
+						window.location.href.split("?")[0] +
+						"?password=" +
+						password;
 				} else {
-					alert(info.error)
+					alert(info.error);
 				}
 			});
 		</script>

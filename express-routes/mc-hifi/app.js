@@ -38,83 +38,95 @@ const getSkin = uuid=>new Promise((resolve, reject)=>{
 });
 */
 
-const getSkin = username=>new Promise((resolve, reject)=>{
-	request({
-		url:"https://minecraftskinstealer.com/api/v1/skin/download/skin/"+username,
-		encoding:null
-	}).then(skin=>{
-		return resolve(skin);
-	}).catch(err=>{
-		return reject("Username not found");
+const getSkin = username =>
+	new Promise((resolve, reject) => {
+		request({
+			url:
+				"https://minecraftskinstealer.com/api/v1/skin/download/skin/" +
+				username,
+			encoding: null,
+		})
+			.then(skin => {
+				return resolve(skin);
+			})
+			.catch(err => {
+				return reject("Username not found");
+			});
 	});
-});
 
 var skinCache = {};
 
-app.get("/skin/:username", async (req,res)=>{
+app.get("/skin/:username", async (req, res) => {
 	if (!req.params.username) return res.end();
 	let username = req.params.username;
 
 	if (username.toLowerCase().endsWith(".png")) {
-		username = username.substring(0, username.length-4);
+		username = username.substring(0, username.length - 4);
 	}
 
-	if (skinCache[username]!=undefined) {
+	if (skinCache[username] != undefined) {
 		res.setHeader("Content-Type", "image/png");
 		res.end(skinCache[username]);
 		return;
 	}
 
-	getSkin(username).then(skin=>{
-		Jimp.read(skin).then(image=>{
-			if (image.bitmap.height==32)
-				image.contain(64, 64, Jimp.VERTICAL_ALIGN_TOP);
+	getSkin(username)
+		.then(skin => {
+			Jimp.read(skin)
+				.then(image => {
+					if (image.bitmap.height == 32)
+						image.contain(64, 64, Jimp.VERTICAL_ALIGN_TOP);
 
-			image.resize(2048, 2048, Jimp.RESIZE_NEAREST_NEIGHBOR);
-			image.getBufferAsync(Jimp.MIME_PNG).then(buffer=>{
-				skinCache[username] = buffer;
-				res.setHeader("Content-Type", "image/png");
-				res.end(buffer);
-			}).catch(err=>{
-				return res.end();
-			});
-		}).catch(err=>{
+					image.resize(2048, 2048, Jimp.RESIZE_NEAREST_NEIGHBOR);
+					image
+						.getBufferAsync(Jimp.MIME_PNG)
+						.then(buffer => {
+							skinCache[username] = buffer;
+							res.setHeader("Content-Type", "image/png");
+							res.end(buffer);
+						})
+						.catch(err => {
+							return res.end();
+						});
+				})
+				.catch(err => {
+					return res.end();
+				});
+		})
+		.catch(err => {
 			return res.end();
 		});
-	}).catch(err=>{
-		return res.end();
-	});
 });
 
-app.get("/avatar.fbx", (req,res)=>{
-	res.end(fs.readFileSync(__dirname+"/avatar.fbx"));
+app.get("/avatar.fbx", (req, res) => {
+	res.end(fs.readFileSync(__dirname + "/avatar.fbx"));
 });
 
-app.get("/:username", (req,res)=>{
+app.get("/:username", (req, res) => {
 	if (!req.params.username) return res.end();
 	let username = req.params.username;
 
 	if (username.toLowerCase().endsWith(".fst")) {
-		username = username.substring(0, username.length-4);
+		username = username.substring(0, username.length - 4);
 	}
 
-	let url = "https://maki.cat/mc-hifi/skin/"+username+".png";
-	let fst = fs.readFileSync(__dirname+"/avatar.fst", "utf8");
+	let url = "https://maki.cafe/mc-hifi/skin/" + username + ".png";
+	let fst = fs.readFileSync(__dirname + "/avatar.fst", "utf8");
 	let materialMap = {
 		all: {
 			materials: {
 				unlit: true,
 				albedoMap: url,
 				opacityMap: url,
-			}
-		}
-	}
-	fst += "\nmaterialMap = "+JSON.stringify(materialMap);
+			},
+		},
+	};
+	fst += "\nmaterialMap = " + JSON.stringify(materialMap);
 
 	res.end(fst);
 });
 
 var port = 8086;
-app.listen(port, ()=>{
-	console.log("Server up on *:"+port);
+app.listen(port, () => {
+	console.log("Server up on *:" + port);
 });
