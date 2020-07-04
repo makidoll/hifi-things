@@ -68,6 +68,7 @@ Most of this repo will be written in TypeScript soon.
 
 -   [Audio Control](https://hifi.maki.cafe/sites/audio-control)
 -   [Digital Time](https://hifi.maki.cafe/sites/digital-time)
+-   [YouTube Player](https://hifi.maki.cafe/sites/youtube-player)
 
 ## batch files
 
