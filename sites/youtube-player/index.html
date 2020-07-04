@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				width: 100vw;
+				height: 100vh;
+				margin: 0;
+				overflow: hidden;
+				background-color: #000;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="player"></div>
+		<script>
+			console.log("id");
+			console.log("volume - 0 to 100");
+			console.log("autoplay - 0 or 1");
+			console.log("controls - 0 or 1");
+
+			var _GET = {};
+			window.location.search
+				.substr(1)
+				.split("&")
+				.forEach(function (e, i) {
+					let param = e.split("=");
+					_GET[param[0]] = param[1];
+				});
+
+			const tag = document.createElement("script");
+			tag.src = "https://www.youtube.com/iframe_api";
+			const firstScriptTag = document.getElementsByTagName("script")[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+			let player;
+			function onYouTubeIframeAPIReady() {
+				player = new YT.Player("player", {
+					height: "100%",
+					width: "100%",
+					videoId: _GET.id,
+					playerVars: {
+						autoplay: Number(_GET.autoplay),
+						controls: Number(_GET.controls),
+					},
+					events: {
+						onReady: onPlayerReady,
+					},
+				});
+			}
+
+			function onPlayerReady(event) {
+				if (_GET.autoplay) event.target.playVideo();
+				if (_GET.volume) event.target.setVolume(Number(_GET.volume));
+			}
+		</script>
+	</body>
+</html>
