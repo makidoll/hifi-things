@@ -14,3 +14,5 @@ services:
             ROOMS: Room1:password1,Room2:password2
         ports:
             - 3000:3000/tcp
+        volumes:
+            - ./files:/root/files

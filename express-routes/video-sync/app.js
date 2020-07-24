@@ -1,4 +1,5 @@
 const http = require("http");
+const path = require("path");
 const express = require("express");
 const app = express();
 
@@ -13,6 +14,8 @@ const rooms = name.split(",").reduce((rooms, credsStr) => {
 	rooms.push({ name: creds[0], password: creds[1] });
 	return rooms;
 }, []);
+
+app.use("/files", express.static(path.join(__dirname, "files")));
 
 app.use(
 	"/",
