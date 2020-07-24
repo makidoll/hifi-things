@@ -51,7 +51,7 @@
 				color: #fff;
 			}
 
-			@keyframes aahfuck {
+			/* @keyframes aahfuck {
 				0% {
 					background-position: 0 0;
 				}
@@ -96,12 +96,12 @@
 				font-weight: 300;
 				text-align: center;
 				line-height: 80px;
-			}
+			} */
 		</style>
 	</head>
 	<body>
 		<video crossorigin="Anonymous"></video>
-		<div
+		<!-- <div
 			id="get-a-click-from-the-user-so-that-the-video-can-start-playing"
 			style="opacity: 1;"
 		>
@@ -111,8 +111,8 @@
 					>hifi broke the cinema :(</span
 				>
 			</div>
-		</div>
-		<script src="https://maki.cafe/video-sync/socket.io.js"></script>
+		</div> -->
+		<script src="socket.io.js"></script>
 		<script type="text/javascript">
 			var _GET = {};
 			window.location.search
@@ -168,17 +168,17 @@
 				outOfSync = false;
 			});
 
-			// socket.emit("getInfo");
-			let fuckYouHifi = document.getElementById(
-				"get-a-click-from-the-user-so-that-the-video-can-start-playing",
-			);
-			fuckYouHifi.addEventListener("click", e => {
-				fuckYouHifi.style.opacity = "0";
-				setTimeout(() => {
-					fuckYouHifi.remove();
-				}, 200);
-				socket.emit("getInfo");
-			});
+			socket.emit("getInfo");
+			// let fuckYouHifi = document.getElementById(
+			// 	"get-a-click-from-the-user-so-that-the-video-can-start-playing",
+			// );
+			// fuckYouHifi.addEventListener("click", e => {
+			// 	fuckYouHifi.style.opacity = "0";
+			// 	setTimeout(() => {
+			// 		fuckYouHifi.remove();
+			// 	}, 200);
+			// 	socket.emit("getInfo");
+			// });
 
 			// controls
 

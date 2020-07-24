@@ -1,0 +1,16 @@
+version: "3.6"
+services:
+    db:
+        image: mongo
+        restart: always
+        volumes:
+            - ./db:/data/db
+    video-sync:
+        build: .
+        restart: always
+        environment:
+            PORT: "3000"
+            MONGO_URI: mongodb://db/videoSync
+            ROOMS: Room1:password1,Room2:password2
+        ports:
+            - 3000:3000/tcp
