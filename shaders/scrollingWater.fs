@@ -1,18 +1,18 @@
 /*
-	{
-		"ProceduralEntity": {
-			"shaderUrl": "https://hifi.maki.cafe/shaders/scrollingWater.fs",
-			"channels": ["https://www.pngkit.com/png/full/213-2130628_water-texture-water.png"],
-			"uniforms": {
-				"scale": 0.2,
-				"speedX": 0.1,
-				"speedY": 0.1,
-				"opacityCutoff": 0.3,
-				"emissive": false
-			},
-			"version": 3
-		}
+{
+	"ProceduralEntity": {
+		"shaderUrl": "https://hifi.maki.cafe/shaders/scrollingWater.fs",
+		"channels": ["https://www.pngkit.com/png/full/213-2130628_water-texture-water.png"],
+		"uniforms": {
+			"scale": 0.2,
+			"speedX": 0.1,
+			"speedY": 0.1,
+			"opacityCutoff": 0.3,
+			"emissive": false
+		},
+		"version": 3
 	}
+}
 */
 
 uniform float scale = 0.2;
