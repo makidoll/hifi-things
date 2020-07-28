@@ -1,8 +1,7 @@
-		// "shaderUrl": "https://hifi.maki.cafe/shaders/scrolling-water.fs",
 /*
 {
 	"ProceduralEntity": {
-		"shaderUrl": "file:///home/maki/git/hifi-things/shaders/scrolling-water.fs",
+		"shaderUrl": "https://hifi.maki.cafe/shaders/scrolling-water.fs",
 		"channels": ["https://www.pngkit.com/png/full/213-2130628_water-texture-water.png"],
 		"uniforms": {
 			"scale": 0.2,
