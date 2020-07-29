@@ -1,6 +1,7 @@
 /*
 - when modifying, you'll have to set false to 0 and true to 1
-- for opacityBlend you need to set the entity to opacity 0.99999
+- for useOrm, you need to add an orm texture as the second channel
+- for opacityBlend, you need to set the entity to alpha 0.99999
     - Entities.editEntity("entityID", {alpha:0.99999})
 
 {
