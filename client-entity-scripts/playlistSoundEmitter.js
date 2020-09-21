@@ -61,7 +61,7 @@
 			debug("playing");
 
 			_this.currentInjector = Audio.playSound(soundObject, {
-				//position: entity.position,
+				position: entity.position,
 				volume: userData.volume,
 				loop: false,
 				localOnly: true,
