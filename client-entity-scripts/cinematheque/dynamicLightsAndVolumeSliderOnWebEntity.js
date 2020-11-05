@@ -2,8 +2,8 @@
 	var _this = this;
 	
 	var webEntityID;
-
-	var dynamicLights = false;
+	
+	var dynamicLightsIntensity = 16;
 	var dynamicLightsID = [];
 
 	_this.initDynamicLights = function() {
@@ -19,7 +19,7 @@
 				name: "cat.maki.screen",
 				parentID: webEntityID,
 
-				intensity: 16,
+				intensity: dynamicLightsIntensity,
 				falloffRadius: entity.dimensions.x/3,
 				color: {r: 0, g: 0, b: 0},
 				dimensions: {
@@ -60,6 +60,17 @@
 
 	_this.preload = function(_webEntityID) {
 		webEntityID = _webEntityID;
+
+		try {
+			const userData = JSON.parse(
+				Entities.getEntityProperties(
+					webEntityID, ["userData"]
+				).userData
+			);
+			if (typeof userData.intensity == "number") {
+				dynamicLightsIntensity = userData.intensity;
+			}
+		} catch(err) {}
 
 		// dynamic lights
 		_this.initDynamicLights();
