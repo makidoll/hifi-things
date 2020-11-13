@@ -2,7 +2,7 @@
 {
 	"debug": false,
 	"volume": 0.1,
-	"randomize": true,
+	"randomize": false,
 	"sounds": [
 		"https://hifi.maki.cafe/client-scripts/makisThings/sounds/test/hairbrush01a.wav"
 	]
@@ -31,12 +31,11 @@
 		if (enableDebugging) console.log(msg);
 	}
 
-	this.active = true;
-	this.currentInjector = undefined;
+	var active = true;
+	var currentInjector = null;
 
 	this.preload = function (entityID) {
-		var _this = this;
-		_this.active = true;
+		active = true;
 
 		var sounds = [];
 		var entity = Entities.getEntityProperties(entityID, [
@@ -57,17 +56,17 @@
 		enableDebugging = userData.debug;
 
 		function playSound(soundObject) {
-			if (_this.active == false) return;
+			if (active == false) return;
 			debug("playing");
 
-			_this.currentInjector = Audio.playSound(soundObject, {
+			currentInjector = Audio.playSound(soundObject, {
 				position: entity.position,
 				volume: userData.volume,
-				loop: false,
-				localOnly: true,
+				loop: sounds.length == 1,
+				localOnly: Script.context != "entity_server",
 			});
 
-			_this.currentInjector.finished.connect(function () {
+			currentInjector.finished.connect(function () {
 				playNextSound();
 			});
 		}
@@ -108,8 +107,8 @@
 	};
 
 	this.unload = function () {
-		this.active = false;
-		if (this.currentInjector != undefined)
-			if (this.currentInjector.playing) this.currentInjector.stop();
+		active = false;
+		if (currentInjector != null)
+			if (currentInjector.playing) currentInjector.stop();
 	};
 });
