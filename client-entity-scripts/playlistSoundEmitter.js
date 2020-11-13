@@ -1,7 +1,7 @@
 /*
 {
-	"debug": false,
-	"volume": 0.1,
+	"volume": 0.5,
+	"pitch": 1,
 	"randomize": false,
 	"sounds": [
 		"https://hifi.maki.cafe/client-scripts/makisThings/sounds/test/hairbrush01a.wav"
@@ -25,43 +25,54 @@
 		return array;
 	}
 
-	var enableDebugging = false;
-
-	function debug(msg) {
-		if (enableDebugging) console.log(msg);
-	}
-
 	var active = true;
 	var currentInjector = null;
 
-	this.preload = function (entityID) {
-		active = true;
+	var debug = false;
+	var volume = 0.5;
+	var pitch = 1;
+	var sounds = [];
 
-		var sounds = [];
+	function log(msg) {
+		if (debug) console.log(msg);
+	}
+
+	this.preload = function (entityID) {
 		var entity = Entities.getEntityProperties(entityID, [
 			"position",
 			"userData",
 		]);
-		if (!entity.userData) return;
-		var userData = JSON.parse(entity.userData);
 
-		if (userData.sounds)
-			if (userData.sounds.length > 0)
-				userData.sounds.forEach(function (soundURL) {
-					sounds.push(SoundCache.getSound(soundURL));
-				});
+		var userData = {};
+		try {
+			userData = JSON.parse(entity.userData);
+		} catch (err) {}
 
-		if (userData.randomize) sounds = shuffle(sounds);
+		if (
+			Array.isArray(userData.sounds) == false &&
+			userData.sounds.length == 0
+		) {
+			return;
+		}
 
-		enableDebugging = userData.debug;
+		if (typeof userData.debug == "boolean") debug = userData.debug;
+		if (typeof userData.volume == "number") volume = userData.volume;
+		if (typeof userData.pitch == "number") pitch = userData.pitch;
+
+		userData.sounds.forEach(function (soundURL) {
+			sounds.push(SoundCache.getSound(soundURL));
+		});
+
+		if (userData.randomize == true) sounds = shuffle(sounds);
 
 		function playSound(soundObject) {
 			if (active == false) return;
-			debug("playing");
+			log("playing");
 
 			currentInjector = Audio.playSound(soundObject, {
 				position: entity.position,
-				volume: userData.volume,
+				volume: volume,
+				pitch: pitch,
 				loop: sounds.length == 1,
 				localOnly: Script.context != "entity_server",
 			});
@@ -73,7 +84,7 @@
 
 		var currentSoundIndex = -1;
 		function playNextSound() {
-			debug("new song");
+			log("new song");
 
 			if (currentSoundIndex >= sounds.length - 1) {
 				currentSoundIndex = 0;
@@ -83,21 +94,21 @@
 
 			var currentSound = sounds[currentSoundIndex];
 			if (currentSound.downloaded) {
-				debug("downloaded");
+				log("downloaded");
 				playSound(currentSound);
 			} else {
-				debug("starting download");
+				log("starting download");
 				var interval = Script.setInterval(function () {
 					if (currentSound.downloaded == false) return;
 
-					debug("finished download");
+					log("finished download");
 					playSound(currentSound);
 
 					Script.clearInterval(interval);
 				}, 500);
 
-				// currentSound.ready.connect(function() {
-				// 	debug("finished download")
+				// currentSound.ready.connect(function () {
+				// 	log("finished download");
 				// 	playSound(currentSound);
 				// });
 			}
@@ -108,7 +119,8 @@
 
 	this.unload = function () {
 		active = false;
-		if (currentInjector != null)
+		if (currentInjector != null) {
 			if (currentInjector.playing) currentInjector.stop();
+		}
 	};
 });
