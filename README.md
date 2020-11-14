@@ -56,8 +56,9 @@ Most of this repo will be written in TypeScript soon.
 -   [Portal Minimal](https://hifi.maki.cafe/shaders/portalMinimal.fs)
 -   [Reflective Sphere](https://hifi.maki.cafe/shaders/reflectiveSphere.fs)
 -   [Reflective Sphere](https://hifi.maki.cafe/shaders/reflectiveSphere.fs)
--   [Scrolling Water](https://hifi.maki.cafe/shaders/scrollingWater.fs)
 -   [SBS Image](https://hifi.maki.cafe/shaders/sbsImage.fs)
+-   [Scrolling Water](https://hifi.maki.cafe/shaders/scrollingWater.fs)
+-   [Sprite Sheet](https://hifi.maki.cafe/shaders/spriteSheet.fs)
 -   [TV](https://hifi.maki.cafe/shaders/tv.fs)
 -   [Water](https://hifi.maki.cafe/shaders/water.fs)
 
