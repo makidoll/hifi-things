@@ -63,15 +63,3 @@ float getProceduralFragment(inout ProceduralFragment frag) {
 
 	return 0;
 }
-
-struct ProceduralFragment {
-    vec3 normal;
-    vec3 diffuse;
-    vec3 specular;
-    vec3 emissive;
-    float alpha;
-    float roughness;
-    float metallic;
-    float occlusion;
-    float scattering;
-};	
