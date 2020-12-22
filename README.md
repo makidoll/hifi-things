@@ -45,6 +45,7 @@ Most of this repo will be written in TypeScript soon.
 
 ## shaders
 
+-   [Birthday Hat](https://hifi.maki.cafe/shaders/birthdayHat.fs)
 -   [Candy Spiral](https://hifi.maki.cafe/shaders/candySpiral.fs)
 -   [Greenscreen](https://hifi.maki.cafe/shaders/greenscreen.fs)
 -   [Ground Portal](https://hifi.maki.cafe/shaders/groundPortal.fs)
@@ -54,6 +55,7 @@ Most of this repo will be written in TypeScript soon.
 -   [Panorama](https://hifi.maki.cafe/shaders/panorama.fs)
 -   [Portal](https://hifi.maki.cafe/shaders/portal.fs)
 -   [Portal Minimal](https://hifi.maki.cafe/shaders/portalMinimal.fs)
+-   [Pulse](https://hifi.maki.cafe/shaders/pulse.fs)
 -   [Reflective Sphere](https://hifi.maki.cafe/shaders/reflectiveSphere.fs)
 -   [Reflective Sphere](https://hifi.maki.cafe/shaders/reflectiveSphere.fs)
 -   [SBS Image](https://hifi.maki.cafe/shaders/sbsImage.fs)
