@@ -36,7 +36,7 @@ function update() {
 	MyAvatar.orientation = orientation;
 	MyAvatar.position = Vec3.sum( 
 		avatar.getJointPosition("Head"),
-		Vec3.multiplyQbyV(orientation, {y:-0.1, z:0.15})
+		Vec3.multiplyQbyV(orientation, {x:0, y:-0.1, z:0.15})
 	);
 }
 
